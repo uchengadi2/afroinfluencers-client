@@ -1,0 +1,255 @@
+//for authenticatiob and authorization
+export const SIGN_IN = "SIGN_IN";
+export const SIGN_OUT = "SIGN_OUT";
+export const SIGN_UP = "SIGN_UP";
+
+//for category resources
+export const CREATE_CATEGORY = "CREATE_CATEGORY";
+export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
+export const FETCH_CATEGORY = "FETCH_CATEGORY";
+export const DELETE_CATEGORY = "DELETE_CATEGORY";
+export const EDIT_CATEGORY = "EDIT_CATEGORY";
+
+// for user resources
+export const CREATE_USER = "CREATE_USER";
+export const FETCH_USERS = "FETCH_USERS";
+export const FETCH_USER = "FETCH_USER";
+export const DELETE_USER = "DELETE_USER";
+export const EDIT_USER = "EDIT_USER";
+export const CHANGE_OWN_PASSWORD = "CHANGE_OWN_PASSWORD";
+export const CHANGE_OWN_NAME = "CHANGE_OWN_NAME";
+
+// for city resources
+export const CREATE_CITY = "CREATE_CITY";
+export const FETCH_CITIES = "FETCH_CITIES";
+export const FETCH_CITY = "FETCH_CITY";
+export const DELETE_CITY = "DELETE_CITY";
+export const EDIT_CITY = "EDIT_CITY";
+
+// for vendor resources
+export const CREATE_VENDOR = "CREATE_VENDOR";
+export const FETCH_VENDORS = "FETCH_VENDORS";
+export const FETCH_VENDOR = "FETCH_VENDOR";
+export const DELETE_VENDOR = "DELETE_VENDOR";
+export const EDIT_VENDOR = "EDIT_VENDOR";
+
+// for product resources
+export const CREATE_PRODUCT = "CREATE_PRODUCT";
+export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
+export const FETCH_PRODUCT = "FETCH_PRODUCT";
+export const DELETE_PRODUCT = "DELETE_PRODUCT";
+export const EDIT_PRODUCT = "EDIT_PRODUCT";
+
+// for policy resources
+export const CREATE_POLICY = "CREATE_POLICY";
+export const FETCH_POLICIES = "FETCH_POLICIES";
+export const FETCH_POLICY = "FETCH_POLICY";
+export const DELETE_POLICY = "DELETE_POLICY";
+export const EDIT_POLICY = "EDIT_POLICY";
+
+// for orders resources
+export const CREATE_ORDER = "CREATE_ORDER";
+export const FETCH_ORDERS = "FETCH_ORDERS";
+export const FETCH_ASSIGNED_ORDERS = "FETCH_ASSIGNED_ORDERS";
+export const FETCH_COMPLETED_ORDERS = "FETCH_COMPLETED_ORDERS";
+export const FETCH_ONTRANSIT_ORDERS = "FETCH_ONTRANSIT_ORDERS";
+export const FETCH_ORDER = "FETCH_ORDER";
+export const DELETE_ORDER = "DELETE_ORDER";
+export const EDIT_ORDER = "EDIT_ORDER";
+
+// for payments resources
+export const MAKE_PAYMENT = "MAKE_PAYMENT";
+export const FETCH_PAYMENTS = "FETCH_PAYMENTS";
+export const FETCH_PAYMENT = "FETCH_PAYMENT";
+export const DELETE_PAYMENT = "DELETE_PAYMENT";
+export const EDIT_PAYMENT = "EDIT_PAYMENT";
+
+// for completed payment resources
+export const CREATE_FULLFILLED_PAYMENT = "CREATE_FULLFILLED_PAYMENT";
+export const FETCH_FULLFILLED_PAYMENTS = "FETCH_FULLFILLED_PAYMENTS";
+export const FETCH_FULLFILLED_PAYMENT = "FETCH_FULLFILLED_PAYMENT";
+export const DELETE_FULLFILLED_PAYMENT = "DELETE_FULLFILLED_PAYMENT";
+export const EDIT_FULLFILLED_PAYMENT = "EDIT_FULLFILLED_PAYMENT";
+
+// for partial payment resources
+export const CREATE_PARTIAL_PAYMENT = "CREATE_PARTIAL_PAYMENT";
+export const FETCH_PARTIAL_PAYMENTS = "FETCH_PARTIAL_PAYMENTS";
+export const FETCH_PARTIAL_PAYMENT = "FETCH_PARTIAL_PAYMENT";
+export const DELETE_PARTIAL_PAYMENT = "DELETE_PARTIAL_PAYMENT";
+export const EDIT_PARTIAL_PAYMENT = "EDIT_PARTIAL_PAYMENT";
+
+// for cart
+export const CREATE_CART = "CREATE_CART";
+export const FETCH_CARTS = "FETCH_CARTS";
+export const FETCH_CART = "FETCH_CART";
+export const DELETE_CART = "DELETE_CART";
+export const EDIT_CART = "EDIT_CART";
+
+// for rate
+export const CREATE_RATE = "CREATE_RATE";
+export const FETCH_RATES = "FETCH_RATES";
+export const FETCH_RATE = "FETCH_RATE";
+export const DELETE_RATE = "DELETE_RATE";
+export const EDIT_RATE = "EDIT_RATE";
+
+//  logistics Partner action creators
+export const CREATE_LOGISTICSPARTNER = "CREATE_LOGISTICSPARTNER";
+export const FETCH_LOGISTICSPARTNERS = "FETCH_LOGISTICSPARTNERS";
+export const FETCH_LOGISTICSPARTNER = "FETCH_LOGISTICSPARTNER";
+export const DELETE_LOGISTICSPARTNER = "DELETE_LOGISTICSPARTNER";
+export const EDIT_LOGISTICSPARTNER = "EDIT_LOGISTICSPARTNER";
+
+// for transaction
+export const CREATE_TRANSACTION = "CREATE_TRANSACTION";
+export const FETCH_TRANSACTIONS = "FETCH_TRANSACTIONS";
+export const FETCH_TRANSACTION = "FETCH_TRANSACTION";
+export const DELETE_TRANSACTION = "DELETE_TRANSACTION";
+export const EDIT_TRANSACTION = "EDIT_TRANSACTION";
+
+// for country resources
+export const CREATE_COUNTRY = "CREATE_COUNTRY";
+export const FETCH_COUNTRIES = "FETCH_COUNTRIES";
+export const FETCH_COUNTRY = "FETCH_COUNTRY";
+export const DELETE_COUNTRY = "DELETE_COUNTRY";
+export const EDIT_COUNTRY = "EDIT_COUNTRY";
+
+// for state resources
+export const CREATE_STATE = "CREATE_STATE";
+export const FETCH_STATES = "FETCH_STATES";
+export const FETCH_STATE = "FETCH_STATE";
+export const DELETE_STATE = "DELETE_STATE";
+export const EDIT_STATE = "EDIT_STATE";
+
+// for currency resources
+export const CREATE_CURRENCY = "CREATE_CURRENCY";
+export const FETCH_CURRENCIES = "FETCH_CURRENCIES";
+export const FETCH_CURRENCY = "FETCH_CURRENCY";
+export const DELETE_CURRENCY = "DELETE_CURRENCY";
+export const EDIT_CURRENCY = "EDIT_CURRENCY";
+
+// for location resources
+export const CREATE_LOCATION = "CREATE_LOCATION";
+export const FETCH_LOCATIONS = "FETCH_LOCATIONS";
+export const FETCH_LOCATION = "FETCH_LOCATION";
+export const DELETE_LOCATION = "DELETE_LOCATION";
+export const EDIT_LOCATION = "EDIT_LOCATION";
+
+// for suppliers resources
+export const CREATE_SUPPLIER = "CREATE_SUPPLIER";
+export const FETCH_SUPPLIERS = "FETCH_SUPPLIERS";
+export const FETCH_SUPPLIER = "FETCH_SUPPLIER";
+export const DELETE_SUPPLIER = "DELETE_SUPPLIER";
+export const EDIT_SUPPLIER = "EDIT_SUPPLIER";
+
+// for channel resources
+export const CREATE_CHANNEL = "CREATE_CHANNEL";
+export const FETCH_CHANNELS = "FETCH_CHANNELS";
+export const FETCH_CHANNEL = "FETCH_CHANNEL";
+export const DELETE_CHANNEL = "DELETE_CHANNEL";
+export const EDIT_CHANNEL = "EDIT_CHANNEL";
+
+// for programme resources
+export const CREATE_PROGRAMME = "CREATE_PROGRAMME";
+export const FETCH_PROGRAMMES = "FETCH_PROGRAMMES";
+export const FETCH_PROGRAMME = "FETCH_PROGRAMME";
+export const DELETE_PROGRAMME = "DELETE_PROGRAMME";
+export const EDIT_PROGRAMME = "EDIT_PROGRAMME";
+
+// for instructor resources
+export const CREATE_INSTRUCTOR = "CREATE_INSTRUCTOR";
+export const FETCH_INSTRUCTORS = "FETCH_INSTRUCTORS";
+export const FETCH_INSTRUCTOR = "FETCH_INSTRUCTOR";
+export const DELETE_INSTRUCTOR = "DELETE_INSTRUCTOR";
+export const EDIT_INSTUCTOR = "EDIT_INSTUCTOR";
+
+// for assessor resources
+export const CREATE_ASSESSOR = "CREATE_ASSESSOR";
+export const FETCH_ASSESSORS = "FETCH_ASSESSORS";
+export const FETCH_ASSESSOR = "FETCH_ASSESSOR";
+export const DELETE_ASSESSOR = "DELETE_ASSESSOR";
+export const EDIT_ASSESSOR = "EDIT_ASSESSOR";
+
+// for mentor resources
+export const CREATE_MENTOR = "CREATE_MENTOR";
+export const FETCH_MENTORS = "FETCH_MENTORS";
+export const FETCH_MENTOR = "FETCH_MENTOR";
+export const DELETE_MENTOR = "DELETE_MENTOR";
+export const EDIT_MENTOR = "EDIT_MENTOR";
+
+// for Course Instructor resources
+export const CREATE_COURSE_INSTRUCTOR = "CREATE_COURSE_INSTRUCTOR";
+export const FETCH_COURSE_INSTRUCTORS = "FETCH_COURSE_INSTRUCTORS";
+export const FETCH_COURSE_INSTRUCTOR = "FETCH_COURSE_INSTRUCTOR";
+export const DELETE_COURSE_INSTRUCTOR = "DELETE_COURSE_INSTRUCTOR";
+export const EDIT_COURSE_INSTRUCTOR = "EDIT_COURSE_INSTRUCTOR";
+
+// for Course Assessor resources
+export const CREATE_COURSE_ASSESSOR = "CREATE_COURSE_ASSESSOR";
+export const FETCH_COURSE_ASSESSORS = "FETCH_COURSE_ASSESSORS";
+export const FETCH_COURSE_ASSESSOR = "FETCH_COURSE_ASSESSOR";
+export const DELETE_COURSE_ASSESSOR = "DELETE_COURSE_ASSESSOR";
+export const EDIT_COURSE_ASSESSOR = "EDIT_COURSE_ASSESSOR";
+
+// for Course Mentor resources
+export const CREATE_COURSE_MENTOR = "CREATE_COURSE_MENTOR";
+export const FETCH_COURSE_MENTORS = "FETCH_COURSE_MENTORS";
+export const FETCH_COURSE_MENTOR = "FETCH_COURSE_MENTOR";
+export const DELETE_COURSE_MENTOR = "DELETE_COURSE_MENTOR";
+export const EDIT_COURSE_MENTOR = "EDIT_COURSE_MENTOR";
+
+// for Course Lesson resources
+export const CREATE_COURSE_LESSON = "CREATE_COURSE_LESSON";
+export const FETCH_COURSE_LESSONS = "FETCH_COURSE_LESSONS";
+export const FETCH_COURSE_LESSON = "FETCH_COURSE_LESSON";
+export const DELETE_COURSE_LESSON = "DELETE_COURSE_LESSON";
+export const EDIT_COURSE_LESSON = "EDIT_COURSE_LESSON";
+
+// for Course Topic resources
+export const CREATE_COURSE_TOPIC = "CREATE_COURSE_TOPIC";
+export const FETCH_COURSE_TOPICS = "FETCH_COURSE_TOPICS";
+export const FETCH_COURSE_TOPIC = "FETCH_COURSE_TOPIC";
+export const DELETE_COURSE_TOPIC = "DELETE_COURSE_TOPIC";
+export const EDIT_COURSE_TOPIC = "EDIT_COURSE_TOPIC";
+
+// for LANGUAGE resources
+export const CREATE_LANGUAGE = "CREATE_LANGUAGE";
+export const FETCH_LANGUAGES = "FETCH_LANGUAGES";
+export const FETCH_LANGUAGE = "FETCH_LANGUAGE";
+export const DELETE_LANGUAGE = "DELETE_LANGUAGE";
+export const EDIT_LANGUAGE = "EDIT_LANGUAGE";
+
+// for NICHE resources
+export const CREATE_NICHE = "CREATE_NICHE";
+export const FETCH_NICHES = "FETCH_NICHES";
+export const FETCH_NICHE = "FETCH_NICHE";
+export const DELETE_NICHE = "DELETE_NICHE";
+export const EDIT_NICHE = "EDIT_NICHE";
+
+// for PROJECT resources
+export const CREATE_PROJECT = "CREATE_PROJECT";
+export const FETCH_PROJECTS = "FETCH_PROJECTS";
+export const FETCH_PROJECT = "FETCH_PROJECT";
+export const DELETE_PROJECT = "DELETE_PROJECT";
+export const EDIT_PROJECT = "EDIT_PROJECT";
+
+// for CREATOR resources
+export const CREATE_CREATOR = "CREATE_CREATOR";
+export const FETCH_CREATORS = "FETCH_CREATORS";
+export const FETCH_CREATOR = "FETCH_CREATOR";
+export const DELETE_CREATOR = "DELETE_CREATOR";
+export const EDIT_CREATOR = "EDIT_CREATOR";
+
+// for BRAND resources
+export const CREATE_BRAND = "CREATE_BRAND";
+export const FETCH_BRANDS = "FETCH_BRANDS";
+export const FETCH_BRAND = "FETCH_BRAND";
+export const DELETE_BRAND = "DELETE_BRAND";
+export const EDIT_BRAND = "EDIT_BRAND";
+
+
+// for SAMPLE resources
+export const CREATE_SAMPLE = "CREATE_SAMPLE";
+export const FETCH_SAMPLES = "FETCH_SAMPLES";
+export const FETCH_SAMPLE = "FETCH_SAMPLE";
+export const DELETE_SAMPLE = "DELETE_SAMPLE";
+export const EDIT_SAMPLE = "EDIT_SAMPLE";

@@ -1,0 +1,675 @@
+import React, { useState, useEffect } from "react";
+import Lottie from "react-lottie";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import ButtonArrow from "./ui/ButtonArrow";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import Card from "@material-ui/core/Card";
+import Box from "@material-ui/core/Box";
+import CardContent from "@material-ui/core/CardContent";
+import { Link } from "react-router-dom";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import Snackbar from "@material-ui/core/Snackbar";
+import ReactPlayer from "react-player";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+import data from "./../apis/local";
+import CallToAction from "./ui/CallToAction";
+import animationData from "./../animations/landinganimation/data";
+
+import revolutionBackground from "./../assets/repeatingBackground.svg";
+import infoBackground from "./../assets/infoBackground.svg";
+
+import background from "./../assets/images/covers/programmes2.png";
+import UpperFooter from "./ui/UpperFooter";
+import TopCover from "./homePageCards/TopCover";
+import TopCoverMentorship from "./homePageCards/TopCoverMentorship";
+import LearningPath from "./homePageCards/LearningPath";
+import TopCoverNew from "./homePageCards/TopCoverNew";
+import TopCoverServices from "./homePageCards/TopCoverServices";
+import ServicePreferences from "./homePageCards/ServicePreferences";
+import AllProgrammes from "./homePageCards/AllProgrammes";
+
+//import mobileBackground from "./../../assets/mobileBackground.jpg";
+
+import AllCourses from "./homePageCards/AllCourses";
+
+import { baseURL } from "./../apis/util";
+import ServicePreferenceOthers from "./homePageCards/ServicePreferenceOthers";
+import TopCoverNuggets from "./homePageCards/TopCoverNuggets";
+import ServicePreferenceNugget from "./homePageCards/ServicePreferenceNugget";
+import ServicePreferenceProgrammes from "./homePageCards/ServicePreferenceProgrammes";
+import TopCoverProgrammes from "./homePageCards/TopCoverProgrammes";
+import ProductCard from "./ProductCard";
+import ProgrammeCard from "./ProgrammeCard";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+    height: "80vh",
+    // height: "100%",
+    position: "relative",
+    "& video": {
+      objectFit: "cover",
+    },
+  },
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "99rem",
+    height: "42rem",
+    backgroundColor: "rgba(0, 0, 0, 0.2)",
+  },
+  animation: {
+    // maxWidth: "100em",
+    minWidth: "21em",
+    marginTop: "2em",
+    marginLeft: "10%",
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: "30em",
+    },
+  },
+  estimateButton: {
+    ...theme.typography.estimate,
+    backgroundColor: theme.palette.common.orange,
+    borderRadius: 50,
+    height: 45,
+    width: 250,
+    marginRight: 10,
+    marginLeft: 130,
+    fontWeight: 500,
+    "&:hover": {
+      backgroundColor: theme.palette.secondary.light,
+      color: "white",
+    },
+  },
+  estimateButtonMobile: {
+    ...theme.typography.estimate,
+    backgroundColor: theme.palette.common.orange,
+    borderRadius: 50,
+    height: 45,
+    width: 220,
+    marginRight: 10,
+    marginLeft: 20,
+    fontWeight: 500,
+    "&:hover": {
+      backgroundColor: theme.palette.secondary.light,
+      color: "white",
+    },
+  },
+  buttonContainer: {
+    marginTop: "3.9em",
+    marginLeft: "6.9em",
+  },
+  buttonContainerMobile: {
+    marginTop: "4.2em",
+    marginLeft: "3.5em",
+  },
+  learnButtonHero: {
+    ...theme.typography.learnButton,
+    fontSize: "0.7rem",
+    height: 45,
+    width: 145,
+  },
+  visitPartnerButtonsite: {
+    ...theme.typography.partnerButton,
+    fontSize: "0.9rem",
+    height: 45,
+    width: 250,
+    [theme.breakpoints.down("sm")]: {
+      width: 100,
+    },
+    "&:hover": {
+      backgroundColor: theme.palette.common.white,
+    },
+
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "2em",
+    },
+  },
+  learnButton: {
+    ...theme.typography.learnButton,
+    fontSize: "0.7rem",
+    height: 35,
+    padding: 5,
+    border: `2px solid ${theme.palette.common.blue}`,
+    [theme.breakpoints.down("sm")]: {
+      marginBottom: "2em",
+    },
+  },
+  mainContainer: {
+    marginTop: "5em",
+    marginLeft: "2px",
+    [theme.breakpoints.down("md")]: {
+      marginTop: "3em",
+    },
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "2em",
+    },
+    [theme.breakpoints.down("xs")]: {
+      marginTop: "1em",
+    },
+  },
+  heroTextContainer: {
+    minWidth: "21.5em",
+    marginLeft: "1em",
+    color: "white",
+    [theme.breakpoints.down("xs")]: {
+      marginLeft: 0,
+    },
+  },
+  specialText: {
+    fontFamily: "Pacifico",
+    color: theme.palette.common.orange,
+  },
+  subtitle: {
+    marginBottom: "1em",
+  },
+  icon: {
+    marginLeft: "2em",
+    [theme.breakpoints.down("xs")]: {
+      marginLeft: 0,
+    },
+  },
+  serviceContainer: {
+    marginTop: "12em",
+    [theme.breakpoints.down("sm")]: {
+      padding: 25,
+    },
+  },
+
+  topCover: {
+    marginTop: "20em",
+    [theme.breakpoints.down("sm")]: {
+      padding: 25,
+    },
+  },
+
+  revolutionBackground: {
+    backgroundImage: `url(${revolutionBackground})`,
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    height: "100%",
+    width: "100%",
+  },
+  revolutionCard: {
+    position: "absolute",
+    boxShadow: theme.shadows[10],
+    borderRadius: 15,
+    padding: "10em",
+    [theme.breakpoints.down("sm")]: {
+      paddingTop: "8em",
+      paddingBottom: "8em",
+      paddingLeft: 0,
+      paddingRight: 0,
+      borderRadius: 0,
+      width: "100%",
+    },
+  },
+  infoBackground: {
+    backgroundImage: `url(${infoBackground})`,
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    height: "100%",
+    width: "100%",
+  },
+
+  background: {
+    backgroundImage: `url(${background})`,
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    //backgroundAttachment: "fixed",
+    backgroundRepeat: "no-repeat",
+    height: "60em",
+    width: "100%",
+    [theme.breakpoints.down("md")]: {
+      // backgroundImage: `url(${mobileBackground})`,
+      backgroundAttachment: "inherit",
+    },
+  },
+  backgroundMobile: {
+    backgroundImage: `url(${background})`,
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    //backgroundAttachment: "fixed",
+    backgroundRepeat: "no-repeat",
+    //height: "50em",
+    height: "36em",
+    width: "100%",
+    [theme.breakpoints.down("md")]: {
+      // backgroundImage: `url(${mobileBackground})`,
+      backgroundAttachment: "inherit",
+    },
+  },
+  footer: {
+    width: "100%",
+    marginTop: "10rem",
+  },
+  category: {
+    marginTop: "1rem",
+    marginBottom: "2rem",
+  },
+  vendor: {
+    marginTop: "5rem",
+    marginBottom: "5rem",
+  },
+  logistics: {
+    marginTop: "15rem",
+    marginBottom: "5rem",
+  },
+  promotion: {
+    marginTop: "5rem",
+    marginBottom: "5rem",
+  },
+  features: {
+    marginTop: "5rem",
+    marginBottom: "5rem",
+  },
+}));
+
+const Programmes = (props) => {
+  const classes = useStyles();
+  const theme = useTheme();
+  const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
+  const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
+  const matchesMD = useMediaQuery(theme.breakpoints.up("md"));
+  const [aboutUsOpen, setAboutUsOpen] = useState(false);
+  const [contactUsOpen, setContactUsOpen] = useState(false);
+  const [becomePartnerOpen, setBecomePartnerOpen] = useState(false);
+  const [categoryList, setCategoryList] = useState([]);
+  const [coursesList, setCourseList] = useState([]);
+  const [programmesList, setProgrammesList] = useState([]);
+  const [isLoading, setIsLoading] = useState(null);
+  const [updateLearningPath, setUpdateLearningPath] = useState(false);
+  const [updateServicePath, setUpdateServicePath] = useState(false);
+  //const [path, setPath] = useState("crash-course");
+  const [path, setPath] = useState("all");
+
+  // const [courseType, setCourseType] = useState(0);
+  const [channel, setChannel] = useState(0);
+  const [programme, setProgramme] = useState(0);
+
+  const [alert, setAlert] = useState({
+    open: false,
+    message: "",
+    backgroundColor: "",
+  });
+  const defaultOptions = {
+    loop: true,
+    autoplay: false,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidyMid slice",
+    },
+  };
+
+  const handleBecomeAPartnerOpenDialogBox = () => {
+    setBecomePartnerOpen(false);
+  };
+
+  const updatePathHandler = (value) => {
+    //console.log("this is the active learning path:", value);
+    setPath(value);
+  };
+
+  const updateLearningPathInfoInfo = () => {
+    setUpdateLearningPath((prevState) => !prevState);
+  };
+
+  // const updateCourseTypeHandler = (value) => {
+  //   console.log("the market value is:", value);
+  //   setCourseType(value);
+  // };
+
+  const updateChannelHandler = (value) => {
+    setChannel(value);
+  };
+  const updateProgrammeHandler = (value) => {
+    setProgramme(value);
+  };
+
+  // const updateBuyingPathInfoInfo = () => {
+  //   setUpdateBuyingPath((prevState) => !prevState);
+  // };
+
+  const updateServicePathInfoInfo = () => {
+    setUpdateServicePath((prevState) => !prevState);
+  };
+
+  const handleSuccessfulBecomeAPartnerOpenDialogBoxWithSnackbar = () => {
+    setBecomePartnerOpen(false);
+    setAlert({
+      open: true,
+      message: "Application successfully submitted",
+      backgroundColor: "#4BB543",
+    });
+  };
+
+  const handleFailedBecomeAPartnerOpenDialogBoxWithSnackbar = () => {
+    setAlert({
+      open: true,
+      message: "Something went wrong somewhere",
+      backgroundColor: "#FF3232",
+    });
+    setBecomePartnerOpen(true);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      let allData = [];
+
+      if (channel !== 0) {
+        //data.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        const response = await data.get("/programmes?sort=desc", {
+          params: { channel: channel, class: "public", status: "active" },
+        });
+
+        const workingData = response.data.data.data;
+
+        workingData.map((programme) => {
+          allData.push({
+            id: programme._id,
+            name: programme.name,
+            image: programme.imageCover,
+            description: programme.description,
+            channel: programme.channel[0].id,
+            channelName: programme.channel[0].name,
+            status: programme.status,
+            class: programme.class,
+            createdBy: programme.createdBy[0].id,
+            dateCreated: programme.dateCreated,
+            duration: programme.duration,
+            track: programme.track,
+            averageNextChampGradePoint: programme.averageNextChampGradePoint,
+            slug: programme.slug,
+            owner: programme.owner,
+          });
+        });
+        setProgrammesList(allData);
+        setIsLoading(false);
+      } //ends here
+
+      if (channel === 0) {
+        //data.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        const response = await data.get("/programmes?sort=desc", {
+          params: { class: "public", status: "active" },
+        });
+
+        const workingData = response.data.data.data;
+
+        workingData.map((programme) => {
+          allData.push({
+            id: programme._id,
+            name: programme.name,
+            image: programme.image,
+            description: programme.description,
+            channel: programme.channel[0].id,
+            channelName: programme.channel[0].name,
+            status: programme.status,
+            class: programme.class,
+            createdBy: programme.createdBy[0].id,
+            dateCreated: programme.dateCreated,
+            duration: programme.duration,
+            track: programme.track,
+            averageNextChampGradePoint: programme.averageNextChampGradePoint,
+            slug: programme.slug,
+            owner: programme.owner,
+          });
+        });
+        setProgrammesList(allData);
+        setIsLoading(false);
+      } //ends here
+    };
+
+    //call the function
+
+    fetchData().catch(console.error);
+  }, [channel, updateServicePath]);
+
+  useEffect(() => {
+    // 👇️ scroll to top on page load
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
+
+  const Str = require("@supercharge/strings");
+
+  const allProgrammesList = matchesMD ? (
+    <React.Fragment>
+      {
+        <Grid container direction="row">
+          {programmesList.map((programme, index) => (
+            <AllProgrammes
+              id={programme.id}
+              name={programme.name}
+              image={programme.image}
+              description={programme.description}
+              channel={programme.channel}
+              channelName={programme.channelName}
+              status={programme.status}
+              class={programme.class}
+              createdBy={programme.createdBy}
+              dateCreated={programme.dateCreated}
+              duration={programme.duration}
+              track={programme.track}
+              averageNextChampGradePoint={programme.averageNextChampGradePoint}
+              slug={programme.slug}
+              owner={programme.owner}
+              token={props.token}
+              userId={props.userId}
+              setToken={props.setToken}
+              setUserId={props.setUserId}
+              updateLearningPathInfoInfo={updateLearningPathInfoInfo}
+              path={path}
+            />
+          ))}
+        </Grid>
+      }
+    </React.Fragment>
+  ) : (
+    <React.Fragment>
+      {
+        <Grid
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          {programmesList.map((programme, index) => (
+            <AllProgrammes
+              id={programme.id}
+              name={programme.name}
+              image={programme.image}
+              description={programme.description}
+              channel={programme.channel}
+              channelName={programme.channelName}
+              status={programme.status}
+              class={programme.class}
+              createdBy={programme.createdBy}
+              dateCreated={programme.dateCreated}
+              duration={programme.duration}
+              track={programme.track}
+              averageNextChampGradePoint={programme.averageNextChampGradePoint}
+              slug={programme.slug}
+              owner={programme.owner}
+              token={props.token}
+              userId={props.userId}
+              setToken={props.setToken}
+              setUserId={props.setUserId}
+              updateLearningPathInfoInfo={updateLearningPathInfoInfo}
+              path={path}
+            />
+          ))}
+        </Grid>
+      }
+    </React.Fragment>
+  );
+
+  return (
+    <>
+      {/* <Grid container direction="row" className={classes.mainContainer}> */}
+      <Grid container direction="row" className={classes.root}>
+        {/* <section className={classes.root}> */}
+        <Grid
+          container
+          alignItems="center"
+          className={classes.backgroundMobile}
+          justifyContent={matchesSM ? "center" : "space-between"}
+          direction={matchesSM ? "column" : "row"}
+          style={{ marginTop: -100 }}
+        >
+          <Grid item>
+            {" "}
+            {/*..... HERO BLOCK.... */}
+            <Grid
+              container
+              //justifyContent="flex-end"
+              //alignItems="center"
+              direction="row"
+            >
+              <Box
+                width="100%"
+                height="100%"
+                display="flex"
+                flexDirection="column"
+                //justifyContent="center"
+                //alignItems="center"
+                color="#fff"
+              >
+                <Grid sm item className={classes.heroTextContainer}>
+                  {matchesMD ? (
+                    <Typography
+                      variant={matchesSM ? "subtitle2" : "h2"}
+                      align="left"
+                      style={{ marginTop: "22rem" }}
+                      //justifyContent="center"
+                      //alignItems="center"
+                    >
+                      <span
+                        style={{
+                          marginLeft: matchesSM ? 20 : 5,
+                        }}
+                      >
+                        {" "}
+                        At Nextchamp, our courses are organized into
+                        <br />
+                      </span>{" "}
+                      <span style={{ marginLeft: matchesSM ? 20 : 60 }}>
+                        programmes—clear learning paths within each channel,
+                      </span>
+                      <br />
+                      <span style={{ marginLeft: matchesSM ? 20 : 110 }}>
+                        making it easy to find and master the skills you need.
+                      </span>
+                      <br />
+                      <span style={{ marginLeft: matchesSM ? 40 : 130 }}>
+                        Learn with confidence, progress with purpose.
+                      </span>
+                    </Typography>
+                  ) : (
+                    <Typography
+                      variant={matchesSM ? "subtitle2" : "h2"}
+                      align="left"
+                      style={{ marginTop: "18rem", fontSize: "1.2rem" }}
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <span
+                        style={{
+                          marginLeft: matchesSM ? 7 : 5,
+                        }}
+                      >
+                        {" "}
+                        Nextchamp is a learning platform where <br />
+                      </span>{" "}
+                      <span style={{ marginLeft: matchesSM ? 20 : 60 }}>
+                        seasoned experts and academicians train
+                      </span>
+                      <br />
+                      <span style={{ marginLeft: matchesSM ? 30 : 110 }}>
+                        and mentor novices,transforming them
+                      </span>
+                      <br />
+                      <span style={{ marginLeft: matchesSM ? 50 : 140 }}>
+                        into future champions in their fields
+                      </span>
+                    </Typography>
+                  )}
+
+                  {/* {matchesMD ? (
+                    <Grid
+                      container
+                      justifyContent="flex-start"
+                      direction={matchesSM ? "column" : "row"}
+                      // className={classes.topCover}
+                    >
+
+                    </Grid>
+                  ) : (
+
+                  )} */}
+                </Grid>
+              </Box>
+              {/* </div> */}
+              {/* <Grid sm item className={classes.animation}>
+            <Lottie options={defaultOptions} height={"100%"} width={"100%"} />
+          </Grid> */}
+            </Grid>
+          </Grid>
+        </Grid>
+        {/* </section> */}
+
+        <TopCoverProgrammes />
+        {/* <TopCoverServices />
+        <TopCoverNew /> */}
+        {/* <TopCover /> */}
+        {/* <LearningPath
+          updatePathHandler={updatePathHandler}
+          updateLearningPathInfoInfo={updateLearningPathInfoInfo}
+        /> */}
+        <ServicePreferenceProgrammes
+          //updateCourseTypeHandler={updateCourseTypeHandler}
+          updatePathHandler={updatePathHandler}
+          updateChannelHandler={updateChannelHandler}
+          updateProgrammeHandler={updateProgrammeHandler}
+          updateServicePathInfoInfo={updateServicePathInfoInfo}
+          //preference={preference}
+        />
+
+        {isLoading && (
+          <CircularProgress
+            size={100}
+            color="inherit"
+            style={{ marginTop: 250, marginLeft: 650 }}
+          />
+        )}
+        {/**if there is no course */}
+        {!isLoading && programmesList.length === 0 && (
+          <Typography
+            variant="h4"
+            color="textSecondary"
+            component="p"
+            style={{ marginTop: 60, marginLeft: 170 }}
+          >
+            No Programme Is Found
+          </Typography>
+        )}
+        {/** This is for path = crash-course**/}
+        {!isLoading && channel !== 0 && <Grid item>{allProgrammesList}</Grid>}
+        {!isLoading && channel === 0 && <Grid item>{allProgrammesList}</Grid>}
+
+        <Grid item className={classes.footer}>
+          <UpperFooter />
+        </Grid>
+      </Grid>
+    </>
+  );
+};
+
+export default Programmes;
