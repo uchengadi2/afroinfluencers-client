@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   rootMobile: {
     maxWidth: 350,
     //height: 440,
-    height: 950,
+    //height: 950,
     width: "100%",
 
     //marginLeft: "-10px",
@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
   submitButton: {
     borderRadius: 10,
     height: 40,
-    width: 180,
+    width: 210,
     marginLeft: 200,
     marginTop: 10,
     color: "white",
@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
   submitAuditButton: {
     borderRadius: 10,
     height: 40,
-    width: 280,
+    width: 380,
     marginLeft: 150,
     marginTop: 10,
     color: "white",
@@ -91,8 +91,8 @@ const useStyles = makeStyles((theme) => ({
   submitButtonMobile: {
     borderRadius: 10,
     height: 40,
-    width: 180,
-    marginLeft: 150,
+    width: 210,
+    marginLeft: 80,
     marginTop: 10,
     color: "white",
     backgroundColor: theme.palette.common.green,
@@ -141,6 +141,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
     marginBottom: 4,
     padding: 10,
+    //width:210
   },
   info: {
     fontSize: 15,
@@ -262,7 +263,7 @@ function CheckoutDeliveryAndPayment(props) {
   const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
   const matchesMD = useMediaQuery(theme.breakpoints.up("md"));
   const [isVisible, setIsVisible] = useState(true);
-  const [paymentMethod, setPaymentMethod] = useState('card');
+  const [paymentMethod, setPaymentMethod] = useState('foreigner');
 
   // const [paymentMethod, setPaymentMethod] = useState();
 
@@ -279,7 +280,7 @@ function CheckoutDeliveryAndPayment(props) {
   //     ? false
   //     : true
   // );
-  const [isOnlinePayment, setIsOnlinePayment] = useState(true);
+  const [isOnlinePayment, setIsOnlinePayment] = useState(false);
   const [customerEmail, setCustomerEmail] = useState();
   const [customerName, setCustomerName] = useState();
   const [customerPhoneNumber, setCustomerPhoneNumber] = useState();
@@ -527,9 +528,14 @@ function CheckoutDeliveryAndPayment(props) {
                 Register and Pay Later via Bank Transfer
               </MenuItem>
             )} */}
+            
+              <MenuItem value={"foreigner"}>
+                Make Payment via Bank Transfer
+              </MenuItem>
+            
           </Select>
           <FormHelperText>
-            Payment Method (Choose "Credit/Debit Card" for online card payment)
+            Payment Method (Choose "Credit/Debit Card" for online card payment for Naira Transactions only)
       
           </FormHelperText>
         </FormControl>
@@ -539,26 +545,29 @@ function CheckoutDeliveryAndPayment(props) {
 
   let totalDeliveryCost = 0;
 
-  const totalProductCost = parseFloat(totalCost) + totalDeliveryCost;
+  const totalProductCost = parseFloat(props.contractProcessingFeeLocal) + totalDeliveryCost;
   const totalProductCostForUk = totalProductCost / +ukRate;
-  const totalProductCostForUS = totalProductCost / +usRate;
-  const totalProductCostForDisplay = totalProductCost
-    .toFixed(2)
-    .replace(/\d(?=(\d{3})+\.)/g, "$&,");
-  const totalProductCostForUkForDisplay = totalProductCostForUk
-    .toFixed(2)
-    .replace(/\d(?=(\d{3})+\.)/g, "$&,");
-  const totalProductCostForUsForDisplay = totalProductCostForUS
-    .toFixed(2)
-    .replace(/\d(?=(\d{3})+\.)/g, "$&,");
-  const totalDeliveryCostForDisplay = totalDeliveryCost
-    .toFixed(2)
-    .replace(/\d(?=(\d{3})+\.)/g, "$&,");
+  const totalProductCostForUS =parseFloat(props.contractProcessingFeeInternational) + totalDeliveryCost;
+  const totalProductCostForDisplay = totalProductCost.toLocaleString();
+  const totalProductCostForUSDisplay = totalProductCostForUS.toLocaleString();
+  
+
+  //   .toFixed(2)
+  //   .replace(/\d(?=(\d{3})+\.)/g, "$&,");
+  // const totalProductCostForUkForDisplay = totalProductCostForUk
+  //   .toFixed(2)
+  //   .replace(/\d(?=(\d{3})+\.)/g, "$&,");
+  // const totalProductCostForUsForDisplay = totalProductCostForUS
+  //   .toFixed(2)
+  //   .replace(/\d(?=(\d{3})+\.)/g, "$&,");
+  // const totalDeliveryCostForDisplay = totalDeliveryCost
+  //   .toFixed(2)
+  //   .replace(/\d(?=(\d{3})+\.)/g, "$&,");
 
   const amountForPayment = +totalProductCost.toFixed(2) * 100;
 
   const buttonContent = () => {
-    return <React.Fragment>Register</React.Fragment>;
+    return <React.Fragment>Initiate Contract(s)</React.Fragment>;
   };
 
   const buttonAuditContent = () => {
@@ -575,6 +584,11 @@ function CheckoutDeliveryAndPayment(props) {
     return <ThankYou />;
   };
 
+  
+
+
+      
+
   const onSubmit = () => {
     setLoading(true);
 
@@ -589,24 +603,26 @@ function CheckoutDeliveryAndPayment(props) {
       recipientName: customerName,
       recipientPhoneNumber: customerPhoneNumber,
       recipientEmailAddress: customerEmail,
-      totalDeliveryCost: totalDeliveryCost ? totalDeliveryCost.toFixed(2) : 0,
-      totalProductCost: totalProductCost,
-      totalProductCostUk: totalProductCostForUk,
-      totalProductCostUs: totalProductCostForUS,
-
+      totalLocalContractProcessingFee: props.contractProcessingFeeLocal,
+      totalInternationalContractProcessingFee: props.contractProcessingFeeInternational,
       paymentMethod: paymentMethod,
       paymentStatus: "to-be-confirmed",
       orderedBy: props.userId,
-      productCurrency: "Payment in Naira By Bank Transfer",
+      //productCurrency: "Payment in Naira By Bank Transfer",
+      status: "unprocessed",
+      brand:props.brand,
+      project:props.project,
+      totalNumberOfInfluencers:props.cartList.length,     
+
     };
 
-    //write to the transaction table first
+       //write to the transaction table first
     if (transData) {
       const createForm = async () => {
         api.defaults.headers.common["Authorization"] = `Bearer ${props.token}`;
         const response = await api.post(`/transactions`, transData);
 
-        const transId = response.data.data.data.id;
+       const transId = response.data.data.data.id;
 
         if (response.data.status === "success") {
           dispatch({
@@ -617,72 +633,187 @@ function CheckoutDeliveryAndPayment(props) {
           setLoading(false);
 
           props.cartList.map((cart, index) => {
+            let cumulativeAgencyServiceFee = 0;
+            let totalProjectCost = 0;
+            if(cart.platforms.includes("facebook")){
+              totalProjectCost = totalProjectCost + cart.facebookPostQuantity * cart.creator.facebookCostPerPost
+            }else if(cart.platforms.includes('instagram')){
+              totalProjectCost += cart.instagramPostQuantity * cart.creator.instagranCostPerPost
+            }else if(cart.platforms.includes('twitter')){
+              totalProjectCost += cart.twitterPostQuantity * cart.creator.twiiterCostPerPost
+            }else if(cart.platforms.includes('tiktok')){
+              totalProjectCost += cart.tiktokPostQuantity * cart.creator.tiktokCostPerPost
+            }else if(cart.platforms.includes('linkedin')){
+              totalProjectCost += cart.linkedInPostQuantity * cart.creator.linkedInCostPerPost
+            }else if(cart.platforms.includes('blog')){
+              totalProjectCost += cart.blogCostPerPost * cart.creator.blogCostPerPost
+            }
+            //computing cumulative agency service plan
+            if (cart.agencyServicePlan === "platinum") {
+              cumulativeAgencyServiceFee = props.policy.platinumAgencyServiceFee/100 * totalProjectCost;
+            } else if (cart.agencyServicePlan === "gold") {
+              cumulativeAgencyServiceFee = props.policy.goldAgencyServiceFee/100 * totalProjectCost;
+            }else if (cart.agencyServicePlan === "bronze") {
+              if(cart.platforms && cart.platforms.includes('facebook')){
+                if(cart.creator.facebookCategory === "celebrity-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.celebrityInfluencerRecruitmentFee
+                }else if(cart.creator.facebookCategory === "mega-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.megaInfluencerRecruitmentFee
+                }else if(cart.creator.facebookCategory === "macro-influencer"){
+                  cumulativeAgencyServiceFee =props.policy.macroInfluencerRecruitmentFee
+                }else if(cart.creator.facebookCategory === "micro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.microInfluencerRecruitmentFee
+                }else if(cart.creator.facebookCategory === "nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.nanoInfluencerRecruitmentFee
+                }else if(cart.creator.facebookCategory === "sub-nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.subNanoInfluencerRecruitmentFee
+                }
+              }
+              if(cart.platforms && cart.platforms.includes('instagram')){
+                if(cart.creator.instagramCategory === "celebrity-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.celebrityInfluencerRecruitmentFee
+                }else if(cart.creator.instagramCategory === "mega-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.megaInfluencerRecruitmentFee
+                }else if(cart.creator.instagramCategory === "macro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.macroInfluencerRecruitmentFee
+                }else if(cart.creator.instagramCategory === "micro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.microInfluencerRecruitmentFee
+                }else if(cart.creator.instagramCategory === "nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.nanoInfluencerRecruitmentFee
+                }else if(cart.creator.instagramCategory === "sub-nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.subNanoInfluencerRecruitmentFee
+                }
+              }
+              if(cart.platforms && cart.platforms.includes('twitter')){
+                if(cart.creator.twitterCategory === "celebrity-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.celebrityInfluencerRecruitmentFee
+                }else if(cart.creator.twitterCategory === "mega-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.megaInfluencerRecruitmentFee
+                }else if(cart.creator.twitterCategory === "macro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.macroInfluencerRecruitmentFee
+                }else if(cart.creator.twitterCategory === "micro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.microInfluencerRecruitmentFee
+                }else if(cart.creator.twitterCategory === "nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.nanoInfluencerRecruitmentFee
+                }else if(cart.creator.twitterCategory === "sub-nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.subNanoInfluencerRecruitmentFee
+                }
+              }
+              if(cart.platforms && cart.platforms.includes('tiktok')){
+                if(cart.creator.tiktokCategory === "celebrity-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.celebrityInfluencerRecruitmentFee
+                }else if(cart.creator.tiktokCategory === "mega-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.megaInfluencerRecruitmentFee
+                }else if(cart.creator.tiktokCategory === "macro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.macroInfluencerRecruitmentFee
+                }else if(cart.creator.tiktokCategory === "micro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.microInfluencerRecruitmentFee
+                }else if(cart.creator.tiktokCategory === "nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.nanoInfluencerRecruitmentFee
+                }else if(cart.creator.tiktokCategory === "sub-nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.subNanoInfluencerRecruitmentFee
+                }
+              }
+              if(cart.platforms && cart.platforms.includes('linkedin')){
+                if(cart.creator.linkedInCategory === "celebrity-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.celebrityInfluencerRecruitmentFee
+                }else if(cart.creator.linkedInCategory === "mega-influencer"){
+                  cumulativeAgencyServiceFee =props.policy.megaInfluencerRecruitmentFee
+                }else if(cart.creator.linkedInCategory === "macro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.macroInfluencerRecruitmentFee
+                }else if(cart.creator.linkedInCategory === "micro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.microInfluencerRecruitmentFee
+                }else if(cart.creator.linkedInCategory === "nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.nanoInfluencerRecruitmentFee
+                }else if(cart.creator.linkedInCategory === "sub-nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.subNanoInfluencerRecruitmentFee
+                }
+              }
+              if(cart.platforms && cart.platforms.includes('blog')){
+                if(cart.creator.blogCategory === "celebrity-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.celebrityInfluencerRecruitmentFee
+                }else if(cart.creator.blogCategory === "mega-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.megaInfluencerRecruitmentFee
+                }else if(cart.creator.blogCategory === "macro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.macroInfluencerRecruitmentFee
+                }else if(cart.creator.blogCategory === "micro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.microInfluencerRecruitmentFee
+                }else if(cart.creator.blogCategory === "nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.nanoInfluencerRecruitmentFee
+                }else if(cart.creator.blogCategory === "sub-nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.subNanoInfluencerRecruitmentFee
+                }
+              }
+            }
+
             const data = {
               orderNumber: orderNumber,
               transactionId: transId,
-              product: cart.course,
-              orderedPrice: cart.price,
+              creator: cart.creator.id,
+              brand: cart.brand.id,
+              project: cart.project.id,
               recipientName: customerName,
               recipientPhoneNumber: customerPhoneNumber,
               recipientEmailAddress: customerEmail,
-              preferredStartDate: cart.preferredStartDate,
+              platforms: cart.platforms,
+              currency: cart.currency.id,
+              contractProcessingFee: cart.currency && cart.currency.name.toLowerCase() === "naira" ? props.policy.contractProcessingFeeForLocals : props.policy.contractProcessingFeeForNonLocals,
 
-              totalDeliveryCost: totalDeliveryCost
-                ? totalDeliveryCost.toFixed(2)
-                : 0,
-              totalProductCostUk: totalProductCostForUk,
-              totalProductCostUs: totalProductCostForUS,
-
-              totalProductCost: totalProductCost,
+              agencyServicePlan: cart.agencyServicePlan,
 
               cartId: cart.id,
-              quantityAdddedToCart: cart.quantity,
-              orderedQuantity: cart.quantity,
-              dateAddedToCart: cart.dateAddedToCart,
-              productCurrency: currencyName,
+              dateAddedToCart: cart.dateAddedToCart,              
               paymentMethod: paymentMethod,
               paymentStatus: "to-be-confirmed",
               orderedBy: cart.cartHolder,
 
-              isCourseAuditable: cart.isCourseAuditable,
-              weekdayAuditDays: cart.weekdayAuditDays,
-              weekendAuditDays: cart.weekendAuditDays,
-              venue: cart.venue,
-              venueLink: cart.venueLink,
-              weekdaySessionPeriod: cart.weekdaySessionPeriod,
-              weekendSessionPeriod: cart.weekendSessionPeriod,
-              type: cart.type,
-              lectureDuration: cart.lectureDuration,
-              projectDuration: cart.projectDuration,
-              capstoneProject: cart.capstoneProject,
-              passGrade: cart.passGrade,
-              hasMentorshipCredit: cart.hasMentorshipCredit,
-              mentorshipCredit: cart.mentorshipCredit,
-              mentorshipDuration: cart.mentorshipDuration,
-              costPerMentorshipCredit: cart.costPerMentorshipCredit,
-              videoId: cart.videoId,
-              previewVideoId: cart.previewVideoId,
-              deliveryMethod: cart.deliveryMethod,
-              duration: cart.duration,
-              category: cart.category,
-              channel: cart.channel,
-              programme: cart.programme,
-              hasMentorshipCredit: cart.hasMentorshipCredit,
-              mentorshipCredit: cart.mentorshipCredit,
-              mentorshipDuration: cart.mentorshipDuration,
-              costPerMentorshipCredit: cart.costPerMentorshipCredit,
-              series: cart.series,
-              hasSeries: cart.hasSeries,
-              commencementWeekdaysDate: cart.commencementWeekdaysDate,
-              commencementWeekendsDate: cart.commencementWeekendsDate,
-              isInstallmentalPaymentAllowed: cart.isInstallmentalPaymentAllowed,
-              maximumInstallmentalPayment: cart.maximumInstallmentalPayment,
-              paymentOptions: cart.paymentOptions,
+              //cumulativeAgencyServiceFee: cumulativeAgencyServiceFee,
+              facebookPostQuantity: cart.platforms && cart.platforms.includes('facebook') ?cart.facebookPostQuantity :0,
+              instagramPostQuantity: cart.platforms && cart.platforms.includes('instagram') ? cart.instagramPostQuantity:0,
+              twitterPostQuantity: cart.platforms && cart.platforms.includes('twitter') ? cart.twitterPostQuantity:0,
+              tiktokPostQuantity: cart.platforms && cart.platforms.includes('tiktok') ? cart.tiktokPostQuantity :0,
+              linkedInPostQuantity: cart.platforms && cart.platforms.includes('linkedin') ? cart.linkedInPostQuantity :0,
+              blogPostQuantity: cart.platforms && cart.platforms.includes('blog') ? cart.blogPostQuantity :0,
+              facebookProfileLink: cart.platforms && cart.platforms.includes('facebook') ? cart.creator.facebookProfileLink : "",
+              instagramProfileLink: cart.platforms && cart.platforms.includes('instagram') ? cart.creator.instagramProfileLink : "",
+              twitterProfileLink: cart.platforms && cart.platforms.includes('twitter') ? cart.creator.twitterProfileLink : "",
+              tiktokProfileLink: cart.platforms && cart.platforms.includes('tiktok') ? cart.creator.tiktokProfileLink: "",
+              linkedInProfileLink: cart.platforms && cart.platforms.includes('linkedin') ? cart.creator.linkedInProfileLink : "",
+              blogSiteLink: cart.platforms && cart.platforms.includes('blog') ? cart.creator.blogSiteLink: "",
+
+              facebookTotalFollowers: cart.platforms && cart.platforms.includes('facebook') ? cart.creator.facebookTotalFollowers :0,
+              instagramTotalFollowers: cart.platforms && cart.platforms.includes('instagram') ? cart.creator.instagramTotalFollowers:0,
+              twitterTotalFollowers: cart.platforms && cart.platforms.includes('twitter') ? cart.creator.twitterTotalFollowers:0,
+              tiktokTotalFollowers: cart.platforms && cart.platforms.includes('tiktok') ? cart.creator.tiktokTotalFollowers:0,
+              linkedInTotalFollowers: cart.platforms && cart.platforms.includes('linkedin') ? cart.creator.linkedInTotalFollowers:0,
+              blogTotalVisitorsPerMonth: cart.platforms && cart.platforms.includes('blog') ? cart.creator.blogTotalVisitorsPerMonth:0,
+
+              facebookEngagementRate: cart.platforms && cart.platforms.includes('facebook') ? cart.creator.facebookEngagementRate:0,
+              instagramEngagementRate: cart.platforms && cart.platforms.includes('instagram') ? cart.creator.instagramEngagementRate:0,
+              twitterEngagementRate: cart.platforms && cart.platforms.includes('twitter') ? cart.creator.twitterEngagementRate :0,
+              tiktokEngagementRate: cart.platforms && cart.platforms.includes('tiktok') ? cart.creator.tiktokEngagementRate:0,
+              linkedInEngagementRate: cart.platforms && cart.platforms.includes('linkedin') ? cart.creator.linkedInEngagementRate:0,
+
+              facebookCostPerPost: cart.platforms && cart.platforms.includes('facebook') ? cart.creator.facebookCostPerPost :0,
+              instagramCostPerPost: cart.platforms && cart.platforms.includes('instagram') ? cart.creator.instagramCostPerPost:0,
+              twitterCostPerPost: cart.platforms && cart.platforms.includes('twitter') ? cart.creator.twitterCostPerPost :0,
+              tiktokCostPerPost: cart.platforms && cart.platforms.includes('tiktok') ? cart.creator.tiktokCostPerPost:0,
+              linkedInCostPerPost: cart.platforms && cart.platforms.includes('linkedin') ? cart.creator.linkedInCostPerPost:0,
+              blogCostPerPost: cart.platforms && cart.platforms.includes('blog') ? cart.creator.blogCostPerPost:0,
+              blogPostCostDuration: cart.platforms && cart.platforms.includes('blog') ? cart.creator.blogPostCostDuration:"weekly",
+
+              facebookCategory: cart.platforms && cart.platforms.includes('facebook') ? cart.creator.facebookCategory: "",
+              instagramCategory: cart.platforms && cart.platforms.includes('instagram') ? cart.creator.instagramCategory: "",
+              twitterCategory: cart.platforms && cart.platforms.includes('twitter') ? cart.creator.twitterCategory: "",
+              tiktokCategory: cart.platforms && cart.platforms.includes('tiktok') ?cart.creator.tiktokCategory: "",
+              linkedInCategory: cart.platforms && cart.platforms.includes('linkedin') ? cart.creator.linkedInCategory: "",
+              blogCategory: cart.platforms && cart.platforms.includes('blog') ? cart.creator.blogCategory: "",
+              
               slug: cart.slug,
-              allowLifeTimeAccess: cart.allowLifeTimeAccess,
-              videoType: cart.videoType,
-              priceLabel: cart.priceLabel,
+              
             };
+
+           
 
             if (data) {
               const createForm = async () => {
@@ -749,6 +880,9 @@ function CheckoutDeliveryAndPayment(props) {
     );
     history.push("/thankyou");
   };
+
+
+  //this is for the auditing scenario
 
   const onAuditSubmit = () => {
     setLoading(true);
@@ -936,33 +1070,30 @@ function CheckoutDeliveryAndPayment(props) {
   ) => {
     const data = {
       orderNumber: orderNumber,
-
-      recipientName: name,
+      recipientName: customerName,
       recipientPhoneNumber: phoneNumber,
       recipientEmailAddress: email,
-
-      // totalDeliveryCost: totalDeliveryCost ? totalDeliveryCost.toFixed(2) : 0,
-      totalProductCost: totalProductCost ? totalProductCost.toFixed(2) : 0,
-      grandTotal: totalProductCost,
-      // totalProductCostUk: totalProductCostForUk,
-
-      // totalProductCostUs: totalProductCostForUS,
-      productCurrency: currencyName,
+      totalLocalContractProcessingFee: props.contractProcessingFeeLocal,
+      totalInternationalContractProcessingFee: props.contractProcessingFeeInternational,
       paymentMethod: paymentMethod,
-      brand:props.brand,
-      project:props.project,
       paymentStatus: "to-be-confirmed",
       orderedBy: props.userId,
+      //productCurrency: "Payment in Naira By Bank Transfer",
+      status: "unprocessed",
+      brand:props.brand,
+      project:props.project,
+      totalNumberOfInfluencers:props.cartList.length,
     };
     
     return (
       <Paystack
         email={email}
         amount={parseInt(amount)}
-        text={"Make Payment"}
+        text={"Initiate Contract(s) & Pay Online"}
         orderNumber={orderNumber}
         data={data}
         productList={props.cartList}
+        policy={props.policy}
         token={props.token}
         handleSuccessfulCreateSnackbar={props.handleSuccessfulCreateSnackbar}
         handleFailedSnackbar={props.handleFailedSnackbar}
@@ -991,7 +1122,7 @@ function CheckoutDeliveryAndPayment(props) {
               style={{ marginTop: 10, marginBottom: 10 }}
               justifyContent="center"
             >
-              {/* <Box
+              <Box
                 sx={{
                   //width: 1200,
                   //height: 450,
@@ -1001,7 +1132,7 @@ function CheckoutDeliveryAndPayment(props) {
                 autoComplete="off"
               >
                 <Typography variant="h5">
-                  ControlSoft Limited Bank Details:
+                  ControlSoft Limited Bank Details(For Naira Transactions Only):
                 </Typography>
                 
                 <Typography>
@@ -1020,7 +1151,7 @@ function CheckoutDeliveryAndPayment(props) {
                 
                 <Typography style={{ marginTop: 15 }}>
                   Send proof of payment to: &nbsp; &nbsp;
-                  nextchamp-academy@gmail.com
+                  controlsoftng@gmail.com
                 </Typography>
 
                 <Typography>
@@ -1028,7 +1159,7 @@ function CheckoutDeliveryAndPayment(props) {
                 </Typography>
 
                 <Typography variant="h5">
-                  ControlSoft Limited Bank Details:
+                  ControlSoft Limited Bank Details(For US Dollar Transactions Only):
                 </Typography>
                
                 <Typography>
@@ -1042,14 +1173,17 @@ function CheckoutDeliveryAndPayment(props) {
                   <strong>Bank Name: </strong>&nbsp; &nbsp; FCMB
                 </Typography>
                 <Typography>
-                  <strong>Account Number: </strong>&nbsp; &nbsp; 2206083011
+                  <strong>Account Number: </strong>&nbsp; &nbsp;  2206083028
+                </Typography>
+                 <Typography>
+                  <strong>SWIFT/BIC: </strong>&nbsp; &nbsp;   FCMBNGLAWEB
                 </Typography>
                
                 <Typography style={{ marginTop: 15 }}>
                   Send proof of payment to: &nbsp; &nbsp;
-                  nextchamp-academy@gmail.com
+                  controlsoftng@gmail.com
                 </Typography>
-              </Box> */}
+              </Box>
             </Grid>
           </Grid>
           <Grid
@@ -1062,17 +1196,37 @@ function CheckoutDeliveryAndPayment(props) {
               padding: 15,
             }}
           >
-            <Typography
+
+             <Typography variant="h5" style={{ color: "black", fontSize: 15, marginTop: 20 }}><strong>Total Contract Processing Fee For Other Country Influencers:</strong></Typography>
+             <Typography
               style={{
-                width: 300,
+                width: 400,
                 fontSize: 20,
                 marginTop: 15,
                 marginLeft: 10,
+                fontWeight:700,
+                marginBottom: 10
               }}
             >
-              Total Cost:{getCurrencyCode()}
-              {totalProductCostForDisplay}
+              
+              &#36;{totalProductCostForUSDisplay}&nbsp;<em style={{fontSize:12}}>(This Payment Should be done Offline)</em>
             </Typography>
+            <Typography variant="h5" style={{ color: "black", fontSize: 15, marginTop: 20 }}><strong>Total Contract Processing Fee For Nigeria Infuencers:</strong></Typography>
+            <Typography
+              style={{
+                width: 400,
+                fontSize: 20,
+                marginTop: 15,
+                marginLeft: 10,
+                fontWeight:700,
+                marginBottom: 30
+              }}
+            >
+              
+              &#8358;{totalProductCostForDisplay}&nbsp;<em style={{fontSize:12}}>(This Payment could be done Online or Offline)</em>
+            </Typography>
+           
+            
 
             {renderPaymentMethodField()}
             {!isOnlinePayment && paymentMethod === "foreigner" && (
@@ -1122,7 +1276,7 @@ function CheckoutDeliveryAndPayment(props) {
         </Grid>
       ) : (
         <Grid container direction="column" className={classes.rootMobile}>
-          {/* <Grid
+          <Grid
             item
             container
             style={{
@@ -1149,7 +1303,7 @@ function CheckoutDeliveryAndPayment(props) {
                 autoComplete="off"
               >
                 <Typography variant="h5">
-                  ControlSoft Limited Bank Details:
+                  ControlSoft Limited Bank Details (For Naira Transactions Only):
                 </Typography>
                 
                 <Typography>
@@ -1168,13 +1322,13 @@ function CheckoutDeliveryAndPayment(props) {
                
                 <Typography style={{ marginTop: 15 }}>
                   Send proof of payment to: &nbsp; &nbsp;
-                  nextchamp-academy@gmail.com
+                  controlsoftng@gmail.com
                 </Typography>
 
                 <Typography>=====================================</Typography>
 
                 <Typography variant="h5">
-                  ControlSoft Limited Bank Details:
+                  ControlSoft Limited Bank Details (For US Dollar Transactions Only):
                 </Typography>
                 
                 <Typography>
@@ -1187,17 +1341,19 @@ function CheckoutDeliveryAndPayment(props) {
                 <Typography>
                   <strong>Bank Name: </strong>&nbsp; &nbsp; FCMB
                 </Typography>
-                <Typography>
-                  <strong>Account Number: </strong>&nbsp; &nbsp; 2206083011
+               <Typography>
+                  <strong>Account Number: </strong>&nbsp; &nbsp;  2206083028
                 </Typography>
-                
+                 <Typography>
+                  <strong>SWIFT/BIC: </strong>&nbsp; &nbsp;   FCMBNGLAWEB
+                </Typography>
                 <Typography style={{ marginTop: 15 }}>
                   Send proof of payment to: &nbsp; &nbsp;
-                  nextchamp-academy@gmail.com
+                  controlsoftng@gmail.com
                 </Typography>
               </Box>
             </Grid>
-          </Grid> */}
+          </Grid>
 
           <Grid
             item
@@ -1209,16 +1365,33 @@ function CheckoutDeliveryAndPayment(props) {
               padding: 15,
             }}
           >
-            <Typography
+             <Typography variant="h5" style={{ color: "black", fontSize: 15, marginTop: 20 }}><strong>Total Contract Processing Fee For Other Country Influencers:</strong></Typography>
+             <Typography
               style={{
-                width: 300,
+                width: 400,
                 fontSize: 20,
                 marginTop: 15,
                 marginLeft: 10,
+                fontWeight:700,
+                marginBottom: 10
               }}
             >
-              Total Cost:{getCurrencyCode()}
-              {totalProductCostForDisplay}
+              
+              &#36;{totalProductCostForUSDisplay}&nbsp;<em style={{fontSize:12}}>(This Payment Should be done Offline)</em>
+            </Typography>
+            <Typography variant="h5" style={{ color: "black", fontSize: 15, marginTop: 20 }}><strong>Total Contract Processing Fee For Nigeria Infuencers:</strong></Typography>
+            <Typography
+              style={{
+                width: 400,
+                fontSize: 20,
+                marginTop: 15,
+                marginLeft: 10,
+                fontWeight:700,
+                marginBottom: 30
+              }}
+            >
+              
+              &#8358;{totalProductCostForDisplay}&nbsp;<em style={{fontSize:12}}>(This Payment could be done Online or Offline)</em>
             </Typography>
 
             {renderPaymentMethodField()}
@@ -1231,7 +1404,9 @@ function CheckoutDeliveryAndPayment(props) {
               <Button
                 variant="contained"
                 className={classes.submitButtonMobile}
-                onClick={[onSubmit, <ThankYou />]}
+                // onClick={[onSubmit, <ThankYou />]}
+                 onClick={[onSubmit]}
+                 //style={{width:280}}
               >
                 {loading ? (
                   <CircularProgress size={30} color="inherit" />
@@ -1239,6 +1414,7 @@ function CheckoutDeliveryAndPayment(props) {
                   buttonContent()
                 )}
               </Button>
+              
             )}
             {!isOnlinePayment &&
               paymentMethod === "audit" &&

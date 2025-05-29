@@ -201,6 +201,8 @@ function NewSampleForm(props) {
       );
     };
 
+    console.log('props.creatorId:',props.creatorId)
+
 
   const onSubmit = (formValues) => {
     setLoading(true);

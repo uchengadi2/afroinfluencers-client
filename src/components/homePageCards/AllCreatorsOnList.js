@@ -471,7 +471,7 @@ export default function AllCreatorsOnList(props) {
             <Grid item style={{ width: "46.19%", border: "1px dotted grey" }}>
               <CardContent>
                 
-                {props.category[0].code === 'video-and-audio-creators'  && <Typography variant="h4" color="textSecondary" component="p">
+                {/* {props.category[0].code === 'video-and-audio-creators'  && <Typography variant="h4" color="textSecondary" component="p">
                     {props.name}
                     <span style={{ fontSize: 16, fontWeight: 700 }}>
                       <em> ({props.country[0].name}, Video & Jingle Creator,  {props.age} years)</em>
@@ -482,13 +482,13 @@ export default function AllCreatorsOnList(props) {
                     <span style={{ fontSize: 16, fontWeight: 700 }}>
                       <em> ({props.country[0].name}, Video Creator,  {props.age} years)</em>
                     </span>
-                  </Typography>}
-                  {props.category[0].code === 'audio-only-creators'  && <Typography variant="h4" color="textSecondary" component="p">
+                  </Typography>} */}
+                  {/* {props.category[0].code === 'audio-only-creators'  && <Typography variant="h4" color="textSecondary" component="p">
                     {props.name}
                     <span style={{ fontSize: 16, fontWeight: 700 }}>
                       <em> ({props.country[0].name}, Jingle Creator,  {props.age} years)</em>
                     </span>
-                  </Typography>}
+                  </Typography>} */}
                 <Typography
                   variant="subtitle1"
                   color="textSecondary"
@@ -496,7 +496,7 @@ export default function AllCreatorsOnList(props) {
                 >
                   {Str(props.bio).limit(200, "...").get()}
                 </Typography>
-                {props.category[0].code === 'video-and-audio-creators'  && <Typography
+                {/* {props.category[0].code === 'video-and-audio-creators'  && <Typography
                   variant="h4"
                   color="textSecondary"
                   component="p"
@@ -527,9 +527,9 @@ export default function AllCreatorsOnList(props) {
                    
                   </span>
                   <span style={{fontSize:12,marginLeft:0}}>/per jingle</span>
-                </Typography>}
+                </Typography>} */}
 
-                {props.category[0].code === 'video-only-creators' && <Typography
+                {/* {props.category[0].code === 'video-only-creators' && <Typography
                   variant="h4"
                   color="textSecondary"
                   component="p"
@@ -548,9 +548,9 @@ export default function AllCreatorsOnList(props) {
                   </span>
                   <span style={{fontSize:12,marginLeft:0}}>/per video</span>
                   
-                </Typography>}
+                </Typography>} */}
 
-                {props.category[0].code === 'audio-only-creators' && <Typography
+                {/* {props.category[0].code === 'audio-only-creators' && <Typography
                   variant="h4"
                   color="textSecondary"
                   component="p"
@@ -569,14 +569,14 @@ export default function AllCreatorsOnList(props) {
                   </span>
                   <span style={{fontSize:12,marginLeft:0}}>/per jingle</span>
                   
-                </Typography>}
-                {props.category[0].code === 'video-and-audio-creators' && <Typography
+                </Typography>} */}
+                {/* {props.category[0].code === 'video-and-audio-creators' && <Typography
                       style={{ marginTop: 9, color: "red", marginBottom: 15 }}
                     >
                       <span
                         style={{ fontSize: 14, marginLeft: 10, marginTop: 20 }}
                       >
-                        {/* <strong>Delivery Method:</strong> &nbsp; */}
+                        
                         <span>{"This is the price for the production of a 10 to 40 seconds marketing video or jingle"}</span>
                       </span>
                     </Typography>}
@@ -586,7 +586,7 @@ export default function AllCreatorsOnList(props) {
                       <span
                         style={{ fontSize: 14, marginLeft: 10, marginTop: 20 }}
                       >
-                        {/* <strong>Delivery Method:</strong> &nbsp; */}
+                        
                         <span>{"This is the price for the production of a 10 to 40 seconds marketing video"}</span>
                       </span>
                     </Typography>}
@@ -596,13 +596,13 @@ export default function AllCreatorsOnList(props) {
                       <span
                         style={{ fontSize: 14, marginLeft: 10, marginTop: 20 }}
                       >
-                        {/* <strong>Delivery Method:</strong> &nbsp; */}
+                        
                         <span>{"This is the price for the production of a 10 to 40 seconds marketing jingle"}</span>
                       </span>
-                    </Typography>}
+                    </Typography>} */}
                
                 
-                {(props.category[0].code === 'video-and-audio-creators' || props.category[0].code === 'video-only-creators') && <Typography>
+                {/* {(props.category[0].code === 'video-and-audio-creators' || props.category[0].code === 'video-only-creators') && <Typography>
                   
                     <strong style={{marginLeft:10}}> Cost for An Extra Video Hook:</strong>
                     <span style={{ marginLeft: 5 }}>
@@ -635,11 +635,11 @@ export default function AllCreatorsOnList(props) {
                 </span>
                   
         
-              </Typography>}
+              </Typography>} */}
                
                   
                 
-                {(props.category[0].code === 'video-and-audio-creators' || props.category[0].code === 'video-only-creators') && <Typography>
+                {/* {(props.category[0].code === 'video-and-audio-creators' || props.category[0].code === 'video-only-creators') && <Typography>
                   <span style={{ fontSize: 14, marginLeft: 10 }}>
                     <strong> Video Delivery Period:</strong>
                     <span>{props.videoDeliveryDays} days</span>
@@ -650,7 +650,7 @@ export default function AllCreatorsOnList(props) {
                     <strong> Jingle Delivery Period:</strong>
                     <span>{props.soundDeliveryDays} days</span>
                   </span>
-                </Typography>}
+                </Typography>} */}
                 <Typography style={{marginLeft:10}}><strong>Niches:</strong></Typography>
               
                <Grid container direction="row" style={{marginLeft:30}}>
@@ -684,11 +684,11 @@ export default function AllCreatorsOnList(props) {
             <Grid item style={{ width: "26.50%", border: "1px dotted grey" }}>
               <CreatorInfo
                 bio={props.bio}
-                categoryId={props.category[0].id}
+                //categoryId={props.category[0].id}
                 productId={props.courseId}
                 slug={props.slug}
-                code={props.category[0].code}
-                categorySlug={props.category[0].slug}
+                //code={props.category[0].code}
+                //categorySlug={props.category[0].slug}
                 updateLearningPathInfoInfo={props.updateLearningPathInfoInfo}
               />
             </Grid>
@@ -711,7 +711,7 @@ export default function AllCreatorsOnList(props) {
               </Grid>
               <Grid item style={{ width: "100%", border: "1px dotted grey" }}>
                 <CardContent disableRipple>
-                {props.category[0].code === 'video-and-audio-creators'  && <Typography variant="h4" color="textSecondary" component="p">
+                {/* {props.category[0].code === 'video-and-audio-creators'  && <Typography variant="h4" color="textSecondary" component="p">
                     {props.name}
                     <span style={{ fontSize: 16, fontWeight: 700 }}>
                       <em> ({props.country[0].name}, Video & Jingle Creator,  {props.age} years)</em>
@@ -728,7 +728,7 @@ export default function AllCreatorsOnList(props) {
                     <span style={{ fontSize: 16, fontWeight: 700 }}>
                       <em> ({props.country[0].name}, Jingle Creator,  {props.age} years)</em>
                     </span>
-                  </Typography>}
+                  </Typography>} */}
                 <Typography
                   variant="subtitle1"
                   color="textSecondary"
@@ -736,7 +736,7 @@ export default function AllCreatorsOnList(props) {
                 >
                   {Str(props.bio).limit(200, "...").get()}
                 </Typography>
-                {props.category[0].code === 'video-and-audio-creators'  && <Typography
+                {/* {props.category[0].code === 'video-and-audio-creators'  && <Typography
                   variant="h5"
                   color="textSecondary"
                   component="p"
@@ -767,9 +767,9 @@ export default function AllCreatorsOnList(props) {
                    
                   </span>
                   <span style={{fontSize:12,marginLeft:0}}>/jingle</span>
-                </Typography>}
+                </Typography>} */}
 
-                {props.category[0].code === 'video-only-creators' && <Typography
+                {/* {props.category[0].code === 'video-only-creators' && <Typography
                   variant="h4"
                   color="textSecondary"
                   component="p"
@@ -788,9 +788,9 @@ export default function AllCreatorsOnList(props) {
                   </span>
                   <span style={{fontSize:12}}>/per video</span>
                   
-                </Typography>}
+                </Typography>} */}
 
-                {props.category[0].code === 'audio-only-creators' && <Typography
+                {/* {props.category[0].code === 'audio-only-creators' && <Typography
                   variant="h4"
                   color="textSecondary"
                   component="p"
@@ -809,14 +809,14 @@ export default function AllCreatorsOnList(props) {
                   </span>
                   <span style={{fontSize:12}}>/per jingle</span>
                   
-                </Typography>}
-                {props.category[0].code === 'video-and-audio-creators' && <Typography
+                </Typography>} */}
+                {/* {props.category[0].code === 'video-and-audio-creators' && <Typography
                       style={{ marginTop: 9, color: "red", marginBottom: 15 }}
                     >
                       <span
                         style={{ fontSize: 14, marginLeft: 10, marginTop: 20 }}
                       >
-                        {/* <strong>Delivery Method:</strong> &nbsp; */}
+                        
                         <span>{"This is the price for the production of a 10 to 40 seconds marketing video or jingle"}</span>
                       </span>
                     </Typography>}
@@ -826,8 +826,7 @@ export default function AllCreatorsOnList(props) {
                       <span
                         style={{ fontSize: 14, marginLeft: 10, marginTop: 20 }}
                       >
-                        {/* <strong>Delivery Method:</strong> &nbsp; */}
-                        <span>{"This is the price for the production of a 10 to 40 seconds marketing video"}</span>
+                         <span>{"This is the price for the production of a 10 to 40 seconds marketing video"}</span>
                       </span>
                     </Typography>}
                     {props.category[0].code === 'audio-only-creators' && <Typography
@@ -836,13 +835,13 @@ export default function AllCreatorsOnList(props) {
                       <span
                         style={{ fontSize: 14, marginLeft: 10, marginTop: 20 }}
                       >
-                        {/* <strong>Delivery Method:</strong> &nbsp; */}
+                       
                         <span>{"This is the price for the production of a 10 to 40 seconds marketing jingle"}</span>
                       </span>
-                    </Typography>}
+                    </Typography>} */}
                
                 
-                {(props.category[0].code === 'video-and-audio-creators' || props.category[0].code === 'video-only-creators') && <Typography>
+                {/* {(props.category[0].code === 'video-and-audio-creators' || props.category[0].code === 'video-only-creators') && <Typography>
                   
                     <strong style={{marginLeft:10}}> Cost for An Extra Video Hook:</strong>
                     <span style={{ marginLeft: 5 }}>
@@ -858,8 +857,8 @@ export default function AllCreatorsOnList(props) {
                   </span>
                     
           
-                </Typography>}
-                {(props.category[0].code === 'video-and-audio-creators' || props.category[0].code === 'audio-only-creators') && <Typography>
+                </Typography>} */}
+                {/* {(props.category[0].code === 'video-and-audio-creators' || props.category[0].code === 'audio-only-creators') && <Typography>
                   
                   <strong style={{marginLeft:10}}> Cost for An Extra Sound Hook:</strong>
                   <span style={{ marginLeft: 5 }}>
@@ -875,11 +874,11 @@ export default function AllCreatorsOnList(props) {
                 </span>
                   
         
-              </Typography>}
+              </Typography>} */}
                
                   
                 
-                {(props.category[0].code === 'video-and-audio-creators' || props.category[0].code === 'video-only-creators') && <Typography>
+                {/* {(props.category[0].code === 'video-and-audio-creators' || props.category[0].code === 'video-only-creators') && <Typography>
                   <span style={{ fontSize: 14, marginLeft: 10 }}>
                     <strong> Video Delivery Period:</strong>
                     <span>{props.videoDeliveryDays} days</span>
@@ -890,7 +889,7 @@ export default function AllCreatorsOnList(props) {
                     <strong> Jingle Delivery Period:</strong>
                     <span>{props.soundDeliveryDays} days</span>
                   </span>
-                </Typography>}
+                </Typography>} */}
                 <Typography style={{marginLeft:10}}><strong>Niches:</strong></Typography>
               
                <Grid container direction="row" style={{marginLeft:30}}>
@@ -923,11 +922,11 @@ export default function AllCreatorsOnList(props) {
               <Grid item style={{ width: "100%", border: "1px dotted grey" }}>
                 <CreatorInfo
                  bio={props.bio}
-                 categoryId={props.category[0].id}
+                 //categoryId={props.category[0].id}
                  productId={props.courseId}
                  slug={props.slug}
-                 code={props.category[0].code}
-                 categorySlug={props.category[0].slug}
+                 //code={props.category[0].code}
+                 //categorySlug={props.category[0].slug}
                  updateLearningPathInfoInfo={props.updateLearningPathInfoInfo}
                 />
               </Grid>

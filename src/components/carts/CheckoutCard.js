@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 
     marginLeft: "0px",
     //borderRadius: 30,
-    marginTop: "-3.5em",
+    marginTop: "-1.0em",
     marginBottom: "3em",
     padding: 0,
     backgroundColor: "#FFFFFF",
@@ -157,37 +157,31 @@ export default function CheckoutCard(props) {
     const fetchData = async () => {
       let allData = [];
       api.defaults.headers.common["Authorization"] = `Bearer ${props.token}`;
-      const response = await api.get(`/creators/${props.creator}`);
-      const creator = response.data.data.data;
+      const response = await api.get(`/creators/${props.creator.id}`);
+      const influencer = response.data.data.data;
 
       allData.push({
-         id: creator._id,
-          name: creator.name,
-          description: creator.description,
-          videoPrice: creator.videoPrice,
-          videoHookPrice: creator.videoHookPrice,
-          videoDeliveryDays: creator.videoDeliveryDays,
-          soundPrice: creator.soundPrice,
-          soundHookPrice: creator.soundHookPrice,
-          soundDeliveryDays: creator.soundDeliveryDays,
-          age: creator.age,
-          gender:creator.gender,
-          rate: creator.rate,
-          country: creator.country,
-          category: creator.category,
-          categoryCode: creator.category? creator.category[0].code : "",
-          categoryName: creator.category ? creator.category[0].name : "",
-          countryId: creator.country? creator.country[0].id : "",
-          niche: creator.niches,
-          nicheId: creator.niches ? creator.niches[0].id :"",
-          language: creator.languages,
-          languageId: creator.languages ? creator.languages[0].id :"",
-          currency: creator.currency,
-          slug: creator.slug,
-          image: creator.image,
-          createBy: creator.createBy,
-          createdAt: creator.createdAt,
-          bio:creator.bio
+         id: influencer._id,
+          creator: influencer.creator,
+          brand: influencer.brand,
+          cartHolder: influencer.cartHolder,
+          dateAddedToCart: influencer.dateAddedToCart,
+          refNumber: influencer.refNumber,
+          quantity: influencer.quantity,
+          status: influencer.status,
+          agencyServicePlan:influencer.agencyServicePlan,
+          project: influencer.project,
+          creativeLanguage: influencer.creativeLanguage,
+          currency: influencer.currency,
+          slug: influencer.slug,
+          creatorImage: influencer.creatorImage,
+          platforms: influencer.platforms,
+          facebookPostQuantity: influencer.facebookPostQuantity,
+          instagramPostQuantity: influencer.instagramPostQuantity,
+          twitterPostQuantity: influencer.twitterPostQuantity,
+          tiktokPostQuantity: influencer.tiktokPostQuantity,
+          linkedInPostQuantity: influencer.linkedInPostQuantity,
+          blogPostQuantity: influencer.blogPostQuantity,
       });
 
       if (!allData) {
@@ -195,33 +189,27 @@ export default function CheckoutCard(props) {
       }
       setCreator({
        
-        id: allData[0].id,
-          name: allData[0].name,
-          description: allData[0].description,
-          videoPrice: allData[0].videoPrice,
-          videoHookPrice: allData[0].videoHookPrice,
-          videoDeliveryDays: allData[0].videoDeliveryDays,
-          soundPrice: allData[0].soundPrice,
-          soundHookPrice: allData[0].soundHookPrice,
-          soundDeliveryDays: allData[0].soundDeliveryDays,
-          age: allData[0].age,
-          gender:allData[0].gender,
-          rate: allData[0].rate,
-          country: allData[0].country,
-          category: allData[0].category,
-          categoryCode: allData[0].categoryCode,
-          caegoryName: allData[0].categoryName,
-          countryId: allData[0].countryId,
-          niche: allData[0].niche,
-          nicheId: allData[0].nicheId,
-          language: allData[0].language,
-          languageId: allData[0].languageId,
+        id: allData[0]._id,
+          creator: allData[0].creator,
+          brand: allData[0].brand,
+          cartHolder: allData[0].cartHolder,
+          dateAddedToCart: allData[0].dateAddedToCart,
+          refNumber: allData[0].refNumber,
+          quantity: allData[0].quantity,
+          status: allData[0].status,
+          agencyServicePlan:allData[0].agencyServicePlan,
+          project: allData[0].project,
+          creativeLanguage: allData[0].creativeLanguage,
           currency: allData[0].currency,
           slug: allData[0].slug,
-          image: allData[0].image,
-          createBy: allData[0].createBy,
-          createdAt: allData[0].createdAt,
-          bio:allData[0].bio
+          creatorImage: allData[0].creatorImage,
+          platforms: allData[0].platforms,
+          facebookPostQuantity: allData[0].facebookPostQuantity,
+          instagramPostQuantity: allData[0].instagramPostQuantity,
+          twitterPostQuantity: allData[0].twitterPostQuantity,
+          tiktokPostQuantity: allData[0].tiktokPostQuantity,
+          linkedInPostQuantity: allData[0].linkedInPostQuantity,
+          blogPostQuantity: allData[0].blogPostQuantity,
       });
     };
 
@@ -235,8 +223,8 @@ export default function CheckoutCard(props) {
   
 
   let imageUrl = "";
-  if (creator) {
-    imageUrl = `${baseURL}/images/creators/${creator.image}`;
+  if (props.creator) {
+    imageUrl = `${baseURL}/images/creators/${props.creator.image}`;
   }
 
   const Str = require("@supercharge/strings");
@@ -450,9 +438,84 @@ export default function CheckoutCard(props) {
     }
   };
 
-  if (!course) {
+  if (!props.creator) {
     return <></>;
   }
+
+   //calculating total reach
+  let totalReach =0;
+  if(props.platforms && props.platforms.includes("facebook") && props.creator && props.creator.facebookTotalFollowers){
+  totalReach += props.creator.facebookTotalFollowers;
+  }
+  if(props.platforms && props.platforms.includes("instagram") && props.creator && props.creator.instagramTotalFollowers){
+  totalReach += props.creator.instagramTotalFollowers;
+  }
+  if(props.platforms && props.platforms.includes("twitter") && props.creator && props.creator.twitterTotalFollowers){
+  totalReach += props.creator.twitterTotalFollowers;
+  }
+  if(props.platforms && props.platforms.includes("tiktok") && props.creator && props.creator.tiktokTotalFollowers){
+  totalReach += props.creator.tiktokTotalFollowers;
+  }
+  if(props.platforms && props.platforms.includes("blog") && props.creator && props.creator.blogTotalVisitorsPerMonth){ 
+  totalReach += props.creator.blogTotalVisitorsPerMonth;
+  }
+  if(props.platforms && props.platforms.includes("linkedin") && props.creator && props.creator.linkedInTotalFollowers){
+  totalReach += props.creator.linkedInTotalFollowers;
+  }
+
+  //computing the average engagement rate
+  let averageEngagementRate = 0;
+  let totalEngagementRate = 0;
+  if(props.platforms && props.platforms.includes("facebook") && props.creator && props.creator.facebookEngagementRate){
+  totalEngagementRate += props.creator.facebookEngagementRate;
+  }
+  if(props.platforms && props.platforms.includes("instagram") && props.creator && props.creator.instagramEngagementRate){
+  totalEngagementRate += props.creator.instagramEngagementRate;
+  }
+  if(props.platforms && props.platforms.includes("twitter") && props.creator && props.creator.twitterEngagementRate){
+  totalEngagementRate += props.creator.twitterEngagementRate;
+  }
+  if(props.platforms && props.platforms.includes("tiktok") && props.creator && props.creator.tiktokEngagementRate){
+  totalEngagementRate += props.creator.tiktokEngagementRate;
+  }
+  // if(props.platforms && props.platforms.includes("blog") && props.creator && props.creator.blogEngagementRate){
+  // totalEngagementRate += props.creator.blogEngagementRate;
+  // }
+  if(props.platforms && props.platforms.includes("linkedin") && props.creator && props.creator.linkedInEngagementRate){
+  totalEngagementRate += props.creator.linkedInEngagementRate;
+  }
+
+  if(props.platforms && props.platforms.length > 0){
+  averageEngagementRate = totalEngagementRate / props.platforms.length;
+  }
+
+
+  //computing the total cost per post
+  let totalCostPerPost = 0;
+  if(props.platforms && props.platforms.includes("facebook") && props.creator && props.creator.facebookCostPerPost){
+      totalCostPerPost += props.creator.facebookCostPerPost;
+  }
+  if(props.platforms && props.platforms.includes("instagram") && props.creator && props.creator.instagranCostPerPost){
+      totalCostPerPost += props.creator.instagranCostPerPost;
+  }
+  if(props.platforms && props.platforms.includes("twitter") && props.creator && props.creator.twiiterCostPerPost){
+      totalCostPerPost += props.creator.twiiterCostPerPost;
+  }
+  if(props.platforms && props.platforms.includes("tiktok") && props.creator && props.creator.tiktokCostPerPost){
+      totalCostPerPost += props.creator.tiktokCostPerPost;
+  }
+  if(props.platforms && props.platforms.includes("blog") && props.creator && props.creator.blogCostPerPost){
+      totalCostPerPost += props.creator.blogCostPerPost;
+  }
+  if(props.platforms && props.platforms.includes("linkedin") && props.creator && props.creator.linkedInCostPerPost){
+      totalCostPerPost += props.creator.linkedInCostPerPost;
+  }
+  //computing the average cost per reach
+  let averageCostPerReach = 0;
+  if(totalReach > 0){
+  averageCostPerReach = (totalCostPerPost / totalReach);
+  }
+
   
 
   return (
@@ -465,7 +528,7 @@ export default function CheckoutCard(props) {
               <CardMedia
                 className={classes.media}
                 component="img"
-                alt={creator.name}
+                alt={props.creator.name}
                 image={imageUrl}
                 //title={product.name}
                 crossOrigin="anonymous"
@@ -473,76 +536,69 @@ export default function CheckoutCard(props) {
             </Grid>
             <Grid item style={{ width: "46.19%", border: "1px dotted grey" }}>
               <CardContent disableRipple>
-                {creator.categoryCode === 'video-and-audio-creators'  && <Typography variant="h4" color="textSecondary" component="p">
-                                    {creator.name}
-                                    <span style={{ fontSize: 16, fontWeight: 700 }}>
-                                      <em> ({creator.country[0].name}, Video & Jingle Creator,  {creator.age} years)</em>
-                                    </span>
-                </Typography>}
-               {creator.categoryCode === 'video-only-creators'  && <Typography variant="h4" color="textSecondary" component="p">
-                                    {creator.name}
-                                    <span style={{ fontSize: 16, fontWeight: 700 }}>
-                                      <em> ({creator.country[0].name}, Video Creator,  {creator.age} years)</em>
-                                    </span>
-                 </Typography>}
-                {creator.categoryCode === 'audio-only-creators'  && <Typography variant="h4" color="textSecondary" component="p">
-                                    {creator.name}
-                                    <span style={{ fontSize: 16, fontWeight: 700 }}>
-                                      <em> ({creator.country[0].name}, Jingle Creator,  {creator.age} years)</em>
-                                    </span>
-                </Typography>}
-                <Typography
-                  variant="subtitle1"
-                  color="textSecondary"
-                  component="p"
-                  style={{ marginTop: 20 }}
-                >
-                  {Str(creator.bio).limit(200, "...").get()}
-                </Typography>
-                
-                
-                <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 13 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      <strong>Reference Number:</strong>
-                    </span>
-                    <span style={{ marginLeft: 3, textAlign: "center" }}>
-                      {props.refNumber} &nbsp;
-                    </span>
-                  </Typography>
-                   <Typography style={{marginLeft:10}}><strong>Niches:</strong></Typography>
+                <Typography variant="h4" color="textSecondary" component="p">
+                                    {props.creator.name}<scan style={{fontSize:15, fontWeight:500}}>{props.creator.country && ` (${props.creator.country[0].name}, ${props.creator.age}years ${props.creator.gender.charAt(0).toUpperCase() + props.creator.gender.slice(1)})` }</scan>
+                                  </Typography>
                                 
-                                 {creator.niche && <Grid container direction="row" style={{marginLeft:30}}>
-                                                {creator.niche.map((niche, index) => (
-                                                  <Typography>{niche.niche},  </Typography>
-                  
-                                                ))}
-                                              </Grid>}
-                                  <Typography style={{marginLeft:10}}><strong>Languages:</strong></Typography>
-                                  
-                                  {creator.language && <Grid container direction="row" style={{marginLeft:30}}>
-                                                {creator.language.map((lang, index) => (
-                                                  <Typography>{lang.language},  </Typography>
-                  
-                                                ))}
-                                              </Grid>}
-                  
+                               
+                                
+                                {props.project && (
+                                  <Typography
+                                    variant="h5"
+                                    style={{ color: "black", fontSize: 15, marginTop: 20 }}
+                                  >
+                                    <span style={{ marginRight: 20 }}>
+                                      {" "}
+                                      <strong>Project:</strong>
+                                    </span>
+                                    {props.project.name}
+                                  </Typography>
+                                )}
+                                {props.brand && (
+                                  <Typography
+                                    variant="h5"
+                                    style={{ color: "black", fontSize: 15 }}
+                                  >
+                                    <span style={{ marginRight: 20 }}>
+                                      {" "}
+                                      <strong>Project Owner:</strong>
+                                    </span>
+                                    {props.brand.name}
+                                  </Typography>
+                                )}
+                                <Typography variant="h5" style={{ color: "black", fontSize: 15, marginLeft:15, marginTop:10 }}><strong>Selected Platforms for the Campaign</strong></Typography>
+                               <Typography style={{marginLeft:25}}>
+                                {props.platforms && props.platforms.map((platform, index)=> (
+                               
+                                    <span style={{ marginRight: 10, marginLeft: 5 }} key={index}>
+                                     {platform},
+                                    </span>
+                                    
+                                    
+                                
+                                ))}
+                                </Typography>
 
+                     <Typography variant="h5" style={{ color: "black", fontSize: 16, marginTop: 20, marginBottom:0 }}><strong>Influencer's Cumulative Stats In Summary</strong></Typography>
+                     <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Total Reach</strong>:&nbsp;&nbsp;{totalReach.toLocaleString()}</Typography>
+                    <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Average Engagement Rate</strong>:&nbsp;&nbsp;{averageEngagementRate.toLocaleString()}%</Typography>
+                    {props.currency.name.toLowerCase()==='naira' && <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Average Cost Per Reach</strong>:&nbsp;&nbsp;&#8358;{averageCostPerReach.toLocaleString()}</Typography>}
+                    {props.currency.name.toLowerCase()!=='naira' && <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Average Cost Per Reach</strong>:&nbsp;&nbsp;&#36;{averageCostPerReach.toLocaleString()}</Typography>}               
                 
-                
-               
+                    <Typography variant="h5" style={{ color: "black", fontSize: 18, marginTop: 20 }}><strong>Selected Agency Plan</strong></Typography>
+                   {props.agencyServicePlan && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Agency Service Plan</strong>:&nbsp;&nbsp;{props.agencyServicePlan.charAt(0).toUpperCase() + props.agencyServicePlan.slice(1)}</Typography>
+                )}
               </CardContent>
             </Grid>
 
             <Grid item style={{ width: "26.30%", border: "1px dotted grey" }}>
-              {props.grandTotal && (
+              {props.creator && (
                 <CheckoutActionPage
-                  grandTotal={props.grandTotal}
-                  brandName={props.brandName}
-                  minimumQuantity={creator.minimumQuantity}
-                  creatorId={creator.id}
+                  creator={props.creator}
+                  brand={props.brand}
+                  platforms={props.platforms}
+                  creatorId={props.creator.id}
                   creativeQuantity={props.creativeQuantity}
                   creativeHookQuantity={props.creativeHookQuantity}
                   creativeType={props.creativeType}
@@ -568,6 +624,7 @@ export default function CheckoutCard(props) {
                   }
                   handleFailedSnackbar={props.handleFailedSnackbar}
                   renderCheckoutUpdate={props.renderCheckoutUpdate}
+                  policy={props.policy}
                 />
               )}
             </Grid>
@@ -597,61 +654,59 @@ export default function CheckoutCard(props) {
               }}
             >
               <CardContent disableRipple>
-              {creator.categoryCode === 'video-and-audio-creators'  && <Typography variant="h4" color="textSecondary" component="p">
-                                    {creator.name}
-                                    <span style={{ fontSize: 16, fontWeight: 700 }}>
-                                      <em> ({creator.country[0].name}, Video & Jingle Creator,  {creator.age} years)</em>
-                                    </span>
-                </Typography>}
-               {creator.categoryCode === 'video-only-creators'  && <Typography variant="h4" color="textSecondary" component="p">
-                                    {creator.name}
-                                    <span style={{ fontSize: 16, fontWeight: 700 }}>
-                                      <em> ({creator.country[0].name}, Video Creator,  {creator.age} years)</em>
-                                    </span>
-                 </Typography>}
-                {creator.categoryCode === 'audio-only-creators'  && <Typography variant="h4" color="textSecondary" component="p">
-                                    {creator.name}
-                                    <span style={{ fontSize: 16, fontWeight: 700 }}>
-                                      <em> ({creator.country[0].name}, Jingle Creator,  {creator.age} years)</em>
-                                    </span>
-                </Typography>}
-                <Typography
-                  variant="subtitle1"
-                  color="textSecondary"
-                  component="p"
-                  style={{ marginTop: 20 }}
-                >
-                  {Str(creator.bio).limit(200, "...").get()}
-                </Typography>
-                
-                
-                <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 13 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      <strong>Reference Number:</strong>
-                    </span>
-                    <span style={{ marginLeft: 3, textAlign: "center" }}>
-                      {props.refNumber} &nbsp;
-                    </span>
-                  </Typography>
-                   <Typography style={{marginLeft:10}}><strong>Niches:</strong></Typography>
+                <Typography variant="h4" color="textSecondary" component="p">
+                                    {props.creator.name}<scan style={{fontSize:15, fontWeight:500}}>{props.creator.country && ` (${props.creator.country[0].name}, ${props.creator.age}years ${props.creator.gender.charAt(0).toUpperCase() + props.creator.gender.slice(1)})` }</scan>
+                                  </Typography>
                                 
-                                 {creator.niche && <Grid container direction="row" style={{marginLeft:30}}>
-                                                {creator.niche.map((niche, index) => (
-                                                  <Typography>{niche.niche},  </Typography>
-                  
-                                                ))}
-                                              </Grid>}
-                                  <Typography style={{marginLeft:10}}><strong>Languages:</strong></Typography>
-                                  
-                                  {creator.language && <Grid container direction="row" style={{marginLeft:30}}>
-                                                {creator.language.map((lang, index) => (
-                                                  <Typography>{lang.language},  </Typography>
-                  
-                                                ))}
-                                              </Grid>}
+                               
+                                
+                                {props.project && (
+                                  <Typography
+                                    variant="h5"
+                                    style={{ color: "black", fontSize: 15, marginTop: 20 }}
+                                  >
+                                    <span style={{ marginRight: 20 }}>
+                                      {" "}
+                                      <strong>Project:</strong>
+                                    </span>
+                                    {props.project.name}
+                                  </Typography>
+                                )}
+                                {props.brand && (
+                                  <Typography
+                                    variant="h5"
+                                    style={{ color: "black", fontSize: 15 }}
+                                  >
+                                    <span style={{ marginRight: 20 }}>
+                                      {" "}
+                                      <strong>Project Owner:</strong>
+                                    </span>
+                                    {props.brand.name}
+                                  </Typography>
+                                )}
+                                <Typography variant="h5" style={{ color: "black", fontSize: 15, marginLeft:15, marginTop:10 }}><strong>Selected Platforms for the Campaign</strong></Typography>
+                               <Typography style={{marginLeft:25}}>
+                                {props.platforms && props.platforms.map((platform, index)=> (
+                               
+                                    <span style={{ marginRight: 10, marginLeft: 5 }} key={index}>
+                                     {platform},
+                                    </span>
+                                    
+                                    
+                                
+                                ))}
+                                </Typography>
+
+                     <Typography variant="h5" style={{ color: "black", fontSize: 16, marginTop: 20, marginBottom:0 }}><strong>Influencer's Cumulative Stats In Summary</strong></Typography>
+                     <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Total Reach</strong>:&nbsp;&nbsp;{totalReach.toLocaleString()}</Typography>
+                    <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Average Engagement Rate</strong>:&nbsp;&nbsp;{averageEngagementRate.toLocaleString()}%</Typography>
+                    {props.currency.name.toLowerCase()==='naira' && <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Average Cost Per Reach</strong>:&nbsp;&nbsp;&#8358;{averageCostPerReach.toLocaleString()}</Typography>}
+                    {props.currency.name.toLowerCase()!=='naira' && <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Average Cost Per Reach</strong>:&nbsp;&nbsp;&#36;{averageCostPerReach.toLocaleString()}</Typography>}               
+                
+                    <Typography variant="h5" style={{ color: "black", fontSize: 18, marginTop: 20 }}><strong>Selected Agency Plan</strong></Typography>
+                   {props.agencyServicePlan && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Agency Service Plan</strong>:&nbsp;&nbsp;{props.agencyServicePlan.charAt(0).toUpperCase() + props.agencyServicePlan.slice(1)}</Typography>
+                )}
               </CardContent>
             </Grid>
 
@@ -664,12 +719,12 @@ export default function CheckoutCard(props) {
                 border: "1px dotted grey",
               }}
             >
-              {props.grandTotal && (
+              {props.creator && (
                 <CheckoutActionPage
-                  grandTotal={props.grandTotal}
-                  brandName={props.brandName}
-                  minimumQuantity={creator.minimumQuantity}
-                  creatorId={creator.id}
+                  creator={props.creator}
+                  brand={props.brand}
+                  platforms={props.platforms}
+                  creatorId={props.creator.id}
                   creativeQuantity={props.creativeQuantity}
                   creativeHookQuantity={props.creativeHookQuantity}
                   creativeType={props.creativeType}
@@ -694,6 +749,7 @@ export default function CheckoutCard(props) {
                   }
                   handleFailedSnackbar={props.handleFailedSnackbar}
                   renderCheckoutUpdate={props.renderCheckoutUpdate}
+                  policy={props.policy}
                 />
               )}
             </Grid>

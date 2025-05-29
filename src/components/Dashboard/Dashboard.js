@@ -144,6 +144,7 @@ function Dashboard(props) {
   const [minimumPlatformCharge, setMinimumPlatformCharge] = useState();
   const [vat, setVat] = useState();
   const [policyId, setPolicyId] = useState();
+  
   const [platformRateIsIncludedAsPartOfUserInputedAmount, setPlatformRateIsIncludedAsPartOfUserInputedAmount] = useState();
   const [vatIsIncludedAsPartOfUserInputedAmount, setVatIsIncludedAsPartOfUserInputedAmount] = useState();
   const [alert, setAlert] = useState({
@@ -185,6 +186,7 @@ function Dashboard(props) {
             setPlatformRateIsIncludedAsPartOfUserInputedAmount(workingData[0].platformRateIsIncludedAsPartOfUserInputedAmount);
             setVatIsIncludedAsPartOfUserInputedAmount(workingData[0].vatIsIncludedAsPartOfUserInputedAmount);
             setPolicyId(workingData[0]._id);
+            setPolicy(workingData[0]);
 
             
             }else{
@@ -763,6 +765,7 @@ function Dashboard(props) {
             id={policyId}          
             userId={userId}
             token={token}
+            policy={policy}
             platformRate={platformRate}
             minimumPlatformCharge={minimumPlatformCharge}
             vat={vat}

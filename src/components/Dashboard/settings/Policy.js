@@ -285,7 +285,7 @@ function Policy(props) {
 
 
 
- 
+ console.log("this props is at policy:", props);
 
   const onSubmit = (formValues) => {
     setLoading(true);
@@ -333,6 +333,17 @@ function Policy(props) {
         platformRateIsIncludedAsPartOfUserInputedAmount: platformRateIsIncludedAsPartOfUserInputedAmount,
         vatIsIncludedAsPartOfUserInputedAmount: vatIsIncludedAsPartOfUserInputedAmount,
         user: props.userId,
+        contractProcessingFeeForLocals: formValues.contractProcessingFeeForLocals,
+        contractProcessingFeeForNonLocals: formValues.contractProcessingFeeForNonLocals,
+        platinumServicePlanRate: formValues.platinumServicePlanRate,
+        goldServicePlanRate: formValues.goldServicePlanRate,
+        bronzeServicePlanRate: formValues.bronzeServicePlanRate,
+        celebrityInfluencerRecruitmentFee: formValues.celebrityInfluencerRecruitmentFee,
+        megaInfluencerRecruitmentFee: formValues.megaInfluencerRecruitmentFee,
+        macroInfluencerRecruitmentFee: formValues.macroInfluencerRecruitmentFee,
+        microInfluencerRecruitmentFee: formValues.microInfluencerRecruitmentFee,
+        nanoInfluencerRecruitmentFee: formValues.nanoInfluencerRecruitmentFee,
+        subNanoInfluencerRecruitmentFee: formValues.subNanoInfluencerRecruitmentFee,
       }
       
   
@@ -380,6 +391,17 @@ function Policy(props) {
         platformRateIsIncludedAsPartOfUserInputedAmount: platformRateIsIncludedAsPartOfUserInputedAmount ? platformRateIsIncludedAsPartOfUserInputedAmount : props.platformRateIsIncludedAsPartOfUserInputedAmount,
         vatIsIncludedAsPartOfUserInputedAmount: vatIsIncludedAsPartOfUserInputedAmount ? vatIsIncludedAsPartOfUserInputedAmount : props.vatIsIncludedAsPartOfUserInputedAmount,
         user: props.userId,
+        contractProcessingFeeForLocals: formValues.contractProcessingFeeForLocals ? formValues.contractProcessingFeeForLocals : props.policy.contractProcessingFeeForLocals, 
+        contractProcessingFeeForNonLocals: formValues.contractProcessingFeeForNonLocals ? formValues.contractProcessingFeeForNonLocals : props.policy.contractProcessingFeeForNonLocals,
+        platinumServicePlanRate: formValues.platinumServicePlanRate ? formValues.platinumServicePlanRate : props.policy.platinumServicePlanRate,
+        goldServicePlanRate: formValues.goldServicePlanRate ? formValues.goldServicePlanRate : props.policy.goldServicePlanRate,
+        bronzeServicePlanRate: formValues.bronzeServicePlanRate ? formValues.bronzeServicePlanRate : props.policy.bronzeServicePlanRate,
+        celebrityInfluencerRecruitmentFee: formValues.celebrityInfluencerRecruitmentFee ? formValues.celebrityInfluencerRecruitmentFee : props.policy.celebrityInfluencerRecruitmentFee,
+        megaInfluencerRecruitmentFee: formValues.megaInfluencerRecruitmentFee ? formValues.megaInfluencerRecruitmentFee : props.policy.megaInfluencerRecruitmentFee,
+        macroInfluencerRecruitmentFee: formValues.macroInfluencerRecruitmentFee ? formValues.macroInfluencerRecruitmentFee : props.policy.macroInfluencerRecruitmentFee,
+        microInfluencerRecruitmentFee: formValues.microInfluencerRecruitmentFee ? formValues.microInfluencerRecruitmentFee : props.policy.microInfluencerRecruitmentFee,
+        nanoInfluencerRecruitmentFee: formValues.nanoInfluencerRecruitmentFee ? formValues.nanoInfluencerRecruitmentFee : props.policy.nanoInfluencerRecruitmentFee,
+        subNanoInfluencerRecruitmentFee: formValues.subNanoInfluencerRecruitmentFee ? formValues.subNanoInfluencerRecruitmentFee : props.policy.subNanoInfluencerRecruitmentFee,
       }
       
 
@@ -488,6 +510,128 @@ function Policy(props) {
           type="number"
           defaultValue={props.minimumPlatformCharge}
           helperText="Minimum Platform Charge"
+         component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+        <Field
+          label=""
+          id="contractProcessingFeeForLocals"
+          name="contractProcessingFeeForLocals"
+          //placeholder="5500"
+          type="number"
+          defaultValue={props.policy && props.policy.contractProcessingFeeForLocals}
+          helperText="Contract Processing Fee For Locals"
+         component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+         <Field
+          label=""
+          id="contractProcessingFeeForNonLocals"
+          name="contractProcessingFeeForNonLocals"
+          //placeholder="5500"
+          type="number"
+          defaultValue={props.policy && props.policy.contractProcessingFeeForNonLocals}
+          helperText="Contract Processing Fee For Non Locals(in US Dollars)"
+         component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+
+         <Field
+          label=""
+          id="platinumServicePlanRate"
+          name="platinumServicePlanRate"
+          //placeholder="5500"
+          type="number"
+          defaultValue={props.policy && props.policy.platinumServicePlanRate}
+          helperText="Platinum Service Plan Rate"
+         component={renderSingleLineField}
+          style={{ marginTop: 0,width: '95%' }}
+        /><span style={{width: '5%', fontSize:20, marginTop:35}}>%</span>
+        <Field
+          label=""
+          id="goldServicePlanRate"
+          name="goldServicePlanRate"
+          //placeholder="5500"
+          type="number"
+          defaultValue={props.policy && props.policy.goldServicePlanRate}
+          helperText="Gold Service Plan Rate"
+         component={renderSingleLineField}
+           style={{ marginTop: 0,width: '95%' }}
+        /><span style={{width: '5%', fontSize:20, marginTop:35}}>%</span>
+        <Field
+          label=""
+          id="bronzeServicePlanRate"
+          name="bronzeServicePlanRate"
+          //placeholder="5500"
+          type="number"
+          defaultValue={props.policy && props.policy.bronzeServicePlanRate}
+          helperText="Bronze Service Plan Rate"
+         component={renderSingleLineField}
+           style={{ marginTop: 0,width: '95%' }}
+        /><span style={{width: '5%', fontSize:20, marginTop:35}}>%</span>
+        <Field
+          label=""
+          id="celebrityInfluencerRecruitmentFee"
+          name="celebrityInfluencerRecruitmentFee"
+          //placeholder="5500"
+          type="number"
+          defaultValue={props.policy && props.policy.celebrityInfluencerRecruitmentFee}
+          helperText="Celebrity Influencer Recruitment Fee"
+         component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+         <Field
+          label=""
+          id="megaInfluencerRecruitmentFee"
+          name="megaInfluencerRecruitmentFee"
+          //placeholder="5500"
+          type="number"
+          defaultValue={props.policy && props.policy.megaInfluencerRecruitmentFee}
+          helperText="Mega Influencer Recruitment Fee"
+         component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+         <Field
+          label=""
+          id="macroInfluencerRecruitmentFee"
+          name="macroInfluencerRecruitmentFee"
+          //placeholder="5500"
+          type="number"
+          defaultValue={props.policy && props.policy.macroInfluencerRecruitmentFee}
+          helperText="Macro Influencer Recruitment Fee"
+         component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+         <Field
+          label=""
+          id="microInfluencerRecruitmentFee"
+          name="microInfluencerRecruitmentFee"
+          //placeholder="5500"
+          type="number"
+          defaultValue={props.policy && props.policy.microInfluencerRecruitmentFee}
+          helperText="Micro Influencer Recruitment Fee"
+         component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+         <Field
+          label=""
+          id="nanoInfluencerRecruitmentFee"
+          name="nanoInfluencerRecruitmentFee"
+          //placeholder="5500"
+          type="number"
+          defaultValue={props.policy && props.policy.nanoInfluencerRecruitmentFee}
+          helperText="Nano Influencer Recruitment Fee"
+         component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+        <Field
+          label=""
+          id="subNanoInfluencerRecruitmentFee"
+          name="subNanoInfluencerRecruitmentFee"
+          //placeholder="5500"
+          type="number"
+          defaultValue={props.policy && props.policy.subNanoInfluencerRecruitmentFee}
+          helperText="Sub-Nano Influencer Recruitment Fee"
          component={renderSingleLineField}
           style={{ marginTop: 10 }}
         />

@@ -285,7 +285,6 @@ export default function ProductDetailCard(props) {
   //   Str(props.description).limit(100, "...").get()
   // );
 
- 
 
   useEffect(() => {
     setPrice(props.creator.price);
@@ -574,7 +573,7 @@ export default function ProductDetailCard(props) {
   };
 
   
-
+console.log('props:', props)
   return (
     <>
       {matchesMDUp ? (
@@ -594,187 +593,23 @@ export default function ProductDetailCard(props) {
             </Grid>
             <Grid item className={classes.secondRow}>
               <Box>
-              {props.creator.category[0].code === 'video-and-audio-creators'  && <Typography variant="h4" color="textSecondary" component="p">
+              {props.creator.country && <Typography variant="h4" color="textSecondary" component="p">
                     {props.creator.name}
                     <span style={{ fontSize: 16, fontWeight: 700 }}>
-                      <em> ({props.creator.country[0].name}, Video & Jingle Creator,  {props.creator.age} years)</em>
+                      <em> ({props.creator.country[0].name},  {props.creator.age} years, {props.creator.gender.charAt(0).toUpperCase() + props.creator.gender.slice(1)})</em>
                     </span>
                   </Typography>}
-                  {props.creator.category[0].code === 'video-only-creators'  && <Typography variant="h4" color="textSecondary" component="p">
-                    {props.creator.name}
-                    <span style={{ fontSize: 16, fontWeight: 700 }}>
-                      <em> ({props.creator.country[0].name}, Video Creator,  {props.creator.age} years)</em>
-                    </span>
-                  </Typography>}
-                  {props.creator.category[0].code === 'audio-only-creators'  && <Typography variant="h4" color="textSecondary" component="p">
-                    {props.creator.name}
-                    <span style={{ fontSize: 16, fontWeight: 700 }}>
-                      <em> ({props.creator.country[0].name}, Jingle Creator,  {props.creator.age} years)</em>
-                    </span>
-                  </Typography>}
+               <Typography style={{marginLeft:10,marginTop:10}}><strong>Bio:</strong></Typography>   
                 <Typography
                   variant="subtitle1"
                   color="textSecondary"
                   component="p"
+                  style={{ marginTop: 5, marginBottom: 10 }}
                 >
-                  {Str(props.bio).limit(200, "...").get()}
+                  {Str(props.bio).limit(600, "...").get()}
                 </Typography>
-                {props.creator.category[0].code === 'video-and-audio-creators'  && <Typography
-                  variant="h4"
-                  color="textSecondary"
-                  component="p"
-                  style={{ marginTop: 5, marginBottom: 15 }}
-                >
-                  <span style={{ marginLeft: 30 }}>
-                    <strong>
-                      {getCurrencyCode()}
-                      {props.creator.videoPrice
-                        ? props.creator.videoPrice
-                            .toFixed(2)
-                            .replace(/\d(?=(\d{3})+\.)/g, "$&,")
-                        : 0}
-                    </strong>
-                   
-                  </span>
-                  <span style={{fontSize:12,marginLeft:0}}>/per video</span>
-                  <span>&</span>
-                  <span style={{ marginLeft: 20 }}>
-                    <strong>
-                      {getCurrencyCode()}
-                      {props.creator.soundPrice
-                        ? props.creator.soundPrice
-                            .toFixed(2)
-                            .replace(/\d(?=(\d{3})+\.)/g, "$&,")
-                        : 0}
-                    </strong>
-                   
-                  </span>
-                  <span style={{fontSize:12,marginLeft:0}}>/per jingle</span>
-                </Typography>}
-
-                {props.creator.category[0].code === 'video-only-creators' && <Typography
-                  variant="h4"
-                  color="textSecondary"
-                  component="p"
-                  style={{ marginTop: 5, marginBottom: 15 }}
-                >
-                  <span style={{ marginLeft: 30 }}>
-                    <strong>
-                      {getCurrencyCode()}
-                      {props.creator.videoPrice
-                        ? props.creator.videoPrice
-                            .toFixed(2)
-                            .replace(/\d(?=(\d{3})+\.)/g, "$&,")
-                        : 0}
-                    </strong>
-                   
-                  </span>
-                  <span style={{fontSize:12,marginLeft:0}}>/per video</span>
-                  
-                </Typography>}
-
-                {props.creator.category[0].code === 'audio-only-creators' && <Typography
-                  variant="h4"
-                  color="textSecondary"
-                  component="p"
-                  style={{ marginTop: 5, marginBottom: 15 }}
-                >
-                   <span style={{ marginLeft: 20 }}>
-                    <strong>
-                      {getCurrencyCode()}
-                      {props.creator.soundPrice
-                        ? props.creator.soundPrice
-                            .toFixed(2)
-                            .replace(/\d(?=(\d{3})+\.)/g, "$&,")
-                        : 0}
-                    </strong>
-                   
-                  </span>
-                  <span style={{fontSize:12,marginLeft:0}}>/per jingle</span>
-                  
-                </Typography>}
-                {props.creator.category[0].code === 'video-and-audio-creators' && <Typography
-                      style={{ marginTop: 9, color: "red", marginBottom: 15 }}
-                    >
-                      <span
-                        style={{ fontSize: 14, marginLeft: 10, marginTop: 20 }}
-                      >
-                        {/* <strong>Delivery Method:</strong> &nbsp; */}
-                        <span>{"This is the price for the production of a 10 to 40 seconds marketing video or jingle"}</span>
-                      </span>
-                    </Typography>}
-                    {props.creator.category[0].code === 'video-only-creators' && <Typography
-                      style={{ marginTop: 9, color: "red", marginBottom: 15 }}
-                    >
-                      <span
-                        style={{ fontSize: 14, marginLeft: 10, marginTop: 20 }}
-                      >
-                        {/* <strong>Delivery Method:</strong> &nbsp; */}
-                        <span>{"This is the price for the production of a 10 to 40 seconds marketing video"}</span>
-                      </span>
-                    </Typography>}
-                    {props.creator.category[0].code === 'audio-only-creators' && <Typography
-                      style={{ marginTop: 9, color: "red", marginBottom: 15 }}
-                    >
-                      <span
-                        style={{ fontSize: 14, marginLeft: 10, marginTop: 20 }}
-                      >
-                        {/* <strong>Delivery Method:</strong> &nbsp; */}
-                        <span>{"This is the price for the production of a 10 to 40 seconds marketing jingle"}</span>
-                      </span>
-                    </Typography>}
                
-                
-                {(props.creator.category[0].code === 'video-and-audio-creators' || props.creator.category[0].code === 'video-only-creators') && <Typography>
-                  
-                    <strong style={{marginLeft:10}}> Cost for An Extra Video Hook:</strong>
-                    <span style={{ marginLeft: 5 }}>
-                    <strong>
-                      {getCurrencyCode()}
-                      {props.creator.videoHookPrice
-                        ? props.creator.videoHookPrice
-                            .toFixed(2)
-                            .replace(/\d(?=(\d{3})+\.)/g, "$&,")
-                        : 0}
-                    </strong>
-                   
-                  </span>
-                    
-          
-                </Typography>}
-                {(props.creator.category[0].code === 'video-and-audio-creators' || props.creator.category[0].code === 'audio-only-creators') && <Typography>
-                  
-                  <strong style={{marginLeft:10}}> Cost for An Extra Sound Hook:</strong>
-                  <span style={{ marginLeft: 5 }}>
-                  <strong>
-                    {getCurrencyCode()}
-                    {props.creator.soundHookPrice
-                      ? props.creator.soundHookPrice
-                          .toFixed(2)
-                          .replace(/\d(?=(\d{3})+\.)/g, "$&,")
-                      : 0}
-                  </strong>
-                 
-                </span>
-                  
-        
-              </Typography>}
-               
-                  
-                
-                {(props.creator.category[0].code === 'video-and-audio-creators' || props.creator.category[0].code === 'video-only-creators') && <Typography>
-                  <span style={{ fontSize: 14, marginLeft: 10 }}>
-                    <strong> Video Delivery Period:</strong>
-                    <span>{props.creator.videoDeliveryDays} days</span>
-                  </span>
-                </Typography>}
-                {(props.creator.category[0].code === 'video-and-audio-creators' || props.creator.category[0].code === 'audio-only-creators') && <Typography>
-                  <span style={{ fontSize: 14, marginLeft: 10 }}>
-                    <strong> Jingle Delivery Period:</strong>
-                    <span>{props.creator.soundDeliveryDays} days</span>
-                  </span>
-                </Typography>}
-                <Typography style={{marginLeft:10}}><strong>Niches:</strong></Typography>
+                <Typography style={{marginLeft:10,marginTop:10}}><strong>Choice Niches:</strong></Typography>
               
                <Grid container direction="row" style={{marginLeft:30}}>
                               {props.creator.niches.map((niche, index) => (
@@ -782,7 +617,7 @@ export default function ProductDetailCard(props) {
 
                               ))}
                             </Grid>
-                <Typography style={{marginLeft:10}}><strong>Languages:</strong></Typography>
+                <Typography style={{marginLeft:10,marginTop:10}}><strong> Choice Languages:</strong></Typography>
                 
                 <Grid container direction="row" style={{marginLeft:30}}>
                               {props.creator.languages.map((lang, index) => (
@@ -791,15 +626,16 @@ export default function ProductDetailCard(props) {
                               ))}
                             </Grid>
 
+                 <Typography style={{marginLeft:10, marginTop:10}}><strong>Choice Platforms:</strong></Typography>             
+                 <Grid container direction="row" style={{marginLeft:30}}>
+                              {props.creator.platforms.map((platform, index) => (
+                                <Typography>{platform.charAt(0).toUpperCase() + platform.slice(1)},  </Typography>
 
-                <Typography style={{marginTop: 20}}>
-                    <span style={{ fontSize: 14, marginLeft: 12, color:"red",  }}>
-                      <strong>
-                       Note: A hook is the initial 2 to 5 seconds of a video or jingle designed to immediately capture the audience's attention and encourage them to continue watching or listening.
-                      </strong>
-                     
-                    </span>
-                  </Typography>
+                              ))}
+                            </Grid>            
+
+
+                
               </Box>
             </Grid>
             <Grid item className={classes.thirdRow}>
@@ -851,7 +687,7 @@ export default function ProductDetailCard(props) {
               </Box>
             </Grid>
           </Grid>
-          {samplesList.length >=1 && <Typography style={{marginLeft:'40%',marginTop:20, fontSize:20, fontWeight:700}}>Creator Work Samples</Typography>}
+          {samplesList.length >=1 && <Typography style={{marginLeft:'40%',marginTop:20, fontSize:20, fontWeight:700}}>Influencer's Work Samples</Typography>}
           <Grid
             item
             container
@@ -910,208 +746,51 @@ export default function ProductDetailCard(props) {
               </Card>
             </Grid>
             <Grid item className={classes.secondRowMobile}>
-              {props.creator.category && props.creator.country && <Box>
-              {props.creator.category[0].code === 'video-and-audio-creators'  && <Typography variant="h4" color="textSecondary" component="p">
+               <Box>
+              {props.creator.country && <Typography variant="h4" color="textSecondary" component="p">
                     {props.creator.name}
                     <span style={{ fontSize: 16, fontWeight: 700 }}>
-                      <em> ({props.creator.country[0].name}, Video & Jingle Creator,  {props.creator.age} years)</em>
+                      <em> ({props.creator.country[0].name},  {props.creator.age} years, {props.creator.gender.charAt(0).toUpperCase() + props.creator.gender.slice(1)})</em>
                     </span>
                   </Typography>}
-                  {props.creator.category[0].code === 'video-only-creators'  && <Typography variant="h4" color="textSecondary" component="p">
-                    {props.creator.name}
-                    <span style={{ fontSize: 16, fontWeight: 700 }}>
-                      <em> ({props.creator.country[0].name}, Video Creator,  {props.creator.age} years)</em>
-                    </span>
-                  </Typography>}
-                  {props.creator.category[0].code === 'audio-only-creators'  && <Typography variant="h4" color="textSecondary" component="p">
-                    {props.creator.name}
-                    <span style={{ fontSize: 16, fontWeight: 700 }}>
-                      <em> ({props.creator.country[0].name}, Jingle Creator,  {props.creator.age} years)</em>
-                    </span>
-                  </Typography>}
-                  <Typography
+               <Typography style={{marginLeft:10,marginTop:10}}><strong>Bio:</strong></Typography>   
+                <Typography
                   variant="subtitle1"
                   color="textSecondary"
                   component="p"
+                  style={{ marginTop: 5, marginBottom: 10 }}
                 >
-                  {Str(props.bio).limit(200, "...").get()}
+                  {Str(props.bio).limit(600, "...").get()}
                 </Typography>
-                {props.creator.category[0].code === 'video-and-audio-creators'  && <Typography
-                  variant="h5"
-                  color="textSecondary"
-                  component="p"
-                  style={{ marginTop: 5, marginBottom: 15 }}
-                >
-                  <span style={{ marginLeft: 0 }}>
-                    <strong>
-                      {getCurrencyCode()}
-                      {props.creator.videoPrice
-                        ? props.creator.videoPrice
-                            .toFixed(2)
-                            .replace(/\d(?=(\d{3})+\.)/g, "$&,")
-                        : 0}
-                    </strong>
-                   
-                  </span>
-                  <span style={{fontSize:12,marginLeft:0}}>/video</span>
-                  <span>&</span>
-                  <span style={{ marginLeft: 10 }}>
-                    <strong>
-                      {getCurrencyCode()}
-                      {props.creator.soundPrice
-                        ? props.creator.soundPrice
-                            .toFixed(2)
-                            .replace(/\d(?=(\d{3})+\.)/g, "$&,")
-                        : 0}
-                    </strong>
-                   
-                  </span>
-                  <span style={{fontSize:12,marginLeft:0}}>/jingle</span>
-                </Typography>}
-
-                {props.creator.category[0].code === 'video-only-creators' && <Typography
-                  variant="h4"
-                  color="textSecondary"
-                  component="p"
-                  style={{ marginTop: 5, marginBottom: 15 }}
-                >
-                  <span style={{ marginLeft: 30 }}>
-                    <strong>
-                      {getCurrencyCode()}
-                      {props.creator.videoPrice
-                        ? props.creator.videoPrice
-                            .toFixed(2)
-                            .replace(/\d(?=(\d{3})+\.)/g, "$&,")
-                        : 0}
-                    </strong>
-                   
-                  </span>
-                  <span style={{fontSize:12,marginLeft:0}}>/per video</span>
-                  
-                </Typography>}
-
-                {props.creator.category[0].code === 'audio-only-creators' && <Typography
-                  variant="h4"
-                  color="textSecondary"
-                  component="p"
-                  style={{ marginTop: 5, marginBottom: 15 }}
-                >
-                   <span style={{ marginLeft: 20 }}>
-                    <strong>
-                      {getCurrencyCode()}
-                      {props.creator.soundPrice
-                        ? props.creator.soundPrice
-                            .toFixed(2)
-                            .replace(/\d(?=(\d{3})+\.)/g, "$&,")
-                        : 0}
-                    </strong>
-                   
-                  </span>
-                  <span style={{fontSize:12,marginLeft:0}}>/per jingle</span>
-                  
-                </Typography>}
-                {props.creator.category[0].code === 'video-and-audio-creators' && <Typography
-                      style={{ marginTop: 9, color: "red", marginBottom: 15 }}
-                    >
-                      <span
-                        style={{ fontSize: 14, marginLeft: 10, marginTop: 20 }}
-                      >
-                        {/* <strong>Delivery Method:</strong> &nbsp; */}
-                        <span>{"This is the price for the production of a 10 to 40 seconds marketing video or jingle"}</span>
-                      </span>
-                    </Typography>}
-                    {props.creator.category[0].code === 'video-only-creators' && <Typography
-                      style={{ marginTop: 9, color: "red", marginBottom: 15 }}
-                    >
-                      <span
-                        style={{ fontSize: 14, marginLeft: 10, marginTop: 20 }}
-                      >
-                        {/* <strong>Delivery Method:</strong> &nbsp; */}
-                        <span>{"This is the price for the production of a 10 to 40 seconds marketing video"}</span>
-                      </span>
-                    </Typography>}
-                    {props.creator.category[0].code === 'audio-only-creators' && <Typography
-                      style={{ marginTop: 9, color: "red", marginBottom: 15 }}
-                    >
-                      <span
-                        style={{ fontSize: 14, marginLeft: 10, marginTop: 20 }}
-                      >
-                        {/* <strong>Delivery Method:</strong> &nbsp; */}
-                        <span>{"This is the price for the production of a 10 to 40 seconds marketing jingle"}</span>
-                      </span>
-                    </Typography>}
                
-                
-                {(props.creator.category[0].code === 'video-and-audio-creators' || props.creator.category[0].code === 'video-only-creators') && <Typography>
-                  
-                    <strong style={{marginLeft:10}}> Cost for An Extra Video Hook:</strong>
-                    <span style={{ marginLeft: 5 }}>
-                    <strong>
-                      {getCurrencyCode()}
-                      {props.creator.videoHookPrice
-                        ? props.creator.videoHookPrice
-                            .toFixed(2)
-                            .replace(/\d(?=(\d{3})+\.)/g, "$&,")
-                        : 0}
-                    </strong>
-                   
-                  </span>
-                    
-          
-                </Typography>}
-                {(props.creator.category[0].code === 'video-and-audio-creators' || props.creator.category[0].code === 'audio-only-creators') && <Typography>
-                  
-                  <strong style={{marginLeft:10}}> Cost for An Extra Sound Hook:</strong>
-                  <span style={{ marginLeft: 5 }}>
-                  <strong>
-                    {getCurrencyCode()}
-                    {props.creator.soundHookPrice
-                      ? props.creator.soundHookPrice
-                          .toFixed(2)
-                          .replace(/\d(?=(\d{3})+\.)/g, "$&,")
-                      : 0}
-                  </strong>
-                 
-                </span>
-                  
-        
-              </Typography>}
-               
-                  
-                
-                <Typography>
-                  <span style={{ fontSize: 14, marginLeft: 10 }}>
-                    <strong> Delivery Period:</strong>
-                    <span>{props.creator.videoDeliveryDays} days</span>
-                  </span>
-                </Typography>
-                <Typography style={{marginLeft:10}}><strong>Niches:</strong></Typography>
+                <Typography style={{marginLeft:10,marginTop:10}}><strong>Choice Niches:</strong></Typography>
               
-               {props.creator.niches && <Grid container direction="row" style={{marginLeft:30}}>
+               {props.creator && props.creator.niches && <Grid container direction="row" style={{marginLeft:30}}>
                               {props.creator.niches.map((niche, index) => (
                                 <Typography>{niche.niche},  </Typography>
 
                               ))}
                             </Grid>}
-                <Typography style={{marginLeft:10}}><strong>Languages:</strong></Typography>
+                <Typography style={{marginLeft:10,marginTop:10}}><strong> Choice Languages:</strong></Typography>
                 
-                {props.creator.languages && <Grid container direction="row" style={{marginLeft:30}}>
+                {props.creator && props.creator.languages && <Grid container direction="row" style={{marginLeft:30}}>
                               {props.creator.languages.map((lang, index) => (
                                 <Typography>{lang.language},  </Typography>
 
                               ))}
                             </Grid>}
 
+                 <Typography style={{marginLeft:10, marginTop:10}}><strong>Choice Platforms:</strong></Typography>             
+                 {props.creator && props.creator.platforms && <Grid container direction="row" style={{marginLeft:30}}>
+                              {props.creator.platforms.map((platform, index) => (
+                                <Typography>{platform.charAt(0).toUpperCase() + platform.slice(1)},  </Typography>
 
-                <Typography style={{marginTop: 20}}>
-                    <span style={{ fontSize: 14, marginLeft: 12, color:"red",  }}>
-                      <strong>
-                       Note: A hook is the initial 2 to 5 seconds of a video designed to immediately capture the audience's attention and encourage them to continue watching.
-                      </strong>
-                     
-                    </span>
-                  </Typography>
-              </Box>}
+                              ))}
+                            </Grid> }           
+
+
+                
+              </Box>
             </Grid>
             <Grid item className={classes.thirdRowMobile}>
               <Box>

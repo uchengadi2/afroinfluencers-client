@@ -206,13 +206,22 @@ function AddCreatorForm(props) {
   const [categoryList, setCategoryList] = useState([]);
   const [category, setCategory] = useState(props.category);
   const[languageList, setLanguageList] = useState([]);
+  const[platformsList, setPlatformsList] = useState([]);
   const [nicheList, setNicheList] = useState([]);
   const [currencyList, setCurrencyList] = useState([]);
-  const [country, setCountry] = useState(props.yourCountry);
+  const [country, setCountry] = useState(props.creator.country ? props.creator.country[0].id : "");
   const [language, setLanguage] = useState([]);
+  const [platform, setPlatform] = useState([])
   const [niche, setNiche] = useState([]);
   const [gender, setGender] = useState();
   const [currency, setCurrency] = useState();
+  const [blogPostCostDuration, setBlogPostCostDuration] = useState("")
+  const [creator, setCreator] = useState({});
+  const [name, setName] = useState("");
+
+
+
+
   const [loading, setLoading] = useState(false);
   const theme = useTheme();
   const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
@@ -225,11 +234,14 @@ function AddCreatorForm(props) {
   const currentUser = params.userId;
 
 
+ 
+
   
   useEffect(() => {
     const fetchData = async () => {
       let allData = [];
       let allLangData = [];
+      let allPlatformData = [];
 
       {props.languages.map((lang, index) => (
         allLangData.push(lang.id)
@@ -241,17 +253,28 @@ function AddCreatorForm(props) {
         
 
       ))}
+      {props.creator.platforms.map((platform, index) => (
+        allPlatformData.push(platform)
+        
+
+      ))}
+
+      //set country
+      setCountry(props.creator.country ? props.creator.country[0].id : "");
       setNiche(allData);
       setLanguage(allLangData)
       setCurrency(props.currency[0].id)
-     
+      setPlatform(allPlatformData)
+      setBlogPostCostDuration(props.creator.blogPostCostDuration ? props.creator.blogPostCostDuration : "daily")
+      setGender(props.creator.gender ? props.creator.gender:"male")
+    
       
     };
 
     //call the function
 
     fetchData().catch(console.error);
-  }, [props.languages, props.niches, props.currency]);
+  }, [props.languages, props.niches, props.currency,props.creator.country,props.creator.blogPostCostDuration]);
 
   
 
@@ -285,6 +308,24 @@ function AddCreatorForm(props) {
         allData.push({ id: language._id, name: language.language });
       });
       setLanguageList(allData);
+    };
+
+    //call the function
+
+    fetchData().catch(console.error);
+  }, []);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      let allData = [];
+      api.defaults.headers.common["Authorization"] = `Bearer ${props.token}`;
+      const response = await api.get(`/platforms`);
+      const workingData = response.data.data.data;
+      workingData.map((platform) => {
+        allData.push({ id: platform._id, name: platform.platform });
+      });
+      setPlatformsList(allData);
     };
 
     //call the function
@@ -375,6 +416,14 @@ function AddCreatorForm(props) {
     setCategory(event.target.value);
   };
 
+  const handlePlatformChange = (event)=>{
+    setPlatform(event.target.value)
+  }
+
+  const handleBlogPostCostDurationChange = (event)=>{
+    setBlogPostCostDuration(event.target.value)
+  }
+
   
 
   //get the countries list
@@ -434,6 +483,19 @@ function AddCreatorForm(props) {
     });
   };
 
+  //get the platformlist list
+  const renderPlatformsList = () => {
+    return platformsList.map((item) => {
+      return (
+        <MenuItem key={item.id} value={item.id}>
+          {item.name}
+        </MenuItem>
+      );
+    });
+  };
+
+  
+
   const buttonContent = () => {
     return <React.Fragment> Submit</React.Fragment>;
   };
@@ -442,7 +504,7 @@ function AddCreatorForm(props) {
     return <React.Fragment> Update Info</React.Fragment>;
   };
 
-  const renderStatusField = ({
+  const renderBlogPostCostDurationField = ({
     input,
     label,
     meta: { touched, error, invalid },
@@ -455,20 +517,23 @@ function AddCreatorForm(props) {
         <FormControl variant="outlined">
           {/* <InputLabel id="vendor_city">City</InputLabel> */}
           <Select
-            labelId="status"
-            id="status"
-            value={status}
-            onChange={handleStatusChange}
+            labelId="blogPostCostDuration"
+            id="blogPostCostDuration"
+            value={blogPostCostDuration}
+            onChange={handleBlogPostCostDurationChange}
             //label="Display On Store?"
-            style={{width:matchesMDUp?660:220, marginTop: 10, height: 38 }}
+            style={{width:matchesMDUp?650:220, marginTop: 10, height: 38 }}
             //{...input}
           >
-            <MenuItem value={"inactive"}>Inactive</MenuItem>
-            <MenuItem value={"active"}>Active</MenuItem>
-            <MenuItem value={"suspended"}>Suspended</MenuItem>
-            <MenuItem value={"dismissed"}>Dismissed</MenuItem>
+            <MenuItem value={"daily"}>Daily</MenuItem>
+            <MenuItem value={"weekly"}>Weekly</MenuItem>
+            <MenuItem value={"bi-weekly"}>Bi-Weekly</MenuItem>
+            <MenuItem value={"monthly"}>Monthly</MenuItem>
+            <MenuItem value={"quarterly"}>Quarterly</MenuItem>
+            <MenuItem value={"half-yearly"}>Haly Yearly</MenuItem>
+            <MenuItem value={"yearly"}>Yearly</MenuItem>
           </Select>
-          <FormHelperText>Status</FormHelperText>
+          <FormHelperText>Blog Cost Per Post Duration</FormHelperText>
         </FormControl>
       </Box>
     );
@@ -490,10 +555,10 @@ function AddCreatorForm(props) {
           <Select
             labelId="gender"
             id="gender"
-            value={props.hasInfo ? props.yourGender : gender}
+            value={gender}
             onChange={handleGenderChange}
             //label="Display On Store?"
-            style={{width:matchesMDUp?660:220, marginTop: 10, height: 38 }}
+            style={{width:matchesMDUp?650:220, marginTop: 10, height: 38 }}
             //{...input}
           >
             <MenuItem value={"male"}>Male</MenuItem>
@@ -525,7 +590,7 @@ function AddCreatorForm(props) {
             //defaultValue={props.yourCountry}
             onChange={handleCountryChange}
             // label="User"
-            style={{ marginTop: 0, width: matchesMDUp?660:220, height: 38, marginLeft:0,marginRight:0 }}
+            style={{ marginTop: 0, width: matchesMDUp?650:220, height: 38, marginLeft:0,marginRight:0 }}
             //{...input}
           >
             {renderCountriesList()}
@@ -557,12 +622,50 @@ function AddCreatorForm(props) {
             multiple={true}
             onChange={handleLanguageChange}
             // label="User"
-            style={{ marginTop: 10, width:matchesMDUp?660:220, height: 38, marginLeft:0,marginRight:0 }}
+            style={{ marginTop: 10, width:matchesMDUp?650:220, height: 38, marginLeft:0,marginRight:0 }}
             //{...input}
           >
             {renderLanguagesList()}
           </Select>
           <FormHelperText>What Languages Do You Prefer to Work With?</FormHelperText>
+        </FormControl>
+      </Box>
+    );
+  };
+
+
+
+
+  const renderPlatformsField = ({
+    input,
+    label,
+    meta: { touched, error, invalid },
+    type,
+    id,
+    ...custom
+  }) => {
+    return (
+      <Box>
+        <FormControl variant="outlined">
+          {/* <InputLabel id="vendor_city">City</InputLabel> */}
+          <Select
+            labelId="platform"
+            id="platform"            
+            value={platform}                       
+            multiple={true}
+            onChange={handlePlatformChange}
+            // label="User"
+            style={{ marginTop: 10, width:matchesMDUp?650:220, height: 38, marginLeft:0,marginRight:0 }}
+            //{...input}
+          >
+            <MenuItem value={"facebook"}>Facebook</MenuItem>
+            <MenuItem value={"instagram"}>Instagram</MenuItem>
+            <MenuItem value={"twitter"}>Twitter(X)</MenuItem>
+            <MenuItem value={"tiktok"}>Tiktok</MenuItem>
+            <MenuItem value={"linkedin"}>LinkedIn</MenuItem>
+            <MenuItem value={"blog"}>Blog</MenuItem>
+          </Select>
+          <FormHelperText>What Platforms Do You Work With?</FormHelperText>
         </FormControl>
       </Box>
     );
@@ -589,7 +692,7 @@ function AddCreatorForm(props) {
             multiple={true}
             onChange={handleNicheChange}
             // label="User"
-            style={{ marginTop: 10, width:matchesMDUp?660:220, height: 38, marginLeft:0,marginRight:0 }}
+            style={{ marginTop: 10, width:matchesMDUp?650:220, height: 38, marginLeft:0,marginRight:0 }}
             //{...input}
           >
             {renderNichesList()}
@@ -620,12 +723,12 @@ function AddCreatorForm(props) {
             value={currency}
             onChange={handleCurrencyChange}
             // label="User"
-            style={{ marginTop: 10, width:matchesMDUp?660:220, height: 38, marginLeft:0,marginRight:0 }}
+            style={{ marginTop: 10, width:matchesMDUp?650:220, height: 38, marginLeft:0,marginRight:0 }}
             //{...input}
           >
             {renderCurrenciesList()}
           </Select>
-          <FormHelperText>Select The Currency Of Your Country</FormHelperText>
+          <FormHelperText>Select The Currency To Work With(Nigerians Should Choose Naira)</FormHelperText>
         </FormControl>
       </Box>
     );
@@ -650,7 +753,7 @@ function AddCreatorForm(props) {
             value={category}
             onChange={handleCategoryChange}
             // label="User"
-            style={{ marginTop: 10, width:matchesMDUp?660:220, height: 38, marginLeft:0,marginRight:0 }}
+            style={{ marginTop: 10, width:matchesMDUp?650:220, height: 38, marginLeft:0,marginRight:0 }}
             //{...input}
           >
             {renderCategoriesList()}
@@ -662,13 +765,155 @@ function AddCreatorForm(props) {
   };
 
 
-  
 
+console.log('creator id is:',props.creator._id)
 
   const onSubmit = (formValues) => {
     setLoading(true);
 
-    if(!props.hasInfo){
+     //computing the facebook category of  a creator
+      let facebookCategory = "";
+      if(platform.includes("facebook")){
+        if(formValues.facebookTotalFollowers && formValues.facebookTotalFollowers !== 0){
+          if(formValues.facebookTotalFollowers < 1000){
+            facebookCategory = "sub-nano-influencers";
+          }else if(formValues.facebookTotalFollowers >= 1000 && formValues.facebookTotalFollowers < 10000){
+            facebookCategory = "nano-influencers";
+          }else if(formValues.facebookTotalFollowers >= 10000 && formValues.facebookTotalFollowers < 100000){
+            facebookCategory = "micro-influencers";
+          }else if(formValues.facebookTotalFollowers >= 100000 && formValues.facebookTotalFollowers < 1000000){
+            facebookCategory = "macro-influencers";
+          }else if(formValues.facebookTotalFollowers >= 1000000 && formValues.facebookTotalFollowers < 10000000){
+            facebookCategory = "mega-influencers";
+          }else if(formValues.facebookTotalFollowers >= 10000000){
+            facebookCategory = "celebrity-influencers";
+          }
+        }else{
+          facebookCategory = "sub-nano-influencers";
+        }
+      }else{
+        facebookCategory = "sub-nano-influencers";
+      }
+
+      //computing the instagram category of  a creator
+      let instagramCategory = "";
+      if(platform.includes("instagram")){
+        if(formValues.instagramTotalFollowers && formValues.instagramTotalFollowers !== 0){
+          if(formValues.instagramTotalFollowers < 1000){
+            instagramCategory = "sub-nano-influencers";
+          }else if(formValues.instagramTotalFollowers >= 1000 && formValues.instagramTotalFollowers < 10000){
+            instagramCategory = "nano-influencers";
+          }else if(formValues.instagramTotalFollowers >= 10000 && formValues.instagramTotalFollowers < 100000){
+            instagramCategory = "micro-influencers";
+          }else if(formValues.instagramTotalFollowers >= 100000 && formValues.instagramTotalFollowers < 1000000){
+            instagramCategory = "macro-influencers";
+          }else if(formValues.instagramTotalFollowers >= 1000000 && formValues.instagramTotalFollowers < 10000000){
+            instagramCategory = "mega-influencers";
+          }else if(formValues.instagramTotalFollowers >= 10000000){
+            instagramCategory = "celebrity-influencers";
+          }
+        }else{
+          instagramCategory = "sub-nano-influencers";
+        }
+      }else{
+        instagramCategory = "sub-nano-influencers";
+      }
+
+      //computing the twitter category of  a creator
+      let twitterCategory = "";
+      if(platform.includes("twitter")){
+        if(formValues.twitterTotalFollowers && formValues.twitterTotalFollowers !== 0){
+          if(formValues.twitterTotalFollowers < 1000){
+            twitterCategory = "sub-nano-influencers";
+          }else if(formValues.twitterTotalFollowers >= 1000 && formValues.twitterTotalFollowers < 10000){
+            twitterCategory = "nano-influencers";
+          }else if(formValues.twitterTotalFollowers >= 10000 && formValues.twitterTotalFollowers < 100000){
+            twitterCategory = "micro-influencers";
+          }else if(formValues.twitterTotalFollowers >= 100000 && formValues.twitterTotalFollowers < 1000000){
+            twitterCategory = "macro-influencers";
+          }else if(formValues.twitterTotalFollowers >= 1000000 && formValues.twitterTotalFollowers < 10000000){
+            twitterCategory = "mega-influencers";
+          }else if(formValues.twitterTotalFollowers >= 10000000){
+            twitterCategory = "celebrity-influencers";
+          }
+        }else{
+          twitterCategory = "sub-nano-influencers";
+        }
+      }else{
+        twitterCategory = "sub-nano-influencers";
+      }
+
+      //computing the tiktok category of  a creator
+      let tiktokCategory = "";
+      if(platform.includes("tiktok")){
+        if(formValues.tiktokTotalFollowers && formValues.tiktokTotalFollowers !== 0){
+          if(formValues.tiktokTotalFollowers < 1000){
+            tiktokCategory = "sub-nano-influencers";
+          }else if(formValues.tiktokTotalFollowers >= 1000 && formValues.tiktokTotalFollowers < 10000){
+            tiktokCategory = "nano-influencers";
+          }else if(formValues.tiktokTotalFollowers >= 10000 && formValues.tiktokTotalFollowers < 100000){
+            tiktokCategory = "micro-influencers";
+          }else if(formValues.tiktokTotalFollowers >= 100000 && formValues.tiktokTotalFollowers < 1000000){
+            tiktokCategory = "macro-influencers";
+          }else if(formValues.tiktokTotalFollowers >= 1000000 && formValues.tiktokTotalFollowers < 10000000){
+            tiktokCategory = "mega-influencers";
+          }else if(formValues.tiktokTotalFollowers >= 10000000){
+            tiktokCategory = "celebrity-influencers";
+          }
+        }else{
+          tiktokCategory = "sub-nano-influencers";
+        }
+      }else{
+        tiktokCategory = "sub-nano-influencers";
+      }
+      //computing the linkedIn category of  a creator
+      let linkedInCategory = "";
+      if(platform.includes("linkedin")){
+        if(formValues.linkedInTotalFollowers && formValues.linkedInTotalFollowers !== 0){
+          if(formValues.linkedInTotalFollowers < 1000){
+            linkedInCategory = "sub-nano-influencers";
+          }else if(formValues.linkedInTotalFollowers >= 1000 && formValues.linkedInTotalFollowers < 10000){
+            linkedInCategory = "nano-influencers";
+          }else if(formValues.linkedInTotalFollowers >= 10000 && formValues.linkedInTotalFollowers < 100000){
+            linkedInCategory = "micro-influencers";
+          }else if(formValues.linkedInTotalFollowers >= 100000 && formValues.linkedInTotalFollowers < 1000000){
+            linkedInCategory = "macro-influencers";
+          }else if(formValues.linkedInTotalFollowers >= 1000000 && formValues.linkedInTotalFollowers < 10000000){
+            linkedInCategory = "mega-influencers";
+          }else if(formValues.linkedInTotalFollowers >= 10000000){
+            linkedInCategory = "celebrity-influencers";
+          }
+        }else{
+          linkedInCategory = "sub-nano-influencers";
+        }
+      }else{
+        linkedInCategory = "sub-nano-influencers";
+      }
+      //computing the blog category of  a creator
+      let blogCategory = "";
+      if(platform.includes("blog")){
+        if(formValues.blogTotalVisitorsPerMonth && formValues.blogTotalVisitorsPerMonth !== 0){
+          if(formValues.blogTotalVisitorsPerMonth < 1000){
+            blogCategory = "sub-nano-influencers";
+          }else if(formValues.blogTotalVisitorsPerMonth >= 1000 && formValues.blogTotalVisitorsPerMonth < 10000){
+            blogCategory = "nano-influencers";
+          }else if(formValues.blogTotalVisitorsPerMonth >= 10000 && formValues.blogTotalVisitorsPerMonth < 100000){
+            blogCategory = "micro-influencers";
+          }else if(formValues.blogTotalVisitorsPerMonth >= 100000 && formValues.blogTotalVisitorsPerMonth < 1000000){
+            blogCategory = "macro-influencers";
+          }else if(formValues.blogTotalVisitorsPerMonth >= 1000000 && formValues.blogTotalVisitorsPerMonth < 10000000){
+            blogCategory = "mega-influencers";
+          }else if(formValues.blogTotalVisitorsPerMonth >= 10000000){
+            blogCategory = "celebrity-influencers";
+          }
+        }else{
+          blogCategory = "sub-nano-influencers";
+        }
+      }else{
+        blogCategory = "sub-nano-influencers";
+      }
+
+    if(props.hasInfo && !props.creator.id){
 
       if (
         !formValues["name"] ||
@@ -682,87 +927,12 @@ function AddCreatorForm(props) {
 
       
       const slug = `${formValues.name.replace(/\s/g, '-').toLowerCase()}-${Math.floor(Math.random() * 100000000)}`;
-     
-       //Computing Video Price
-
-       let actualVideoPrice = 0;
-       if(props.platformRateIsIncludedAsPartOfUserInputedAmount && props.vatIsIncludedAsPartOfUserInputedAmount){
-         actualVideoPrice = formValues.videoPrice
-       }else{
-         if(props.platformRateIsIncludedAsPartOfUserInputedAmount && !props.vatIsIncludedAsPartOfUserInputedAmount){
-           actualVideoPrice = parseFloat(formValues.videoPrice) + parseFloat(formValues.videoPrice)*parseFloat(props.vat)/100;
-         }else if(!props.platformRateIsIncludedAsPartOfUserInputedAmount && props.vatIsIncludedAsPartOfUserInputedAmount){
-           actualVideoPrice = parseFloat(formValues.videoPrice) + parseFloat(formValues.videoPrice)*parseFloat(props.platformRate)/100;
-         }else{
-           //both platform rate and vat not included
-           actualVideoPrice = parseFloat(formValues.videoPrice) + (parseFloat(formValues.videoPrice)*parseFloat(props.platformRate)/100) + (parseFloat(formValues.videoPrice)*parseFloat(props.vat)/100);
-         }
-         
-       }
- 
-       //computing video hook prices
- 
-       let actualVideoHookPrice = 0;
-       if(props.platformRateIsIncludedAsPartOfUserInputedAmount && props.vatIsIncludedAsPartOfUserInputedAmount){
-         actualVideoHookPrice = formValues.videoHookPrice
-       }else{
-         if(props.platformRateIsIncludedAsPartOfUserInputedAmount && !props.vatIsIncludedAsPartOfUserInputedAmount){
-           actualVideoHookPrice = parseFloat(formValues.videoHookPrice) + parseFloat(formValues.videoHookPrice)*parseFloat(props.vat)/100;
-         }else if(!props.platformRateIsIncludedAsPartOfUserInputedAmount && props.vatIsIncludedAsPartOfUserInputedAmount){
-           actualVideoHookPrice = parseFloat(formValues.videoHookPrice) + parseFloat(formValues.videoHookPrice)*parseFloat(props.platformRate)/100;
-         }else{
-           //both platform rate and vat not included
-           actualVideoHookPrice = parseFloat(formValues.videoHookPrice) + (parseFloat(formValues.videoHookPrice)*parseFloat(props.platformRate)/100) + (parseFloat(formValues.videoHookPrice)*parseFloat(props.vat)/100);
-         }
-         
-       }
- 
-       //computing the sound prices
- 
-       let actualSoundPrice = 0;
-       if(props.platformRateIsIncludedAsPartOfUserInputedAmount && props.vatIsIncludedAsPartOfUserInputedAmount){
-         actualSoundPrice = formValues.soundPrice
-       }else{
-         if(props.platformRateIsIncludedAsPartOfUserInputedAmount && !props.vatIsIncludedAsPartOfUserInputedAmount){
-           actualSoundPrice = parseFloat(formValues.soundPrice) + parseFloat(formValues.soundPrice)*parseFloat(props.vat)/100;
-         }else if(!props.platformRateIsIncludedAsPartOfUserInputedAmount && props.vatIsIncludedAsPartOfUserInputedAmount){
-           actualSoundPrice = parseFloat(formValues.soundPrice) + parseFloat(formValues.soundPrice)*parseFloat(props.platformRate)/100;
-         }else{
-           //both platform rate and vat not included
-           actualSoundPrice = parseFloat(formValues.soundPrice) + (parseFloat(formValues.soundPrice)*parseFloat(props.platformRate)/100) + (parseFloat(formValues.soundPrice)*parseFloat(props.vat)/100);
-         }
-         
-       }
- 
-       //computing the sound Hook Price
-       let actualSoundHookPrice = 0;
-       if(props.platformRateIsIncludedAsPartOfUserInputedAmount && props.vatIsIncludedAsPartOfUserInputedAmount){
-         actualSoundHookPrice = formValues.soundHookPrice
-       }else{
-         if(props.platformRateIsIncludedAsPartOfUserInputedAmount && !props.vatIsIncludedAsPartOfUserInputedAmount){
-           actualSoundHookPrice = parseFloat(formValues.soundHookPrice) + parseFloat(formValues.soundHookPrice)*parseFloat(props.vat)/100;
-         }else if(!props.platformRateIsIncludedAsPartOfUserInputedAmount && props.vatIsIncludedAsPartOfUserInputedAmount){
-           actualSoundHookPrice = parseFloat(formValues.soundHookPrice) + parseFloat(formValues.soundHookPrice)*parseFloat(props.platformRate)/100;
-         }else{
-           //both platform rate and vat not included
-           actualSoundHookPrice = parseFloat(formValues.soundHookPrice) + (parseFloat(formValues.soundHookPrice)*parseFloat(props.platformRate)/100) + (parseFloat(formValues.soundHookPrice)*parseFloat(props.vat)/100);
-         }
-         
-       }
-     
-     
-  
+   
       const Str = require("@supercharge/strings");
   
       const form = new FormData();
       form.append("name", formValues.name);
       form.append("slug", slug);
-      form.append("videoPrice", actualVideoPrice);
-      form.append("videoHookPrice", actualVideoHookPrice);
-      form.append("videoDeliveryDays", formValues.videoDeliveryDays);
-      form.append("soundPrice", actualSoundPrice);
-      form.append("soundHookPrice", actualSoundHookPrice);
-      form.append("soundDeliveryDays", formValues.soundDeliveryDays);
       form.append("age", formValues.age);
       form.append("bio", formValues.bio);
       form.append("bankDetails", formValues.bankDetails);      
@@ -770,10 +940,42 @@ function AddCreatorForm(props) {
       form.append("status", 'inactive');    
       form.append("currency", currency);
       form.append("country", country);
-      form.append("category", category);
+      //form.append("category", category);
       //form.append("status", status);
       form.append("creatorContactPhoneNumber", formValues.creatorContactPhoneNumber);
       form.append("creatorContactEmailAddress", formValues.creatorContactEmailAddress);
+      form.append("facebookProfileLink", formValues.facebookProfileLink);
+      form.append("instagramProfileLink", formValues.instagramProfileLink);
+      form.append("twitterProfileLink", formValues.twitterProfileLink);
+      form.append("tiktokProfileLink", formValues.tiktokProfileLink);
+      form.append("linkedInProfileLink", formValues.linkedInProfileLink);
+      form.append("blogSiteLink", formValues.blogSiteLink);
+      form.append("facebookTotalFollowers", formValues.facebookTotalFollowers);
+      form.append("instagramTotalFollowers", formValues.instagramTotalFollowers);
+      form.append("twitterTotalFollowers", formValues.twitterTotalFollowers);
+      form.append("tiktokTotalFollowers", formValues.tiktokTotalFollowers);
+      form.append("linkedInTotalFollowers", formValues.linkedInTotalFollowers);
+      form.append("blogTotalVisitorsPerMonth", formValues.blogTotalVisitorsPerMonth);
+      form.append("facebookEngagementRate", formValues.facebookEngagementRate);
+      form.append("instagramEngagementRate", formValues.instagramEngagementRate);
+      form.append("twitterEngagementRate", formValues.twitterEngagementRate);
+      form.append("tiktokEngagementRate", formValues.tiktokEngagementRate);
+      form.append("linkedInEngagementRate", formValues.linkedInEngagementRate);
+      form.append("facebookCostPerPost", formValues.facebookCostPerPost);
+      form.append("instagramCostPerPost", formValues.instagramCostPerPost);
+
+      form.append("twitterCostPerPost", formValues.twitterCostPerPost);
+      form.append("tiktokCostPerPost", formValues.tiktokCostPerPost);
+      form.append("linkedInCostPerPost", formValues.linkedInCostPerPost);
+      form.append("blogCostPerPost", formValues.blogCostPerPost);
+      form.append("blogPostCostDuration", blogPostCostDuration);
+
+      form.append("facebookCategory", facebookCategory);
+      form.append("instagramCategory", instagramCategory);
+      form.append("twitterCategory", twitterCategory);
+      form.append("tiktokCategory", tiktokCategory);
+      form.append("linkedInCategory", linkedInCategory);
+      form.append("blogCategory", blogCategory);
       
       form.append("user", props.userId);
   
@@ -785,6 +987,11 @@ function AddCreatorForm(props) {
       //language
       for (let i = 0; i < language.length; i++) {
         form.append(`languages`, language[i]);
+      }
+
+         //platform
+      for (let i = 0; i < platform.length; i++) {
+        form.append(`platforms`, platform[i]);
       }
          
   
@@ -835,97 +1042,84 @@ function AddCreatorForm(props) {
     }else{
       setLoading(true);   
 
-      //Computing Video Price
-
-      let actualVideoPrice = 0;
-      if(props.platformRateIsIncludedAsPartOfUserInputedAmount && props.vatIsIncludedAsPartOfUserInputedAmount){
-        actualVideoPrice = formValues.videoPrice
-      }else{
-        if(props.platformRateIsIncludedAsPartOfUserInputedAmount && !props.vatIsIncludedAsPartOfUserInputedAmount){
-          actualVideoPrice = parseFloat(formValues.videoPrice) + parseFloat(formValues.videoPrice)*parseFloat(props.vat)/100;
-        }else if(!props.platformRateIsIncludedAsPartOfUserInputedAmount && props.vatIsIncludedAsPartOfUserInputedAmount){
-          actualVideoPrice = parseFloat(formValues.videoPrice) + parseFloat(formValues.videoPrice)*parseFloat(props.platformRate)/100;
-        }else{
-          //both platform rate and vat not included
-          actualVideoPrice = parseFloat(formValues.videoPrice) + (parseFloat(formValues.videoPrice)*parseFloat(props.platformRate)/100) + (parseFloat(formValues.videoPrice)*parseFloat(props.vat)/100);
-        }
-        
-      }
-
-      //computing video hook prices
-
-      let actualVideoHookPrice = 0;
-      if(props.platformRateIsIncludedAsPartOfUserInputedAmount && props.vatIsIncludedAsPartOfUserInputedAmount){
-        actualVideoHookPrice = formValues.videoHookPrice
-      }else{
-        if(props.platformRateIsIncludedAsPartOfUserInputedAmount && !props.vatIsIncludedAsPartOfUserInputedAmount){
-          actualVideoHookPrice = parseFloat(formValues.videoHookPrice) + parseFloat(formValues.videoHookPrice)*parseFloat(props.vat)/100;
-        }else if(!props.platformRateIsIncludedAsPartOfUserInputedAmount && props.vatIsIncludedAsPartOfUserInputedAmount){
-          actualVideoHookPrice = parseFloat(formValues.videoHookPrice) + parseFloat(formValues.videoHookPrice)*parseFloat(props.platformRate)/100;
-        }else{
-          //both platform rate and vat not included
-          actualVideoHookPrice = parseFloat(formValues.videoHookPrice) + (parseFloat(formValues.videoHookPrice)*parseFloat(props.platformRate)/100) + (parseFloat(formValues.videoHookPrice)*parseFloat(props.vat)/100);
-        }
-        
-      }
-
-      //computing the sound prices
-
-      let actualSoundPrice = 0;
-      if(props.platformRateIsIncludedAsPartOfUserInputedAmount && props.vatIsIncludedAsPartOfUserInputedAmount){
-        actualSoundPrice = formValues.soundPrice
-      }else{
-        if(props.platformRateIsIncludedAsPartOfUserInputedAmount && !props.vatIsIncludedAsPartOfUserInputedAmount){
-          actualSoundPrice = parseFloat(formValues.soundPrice) + parseFloat(formValues.soundPrice)*parseFloat(props.vat)/100;
-        }else if(!props.platformRateIsIncludedAsPartOfUserInputedAmount && props.vatIsIncludedAsPartOfUserInputedAmount){
-          actualSoundPrice = parseFloat(formValues.soundPrice) + parseFloat(formValues.soundPrice)*parseFloat(props.platformRate)/100;
-        }else{
-          //both platform rate and vat not included
-          actualSoundPrice = parseFloat(formValues.soundPrice) + (parseFloat(formValues.soundPrice)*parseFloat(props.platformRate)/100) + (parseFloat(formValues.soundPrice)*parseFloat(props.vat)/100);
-        }
-        
-      }
-
-      //computing the sound Hook Price
-      let actualSoundHookPrice = 0;
-      if(props.platformRateIsIncludedAsPartOfUserInputedAmount && props.vatIsIncludedAsPartOfUserInputedAmount){
-        actualSoundHookPrice = formValues.soundHookPrice
-      }else{
-        if(props.platformRateIsIncludedAsPartOfUserInputedAmount && !props.vatIsIncludedAsPartOfUserInputedAmount){
-          actualSoundHookPrice = parseFloat(formValues.soundHookPrice) + parseFloat(formValues.soundHookPrice)*parseFloat(props.vat)/100;
-        }else if(!props.platformRateIsIncludedAsPartOfUserInputedAmount && props.vatIsIncludedAsPartOfUserInputedAmount){
-          actualSoundHookPrice = parseFloat(formValues.soundHookPrice) + parseFloat(formValues.soundHookPrice)*parseFloat(props.platformRate)/100;
-        }else{
-          //both platform rate and vat not included
-          actualSoundHookPrice = parseFloat(formValues.soundHookPrice) + (parseFloat(formValues.soundHookPrice)*parseFloat(props.platformRate)/100) + (parseFloat(formValues.soundHookPrice)*parseFloat(props.vat)/100);
-        }
-        
-      }
-
-      
+           
 
       const Str = require("@supercharge/strings");
   
       const form = new FormData();
-      form.append("name", formValues.name ? formValues.name : props.yourName);
+      form.append("name", formValues.name ? formValues.name : props.creator.name);
       //form.append("slug", slug);
-      form.append("videoPrice", formValues.videoPrice ? actualVideoPrice : props.videoPrice);
-      form.append("videoHookPrice", formValues.videoHookPrice ? actualVideoHookPrice : props.videoHookPrice);
-      form.append("videoDeliveryDays", formValues.videoDeliveryDays ? formValues.videoDeliveryDays : props.videoDeliveryDays);
-      form.append("soundPrice", formValues.soundPrice ? actualSoundPrice : props.soundPrice);
-      form.append("soundHookPrice", formValues.soundHookPrice ? actualSoundHookPrice : props.soundHookPrice);
-      form.append("soundDeliveryDays", formValues.soundDeliveryDays ? formValues.soundDeliveryDays : props.soundDeliveryDays);
-      form.append("age", formValues.age ? formValues.age : props.yourAge);
-      form.append("bio", formValues.bio ? formValues.bio : props.bio);
-      form.append("gender", gender ? gender : props.yourGender);
-      form.append("status", status?status: props.status);    
-      form.append("currency", currency ? currency : props.currency);
-      form.append("country", country ? country : props.yourCountry);
-      form.append("category", category ? category : props.category);
-      form.append("bankDetails", formValues.bankDetails ? formValues.bankDetails : props.bankDetails);  
+      
+      form.append("age", formValues.age ? formValues.age : props.creator.age);  
+      form.append("bio", formValues.bio ? formValues.bio : props.creator.bio);
+      form.append("gender", gender ? gender : props.creator.gender);
+      form.append("status", status?status: props.creator.status);    
+      form.append("currency", currency ? currency : props.creator.currency);
+      form.append("country", country ? country : props.creator.country[0].id);
+      //form.append("category", category ? category : props.category);
+      form.append("bankDetails", formValues.bankDetails ? formValues.bankDetails : props.creator.bankDetails);  
       form.append("user", props.userId);
-      form.append("creatorContactPhoneNumber", formValues.creatorContactPhoneNumber ? formValues.creatorContactPhoneNumber : props.creatorContactPhoneNumber);
-      form.append("creatorContactEmailAddress", formValues.creatorContactEmailAddress ? formValues.creatorContactEmailAddress : props.creatorContactEmailAddress);
+      form.append("creatorContactPhoneNumber", formValues.creatorContactPhoneNumber ? formValues.creatorContactPhoneNumber : props.creator.creatorContactPhoneNumber);
+      form.append("creatorContactEmailAddress", formValues.creatorContactEmailAddress ? formValues.creatorContactEmailAddress : props.creator.creatorContactEmailAddress);
+
+      form.append("facebookProfileLink", formValues.facebookProfileLink ? formValues.facebookProfileLink : props.creator.facebookProfileLink);
+      form.append("instagramProfileLink", formValues.instagramProfileLink ? formValues.instagramProfileLink : props.creator.instagramProfileLink);
+      form.append("twitterProfileLink", formValues.twitterProfileLink ? formValues.twitterProfileLink : props.creator.twitterProfileLink);
+      form.append("tiktokProfileLink", formValues.tiktokProfileLink ? formValues.tiktokProfileLink : props.creator.tiktokProfileLink);
+      form.append("linkedInProfileLink", formValues.linkedInProfileLink ? formValues.linkedInProfileLink : props.creator.linkedInProfileLink);
+      form.append("blogSiteLink", formValues.blogSiteLink ? formValues.blogSiteLink : props.creator.blogSiteLink);
+      form.append("facebookTotalFollowers", formValues.facebookTotalFollowers ? formValues.facebookTotalFollowers : props.creator.facebookTotalFollowers);
+      form.append("instagramTotalFollowers", formValues.instagramTotalFollowers ? formValues.instagramTotalFollowers : props.creator.instagramTotalFollowers);
+      form.append("twitterTotalFollowers", formValues.twitterTotalFollowers ? formValues.twitterTotalFollowers : props.creator.twitterTotalFollowers);
+      
+      form.append("tiktokTotalFollowers", formValues.tiktokTotalFollowers ? formValues.tiktokTotalFollowers : props.creator.tiktokTotalFollowers);
+      form.append("linkedInTotalFollowers", formValues.linkedInTotalFollowers ? formValues.linkedInTotalFollowers : props.creator.linkedInTotalFollowers);
+      form.append("blogTotalVisitorsPerMonth", formValues.blogTotalVisitorsPerMonth ? formValues.blogTotalVisitorsPerMonth : props.creator.blogTotalVisitorsPerMonth);
+      form.append("facebookEngagementRate", formValues.facebookEngagementRate ? formValues.facebookEngagementRate : props.creator.facebookEngagementRate);
+      form.append("instagramEngagementRate", formValues.instagramEngagementRate ? formValues.instagramEngagementRate : props.creator.instagramEngagementRate);
+      form.append("twitterEngagementRate", formValues.twitterEngagementRate ? formValues.twitterEngagementRate : props.creator.twitterEngagementRate);
+      form.append("tiktokEngagementRate", formValues.tiktokEngagementRate ? formValues.tiktokEngagementRate : props.creator.tiktokEngagementRate);
+      form.append("linkedInEngagementRate", formValues.linkedInEngagementRate ? formValues.linkedInEngagementRate : props.creator.linkedInEngagementRate);
+      form.append("facebookCostPerPost", formValues.facebookCostPerPost ? formValues.facebookCostPerPost : props.creator.facebookCostPerPost);
+      form.append("instagramCostPerPost", formValues.instagramCostPerPost ? formValues.instagramCostPerPost : props.creator.instagramCostPerPost);
+
+      form.append("twitterCostPerPost", formValues.twitterCostPerPost ? formValues.twitterCostPerPost : props.creator.twitterCostPerPost);
+      form.append("tiktokCostPerPost", formValues.tiktokCostPerPost ? formValues.tiktokCostPerPost : props.creator.tiktokCostPerPost);
+      form.append("linkedInCostPerPost", formValues.linkedInCostPerPost ? formValues.linkedInCostPerPost : props.creator.linkedInCostPerPost);
+      form.append("blogCostPerPost", formValues.blogCostPerPost ? formValues.blogCostPerPost : props.creator.blogCostPerPost);
+      form.append("blogPostCostDuration", blogPostCostDuration ? blogPostCostDuration : props.creator.blogPostCostDuration);
+
+      if(formValues.facebookTotalFollowers){
+        form.append("facebookCategory", facebookCategory);
+      }else{
+        form.append("facebookCategory", props.creator.facebookCategory);
+      }
+      if(formValues.instagramTotalFollowers){
+        form.append("instagramCategory", instagramCategory);
+      }else{
+        form.append("instagramCategory", props.creator.instagramCategory);
+      }
+      if(formValues.twitterTotalFollowers){
+        form.append("twitterCategory", twitterCategory);
+      }else{
+        form.append("twitterCategory", props.creator.twitterCategory);
+      }
+      if(formValues.tiktokTotalFollowers){
+        form.append("tiktokCategory", tiktokCategory);
+      }else{
+        form.append("tiktokCategory", props.creator.tiktokCategory);
+      }
+      if(formValues.linkedInTotalFollowers){
+        form.append("linkedInCategory", linkedInCategory);
+      }else{
+        form.append("linkedInCategory", props.creator.linkedInCategory);
+      }
+      if(formValues.blogTotalVisitorsPerMonth){
+        form.append("blogCategory", blogCategory);
+      }else{
+        form.append("blogCategory", props.creator.blogCategory);
+      }
+      
   
     //niches
         for (let i = 0; i < niche.length; i++) {
@@ -936,6 +1130,11 @@ function AddCreatorForm(props) {
       for (let i = 0; i < language.length; i++) {
         form.append(`languages`, language[i]);
       }
+
+      //platform
+      for (let i = 0; i < platform.length; i++) {
+        form.append(`platforms`, platform[i]);
+      }
          
   
      
@@ -943,11 +1142,13 @@ function AddCreatorForm(props) {
       if (formValues.image) {
         form.append("image", formValues.image[0]);
       }
+
+      console.log('formvalues:',formValues)
   
       if (form) {
             const editForm = async () => {
               api.defaults.headers.common["Authorization"] = `Bearer ${props.token}`;
-              const response = await api.patch(`/creators/${props.creatorId}`, form);
+              const response = await api.patch(`/creators/${props.creator.id}`, form);
       
               if (response.data.status === "success") {
                 dispatch({
@@ -1039,7 +1240,6 @@ function AddCreatorForm(props) {
     }
   }
 
-console.log('props.hasInfo:', props.hasInfo)
 
   
   return (
@@ -1083,7 +1283,7 @@ console.log('props.hasInfo:', props.hasInfo)
             style={{ color: "grey", fontSize: "1.8em",  }}
             component="legend"
           >
-            {props.hasInfo ? "Update Your Information" : "Complete Your Information"}
+            {props.hasInfo && props.creator.id ? "Update Your Information" : "Complete Your Information"}
           </FormLabel>
           
         </Grid>
@@ -1104,10 +1304,10 @@ console.log('props.hasInfo:', props.hasInfo)
         />
            <Field
           label=""
-          id="category"
-          name="category"
+          id="platform"
+          name="platform"
           type="text"
-          component={renderCategoryField}
+          component={renderPlatformsField}
         />
         
 
@@ -1116,7 +1316,7 @@ console.log('props.hasInfo:', props.hasInfo)
           id="name"
           name="name"
           type="text"
-          defaultValue={props.yourName}
+          defaultValue={props.creator.name}
           helperText="Your Name"
          component={renderSingleLineField}
           style={{ marginTop: 10 }}
@@ -1126,7 +1326,7 @@ console.log('props.hasInfo:', props.hasInfo)
           id="creatorContactPhoneNumber"
           name="creatorContactPhoneNumber"
           type="text"
-          defaultValue={props.creatorContactPhoneNumber}
+          defaultValue={props.creator.creatorContactPhoneNumber}
           helperText="Your Contact Phone Number"
          component={renderSingleLineField}
           style={{ marginTop: 10 }}
@@ -1136,7 +1336,7 @@ console.log('props.hasInfo:', props.hasInfo)
           id="creatorContactEmailAddress"
           name="creatorContactEmailAddress"
           type="text"
-          defaultValue={props.creatorContactEmailAddress}
+          defaultValue={props.creator.creatorContactEmailAddress}
           helperText="Your Contact Email Address"
          component={renderSingleLineField}
           style={{ marginTop: 10 }}
@@ -1146,7 +1346,7 @@ console.log('props.hasInfo:', props.hasInfo)
           id="age"
           name="age"
           type="number"
-          defaultValue={props.yourAge}
+          defaultValue={props.creator.age}  
           helperText="Your Age"
           component={renderSingleLineField}
           style={{ marginTop: 10 }}
@@ -1160,7 +1360,7 @@ console.log('props.hasInfo:', props.hasInfo)
           component={renderGenderField}
         />
 
-    <Field
+        <Field
           label=""
           id="currency"
           name="currency"
@@ -1170,67 +1370,244 @@ console.log('props.hasInfo:', props.hasInfo)
 
         <Field
           label=""
-          id="videoPrice"
-          name="videoPrice"
-          defaultValue={props.videoPrice}
-          type="number"
-          helperText={`How Much Will You Charge For Making a 10 to 40 Seconds Promo Video For A Brand? ${videoPriceTextExtension}`}
+          id="facebookProfileLink"
+          name="facebookProfileLink"
+          defaultValue={props.creator.facebookProfileLink}
+          type="text"
+          helperText={`Enter Your Facebook Profile Link`}
           component={renderSingleLineField}
           style={{ marginTop: 10 }}
         />
          <Field
           label=""
-          id="videoHookPrice"
-          name="videoHookPrice"
-          defaultValue={props.videoHookPrice}
-          type="number"
-          helperText={`How Much Will You Charge for An Extra Hook For A Promo Video?${videoHookPriceTextExtension}`}
+          id="instagramProfileLink"
+          name="instagramProfileLink"
+          defaultValue={props.creator.instagramProfileLink}
+          type="text"
+          helperText={`Enter Your Instagram Profile Link`}
+          component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+         <Field
+          label=""
+          id="twitterProfileLink"
+          name="twitterProfileLink"
+          defaultValue={props.creator.twitterProfileLink}
+          type="text"
+          helperText={`Enter Your X(Twitter) Profile Link`}
+          component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+         <Field
+          label=""
+          id="tiktokProfileLink"
+          name="tiktokProfileLink"
+          defaultValue={props.creator.tiktokProfileLink}
+          type="text"
+          helperText={`Enter Your Tiktok Profile Link`}
+          component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+         <Field
+          label=""
+          id="linkedInProfileLink"
+          name="linkedInProfileLink"
+          defaultValue={props.creator.linkedInProfileLink}
+          type="text"
+          helperText={`Enter Your LinkedIn Profile Link`}
           component={renderSingleLineField}
           style={{ marginTop: 10 }}
         />
         <Field
           label=""
-          id="videoDeliveryDays"
-          name="videoDeliveryDays"
-          type="number"
-          defaultValue={props.videoDeliveryDays}
-          helperText="How Many Days Will It Take You To Deliver A 10 to 40 Seconds Promo Video Project "
-          //rows={5}
+          id="blogSiteLink"
+          name="blogSiteLink"
+          defaultValue={props.creator.blogSiteLink}
+          type="text"
+          helperText={`Enter Your Blog Site Profile Link`}
           component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+        <Field
+          label=""
+          id="facebookTotalFollowers"
+          name="facebookTotalFollowers"
+          defaultValue={props.creator.facebookTotalFollowers}
+          type="number"
+          helperText={`Enter Your Total Facebook Followers`}
+          component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+        <Field
+          label=""
+          id="instagramTotalFollowers"
+          name="instagramTotalFollowers"
+          defaultValue={props.creator.instagramTotalFollowers}
+          type="number"
+          helperText={`Enter Your Total Instagram Followers`}
+          component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+        <Field
+          label=""
+          id="twitterTotalFollowers"
+          name="twitterTotalFollowers"
+          defaultValue={props.creator.twitterTotalFollowers}
+          type="number"
+          helperText={`Enter Your Total X(Twitter) Followers`}
+          component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+        <Field
+          label=""
+          id="tiktokTotalFollowers"
+          name="tiktokTotalFollowers"
+          defaultValue={props.creator.tiktokTotalFollowers}
+          type="number"
+          helperText={`Enter Your Total TikTok Followers`}
+          component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+         <Field
+          label=""
+          id="linkedInTotalFollowers"
+          name="linkedInTotalFollowers"
+          defaultValue={props.creator.linkedInTotalFollowers}
+          type="number"
+          helperText={`Enter Your Total LinkedIn Followers`}
+          component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+         <Field
+          label=""
+          id="blogTotalVisitorsPerMonth"
+          name="blogTotalVisitorsPerMonth"
+          defaultValue={props.creator.blogTotalVisitorsPerMonth}
+          type="number"
+          helperText={`Enter The Estimated Number of Visitors To Your Blog Site per Month`}
+          component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+         <Field
+          label=""
+          id="facebookEngagementRate"
+          name="facebookEngagementRate"
+          defaultValue={props.creator.facebookEngagementRate}
+          type="number"
+          helperText={`Enter Your Facebook Engagement Rate(in Percentages, 1 to 100)`}
+          component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+         <Field
+          label=""
+          id="instagramEngagementRate"
+          name="instagramEngagementRate"
+          defaultValue={props.creator.instagramEngagementRate}
+          type="number"
+          helperText={`Enter Your Twitter Engagement Rate(in Percentages, 1 to 100)`}
+          component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+        <Field
+          label=""
+          id="twitterEngagementRate"
+          name="twitterEngagementRate"
+          defaultValue={props.creator.twitterEngagementRate}
+          type="number"
+          helperText={`Enter Your X(Twitter) Engagement Rate(in Percentages, 1 to 100)`}
+          component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+         <Field
+          label=""
+          id="tiktokEngagementRate"
+          name="tiktokEngagementRate"
+          defaultValue={props.creator.tiktokEngagementRate}
+          type="number"
+          helperText={`Enter Your TikTok Engagement Rate(in Percentages, 1 to 100)`}
+          component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+        <Field
+          label=""
+          id="linkedInEngagementRate"
+          name="linkedInEngagementRate"
+          defaultValue={props.creator.linkedInEngagementRate}
+          type="number"
+          helperText={`Enter Your LinkedIn Engagement Rate(in Percentages, 1 to 100)`}
+          component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+        <Field
+          label=""
+          id="facebookCostPerPost"
+          name="facebookCostPerPost"
+          defaultValue={props.creator.facebookCostPerPost}
+          type="number"
+          helperText={`Enter Your Facebook Cost Per Post`}
+          component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+         <Field
+          label=""
+          id="instagramCostPerPost"
+          name="instagramCostPerPost"
+          defaultValue={props.creator.instagramCostPerPost}
+          type="number"
+          helperText={`Enter Your Instagram Cost Per Post`}
+          component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+        <Field
+          label=""
+          id="twitterCostPerPost"
+          name="twitterCostPerPost"
+          defaultValue={props.creator.twitterCostPerPost}
+          type="number"
+          helperText={`Enter Your X(Twitter) Cost Per Post`}
+          component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+        <Field
+          label=""
+          id="tiktokCostPerPost"
+          name="tiktokCostPerPost"
+          defaultValue={props.creator.tiktokCostPerPost}
+          type="number"
+          helperText={`Enter Your TikTok Cost Per Post`}
+          component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+        <Field
+          label=""
+          id="linkedInCostPerPost"
+          name="linkedInCostPerPost"
+          defaultValue={props.creator.linkedInCostPerPost}
+          type="number"
+          helperText={`Enter Your LinkedIn Cost Per Post`}
+          component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+        <Field
+          label=""
+          id="blogCostPerPost"
+          name="blogCostPerPost"
+          defaultValue={props.creator.blogCostPerPost}
+          type="number"
+          helperText={`Enter Your Blog Cost Per Post`}
+          component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+         <Field
+          label=""
+          id="blogPostCostDuration"
+          name="blogPostCostDuration"
+          type="text"
+          component={renderBlogPostCostDurationField}
           style={{ marginTop: 10 }}
         />
         
-        <Field
-          label=""
-          id="soundPrice"
-          name="soundPrice"
-          defaultValue={props.soundPrice}
-          type="number"
-          helperText={`How Much Will You Charge For Making a 10 to 40 Seconds Promo Jingle(audio) For A Brand? ${soundPriceTextExtension}`}
-          component={renderSingleLineField}
-          style={{ marginTop: 10 }}
-        />
-         <Field
-          label=""
-          id="soundHookPrice"
-          name="soundHookPrice"
-          defaultValue={props.soundHookPrice}
-          type="number"
-          helperText={`How Much Will You Charge for An Extra Hook For A Promo Jingle(audio)?${soundHookPriceTextExtension}`}
-          component={renderSingleLineField}
-          style={{ marginTop: 10 }}
-        />
-        <Field
-          label=""
-          id="soundDeliveryDays"
-          name="soundDeliveryDays"
-          type="number"
-          defaultValue={props.soundDeliveryDays}
-          helperText="How Many Days Will It Take You To Deliver A 10 to 40 Seconds Promo Jingle(audio) Project "
-          //rows={5}
-          component={renderSingleLineField}
-          style={{ marginTop: 10 }}
-        />
+         
         <Field
           label=""
           id="language"
@@ -1242,28 +1619,28 @@ console.log('props.hasInfo:', props.hasInfo)
         />
 
         <Field
-                  label=""
-                  id="bio"
-                  name="bio"
-                  type="text"
-                  defaultValue={props.bio}
-                  helperText="Your Bio"
-                  rows={10}
-                 component={renderMultiLineField}
-                  style={{ marginTop: 10 }}
-                />
+          label=""
+          id="bio"
+          name="bio"
+          type="text"
+          defaultValue={props.creator.bio}
+          helperText="Your Bio"
+          rows={10}
+          component={renderMultiLineField}
+          style={{ marginTop: 10 }}
+        />
 
-                <Field
-                  label=""
-                  id="bankDetails"
-                  name="bankDetails"
-                  type="text"
-                  defaultValue={props.bankDetails}
-                  helperText="Your Bank Details. Please Include the SWIFT/IBAN Number if you are using a Bank outside Nigeria"
-                  rows={10}
-                 component={renderMultiLineField}
-                  style={{ marginTop: 10 }}
-                />
+        <Field
+          label=""
+          id="bankDetails"
+          name="bankDetails"
+          type="text"
+          defaultValue={props.creator.bankDetails}
+          helperText="Your Bank Details. Please Include the SWIFT/IBAN Number if you are using a Bank outside Nigeria"
+          rows={10}
+          component={renderMultiLineField}
+          style={{ marginTop: 10 }}
+        />
 
 
 
@@ -1277,7 +1654,7 @@ console.log('props.hasInfo:', props.hasInfo)
           floatingLabelText={"Upload Your Photo"}
           fullWidth={true}
         />
-        {props.hasInfo && <Button
+        {props.hasInfo && props.creator.id && <Button
           variant="contained"
           className={matchesMDUp ? classes.submitUpdateButton : classes.submitUpdateButtonMobile}
           onClick={props.handleSubmit(onSubmit)}
@@ -1290,7 +1667,7 @@ console.log('props.hasInfo:', props.hasInfo)
         </Button>}
         
                 
-        {!props.hasInfo && <Button
+        {props.hasInfo && !props.creator.id && <Button
           variant="contained"
           className={matchesMDUp ? classes.submitButton : classes.submitButtonMobile}
           onClick={props.handleSubmit(onSubmit)}

@@ -663,39 +663,29 @@ function CheckoutActionPage(props) {
     );
   };
 
-  
+  console.log("props:", props);
 
   return (
     <>
-      <Typography style={{ width: 300, marginTop: 15, marginLeft: 10 }}>
-        <strong>Brand:</strong>&nbsp;&nbsp;{props.brandName}
-        
-      </Typography>
-      <Typography style={{ width: 300, marginTop: 15, marginLeft: 10 }}>
-        <strong>Project:</strong>&nbsp;&nbsp;{props.projectName}        
-      </Typography>
-      <Typography style={{ width: 300, marginTop: 15, marginLeft: 10 }}>
-        <strong>Project Type:</strong>&nbsp;&nbsp;{props.projectType}        
-      </Typography>
-      <Typography style={{ width: 300, marginTop: 15, marginLeft: 10 }}>
-        <strong>Required Language for this Project:</strong>&nbsp;&nbsp;{props.projectLanguage}        
-      </Typography>
-      <Typography style={{ width: "100%", marginTop: 5, marginLeft: 10 }}>
-        <strong>Number of {props.creativeType ==="video" ? "video(s)":"jingle(s)"} required:</strong>&nbsp;&nbsp;{props.creativeQuantity}
-      </Typography>
-      <Typography style={{ width: "100%", marginTop: 5, marginLeft: 10 }}>
-        <strong>Number of Hooks required:</strong>&nbsp;&nbsp;{props.creativeHookQuantity} 
-      </Typography>
-     {props.grandTotal && <Typography style={{ width: "100%", marginTop: 15, marginLeft: 10 }}>
-        <strong>Total Cost:</strong>{props.getCurrencyCode()}
-        {props.grandTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}
+     <Typography variant="h5" style={{ color: "black", fontSize: 18, marginTop: 20, marginBottom:10 }}><strong>Contract Initiation Fee</strong></Typography>
+
+     
+     
+     {props.creator && props.creator.currency && props.creator.currency[0].name.toLowerCase()==='naira' && <Typography style={{ width: "100%", marginTop: 15, marginLeft: 10,fontSize:18, fontWeight:700 }}>
+        {/* <strong>Total Cost:</strong>{props.getCurrencyCode()} */}
+        {/* {props.grandTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")} */}
+        &#8358;{parseFloat(props.policy && props.policy.contractProcessingFeeForLocals).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}
       </Typography>}
-      {/* <Typography
-        style={{ width: 300, fontSize: 20, marginTop: 15, marginLeft: 10 }}
+      {props.creator && props.creator.currency && props.creator.currency[0].name.toLowerCase()!=='naira' && <Typography style={{ width: "100%", marginTop: 15, marginLeft: 10, fontSize:18, fontWeight:700 }}>
+        {/* <strong>Total Cost:</strong>{props.getCurrencyCode()} */}
+        {/* {props.grandTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")} */}
+        &#36;{parseFloat(props.policy && props.policy.contractProcessingFeeForNonLocals).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}
+      </Typography>}
+      <Typography
+        style={{ width: 330, fontSize: 20, marginTop: 15, marginLeft: 10 }}
       >
-        Total Cost:{props.getCurrencyCode()}
-        {totalProductCostForDisplay}
-      </Typography> */}
+        <strong style={{fontSize:12}}>Note:</strong><em style={{fontSize:12}}>Contract initiation fee is non-refundable but is automatically deducted  from the final approved influencer fee upon successful contract execution.</em>
+      </Typography>
 
       {/* {renderPaymentMethodField()} */}
       {!isOnlinePayment && paymentMethod && (

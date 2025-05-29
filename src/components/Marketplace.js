@@ -16,6 +16,11 @@ import Snackbar from "@material-ui/core/Snackbar";
 import ReactPlayer from "react-player";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+import LoginForm from "./authForms/LoginForm";
+import UserSignUp from "./users/UserSignUp";
+import UserPasswordReset from "./users/UserPasswordReset";
+import UserSignUpCreator from "./users/UserSignUpCreator";
+
 import data from "../apis/local";
 import CallToAction from "./ui/CallToAction";
 import animationData from "../animations/landinganimation/data";
@@ -23,14 +28,15 @@ import animationData from "../animations/landinganimation/data";
 import revolutionBackground from "./../assets/repeatingBackground.svg";
 import infoBackground from "./../assets/infoBackground.svg";
 
-import background from "./../assets/images/covers/cover_1_image.jpg";
+import background from "./../assets/images/influencers/cover1.webp";
 import UpperFooter from "./ui/UpperFooter";
 import TopCover from "./homePageCards/TopCover";
 import LearningPath from "./homePageCards/LearningPath";
 import TopCoverNew from "./homePageCards/TopCoverNew";
 import TopCoverServices from "./homePageCards/TopCoverServices";
 import ServicePreferences from "./homePageCards/ServicePreferences";
-
+import HeroSection from "./homePageCards/HeroSection";
+import OurProcesses from "./homePageCards/OurProcesses";
 //import mobileBackground from "./../../assets/mobileBackground.jpg";
 
 import AllCourses from "./homePageCards/AllCourses";
@@ -38,6 +44,7 @@ import AllCourses from "./homePageCards/AllCourses";
 import { baseURL } from "../apis/util";
 import AllCreatorsOnList from "./homePageCards/AllCreatorsOnList";
 import AllProductsInCardDesign from "./homePageCards/AllProductsInCardDesign.";
+import OurServicePlans from "./homePageCards/OurServicePlans";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -289,6 +296,14 @@ const Marketplace = (props) => {
   const [updateNichePath, setUpdateNichePath] = useState(0);
   const [updateCountryPath, setUpdateCountryPath] = useState(0);
   const [updateDeliveryDaysPath, setUpdateDeliveryDaysPath] = useState('all');
+  const [updatePlatformPath, setUpdatePlatformPath] = useState('all');
+  const [countryCode, setCountryCode] = useState("");
+  const [open, setOpen] = useState(false);
+  const [openLoginForm, setOpenLoginForm] = useState(false);
+  const [openSignUpForm, setOpenSignUpForm] = useState(false);
+  const [openInfluencerSignUpForm, setInfluencerOpenSignUpForm] = useState(false);
+  const [openForgotPasswordForm, setOpenForgotPasswordForm] = useState(false);
+  
 
 
   // const [courseType, setCourseType] = useState(0);
@@ -308,6 +323,8 @@ const Marketplace = (props) => {
       preserveAspectRatio: "xMidyMid slice",
     },
   };
+
+  
 
   const handleBecomeAPartnerOpenDialogBox = () => {
     setBecomePartnerOpen(false);
@@ -351,6 +368,13 @@ const Marketplace = (props) => {
     setUpdateDeliveryDaysPath(value);
   };
   
+  const updatePlatformPathHandler = (value) => {
+    setUpdatePlatformPath(value);
+  };
+
+   const updateCountryCodeHandler = (value) => {
+    setCountryCode(value);
+  };
   
 
  
@@ -377,6 +401,130 @@ const Marketplace = (props) => {
     setBecomePartnerOpen(true);
   };
 
+
+   const handleMakeOpenSignUpDialogStatus = () => {
+    // history.push("/categories/new");
+    setOpenSignUpForm(true);
+    setOpenLoginForm(false);
+    setInfluencerOpenSignUpForm(false)
+    
+  };
+  const handleMakeOpenInfluencerSignUpDialogStatus = () => {
+    // history.push("/categories/new");   
+    setInfluencerOpenSignUpForm(true)
+    setOpenSignUpForm(false);
+    setOpenLoginForm(false);
+  };
+
+  
+  const handleMakeOpenLoginFormDialogStatus = () => {
+    // history.push("/categories/new");
+    setOpenSignUpForm(false);
+    setOpenLoginForm(true);
+  };
+
+  const handleLoginDialogOpenStatus = () => {
+    // history.push("/categories/new");
+    setOpenLoginForm(false);
+  };
+
+  const handleFailedLoginDialogOpenStatusWithSnackbar = (message) => {
+    // history.push("/categories/new");
+    setAlert({
+      open: true,
+      message: message,
+
+      backgroundColor: "#FF3232",
+    });
+    setOpenLoginForm(true);
+  };
+
+  const handleSuccessfulSignUpDialogOpenStatusWithSnackbar = () => {
+    // history.push("/categories/new");
+    setOpenSignUpForm(false);
+    setAlert({
+      open: true,
+      message: "You have successfully signed up",
+      backgroundColor: "#4BB543",
+    });
+  };
+
+  const handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar = () => {
+    // history.push("/categories/new");
+    setInfluencerOpenSignUpForm(false);
+    setAlert({
+      open: true,
+      message: "You have successfully signed up",
+      backgroundColor: "#4BB543",
+    });
+  };
+
+ 
+  const handleFailedSignUpDialogOpenStatusWithSnackbar = (message) => {
+    // history.push("/categories/new");
+    setAlert({
+      open: true,
+      message: message,
+
+      backgroundColor: "#FF3232",
+    });
+    setOpenSignUpForm(true);
+  };
+
+
+  const handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar = (message) => {
+    // history.push("/categories/new");
+    setAlert({
+      open: true,
+      message: message,
+
+      backgroundColor: "#FF3232",
+    });
+    setInfluencerOpenSignUpForm(true);
+  };
+
+
+  const handleMakeOpenForgotPasswordFormDialogStatus = () => {
+    // history.push("/categories/new");
+    setOpenForgotPasswordForm(true);
+    setOpenLoginForm(false);
+  };
+  const handleMakeCloseForgotPasswordFormDialogStatus = () => {
+    // history.push("/categories/new");
+    setOpenForgotPasswordForm(false);
+    setOpenLoginForm(false);
+  };
+
+ 
+  const handleMakeCloseSignUpDialogStatus = () => {
+    // history.push("/categories/new");
+    setOpenSignUpForm(false);
+  };
+
+
+  const handleMakeCloseSignUpInfluencerDialogStatus = () => {
+    // history.push("/categories/new");
+    setInfluencerOpenSignUpForm(false);
+  };
+
+
+
+
+  const handleLoginDialogCloseStatus = () => {
+    // history.push("/categories/new");
+    setOpenLoginForm(false);
+  };
+
+  const handleSuccessfulLoginDialogOpenStatusWithSnackbar = () => {
+    // history.push("/categories/new");
+    setOpenLoginForm(false);
+    setAlert({
+      open: true,
+      message: "You have successfully logged in",
+      backgroundColor: "#4BB543",
+    });
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -384,7 +532,7 @@ const Marketplace = (props) => {
 
       
 
-     if (updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "all" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all') {
+     if (updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "all" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all') {
         //data.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         const response = await data.get("/creators?sort=desc",{params:{status:"active"}});
 
@@ -399,12 +547,6 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            videoPrice: creator.videoPrice,
-            videoHookPrice: creator.videoHookPrice,
-            videoDeliveryDays: creator.videoDeliveryDays,
-            soundPrice:creator.soundPrice,
-            soundHookPrice:creator.soundHookPrice,
-            soundDeliveryDays:creator.soundDeliveryDays,
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -416,13 +558,40 @@ const Marketplace = (props) => {
             status: creator.status,
             creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
             creatorContactEmailAddress: creator.creatorContactEmailAddress,
+            platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+            
+
             
             
           });
         });
         setCreatorsList(allData);
         setIsLoading(false);
-      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "all" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all' ){
+      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "all" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='all' ){
         //creators from a particular country
         
         const response = await data.get("/creators?sort=desc",{params:{country:updateCountryPath,status:"active"}});
@@ -438,12 +607,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            videoPrice: creator.videoPrice,
-            videoHookPrice: creator.videoHookPrice,
-            videoDeliveryDays: creator.videoDeliveryDays,
-            soundPrice:creator.soundPrice,
-            soundHookPrice:creator.soundHookPrice,
-            soundDeliveryDays:creator.soundDeliveryDays,
+            
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -455,13 +619,38 @@ const Marketplace = (props) => {
             status: creator.status,
             creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
             creatorContactEmailAddress: creator.creatorContactEmailAddress,
+            platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
             
             
           });
         });
         setCreatorsList(allData);
         setIsLoading(false);
-      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "male" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "male" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='all'){
         //creators from a particular country but male
         const response = await data.get("/creators?sort=desc",{params:{country:updateCountryPath,gender:updateGenderPath,status:"active"}});
 
@@ -476,12 +665,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            videoPrice: creator.videoPrice,
-            videoHookPrice: creator.videoHookPrice,
-            videoDeliveryDays: creator.videoDeliveryDays,
-            soundPrice:creator.soundPrice,
-            soundHookPrice:creator.soundHookPrice,
-            soundDeliveryDays:creator.soundDeliveryDays,
+            
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -493,13 +677,38 @@ const Marketplace = (props) => {
             status: creator.status,
             creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
             creatorContactEmailAddress: creator.creatorContactEmailAddress,
+            platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
             
             
           });
         });
         setCreatorsList(allData);
         setIsLoading(false);
-      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "female" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "female" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='all'){
          //creators from a particular country but male
          const response = await data.get("/creators?sort=desc",{params:{country:updateCountryPath,gender:updateGenderPath,status:"active"}});
 
@@ -514,12 +723,7 @@ const Marketplace = (props) => {
              bio: creator.bio,
              user: creator.user,
              currency: creator.currency,
-             videoPrice: creator.videoPrice,
-             videoHookPrice: creator.videoHookPrice,
-             videoDeliveryDays: creator.videoDeliveryDays,
-             soundPrice:creator.soundPrice,
-             soundHookPrice:creator.soundHookPrice,
-             soundDeliveryDays:creator.soundDeliveryDays,
+            
              age: creator.age,
              gender: creator.gender,
              rate: creator.rate,
@@ -531,13 +735,38 @@ const Marketplace = (props) => {
              status: creator.status,
              creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
              creatorContactEmailAddress: creator.creatorContactEmailAddress,
+             platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
              
              
            });
          });
          setCreatorsList(allData);
          setIsLoading(false);
-      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "all" && updateLanguagePath !==0 && updateNichePath===0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "all" && updateLanguagePath !==0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='all'){
         //creators from a particular country with language selection
         const response = await data.get("/creators?sort=desc",{
           params:{
@@ -557,12 +786,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            videoPrice: creator.videoPrice,
-            videoHookPrice: creator.videoHookPrice,
-            videoDeliveryDays: creator.videoDeliveryDays,
-            soundPrice:creator.soundPrice,
-            soundHookPrice:creator.soundHookPrice,
-            soundDeliveryDays:creator.soundDeliveryDays,
+            
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -574,13 +798,38 @@ const Marketplace = (props) => {
             status: creator.status,
             creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
             creatorContactEmailAddress: creator.creatorContactEmailAddress,
+            platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
             
             
           });
         });
         setCreatorsList(allData);
         setIsLoading(false);
-      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "male" && updateLanguagePath !==0 && updateNichePath===0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "male" && updateLanguagePath !==0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='all'){
          //creators from a particular country with language selection and male gender
          const response = await data.get("/creators?sort=desc",{
           params:{
@@ -601,12 +850,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            videoPrice: creator.videoPrice,
-            videoHookPrice: creator.videoHookPrice,
-            videoDeliveryDays: creator.videoDeliveryDays,
-            soundPrice:creator.soundPrice,
-            soundHookPrice:creator.soundHookPrice,
-            soundDeliveryDays:creator.soundDeliveryDays,
+           
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -618,13 +862,38 @@ const Marketplace = (props) => {
             status: creator.status,
             creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
             creatorContactEmailAddress: creator.creatorContactEmailAddress,
+            platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
             
             
           });
         });
         setCreatorsList(allData);
         setIsLoading(false);
-      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "female" && updateLanguagePath !==0 && updateNichePath===0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "female" && updateLanguagePath !==0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='all'){
         //creators from a particular country with language selection and female gender
         const response = await data.get("/creators?sort=desc",{
           params:{
@@ -645,12 +914,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            videoPrice: creator.videoPrice,
-            videoHookPrice: creator.videoHookPrice,
-            videoDeliveryDays: creator.videoDeliveryDays,
-            soundPrice:creator.soundPrice,
-            soundHookPrice:creator.soundHookPrice,
-            soundDeliveryDays:creator.soundDeliveryDays,
+            
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -662,13 +926,38 @@ const Marketplace = (props) => {
             status: creator.status,
             creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
             creatorContactEmailAddress: creator.creatorContactEmailAddress,
+            platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
             
             
           });
         });
         setCreatorsList(allData);
         setIsLoading(false);
-      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "all" && updateLanguagePath ===0 && updateNichePath!==0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "all" && updateLanguagePath ===0 && updateNichePath!==0 && updateCountryPath!==0 && updatePlatformPath==='all'){
         //creators from a particular country with niche selection
         const response = await data.get("/creators?sort=desc",{
           params:{
@@ -688,12 +977,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            videoPrice: creator.videoPrice,
-            videoHookPrice: creator.videoHookPrice,
-            videoDeliveryDays: creator.videoDeliveryDays,
-            soundPrice:creator.soundPrice,
-            soundHookPrice:creator.soundHookPrice,
-            soundDeliveryDays:creator.soundDeliveryDays,
+           
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -705,13 +989,38 @@ const Marketplace = (props) => {
             status: creator.status,
             creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
             creatorContactEmailAddress: creator.creatorContactEmailAddress,
+            platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
             
             
           });
         });
         setCreatorsList(allData);
         setIsLoading(false);
-      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "male" && updateLanguagePath ===0 && updateNichePath!==0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "male" && updateLanguagePath ===0 && updateNichePath!==0 && updateCountryPath!==0 && updatePlatformPath==='all'){
          //creators from a particular country with niche selection with gender
          const response = await data.get("/creators?sort=desc",{
           params:{
@@ -732,12 +1041,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            videoPrice: creator.videoPrice,
-            videoHookPrice: creator.videoHookPrice,
-            videoDeliveryDays: creator.videoDeliveryDays,
-            soundPrice:creator.soundPrice,
-            soundHookPrice:creator.soundHookPrice,
-            soundDeliveryDays:creator.soundDeliveryDays,
+            
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -749,13 +1053,38 @@ const Marketplace = (props) => {
             status: creator.status,
             creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
             creatorContactEmailAddress: creator.creatorContactEmailAddress,
+            platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
             
             
           });
         });
         setCreatorsList(allData);
         setIsLoading(false);
-      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "female" && updateLanguagePath ===0 && updateNichePath!==0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "female" && updateLanguagePath ===0 && updateNichePath!==0 && updateCountryPath!==0 && updatePlatformPath==='all'){
          //creators from a particular country with niche selection with gender
          const response = await data.get("/creators?sort=desc",{
           params:{
@@ -776,12 +1105,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            videoPrice: creator.videoPrice,
-            videoHookPrice: creator.videoHookPrice,
-            videoDeliveryDays: creator.videoDeliveryDays,
-            soundPrice:creator.soundPrice,
-            soundHookPrice:creator.soundHookPrice,
-            soundDeliveryDays:creator.soundDeliveryDays,
+            
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -793,13 +1117,38 @@ const Marketplace = (props) => {
             status: creator.status,
             creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
             creatorContactEmailAddress: creator.creatorContactEmailAddress,
+            platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
             
             
           });
         });
         setCreatorsList(allData);
         setIsLoading(false);
-      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "all" && updateLanguagePath !==0 && updateNichePath!==0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "all" && updateLanguagePath !==0 && updateNichePath!==0 && updateCountryPath!==0 && updatePlatformPath==='all'){
         //creators from a particular country with niche and language selection
         const response = await data.get("/creators?sort=desc",{
           params:{
@@ -820,12 +1169,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            videoPrice: creator.videoPrice,
-            videoHookPrice: creator.videoHookPrice,
-            videoDeliveryDays: creator.videoDeliveryDays,
-            soundPrice:creator.soundPrice,
-            soundHookPrice:creator.soundHookPrice,
-            soundDeliveryDays:creator.soundDeliveryDays,
+            
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -837,6 +1181,31 @@ const Marketplace = (props) => {
             status: creator.status,
             creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
             creatorContactEmailAddress: creator.creatorContactEmailAddress,
+            platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
             
             
           });
@@ -844,7 +1213,7 @@ const Marketplace = (props) => {
         setCreatorsList(allData);
         setIsLoading(false);
 
-      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "male" && updateLanguagePath !==0 && updateNichePath!==0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "male" && updateLanguagePath !==0 && updateNichePath!==0 && updateCountryPath!==0 && updatePlatformPath==='all'){
           //creators from a particular country with niche and language selection
         const response = await data.get("/creators?sort=desc",{
           params:{
@@ -866,12 +1235,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            videoPrice: creator.videoPrice,
-            videoHookPrice: creator.videoHookPrice,
-            videoDeliveryDays: creator.videoDeliveryDays,
-            soundPrice:creator.soundPrice,
-            soundHookPrice:creator.soundHookPrice,
-            soundDeliveryDays:creator.soundDeliveryDays,
+           
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -883,6 +1247,31 @@ const Marketplace = (props) => {
             status: creator.status,
             creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
             creatorContactEmailAddress: creator.creatorContactEmailAddress,
+            platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
             
             
           });
@@ -890,7 +1279,7 @@ const Marketplace = (props) => {
         setCreatorsList(allData);
         setIsLoading(false);
 
-      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "female" && updateLanguagePath !==0 && updateNichePath!==0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+      }else if(updateAgePath === "all" && updatePricePath==="all" && updateGenderPath === "female" && updateLanguagePath !==0 && updateNichePath!==0 && updateCountryPath!==0 && updatePlatformPath==='all'){
           //creators from a particular country with niche and language selection
         const response = await data.get("/creators?sort=desc",{
           params:{
@@ -912,12 +1301,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            videoPrice: creator.videoPrice,
-            videoHookPrice: creator.videoHookPrice,
-            videoDeliveryDays: creator.videoDeliveryDays,
-            soundPrice:creator.soundPrice,
-            soundHookPrice:creator.soundHookPrice,
-            soundDeliveryDays:creator.soundDeliveryDays,
+            
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -929,6 +1313,31 @@ const Marketplace = (props) => {
             status: creator.status,
             creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
             creatorContactEmailAddress: creator.creatorContactEmailAddress,
+            platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
             
             
           });
@@ -936,7 +1345,7 @@ const Marketplace = (props) => {
         setCreatorsList(allData);
         setIsLoading(false);
 
-      }else if(updateAgePath ==="18-24" && updatePricePath==="all" && updateGenderPath === "all" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+      }else if(updateAgePath ==="18-24" && updatePricePath==="all" && updateGenderPath === "all" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='all'){
 
         //selecting country and ages between 18 & 24
         const response = await data.get(`/creators?sort=desc`,{
@@ -961,12 +1370,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            videoPrice: creator.videoPrice,
-            videoHookPrice: creator.videoHookPrice,
-            videoDeliveryDays: creator.videoDeliveryDays,
-            soundPrice:creator.soundPrice,
-            soundHookPrice:creator.soundHookPrice,
-            soundDeliveryDays:creator.soundDeliveryDays,
+           
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -978,13 +1382,38 @@ const Marketplace = (props) => {
             status: creator.status,
             creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
             creatorContactEmailAddress: creator.creatorContactEmailAddress,
+            platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
             
             
           });
         });
         setCreatorsList(allData);
         setIsLoading(false);
-      }else if(updateAgePath === "25-34" && updatePricePath==="all" && updateGenderPath === "all" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+      }else if(updateAgePath === "25-34" && updatePricePath==="all" && updateGenderPath === "all" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='all'){
         //selecting country and age between 25 & 34
         const response = await data.get(`/creators?sort=desc`,{
           params:{
@@ -1007,12 +1436,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            videoPrice: creator.videoPrice,
-            videoHookPrice: creator.videoHookPrice,
-            videoDeliveryDays: creator.videoDeliveryDays,
-            soundPrice:creator.soundPrice,
-            soundHookPrice:creator.soundHookPrice,
-            soundDeliveryDays:creator.soundDeliveryDays,
+           
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -1024,13 +1448,38 @@ const Marketplace = (props) => {
             status: creator.status,
             creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
             creatorContactEmailAddress: creator.creatorContactEmailAddress,
+            platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
             
             
           });
         });
         setCreatorsList(allData);
         setIsLoading(false);
-      }else if(updateAgePath ==="35-45" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+      }else if(updateAgePath ==="35-45" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='all'){
         //selecting country age between 35 & 45
         const response = await data.get(`/creators?sort=desc`,{
           params:{
@@ -1053,12 +1502,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            videoPrice: creator.videoPrice,
-            videoHookPrice: creator.videoHookPrice,
-            videoDeliveryDays: creator.videoDeliveryDays,
-            soundPrice:creator.soundPrice,
-            soundHookPrice:creator.soundHookPrice,
-            soundDeliveryDays:creator.soundDeliveryDays,
+           
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -1070,6 +1514,31 @@ const Marketplace = (props) => {
             status: creator.status,
             creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
             creatorContactEmailAddress: creator.creatorContactEmailAddress,
+            platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
             
             
           });
@@ -1077,7 +1546,7 @@ const Marketplace = (props) => {
         setCreatorsList(allData);
         setIsLoading(false);
 
-      }else if(updateAgePath ==="above-45" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+      }else if(updateAgePath ==="above-45" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='all'){
         //selecting country, and age above 45
         const response = await data.get(`/creators?sort=desc`,{
           params:{
@@ -1100,12 +1569,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            videoPrice: creator.videoPrice,
-            videoHookPrice: creator.videoHookPrice,
-            videoDeliveryDays: creator.videoDeliveryDays,
-            soundPrice:creator.soundPrice,
-            soundHookPrice:creator.soundHookPrice,
-            soundDeliveryDays:creator.soundDeliveryDays,
+           
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -1117,6 +1581,31 @@ const Marketplace = (props) => {
             status: creator.status,
             creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
             creatorContactEmailAddress: creator.creatorContactEmailAddress,
+            platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
             
             
           });
@@ -1124,7 +1613,7 @@ const Marketplace = (props) => {
         setCreatorsList(allData);
         setIsLoading(false);
 
-      }else if(updateAgePath ==="above-45" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+      }else if(updateAgePath ==="above-45" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all'){
          //selecting age above 45 only
          const response = await data.get(`/creators?sort=desc`,{
           params:{
@@ -1146,12 +1635,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            videoPrice: creator.videoPrice,
-            videoHookPrice: creator.videoHookPrice,
-            videoDeliveryDays: creator.videoDeliveryDays,
-            soundPrice:creator.soundPrice,
-            soundHookPrice:creator.soundHookPrice,
-            soundDeliveryDays:creator.soundDeliveryDays,
+            
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -1163,13 +1647,38 @@ const Marketplace = (props) => {
             status: creator.status,
             creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
             creatorContactEmailAddress: creator.creatorContactEmailAddress,
+            platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
             
             
           });
         });
         setCreatorsList(allData);
         setIsLoading(false);
-      }else if(updateAgePath ==="35-45" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+      }else if(updateAgePath ==="35-45" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all'){
         //selecting age above  between 35 and 45
         const response = await data.get(`/creators?sort=desc`,{
          params:{
@@ -1192,12 +1701,7 @@ const Marketplace = (props) => {
            bio: creator.bio,
            user: creator.user,
            currency: creator.currency,
-           videoPrice: creator.videoPrice,
-           videoHookPrice: creator.videoHookPrice,
-           videoDeliveryDays: creator.videoDeliveryDays,
-           soundPrice:creator.soundPrice,
-           soundHookPrice:creator.soundHookPrice,
-           soundDeliveryDays:creator.soundDeliveryDays,
+           
            age: creator.age,
            gender: creator.gender,
            rate: creator.rate,
@@ -1209,13 +1713,38 @@ const Marketplace = (props) => {
            status: creator.status,
            creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
            creatorContactEmailAddress: creator.creatorContactEmailAddress,
+           platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
            
            
          });
        });
        setCreatorsList(allData);
        setIsLoading(false);
-     }else if(updateAgePath ==="25-34" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+     }else if(updateAgePath ==="25-34" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all'){
       //selecting age above  between 25 and 34
       const response = await data.get(`/creators?sort=desc`,{
        params:{
@@ -1238,12 +1767,7 @@ const Marketplace = (props) => {
          bio: creator.bio,
          user: creator.user,
          currency: creator.currency,
-         videoPrice: creator.videoPrice,
-         videoHookPrice: creator.videoHookPrice,
-         videoDeliveryDays: creator.videoDeliveryDays,
-         soundPrice:creator.soundPrice,
-         soundHookPrice:creator.soundHookPrice,
-         soundDeliveryDays:creator.soundDeliveryDays,
+         
          age: creator.age,
          gender: creator.gender,
          rate: creator.rate,
@@ -1255,13 +1779,38 @@ const Marketplace = (props) => {
          status: creator.status,
          creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
          creatorContactEmailAddress: creator.creatorContactEmailAddress,
+         platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
          
          
        });
      });
      setCreatorsList(allData);
      setIsLoading(false);
-   }else if(updateAgePath ==="18-24" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+   }else if(updateAgePath ==="18-24" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all'){
     //selecting age above  between 25 and 34
     const response = await data.get(`/creators?sort=desc`,{
      params:{
@@ -1284,12 +1833,7 @@ const Marketplace = (props) => {
        bio: creator.bio,
        user: creator.user,
        currency: creator.currency,
-       videoPrice: creator.videoPrice,
-       videoHookPrice: creator.videoHookPrice,
-       videoDeliveryDays: creator.videoDeliveryDays,
-       soundPrice:creator.soundPrice,
-       soundHookPrice:creator.soundHookPrice,
-       soundDeliveryDays:creator.soundDeliveryDays,
+      
        age: creator.age,
        gender: creator.gender,
        rate: creator.rate,
@@ -1301,13 +1845,38 @@ const Marketplace = (props) => {
        status: creator.status,
        creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
        creatorContactEmailAddress: creator.creatorContactEmailAddress,
+       platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
        
        
      });
    });
    setCreatorsList(allData);
    setIsLoading(false);
- }else if(updateAgePath ==="18-24" && updatePricePath==="all" && updateGenderPath ==="male" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+ }else if(updateAgePath ==="18-24" && updatePricePath==="all" && updateGenderPath ==="male" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all'){
   //selecting age between 25 and 34 and male gender
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -1331,12 +1900,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -1348,13 +1912,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="18-24" && updatePricePath==="all" && updateGenderPath ==="female" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="18-24" && updatePricePath==="all" && updateGenderPath ==="female" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all'){
   //selecting age between 25 and 34 and male gender
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -1378,12 +1968,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -1395,13 +1980,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="25-34" && updatePricePath==="all" && updateGenderPath ==="male" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="25-34" && updatePricePath==="all" && updateGenderPath ==="male" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all'){
   //selecting age between 25 and 34 and male gender
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -1425,12 +2036,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -1442,13 +2048,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="25-34" && updatePricePath==="all" && updateGenderPath ==="female" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="25-34" && updatePricePath==="all" && updateGenderPath ==="female" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all'){
   //selecting age between 25 and 34 and male gender
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -1472,12 +2104,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -1489,13 +2116,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="35-45" && updatePricePath==="all" && updateGenderPath ==="male" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="35-45" && updatePricePath==="all" && updateGenderPath ==="male" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all'){
   //selecting age between 35 and 45 and male gender
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -1519,12 +2172,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -1536,13 +2184,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="35-45" && updatePricePath==="all" && updateGenderPath ==="female" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="35-45" && updatePricePath==="all" && updateGenderPath ==="female" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all'){
   //selecting age between 35 and 45 and male gender
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -1566,12 +2240,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -1583,13 +2252,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="above-45" && updatePricePath==="all" && updateGenderPath ==="male" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="above-45" && updatePricePath==="all" && updateGenderPath ==="male" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all'){
   //selecting age above 45 and male gender
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -1613,12 +2308,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -1630,13 +2320,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="above-45" && updatePricePath==="all" && updateGenderPath ==="female" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="above-45" && updatePricePath==="all" && updateGenderPath ==="female" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all'){
   //selecting age above 45 and male gender
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -1660,12 +2376,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -1677,13 +2388,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="above-45" && updatePricePath==="all" && updateGenderPath ==="male" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="above-45" && updatePricePath==="all" && updateGenderPath ==="male" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='all'){
   //selecting age above 45 and male gender
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -1708,12 +2445,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -1725,13 +2457,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="above-45" && updatePricePath==="all" && updateGenderPath ==="female" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="above-45" && updatePricePath==="all" && updateGenderPath ==="female" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='all'){
   //selecting age above 45 and male gender
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -1756,12 +2514,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -1773,13 +2526,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="35-45" && updatePricePath==="all" && updateGenderPath ==="male" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="35-45" && updatePricePath==="all" && updateGenderPath ==="male" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='all'){
   //selecting age above 45 and male gender
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -1804,12 +2583,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -1821,13 +2595,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="35-45" && updatePricePath==="all" && updateGenderPath ==="female" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="35-45" && updatePricePath==="all" && updateGenderPath ==="female" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='all'){
   //selecting age between 32 and 45 and country and male gender
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -1852,12 +2652,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -1869,13 +2664,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="25-34" && updatePricePath==="all" && updateGenderPath ==="male" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="25-34" && updatePricePath==="all" && updateGenderPath ==="male" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='all'){
   //selecting age between 25 and 34 and country and male gender
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -1900,12 +2721,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -1917,13 +2733,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="25-34" && updatePricePath==="all" && updateGenderPath ==="female" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="25-34" && updatePricePath==="all" && updateGenderPath ==="female" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='all'){
   //selecting age between 25 and 34 and country and male gender
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -1948,12 +2790,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -1965,13 +2802,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="18-24" && updatePricePath==="all" && updateGenderPath ==="male" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="18-24" && updatePricePath==="all" && updateGenderPath ==="male" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='all'){
   //selecting age between 18 and 24 and country and male gender
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -1996,12 +2859,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2013,13 +2871,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="18-24" && updatePricePath==="all" && updateGenderPath ==="female" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="18-24" && updatePricePath==="all" && updateGenderPath ==="female" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='all'){
   //selecting age between 18 and 24 and country and male gender
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -2044,12 +2928,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2061,13 +2940,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="female" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="female" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all'){
   //selecting age between 18 and 24 and country and male gender
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -2092,12 +2997,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2109,13 +3009,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="male" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="male" && updateLanguagePath ===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all'){
   //selecting age between 18 and 24 and country and male gender
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -2140,12 +3066,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2157,13 +3078,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath!==0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath!==0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all'){
   //selecting language only
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -2188,12 +3135,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2205,13 +3147,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath!==0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath!==0 && updateCountryPath===0 && updatePlatformPath==='all'){
   //selecting niches only
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -2236,12 +3204,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2253,13 +3216,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="all" && updatePricePath==="less-than-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="all" && updatePricePath==="less-than-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all'){
   //selecting prices that are less than N100,000 only
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -2283,12 +3272,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2300,13 +3284,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="all" && updatePricePath==="100000-200000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="all" && updatePricePath==="100000-200000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all'){
   //selecting prices is between 100000 and 200000
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -2331,12 +3341,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2348,13 +3353,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="all" && updatePricePath==="200000-400000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="all" && updatePricePath==="200000-400000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all'){
   //selecting prices is between 200000 and 400000
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -2379,12 +3410,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2396,13 +3422,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="all" && updatePricePath==="400000-600000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="all" && updatePricePath==="400000-600000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all'){
   //selecting prices is between 400000 and 600000
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -2427,12 +3479,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2444,13 +3491,39 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="all" && updatePricePath==="600000-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="all" && updatePricePath==="600000-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all'){
   //selecting prices is between 600000 and 1000000
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -2475,12 +3548,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2492,13 +3560,38 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="all" && updatePricePath==="above-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='all'){
+}else if(updateAgePath ==="all" && updatePricePath==="above-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='all'){
   //selecting prices is between 600000 and 1000000
   const response = await data.get(`/creators?sort=desc`,{
    params:{
@@ -2523,12 +3616,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2540,17 +3628,43 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='1'){
+}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath===updatePlatformPath){
   //selecting delivery days of 1
   const response = await data.get(`/creators?sort=desc`,{
    params:{
-    'videoDeliveryDays':1,
+    'platforms':updatePlatformPath,
     status:"active"
       //'country':updateCountryPath,
       //'videoDeliveryDays[gt]':1,
@@ -2571,12 +3685,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2588,19 +3697,45 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='<=2'){
+}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath===updatePlatformPath){
   //selecting delivery days of less than or equalt to 2
   const response = await data.get(`/creators?sort=desc`,{
    params:{
     //'videoDeliveryDays':1,
-      //'country':updateCountryPath,
-      'videoDeliveryDays[lte]':2,
+      'country':updateCountryPath,
+      'platforms':updatePlatformPath,
       status:"active"
       //'videoPrice[lt]':1000000,
                
@@ -2619,12 +3754,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2636,19 +3766,46 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='<=3'){
+}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath!==0 && updateCountryPath!==0 && updatePlatformPath===updatePlatformPath){
   //selecting delivery days of less than or equalt to 3
   const response = await data.get(`/creators?sort=desc`,{
    params:{
     //'videoDeliveryDays':1,
-      //'country':updateCountryPath,
-      'videoDeliveryDays[lte]':3,
+      'country':updateCountryPath,
+      'platforms':updatePlatformPath,
+      'niches':updateNichePath,
       status:"active"
       //'videoPrice[lt]':1000000,
                
@@ -2667,12 +3824,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2684,19 +3836,47 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='<=4'){
+}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath!==0 && updateNichePath!==0 && updateCountryPath!==0 && updatePlatformPath===updatePlatformPath){
   //selecting delivery days of less than or equalt to 4
   const response = await data.get(`/creators?sort=desc`,{
    params:{
     //'videoDeliveryDays':1,
-      //'country':updateCountryPath,
-      'videoDeliveryDays[lte]':4,
+      'country':updateCountryPath,
+      'platforms':updatePlatformPath,
+      'niches':updateNichePath,
+      'languages':updateLanguagePath,
       status:"active"
       //'videoPrice[lt]':1000000,
                
@@ -2715,12 +3895,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2732,19 +3907,48 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='<=5'){
+}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath !=="all" && updateLanguagePath!==0 && updateNichePath!==0 && updateCountryPath!==0 && updatePlatformPath===updatePlatformPath){
   //selecting delivery days of less than or equalt to 5
   const response = await data.get(`/creators?sort=desc`,{
    params:{
     //'videoDeliveryDays':1,
-      //'country':updateCountryPath,
-      'videoDeliveryDays[lte]':5,
+      'country':updateCountryPath,
+      'platforms':updatePlatformPath,
+      'niches':updateNichePath,
+      'languages':updateLanguagePath,
+      'gender':updateGenderPath,
       status:"active"
       //'videoPrice[lt]':1000000,
                
@@ -2763,12 +3967,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2780,19 +3979,46 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='<=6'){
+}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath !=="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath===updatePlatformPath){
   //selecting delivery days of less than or equalt to 6
   const response = await data.get(`/creators?sort=desc`,{
    params:{
     //'videoDeliveryDays':1,
       //'country':updateCountryPath,
-      'videoDeliveryDays[lte]':6,
+      'platforms':updatePlatformPath,
+      'gender':updateGenderPath,
       status:"active"
       //'videoPrice[lt]':1000000,
                
@@ -2811,12 +4037,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2828,19 +4049,47 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='<=7'){
+}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath!==0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath===updatePlatformPath){
   //selecting delivery days of less than or equalt to 7
   const response = await data.get(`/creators?sort=desc`,{
    params:{
     //'videoDeliveryDays':1,
       //'country':updateCountryPath,
-      'videoDeliveryDays[lte]':7,
+      //'videoDeliveryDays[lte]':7,
+      'platforms':updatePlatformPath,
+      'languages':updateLanguagePath,
       status:"active"
       //'videoPrice[lt]':1000000,
                
@@ -2859,12 +4108,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2876,19 +4120,47 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
-}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updateDeliveryDaysPath==='above-7'){
+}else if(updateAgePath ==="all" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath!==0 && updateCountryPath===0 && updatePlatformPath===updatePlatformPath){
   //selecting delivery days above  7
   const response = await data.get(`/creators?sort=desc`,{
    params:{
     //'videoDeliveryDays':1,
       //'country':updateCountryPath,
-      'videoDeliveryDays[gt]':7,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      'niches':updateNichePath,
       status:"active"
       //'videoPrice[lt]':1000000,
                
@@ -2907,12 +4179,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     videoPrice: creator.videoPrice,
-     videoHookPrice: creator.videoHookPrice,
-     videoDeliveryDays: creator.videoDeliveryDays,
-     soundPrice:creator.soundPrice,
-     soundHookPrice:creator.soundHookPrice,
-     soundDeliveryDays:creator.soundDeliveryDays,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2924,12 +4191,8910 @@ const Marketplace = (props) => {
      status: creator.status,
      creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
      creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
      
      
    });
  });
  setCreatorsList(allData);
  setIsLoading(false);
+}else if(updateAgePath ==="18-24" && updatePricePath==="all" && updateGenderPath !=="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath===updatePlatformPath){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      'gender':updateGenderPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'age[gte]':18,
+      'age[lte]':24,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+}else if(updateAgePath ==="25-34" && updatePricePath==="all" && updateGenderPath !=="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath===updatePlatformPath){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      'gender':updateGenderPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'age[gte]':25,
+      'age[lte]':34,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+}else if(updateAgePath ==="35-45" && updatePricePath==="all" && updateGenderPath !=="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath===updatePlatformPath){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      'gender':updateGenderPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'age[gte]':35,
+      'age[lte]':45,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+}else if(updateAgePath ==="above-45" && updatePricePath==="all" && updateGenderPath !=="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath===updatePlatformPath){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      'gender':updateGenderPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'age[gt]':45,
+      //'age[lte]':45,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform, ages and gender begins
+}else if(updateAgePath === "18-24" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath===updatePlatformPath){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'age[gte]':18,
+      'age[lte]':24,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+}else if(updateAgePath ==="25-34" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath===updatePlatformPath){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'age[gte]':25,
+      'age[lte]':34,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+}else if(updateAgePath ==="35-45" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath===updatePlatformPath){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'age[gte]':35,
+      'age[lte]':45,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+}else if(updateAgePath ==="above-45" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath===updatePlatformPath){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'age[gt]':45,
+      //'age[lte]':45,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform, age and country
+}else if(updateAgePath === "18-24" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath===updatePlatformPath){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'age[gte]':18,
+      'age[lte]':24,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+}else if(updateAgePath ==="25-34" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath===updatePlatformPath){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'age[gte]':25,
+      'age[lte]':34,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+}else if(updateAgePath ==="35-45" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath===updatePlatformPath){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'age[gte]':35,
+      'age[lte]':45,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+}else if(updateAgePath ==="above-45" && updatePricePath==="all" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath===updatePlatformPath){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'age[gt]':45,
+      //'age[lte]':45,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform, age and country
+}else if(updateAgePath ==="all" && updatePricePath==="less-than-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='facebook'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      //'age[gt]':45,
+      'facebookCostPerPost[lt]':100000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="100000-200000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='facebook'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'facebookCostPerPost[gte]':100000,
+      'facebookCostPerPost[lte]':200000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="200000-400000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='facebook'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'facebookCostPerPost[gte]':200000,
+      'facebookCostPerPost[lte]':400000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="400000-600000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='facebook'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'facebookCostPerPost[gte]':400000,
+      'facebookCostPerPost[lte]':600000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="600000-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='facebook'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'facebookCostPerPost[gte]':600000,
+      'facebookCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="above-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='facebook'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'facebookCostPerPost[gt]':1000000,
+      //'facebookCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="less-than-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='instagram'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      //'age[gt]':45,
+      'instagramCostPerPost[lt]':100000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="100000-200000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='instagram'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'instagramCostPerPost[gte]':100000,
+      'instagramCostPerPost[lte]':200000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="200000-400000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='instagram'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'instagramCostPerPost[gte]':200000,
+      'instagramCostPerPost[lte]':400000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="400000-600000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='instagram'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'instagramCostPerPost[gte]':400000,
+      'instagramCostPerPost[lte]':600000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="600000-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='instagram'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'instagramCostPerPost[gte]':600000,
+      'instagramCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="above-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='instagram'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'instagramCostPerPost[gt]':1000000,
+      //'facebookCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === instagram, price
+}else if(updateAgePath ==="all" && updatePricePath==="less-than-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='twitter'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      //'age[gt]':45,
+      'twitterCostPerPost[lt]':100000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="100000-200000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='twitter'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'twitterCostPerPost[gte]':100000,
+      'twitterCostPerPost[lte]':200000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="200000-400000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='twitter'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'twitterCostPerPost[gte]':200000,
+      'twitterCostPerPost[lte]':400000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="400000-600000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='twitter'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'twitterCostPerPost[gte]':400000,
+      'twitterCostPerPost[lte]':600000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="600000-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='twitter'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'twitterCostPerPost[gte]':600000,
+      'twitterCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="above-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='twitter'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'twitterCostPerPost[gt]':1000000,
+      //'facebookCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === twitter, price
+}else if(updateAgePath ==="all" && updatePricePath==="less-than-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='tiktok'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      //'age[gt]':45,
+      'tiktokCostPerPost[lt]':100000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="100000-200000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='tiktok'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'tiktokCostPerPost[gte]':100000,
+      'tiktokCostPerPost[lte]':200000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="200000-400000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='tiktok'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'tiktokCostPerPost[gte]':200000,
+      'tiktokCostPerPost[lte]':400000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="400000-600000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='tiktok'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'tiktokCostPerPost[gte]':400000,
+      'tiktokCostPerPost[lte]':600000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="600000-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='tiktok'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'tiktokCostPerPost[gte]':600000,
+      'tiktokCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="above-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='tiktok'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'tiktokCostPerPost[gt]':1000000,
+      //'facebookCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === tiktok, price
+}else if(updateAgePath ==="all" && updatePricePath==="less-than-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='linkedin'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      //'age[gt]':45,
+      'linkedInCostPerPost[lt]':100000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="100000-200000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='linkedin'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'linkedInCostPerPost[gte]':100000,
+      'linkedInCostPerPost[lte]':200000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="200000-400000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='linkedin'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'linkedInCostPerPost[gte]':200000,
+      'linkedInCostPerPost[lte]':400000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="400000-600000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='linkedin'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'linkedInCostPerPost[gte]':400000,
+      'linkedInCostPerPost[lte]':600000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="600000-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='linkedin'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'linkedInCostPerPost[gte]':600000,
+      'linkedInCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="above-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='linkedin'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'linkedInCostPerPost[gt]':1000000,
+      //'facebookCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === linkedin, price
+}else if(updateAgePath ==="all" && updatePricePath==="less-than-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='blog'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      //'age[gt]':45,
+      'blogCostPerPost[lt]':100000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="100000-200000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='blog'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'blogCostPerPost[gte]':100000,
+      'blogCostPerPost[lte]':200000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="200000-400000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='blog'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'blogCostPerPost[gte]':200000,
+      'blogCostPerPost[lte]':400000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="400000-600000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='blog'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'blogCostPerPost[gte]':400000,
+      'blogCostPerPost[lte]':600000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="600000-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='blog'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'blogCostPerPost[gte]':600000,
+      'blogCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(updateAgePath ==="all" && updatePricePath==="above-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath===0 && updatePlatformPath==='blog'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      //'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'blogCostPerPost[gt]':1000000,
+      //'facebookCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === blog, price
+
+ //platform== facebook, price and country begins here
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="less-than-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='facebook'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      //'age[gt]':45,
+      'facebookCostPerPost[lt]':100000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="100000-200000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='facebook'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'facebookCostPerPost[gte]':100000,
+      'facebookCostPerPost[lte]':200000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="200000-400000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='facebook'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'facebookCostPerPost[gte]':200000,
+      'facebookCostPerPost[lte]':400000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="400000-600000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='facebook'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'facebookCostPerPost[gte]':400000,
+      'facebookCostPerPost[lte]':600000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="600000-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='facebook'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'facebookCostPerPost[gte]':600000,
+      'facebookCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="above-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='facebook'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'facebookCostPerPost[gt]':1000000,
+      //'facebookCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="less-than-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='instagram'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      //'age[gt]':45,
+      'instagramCostPerPost[lt]':100000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="100000-200000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='instagram'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'instagramCostPerPost[gte]':100000,
+      'instagramCostPerPost[lte]':200000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="200000-400000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='instagram'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'instagramCostPerPost[gte]':200000,
+      'instagramCostPerPost[lte]':400000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="400000-600000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='instagram'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'instagramCostPerPost[gte]':400000,
+      'instagramCostPerPost[lte]':600000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="600000-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='instagram'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'instagramCostPerPost[gte]':600000,
+      'instagramCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="above-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='instagram'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'instagramCostPerPost[gt]':1000000,
+      //'facebookCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === instagram, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="less-than-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='twitter'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      //'age[gt]':45,
+      'twitterCostPerPost[lt]':100000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="100000-200000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='twitter'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'twitterCostPerPost[gte]':100000,
+      'twitterCostPerPost[lte]':200000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="200000-400000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='twitter'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'twitterCostPerPost[gte]':200000,
+      'twitterCostPerPost[lte]':400000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="400000-600000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='twitter'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'twitterCostPerPost[gte]':400000,
+      'twitterCostPerPost[lte]':600000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="600000-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='twitter'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'twitterCostPerPost[gte]':600000,
+      'twitterCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="above-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='twitter'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'twitterCostPerPost[gt]':1000000,
+      //'facebookCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === twitter, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="less-than-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='tiktok'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      //'age[gt]':45,
+      'tiktokCostPerPost[lt]':100000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="100000-200000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='tiktok'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'tiktokCostPerPost[gte]':100000,
+      'tiktokCostPerPost[lte]':200000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="200000-400000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='tiktok'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'tiktokCostPerPost[gte]':200000,
+      'tiktokCostPerPost[lte]':400000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="400000-600000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='tiktok'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'tiktokCostPerPost[gte]':400000,
+      'tiktokCostPerPost[lte]':600000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="600000-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='tiktok'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'tiktokCostPerPost[gte]':600000,
+      'tiktokCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="above-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='tiktok'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'tiktokCostPerPost[gt]':1000000,
+      //'facebookCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === tiktok, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="less-than-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='linkedin'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      //'age[gt]':45,
+      'linkedInCostPerPost[lt]':100000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="100000-200000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='linkedin'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'linkedInCostPerPost[gte]':100000,
+      'linkedInCostPerPost[lte]':200000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="200000-400000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='linkedin'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'linkedInCostPerPost[gte]':200000,
+      'linkedInCostPerPost[lte]':400000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="400000-600000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='linkedin'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'linkedInCostPerPost[gte]':400000,
+      'linkedInCostPerPost[lte]':600000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="600000-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='linkedin'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'linkedInCostPerPost[gte]':600000,
+      'linkedInCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="above-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='linkedin'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'linkedInCostPerPost[gt]':1000000,
+      //'facebookCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === linkedin, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="less-than-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='blog'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      //'age[gt]':45,
+      'blogCostPerPost[lt]':100000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="100000-200000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='blog'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'blogCostPerPost[gte]':100000,
+      'blogCostPerPost[lte]':200000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="200000-400000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='blog'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'blogCostPerPost[gte]':200000,
+      'blogCostPerPost[lte]':400000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="400000-600000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='blog'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'blogCostPerPost[gte]':400000,
+      'blogCostPerPost[lte]':600000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="600000-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='blog'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'blogCostPerPost[gte]':600000,
+      'blogCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode === '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="above-1000000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='blog'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'blogCostPerPost[gt]':1000000,
+      //'facebookCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === blog, price and country !== Nigeria starts here
+
+ 
+}else if(countryCode !=='682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="less-than-500" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='facebook'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      //'age[gt]':45,
+      'facebookCostPerPost[lt]':500,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="500-3000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='facebook'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'facebookCostPerPost[gte]':500,
+      'facebookCostPerPost[lte]':3000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="3000-20000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='facebook'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'facebookCostPerPost[gte]':3000,
+      'facebookCostPerPost[lte]':20000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="20000-50000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='facebook'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'facebookCostPerPost[gte]':20000,
+      'facebookCostPerPost[lte]':50000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="50000-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='facebook'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'facebookCostPerPost[gte]':50000,
+      'facebookCostPerPost[lte]':100000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="above-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='facebook'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'facebookCostPerPost[gt]':100000,
+      //'facebookCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="less-than-500" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='instagram'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      //'age[gt]':45,
+      'instagramCostPerPost[lt]':500,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="500-3000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='instagram'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'instagramCostPerPost[gte]':500,
+      'instagramCostPerPost[lte]':3000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="3000-20000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='instagram'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'instagramCostPerPost[gte]':3000,
+      'instagramCostPerPost[lte]':20000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="20000-50000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='instagram'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'instagramCostPerPost[gte]':20000,
+      'instagramCostPerPost[lte]':50000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="50000-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='instagram'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'instagramCostPerPost[gte]':50000,
+      'instagramCostPerPost[lte]':100000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="above-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='instagram'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'instagramCostPerPost[gt]':100000,
+      //'facebookCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === instagram, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="less-than-500" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='twitter'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      //'age[gt]':45,
+      'twitterCostPerPost[lt]':500,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="500-3000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='twitter'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'twitterCostPerPost[gte]':500,
+      'twitterCostPerPost[lte]':3000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="3000-20000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='twitter'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'twitterCostPerPost[gte]':3000,
+      'twitterCostPerPost[lte]':20000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="20000-50000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='twitter'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'twitterCostPerPost[gte]':20000,
+      'twitterCostPerPost[lte]':50000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="50000-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='twitter'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'twitterCostPerPost[gte]':50000,
+      'twitterCostPerPost[lte]':100000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="above-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='twitter'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'twitterCostPerPost[gt]':100000,
+      //'facebookCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === twitter, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="less-than-500" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='tiktok'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      //'age[gt]':45,
+      'tiktokCostPerPost[lt]':500,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="500-3000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='tiktok'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'tiktokCostPerPost[gte]':500,
+      'tiktokCostPerPost[lte]':3000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="3000-20000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='tiktok'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'tiktokCostPerPost[gte]':3000,
+      'tiktokCostPerPost[lte]':20000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="20000-50000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='tiktok'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'tiktokCostPerPost[gte]':20000,
+      'tiktokCostPerPost[lte]':50000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="50000-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='tiktok'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'tiktokCostPerPost[gte]':50000,
+      'tiktokCostPerPost[lte]':100000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="above-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='tiktok'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'tiktokCostPerPost[gt]':100000,
+      //'facebookCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === tiktok, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="less-than-500" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='linkedin'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      //'age[gt]':45,
+      'linkedInCostPerPost[lt]':500,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="500-3000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='linkedin'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'linkedInCostPerPost[gte]':500,
+      'linkedInCostPerPost[lte]':3000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="3000-20000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='linkedin'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'linkedInCostPerPost[gte]':3000,
+      'linkedInCostPerPost[lte]':20000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="20000-50000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='linkedin'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'linkedInCostPerPost[gte]':20000,
+      'linkedInCostPerPost[lte]':50000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="50000-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='linkedin'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'linkedInCostPerPost[gte]':50000,
+      'linkedInCostPerPost[lte]':100000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="above-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='linkedin'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'linkedInCostPerPost[gt]':100000,
+      //'facebookCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === linkedin, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="less-than-500" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='blog'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      //'age[gt]':45,
+      'blogCostPerPost[lt]':500,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="500-3000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='blog'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'blogCostPerPost[gte]':500,
+      'blogCostPerPost[lte]':3000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="3000-20000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='blog'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'blogCostPerPost[gte]':3000,
+      'blogCostPerPost[lte]':20000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="20000-50000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='blog'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'blogCostPerPost[gte]':20000,
+      'blogCostPerPost[lte]':50000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="50000-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='blog'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'blogCostPerPost[gte]':50000,
+      'blogCostPerPost[lte]':100000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === facebook, price
+}else if(countryCode !== '682211ebd6574a66fcbe10e3' && updateAgePath ==="all" && updatePricePath==="above-100000" && updateGenderPath ==="all" && updateLanguagePath===0 && updateNichePath===0 && updateCountryPath!==0 && updatePlatformPath==='blog'){
+  //selecting delivery days above  7
+  const response = await data.get(`/creators?sort=desc`,{
+   params:{
+    //'videoDeliveryDays':1,
+      'country':updateCountryPath,
+      //'videoDeliveryDays[gt]':7,
+      'platforms':updatePlatformPath,
+      //'niches':updateNichePath,
+      status:"active",
+      'blogCostPerPost[gt]':100000,
+      //'facebookCostPerPost[lte]':1000000,
+               
+     
+     }        
+   });
+
+ const workingData = response.data.data.data;
+ //console.log('working Data:',workingData)
+
+ workingData.map((creator) => {
+   allData.push({
+     id: creator._id,
+     name: creator.name,
+     image: creator.image,
+     bio: creator.bio,
+     user: creator.user,
+     currency: creator.currency,
+    
+     age: creator.age,
+     gender: creator.gender,
+     rate: creator.rate,
+     country: creator.country,
+     category:creator.category,
+     niches: creator.niches,
+     languages: creator.languages,
+     slug: creator.slug,
+     status: creator.status,
+     creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
+     creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+     platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
+     
+     
+   });
+ });
+ setCreatorsList(allData);
+ setIsLoading(false);
+
+ //platform === blog, price and country
+
+ 
 }else{
   //selecting delivery days above  7
   const response = await data.get(`/creators?sort=desc`,{params:{status:"active"}});
@@ -2945,12 +13110,6 @@ const Marketplace = (props) => {
       bio: creator.bio,
       user: creator.user,
       currency: creator.currency,
-      videoPrice: creator.videoPrice,
-      videoHookPrice: creator.videoHookPrice,
-      videoDeliveryDays: creator.videoDeliveryDays,
-      soundPrice:creator.soundPrice,
-      soundHookPrice:creator.soundHookPrice,
-      soundDeliveryDays:creator.soundDeliveryDays,
       age: creator.age,
       gender: creator.gender,
       rate: creator.rate,
@@ -2962,6 +13121,32 @@ const Marketplace = (props) => {
       status: creator.status,
       creatorContactPhoneNumber: creator.creatorContactPhoneNumber,
       creatorContactEmailAddress: creator.creatorContactEmailAddress,
+
+      platforms: creator.platforms,
+            facebookProfileLink: creator.facebookProfileLink,
+            instagramProfileLink: creator.instagramProfileLink,
+            tiktokProfileLink: creator.tiktokProfileLink,
+            twitterProfileLink: creator.twitterProfileLink,
+            linkedInProfileLink: creator.linkedInProfileLink,
+            blogSiteLink: creator.blogSiteLink,
+            facebookTotalFollowers: creator.facebookTotalFollowers,
+            instagramTotalFollowers: creator.instagramTotalFollowers,
+            tiktokTotalFollowers: creator.tiktokTotalFollowers,
+            twitterTotalFollowers: creator.twitterTotalFollowers,
+            linkedInTotalFollowers: creator.linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator.blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator.facebookEngagementRate,
+            instagramEngagementRate: creator.instagramEngagementRate,
+            tiktokEngagementRate: creator.tiktokEngagementRate,
+            twitterEngagementRate: creator.twitterEngagementRate,
+            linkedInEngagementRate: creator.linkedInEngagementRate,
+            facebookCostPerPost: creator.facebookCostPerPost,
+            instagramCostPerPost: creator.instagramCostPerPost,
+            tiktokCostPerPost: creator.tiktokCostPerPost,
+            twitterCostPerPost: creator.twitterCostPerPost,
+            linkedInCostPerPost: creator.linkedInCostPerPost,
+            blogCostPerPost: creator.blogCostPerPost,
+            blogPostCostDuration: creator.blogPostCostDuration,
       
       
     });
@@ -2982,7 +13167,7 @@ const Marketplace = (props) => {
     updateLanguagePath,
     updateNichePath,
     updateCountryPath,
-    updateDeliveryDaysPath
+    updatePlatformPath
   ]);
 
 
@@ -2993,6 +13178,143 @@ const Marketplace = (props) => {
   }, []);
 
   const Str = require("@supercharge/strings");
+
+const renderLoginForm = () => {
+      return (
+        <Dialog
+          //style={{ zIndex: 1302 }}
+          fullScreen={matchesXS}
+          open={openLoginForm}
+          //onClose={() => [setOpenLoginForm(false), history.push("/")]}
+          onClose={() => [setOpenLoginForm(false)]}
+        >
+          <DialogContent>
+            <LoginForm
+              handleLoginDialogOpenStatus={handleLoginDialogOpenStatus}
+              handleMakeOpenSignUpDialogStatus={handleMakeOpenSignUpDialogStatus}
+              handleMakeCloseSignUpDialogStatus={
+                handleMakeCloseSignUpDialogStatus
+              }
+              handleLoginDialogCloseStatus={handleLoginDialogCloseStatus}
+              handleMakeOpenForgotPasswordFormDialogStatus={
+                handleMakeOpenForgotPasswordFormDialogStatus
+              }
+              handleSuccessfulLoginDialogOpenStatusWithSnackbar={
+                handleSuccessfulLoginDialogOpenStatusWithSnackbar
+              }
+              handleFailedLoginDialogOpenStatusWithSnackbar={
+                handleFailedLoginDialogOpenStatusWithSnackbar
+              }
+              handleFailedSignUpDialogOpenStatusWithSnackbar={
+                handleFailedSignUpDialogOpenStatusWithSnackbar
+              }
+              setToken={props.setToken}
+             setUserId={props.setUserId}
+            />
+          </DialogContent>
+        </Dialog>
+      );
+    };
+  
+    const renderSignUpForm = () => {
+      return (
+        <Dialog
+          //style={{ zIndex: 1302 }}
+          fullScreen={matchesXS}
+          open={openSignUpForm}
+          //onClose={() => [setOpenSignUpForm(false), history.push("/")]}\
+          onClose={() => [setOpenSignUpForm(false)]}
+        >
+          <DialogContent>
+            <UserSignUp
+              token={props.token}
+              handleMakeOpenSignUpDialogStatus={handleMakeOpenSignUpDialogStatus}
+              handleMakeCloseSignUpDialogStatus={
+                handleMakeCloseSignUpDialogStatus
+              }
+              handleMakeOpenLoginFormDialogStatus={
+                handleMakeOpenLoginFormDialogStatus
+              }
+              handleSuccessfulSignUpDialogOpenStatusWithSnackbar={
+                handleSuccessfulSignUpDialogOpenStatusWithSnackbar
+              }
+              handleFailedSignUpDialogOpenStatusWithSnackbar={
+                handleFailedSignUpDialogOpenStatusWithSnackbar
+              }
+              setToken={props.setToken}
+              setUserId={props.setUserId}
+            />
+          </DialogContent>
+        </Dialog>
+      );
+    };
+
+
+
+    const renderInfluencerSignUpForm = () => {
+      return (
+        <Dialog
+          //style={{ zIndex: 1302 }}
+          fullScreen={matchesXS}
+          open={openInfluencerSignUpForm}
+          //onClose={() => [setOpenSignUpForm(false), history.push("/")]}
+          onClose={() => [setInfluencerOpenSignUpForm(false)]}
+        >
+          <DialogContent>
+            <UserSignUpCreator
+              token={props.token}
+              handleMakeOpenInfluencerSignUpDialogStatus={handleMakeOpenInfluencerSignUpDialogStatus}
+              handleMakeCloseSignUpInfluencerDialogStatus={
+                handleMakeCloseSignUpInfluencerDialogStatus
+              }
+              handleMakeOpenLoginFormDialogStatus={
+                handleMakeOpenLoginFormDialogStatus
+              }
+              handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar={
+                handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar
+              }
+              handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar={
+                handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar
+              }
+              setToken={props.setToken}
+              setUserId={props.setUserId}
+            />
+          </DialogContent>
+        </Dialog>
+      );
+    };
+
+
+    const renderForgotPasswordForm = () => {
+        return (
+          <Dialog
+            //style={{ zIndex: 1302 }}
+            fullScreen={matchesXS}
+            open={openForgotPasswordForm}
+            //onClose={() => [setOpenForgotPasswordForm(false), history.push("/")]}
+            onClose={() => [setOpenForgotPasswordForm(false)]}
+          >
+            <DialogContent>
+              <UserPasswordReset
+                token={props.token}
+                userId={props.userId}
+                handleMakeOpenSignUpDialogStatus={handleMakeOpenSignUpDialogStatus}
+                handleMakeCloseSignUpDialogStatus={
+                  handleMakeCloseSignUpDialogStatus
+                }
+                handleMakeOpenLoginFormDialogStatus={
+                  handleMakeOpenLoginFormDialogStatus
+                }
+                handleMakeCloseForgotPasswordFormDialogStatus={
+                  handleMakeCloseForgotPasswordFormDialogStatus
+                }
+              />
+            </DialogContent>
+          </Dialog>
+        );
+      };
+
+
 
 
   //This is the working code that had been tested
@@ -3167,6 +13489,8 @@ const Marketplace = (props) => {
               >
                 <Grid sm item className={classes.heroTextContainer}>
                   {matchesMD ? (
+                    <>
+                    {/* <Typography><strong>We Don’t Follow Trends. We Launch Them.</strong></Typography> */}
                     <Typography
                       variant={matchesSM ? "subtitle2" : "h2"}
                       align="left"
@@ -3180,18 +13504,21 @@ const Marketplace = (props) => {
                         }}
                       >
                         {" "}
-                        Connect with top creators to craft high-quality <br />
+                      Africa’s influencer economy is booming—and we’re the engine. <br />
                       </span>{" "}
                       <span style={{ marginLeft: matchesSM ? 20 : 60 }}>
-                      marketing videos and audio jingles that,
+                      We plug top influencers into world-class brands 
                       </span>
                       <br />
                       <span style={{ marginLeft: matchesSM ? 20 : 110 }}>
-                      elevate your brand
+                      for campaigns that cut through the noise.
                       </span>
                       <br />
                     </Typography>
+                    <Typography variant={matchesSM ? "subtitle2" : "h2"} align="left" style={{ marginTop: "2rem" }}><strong style={{marginLeft:matchesSM ? 10 : 110}}>Bold stories. Bigger results. No fluff.</strong></Typography>
+                    </>
                   ) : (
+                    <>
                     <Typography
                       variant={matchesSM ? "subtitle2" : "h2"}
                       align="left"
@@ -3205,20 +13532,27 @@ const Marketplace = (props) => {
                         }}
                       >
                         {" "}
-                        Connect with top creators to craft high-quality<br />
+                      Africa’s influencer economy is booming—and <br />
                       </span>{" "}
                       <span style={{ marginLeft: matchesSM ? 20 : 60 }}>
-                      marketing videos and audio jingles that
+                      we are the engine. 
                       </span>
                       <br />
-                      <span style={{ marginLeft: matchesSM ? 30 : 110 }}>
-                      elevate your brand
+                      <span style={{ marginLeft: matchesSM ? 30 : 60 }}>
+                       We plug top influencers into world-class
                       </span>
                       <br />
-                      {/* <span style={{ marginLeft: matchesSM ? 50 : 140 }}>
-                        into future champions in their fields
-                      </span> */}
+                      <span style={{ marginLeft: matchesSM ? 40 : 110 }}>
+                       brands for campaigns  that cut through
+                      </span>
+                      <br />
+                      <span style={{ marginLeft: matchesSM ? 50 : 140 }}>
+                        the noise.
+                      </span>
                     </Typography>
+                    <Typography variant={matchesSM ? "subtitle2" : "h5"} align="left" style={{ marginTop: "2rem" }}><strong style={{marginLeft:matchesSM ? 10 : 110}}>Bold stories. Bigger results. No fluff.</strong></Typography>
+                    </>
+                    
                   )}
 
                   {/* {matchesMD ? (
@@ -3243,7 +13577,49 @@ const Marketplace = (props) => {
           </Grid>
         </Grid>
         {/* </section> */}
-        <TopCover />
+        <HeroSection />
+        <TopCover 
+              token={props.token}
+              userId={props.userId}
+              setToken={props.setToken}
+              setUserId={props.setUserId}
+              policy={props.policy}
+              handleMakeOpenSignUpDialogStatus={handleMakeOpenSignUpDialogStatus}
+              handleMakeOpenLoginFormDialogStatus={handleMakeOpenLoginFormDialogStatus}
+              handleSuccessfulSignUpDialogOpenStatusWithSnackbar={handleSuccessfulSignUpDialogOpenStatusWithSnackbar}
+              handleFailedSignUpDialogOpenStatusWithSnackbar={handleFailedSignUpDialogOpenStatusWithSnackbar}
+              handleMakeOpenInfluencerSignUpDialogStatus={handleMakeOpenInfluencerSignUpDialogStatus}
+              handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar={handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar}
+              handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar={handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar}
+        />
+        <OurProcesses 
+          token={props.token}
+          userId={props.userId}
+          setToken={props.setToken}
+          etUserId={props.setUserId}
+          policy={props.policy}
+          handleMakeOpenSignUpDialogStatus={handleMakeOpenSignUpDialogStatus}
+          handleMakeOpenLoginFormDialogStatus={handleMakeOpenLoginFormDialogStatus}
+          handleSuccessfulSignUpDialogOpenStatusWithSnackbar={handleSuccessfulSignUpDialogOpenStatusWithSnackbar}
+          handleFailedSignUpDialogOpenStatusWithSnackbar={handleFailedSignUpDialogOpenStatusWithSnackbar}
+          handleMakeOpenInfluencerSignUpDialogStatus={handleMakeOpenInfluencerSignUpDialogStatus}
+          handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar={handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar}
+          handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar={handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar}
+        />
+        <OurServicePlans 
+          token={props.token}
+          userId={props.userId}
+          setToken={props.setToken}
+          setUserId={props.setUserId}
+          policy={props.policy}
+          handleMakeOpenSignUpDialogStatus={handleMakeOpenSignUpDialogStatus}
+          handleMakeOpenLoginFormDialogStatus={handleMakeOpenLoginFormDialogStatus}
+          handleSuccessfulSignUpDialogOpenStatusWithSnackbar={handleSuccessfulSignUpDialogOpenStatusWithSnackbar}
+          handleFailedSignUpDialogOpenStatusWithSnackbar={handleFailedSignUpDialogOpenStatusWithSnackbar}
+          handleMakeOpenInfluencerSignUpDialogStatus={handleMakeOpenInfluencerSignUpDialogStatus}
+          handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar={handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar}
+          handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar={handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar}
+        />
         {/* <TopCoverServices />
         <TopCoverNew /> */}
         {/* <TopCover /> */}
@@ -3259,11 +13635,26 @@ const Marketplace = (props) => {
           updateLanguagePathHandler={updateLanguagePathHandler}
           updateNichePathHandler={updateNichePathHandler}
           updateCountryPathHandler={updateCountryPathHandler}
-          updateDeliveryDaysPathHandler={updateDeliveryDaysPathHandler}
+          updatePlatformPathHandler={updatePlatformPathHandler}
           updateServicePathInfoInfo={updateServicePathInfoInfo}
+          updateCountryCodeHandler={updateCountryCodeHandler}
+          token={props.token}
+          userId={props.userId}
+          setToken={props.setToken}
+          setUserId={props.setUserId}
+          policy={props.policy}
+          handleMakeOpenSignUpDialogStatus={handleMakeOpenSignUpDialogStatus}
+          handleMakeOpenLoginFormDialogStatus={handleMakeOpenLoginFormDialogStatus}
+          handleSuccessfulSignUpDialogOpenStatusWithSnackbar={handleSuccessfulSignUpDialogOpenStatusWithSnackbar}
+          handleFailedSignUpDialogOpenStatusWithSnackbar={handleFailedSignUpDialogOpenStatusWithSnackbar}
+          handleMakeOpenInfluencerSignUpDialogStatus={handleMakeOpenInfluencerSignUpDialogStatus}
+          handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar={handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar}
+          handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar={handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar}
           
     
         />
+
+        
 
         {isLoading && (
           <CircularProgress
@@ -3280,16 +13671,33 @@ const Marketplace = (props) => {
             component="p"
             style={{ marginTop: 60, marginLeft: 170 }}
           >
-            No Creator Is Found
+            No Influencer Is Found
           </Typography>
         )}
         {/** This is for path = crash-course**/}
        
         {/** This is for path = all**/}
        
-        {!isLoading && path === "all" && (
+        {/* {!isLoading && path === "all" && (
           <Grid item>{allCreatorsList}</Grid>
+        )} */}
+         {!isLoading && path === "all" && (
+          // <Grid item>{allCreatorsList}</Grid>
+          <AllProductsInCardDesign
+             creatorsList={creatorsList}
+             //service={service}
+                token={props.token}
+                userId={props.userId}
+                setToken={props.setToken}
+                setUserId={props.setUserId}
+                updateLearningPathInfoInfo={updateLearningPathInfoInfo}
+                path={path}
+            />
         )}
+          {renderLoginForm()}
+          {renderSignUpForm()}
+          {renderForgotPasswordForm()}
+          {renderInfluencerSignUpForm()}
         <Grid item className={classes.footer}>
           <UpperFooter />
         </Grid>

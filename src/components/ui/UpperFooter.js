@@ -311,9 +311,10 @@ function UpperFooter(props) {
                         practice, mentoring and assessment <br />
                       </strong> */}
                       <strong>
-                        At TopCreators, we believe that powerful storytelling is at the heart of every successful brand.
-                        Our platform is designed to connect businesses with top-tier creators specializing in marketing videos and jingles 
-                        that captivate audiences and leave a lasting impression
+                        We are a full-service influencer marketing agency that connects brands with top-performing influencers across Africa. Through our curated marketplace,
+                        brands can search, evaluate, and engage influencers directly via our platform. 
+                        We facilitate contract execution, content management, and performance reporting from start to finish, 
+                        ensuring every campaign is professionally managed and delivers results.
 
                       </strong>
                     </Typography>

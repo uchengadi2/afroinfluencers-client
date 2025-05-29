@@ -310,12 +310,27 @@ function ShowCustomerCart(props) {
       items.map((cart) => {
         allData.push({
           id: cart._id,
-          course: cart.course,
+          creator: cart.creator,
+          brand: cart.brand,
           cartHolder: cart.cartHolder,
           dateAddedToCart: cart.dateAddedToCart,
-          preferredStartDate: cart.preferredStartDate,
           refNumber: cart.refNumber,
           quantity: cart.quantity,
+          status: cart.status,
+          agencyServicePlan:cart.agencyServicePlan,
+          project: cart.project,
+          creativeLanguage: cart.creativeLanguage,
+          currency: cart.currency,
+          slug: cart.slug,
+          creatorImage: cart.creatorImage,
+          platforms: cart.platforms,
+          facebookPostQuantity: cart.facebookPostQuantity,
+          instagramPostQuantity: cart.instagramPostQuantity,
+          twitterPostQuantity: cart.twitterPostQuantity,
+          tiktokPostQuantity: cart.tiktokPostQuantity,
+          linkedInPostQuantity: cart.linkedInPostQuantity,
+          blogPostQuantity: cart.blogPostQuantity,
+
         });
       });
 
@@ -344,15 +359,30 @@ function ShowCustomerCart(props) {
         <Grid container direction="row">
           {cartProductList.map((cart, index) => (
             <CartProductCard
-              course={cart.course}
+              creator={cart.creator}
+              brand={cart.brand}
+              agencyServicePlan={cart.agencyServicePlan}
+              project={cart.project}
+              creativeLanguage={cart.creativeLanguage}
+              currency={cart.currency}
+              slug={cart.slug}
+              platforms={cart.platforms}
+              facebookPostQuantity={cart.facebookPostQuantity}
+              instagramPostQuantity={cart.instagramPostQuantity}
+              twitterPostQuantity={cart.twitterPostQuantity}
+              tiktokPostQuantity={cart.tiktokPostQuantity}
+              linkedInPostQuantity={cart.linkedInPostQuantity}
+              blogPostQuantity={cart.blogPostQuantity}
+              blogCostPerPost={cart.creator.blogCostPerPost}
+              image={cart.creatorImage}
               key={`${cart.id}${index}`}
               cartHolder={cart.cartHolder}
               cartId={cart.id}
               dateAddedToCart={cart.dateAddedToCart}
-              preferredStartDate={cart.preferredStartDate}
+              //preferredStartDate={cart.preferredStartDate}
               cartCounterHandler={props.cartCounterHandler}
               refNumber={cart.refNumber}
-              quantity={cart.quantity}
+             // quantity={cart.quantity}
               token={props.token}
               userId={props.userId}
               setToken={props.setToken}
@@ -380,15 +410,30 @@ function ShowCustomerCart(props) {
         >
           {cartProductList.map((cart, index) => (
             <CartProductCard
-              course={cart.course}
+              creator={cart.creator}
+              brand={cart.brand}
+              agencyServicePlan={cart.agencyServicePlan}
+              project={cart.project}
+              creativeLanguage={cart.creativeLanguage}
+              currency={cart.currency}
+              slug={cart.slug}
+              platforms={cart.platforms}
+              facebookPostQuantity={cart.facebookPostQuantity}
+              instagramPostQuantity={cart.instagramPostQuantity}
+              twitterPostQuantity={cart.twitterPostQuantity}
+              tiktokPostQuantity={cart.tiktokPostQuantity}
+              linkedInPostQuantity={cart.linkedInPostQuantity}
+              blogPostQuantity={cart.blogPostQuantity}
+              blogCostPerPost={cart.creator.blogCostPerPost}
+              image={cart.creatorImage}
               key={`${cart.id}${index}`}
               cartHolder={cart.cartHolder}
               cartId={cart.id}
               dateAddedToCart={cart.dateAddedToCart}
-              preferredStartDate={cart.preferredStartDate}
+              //preferredStartDate={cart.preferredStartDate}
               cartCounterHandler={props.cartCounterHandler}
               refNumber={cart.refNumber}
-              quantity={cart.quantity}
+             // quantity={cart.quantity}
               token={props.token}
               userId={props.userId}
               setToken={props.setToken}
@@ -500,7 +545,7 @@ function ShowCustomerCart(props) {
 
         {!isLoading && cartProductList.length === 0 ? (
           <p style={{ marginTop: 20, marginLeft: 10 }}>
-            There are no items in your cart
+            There are no items in your collection
           </p>
         ) : (
           <Grid item>{cartList}</Grid>

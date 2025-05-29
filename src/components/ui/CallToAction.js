@@ -104,16 +104,16 @@ export default function CallToAction(props) {
           <Grid item>
             {matchesMD ? (
               <Typography variant="h2">
-                A Platform That Connects You With Top Creators!!! <br />{" "}
-                Revolutionary Creators
+                A Platform That Connects Brands With Top Influencers!!! <br />{" "}
+                Revolutionary Results
               </Typography>
             ) : (
               <Typography variant="h2" style={{ fontSize: "1.5rem" }}>
-                A Platform That Connects You With Top Creators!!! <br />{" "}
-                Revolutionary Creators
+                A Platform That Connects Brands With Top Influencers!!! <br />{" "}
+                Revolutionary Results
               </Typography>
             )}
-            {matchesMD ? (
+            {/* {matchesMD ? (
               <Typography variant="subtitle2" style={{ fontSize: "1.5rem" }}>
                 Creating visuals & Jingles that elevate brands
               </Typography>
@@ -124,7 +124,7 @@ export default function CallToAction(props) {
               >
                 Creating visuals & Jingles that elevate brands
               </Typography>
-            )}
+            )} */}
 
             {matchesMD ? (
               <Grid

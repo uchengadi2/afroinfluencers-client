@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     //height: "40vh",
-    marginTop: "1.5em",
+    marginTop: "3.5em",
     height: "100%",
     position: "relative",
     "& video": {
@@ -223,6 +223,8 @@ function CheckoutPage(props) {
   const [currencyName, setCurrencyName] = useState();
   const [brand, setBrand] = useState();
   const [project, setProject] = useState();
+  const [policy, setPolicy] = useState();
+  const [hasInfo, setHasInfo] = useState(false);
   const [isLoading, setIsLoading] = useState(null);
 
   const [alert, setAlert] = useState({
@@ -287,32 +289,26 @@ function CheckoutPage(props) {
       items.map((cart) => {
         allData.push({
           id: cart._id,
-          dateAddedToCart: cart.dateAddedToCart,
           creator: cart.creator,
           brand: cart.brand,
-          brandName: cart.brandName,
-          brandCountry: cart.brandCountry,
-          refNumber: cart.refNumber, 
-          creativeQuantity: cart.creativeQuantity,
-          creativeHookQuantity: cart.creativeHookQuantity,
-          creativeType: cart.creativeType,
+          cartHolder: cart.cartHolder,
+          dateAddedToCart: cart.dateAddedToCart,
+          refNumber: cart.refNumber,
+          quantity: cart.quantity,
+          status: cart.status,
+          agencyServicePlan:cart.agencyServicePlan,
           project: cart.project,
           creativeLanguage: cart.creativeLanguage,
-          creatorCategoryCode: cart.creatorCategoryCode,
-          creatorCategoryName: cart.creatorCategoryName,
-          grandTotal: cart.grandTotal, 
-          cartHolder: cart.cartHolder,
-          isDeleted: cart.isDeleted,
-          creativeUnitPrice: cart.creativeUnitPrice,
-          creativeHookUnitPrice: cart.creativeHookUnitPrice,
-          creativeDeliveryDays: cart.createiveDeliveryDays,
           currency: cart.currency,
-          currencyName: cart.currencyName,
-          //status: "marked-for-checkout",    
-          status: cart.status,  
-          category: cart.category,            
           slug: cart.slug,
-          image:cart.creatorImage
+          image: cart.creatorImage,
+          platforms: cart.platforms,
+          facebookPostQuantity: cart.facebookPostQuantity,
+          instagramPostQuantity: cart.instagramPostQuantity,
+          twitterPostQuantity: cart.twitterPostQuantity,
+          tiktokPostQuantity: cart.tiktokPostQuantity,
+          linkedInPostQuantity: cart.linkedInPostQuantity,
+          blogPostQuantity: cart.blogPostQuantity,
         });
       });
 
@@ -332,7 +328,7 @@ function CheckoutPage(props) {
       // if (allData.length >= 1) {
       //   setAcceptablePaymentOptions(allData[0].acceptablePaymentOptions);
       // }
-      console.log('allData.length:',allData.length)
+     
       if (allData.length === 0) {
         setCartProductList(allData);
         setIsLoading(false);
@@ -357,6 +353,49 @@ function CheckoutPage(props) {
     fetchData().catch(console.error);
   }, [updateCheckout]);
 
+
+
+  useEffect(() => {
+            const fetchData = async () => {
+              let allData = {};
+              api.defaults.headers.common["Authorization"] = `Bearer ${props.token}`;
+              const response = await api.get(`/policies`);
+              const workingData = response.data.data.data;
+                  
+             
+             if(workingData.length > 0){
+              
+             setHasInfo(true);
+              setPolicy(workingData[0]);
+  
+              
+              }else{
+              setHasInfo(false);
+             }
+              
+            };
+        
+            //call the function
+        
+            fetchData().catch(console.error);
+          }, [updateCheckout]);
+
+  //compute the contract processing fee
+  let contractProcessingFeeLocal = 0;
+  let contractProcessingFeeInternational = 0;
+  
+
+  {cartProductList && cartProductList.map((cart) => {
+    if (policy && cart.creator && cart.creator.currency && cart.creator.currency[0].name.toLowerCase() === "naira") {
+      contractProcessingFeeLocal = contractProcessingFeeLocal + policy.contractProcessingFeeForLocals;
+    } else {
+      contractProcessingFeeInternational = contractProcessingFeeInternational + policy.contractProcessingFeeForNonLocals;
+    }
+
+  })}
+
+
+
   
   
   const Str = require("@supercharge/strings");
@@ -368,35 +407,30 @@ function CheckoutPage(props) {
           {cartProductList.map((cart, index) => (
             <CheckoutCard
               creator={cart.creator}
+              brand={cart.brand}
               key={`${cart.id}${index}`}
               cartHolder={cart.cartHolder}
               cartId={cart.id}
+              platforms={cart.platforms}
               dateAddedToCart={cart.dateAddedToCart}
-              brand={cart.brand}
-              brandName= {cart.brandName}
-              brandCountry={cart.brandCountry}
-              refNumber={cart.refNumber} 
-              creativeQuantity={cart.creativeQuantity}
-              creativeHookQuantity={cart.creativeHookQuantity}
-              creativeType={cart.creativeType}
+              agencyServicePlan={cart.agencyServicePlan}
               project={cart.project}
-              projectName={cart.project?cart.project.name:""}
-              projectLanguage={cart.project?cart.project.language[0].language:""}
-              projectType={cart.project?cart.project.type:""}
               creativeLanguage={cart.creativeLanguage}
-              creatorCategoryCode={cart.creatorCategoryCode}
-              creatorCategoryName= {cart.creatorCategoryName}
-              grandTotal={cart.grandTotal} 
-              isDeleted= {cart.isDeleted}
-              creativeUnitPrice={cart.creativeUnitPrice}
-              creativeHookUnitPrice={cart.creativeHookUnitPrice}
-              creativeDeliveryDays={cart.creativeDeliveryDays}
               currency={cart.currency}
+              slug={cart.slug}
+            
+              facebookPostQuantity={cart.facebookPostQuantity}
+              instagramPostQuantity={cart.instagramPostQuantity}
+              twitterPostQuantity={cart.twitterPostQuantity}
+              tiktokPostQuantity={cart.tiktokPostQuantity}
+              linkedInPostQuantity={cart.linkedInPostQuantity}
+              blogPostQuantity={cart.blogPostQuantity}
+       
               currencyName={cart.currencyName}
               //status: "marked-for-checkout",
               status={cart.status}
               category={cart.category}
-              slug={cart.slug}
+     
               image={cart.image}
               token={props.token}
               userId={props.userId}
@@ -408,6 +442,8 @@ function CheckoutPage(props) {
               }
               handleFailedSnackbar={props.handleFailedSnackbar}
               renderCheckoutUpdate={renderCheckoutUpdate}
+              policy={policy}
+              hasInfo={hasInfo}
             />
           ))}
         </Grid>
@@ -425,35 +461,30 @@ function CheckoutPage(props) {
           {cartProductList.map((cart, index) => (
             <CheckoutCard
               creator={cart.creator}
+              brand={cart.brand}
               key={`${cart.id}${index}`}
               cartHolder={cart.cartHolder}
               cartId={cart.id}
+              platforms={cart.platforms}
               dateAddedToCart={cart.dateAddedToCart}
-              refNumber={cart.refNumber}
-              brand={cart.brand}
-              brandName= {cart.brandName}
-              brandCountry={cart.brandCountry}
-              creativeQuantity={cart.creativeQuantity}
-              creativeHookQuantity={cart.creativeHookQuantity}
-              creativeType={cart.creativeType}
+              agencyServicePlan={cart.agencyServicePlan}
               project={cart.project}
-              projectName={cart.project?cart.project.name:""}
-              projectLanguage={cart.project?cart.project.language[0].language:""}
-              projectType={cart.project?cart.project.type:""}
               creativeLanguage={cart.creativeLanguage}
-              creatorCategoryCode={cart.creatorCategoryCode}
-              creatorCategoryName= {cart.creatorCategoryName}
-              grandTotal={cart.grandTotal} 
-              isDeleted= {cart.isDeleted}
-              creativeUnitPrice={cart.creativeUnitPrice}
-              creativeHookUnitPrice={cart.creativeHookUnitPrice}
-              creativeDeliveryDays={cart.creativeDeliveryDays}
               currency={cart.currency}
+              slug={cart.slug}
+            
+              facebookPostQuantity={cart.facebookPostQuantity}
+              instagramPostQuantity={cart.instagramPostQuantity}
+              twitterPostQuantity={cart.twitterPostQuantity}
+              tiktokPostQuantity={cart.tiktokPostQuantity}
+              linkedInPostQuantity={cart.linkedInPostQuantity}
+              blogPostQuantity={cart.blogPostQuantity}
+       
               currencyName={cart.currencyName}
               //status: "marked-for-checkout",
               status={cart.status}
               category={cart.category}
-              slug={cart.slug}
+     
               image={cart.image}
               token={props.token}
               userId={props.userId}
@@ -465,6 +496,8 @@ function CheckoutPage(props) {
               }
               handleFailedSnackbar={props.handleFailedSnackbar}
               renderCheckoutUpdate={renderCheckoutUpdate}
+              policy={policy}
+              hasInfo={hasInfo}
             />
           ))}
         </Grid>
@@ -509,7 +542,9 @@ function CheckoutPage(props) {
               cartList={cartProductList}
               brand={brand}
               project={project}
-              totalCost={grandTotal}
+              //totalCost={contractProcessingFeeLocal}
+              contractProcessingFeeLocal={contractProcessingFeeLocal}
+              contractProcessingFeeInternational={contractProcessingFeeInternational}
               currency={currencyName}
               token={props.token}
               userId={props.userId}
@@ -519,6 +554,8 @@ function CheckoutPage(props) {
                 props.handleSuccessfulCreateSnackbar
               }
               handleFailedSnackbar={props.handleFailedSnackbar}
+              policy={policy}
+              hasInfo={hasInfo}
             />
           ))}
       </Grid>

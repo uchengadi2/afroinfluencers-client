@@ -27,6 +27,7 @@ import api from "../../apis/local";
 
 import theme from "../ui/Theme";
 import { grey } from "@material-ui/core/colors";
+import { set } from "lodash";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
     marginLeft: "4em",
     //borderRadius: 30,
-    marginTop: "4em",
+    marginTop: "10em",
     marginBottom: "1em",
     padding: 0,
     backgroundColor: "#ECFFE6",
@@ -174,6 +175,9 @@ export default function ServicePreferences(props) {
   const [deliveryDays, setDeliveryDays] = useState('all');
   const [priceRange, setPriceRange] = useState('all');
   const [gender, setGender] = useState('all');
+  const [platform, setPlatform] = useState("all");
+  const [countrycode, setCountryCode] = useState("682211ebd6574a66fcbe10e3");
+  
 
   // const { token, setToken } = useToken();
   // const { userId, setUserId } = useUserId();
@@ -232,7 +236,8 @@ export default function ServicePreferences(props) {
 
       if (language === 0 && country !==0) {
         api.defaults.headers.common["Authorization"] = `Bearer ${props.token}`;
-        const response = await api.get(`/languages`,{params:{country:country}});
+        // const response = await api.get(`/languages`,{params:{country:country}});
+        const response = await api.get(`/languages`);
         const workingData = response.data.data.data;
         workingData.map((language) => {
           allData.push({ id: language._id, name: language.language });
@@ -241,7 +246,7 @@ export default function ServicePreferences(props) {
       } else if(language !== 0 && country !==0) {
         api.defaults.headers.common["Authorization"] = `Bearer ${props.token}`;
         const response = await api.get(`/languages/${language}`, {
-          params: {country:country },
+          //params: {country:country },
         });
         const workingData = response.data.data.data;
         workingData.map((lang) => {
@@ -263,7 +268,7 @@ export default function ServicePreferences(props) {
     //call the function
 
     fetchData().catch(console.error);
-  }, [language,country]);
+  }, [language]);
 
 //retrieve the niches
 
@@ -300,9 +305,11 @@ export default function ServicePreferences(props) {
 
   const handleCountryChange=(event)=>{
     setCountry(event.target.value);
+    setCountryCode(event.target.value);
     
   }
 
+  
   const handleLanguageChange=(event)=>{
     setLanguage(event.target.value);
     
@@ -316,6 +323,10 @@ export default function ServicePreferences(props) {
   const handleDeliveryDaysChange=(event)=>{
     setDeliveryDays(event.target.value);
     
+  }
+
+  const handlePlatformChange=(event)=>{
+    setPlatform(event.target.value);  
   }
 
   const handleAgeChange=(event)=>{
@@ -342,7 +353,8 @@ export default function ServicePreferences(props) {
       return [
         id === 0 && (
           <MenuItem key={id++} value={0}>
-            All Country
+            All Countries
+           
           </MenuItem>
         ),
         <MenuItem key={item.id} value={item.id}>
@@ -404,8 +416,9 @@ export default function ServicePreferences(props) {
               height: 38,
               width: matchesMDUp ? 140 : 170,
               marginTop: 10,
-              //marginLeft: 45,
+              marginLeft: matchesMDUp ? 5 : 0,
             }}
+            
           >
             {renderCountriesList()}
           </Select>
@@ -430,7 +443,7 @@ export default function ServicePreferences(props) {
               height: 38,
               width: matchesMDUp ? 140 : 170,
               marginTop: matchesMDUp ? 10 : 0,
-              //marginLeft: 45,
+             marginLeft: matchesMDUp ? 10 : 0,
             }}
           >
             {renderNichesList()}
@@ -455,50 +468,51 @@ export default function ServicePreferences(props) {
             // label="State"
             style={{
               height: 38,
-              width: matchesMDUp ? 140 : 170,
+              width: matchesMDUp ? 130 : 170,              
               marginTop:matchesMDUp ? 10 : 0,
-              //marginLeft: 45,
+              marginLeft: matchesMDUp ? 20 : 0,
             }}
           >
             {renderLanguagesList()}
           </Select>
-          <FormHelperText>Choose Language</FormHelperText>
+          <FormHelperText style={{marginLeft:30}}>Choose Languages</FormHelperText>
         </FormControl>
       </Box>
     );
   };
 
 
-  const renderDeliveryDaysField = () => {
+  
+
+
+  const renderPlatformField = () => {
     return (
       <Box>
         <FormControl variant="outlined" className={classes.accountType}>
           {/* <InputLabel id="vendor_city">City</InputLabel> */}
           <Select
-            labelId="deliveryDays"
-            id="deliveryDays"
-            value={deliveryDays}
-            onChange={handleDeliveryDaysChange}
+            labelId="platform"
+            id="platform"
+            value={platform}
+            onChange={handlePlatformChange}
             //label="Learning Path"
             style={{
               height: 38,
-              width: matchesMDUp ? 140 :350,
+              width: matchesMDUp ? 150 : 170,
               marginTop: matchesMDUp ? 10 : 0,
-              marginLeft: matchesMDUp ? 10 : 0,
+              marginLeft: matchesMDUp ? 0 : 0,
             }}
           >
-            <MenuItem value={"all"}>All Delivery Days</MenuItem>
-            <MenuItem value={"1"}>1 day
-            </MenuItem>
-            <MenuItem value={"<=2"}>Less than or equal to 2 days</MenuItem>
-            <MenuItem value={"<=3"}>Less than or equal to 3 days</MenuItem>
-            <MenuItem value={"<=4"}>Less than or equal to 4 days</MenuItem>
-            <MenuItem value={"<=5"}>Less than or equal to 5 days</MenuItem>
-            <MenuItem value={"<=6"}>Less than or equal to 6 days</MenuItem>
-            <MenuItem value={"<=7"}>Less than or equal to 7 days</MenuItem>
-            <MenuItem value={"above-7"}>Above 7 days</MenuItem>
+            <MenuItem value={"all"}>All Platforrms</MenuItem>
+            <MenuItem value={"facebook"}>Facebook</MenuItem>
+            <MenuItem value={"instagram"}>Instagram</MenuItem>
+            <MenuItem value={"twitter"}>Twitter</MenuItem>
+            <MenuItem value={"tiktok"}>Tiktok</MenuItem>
+            <MenuItem value={"linkedin"}>LinkedIn</MenuItem>
+            <MenuItem value={"blog"}>Blog</MenuItem>
+           
           </Select>
-          <FormHelperText>Delivery Days Range</FormHelperText>
+          <FormHelperText>Select Platform</FormHelperText>
         </FormControl>
       </Box>
     );
@@ -520,7 +534,7 @@ export default function ServicePreferences(props) {
               height: 38,
               width: matchesMDUp ? 140 : 170,
               marginTop: matchesMDUp ? 10 : 0,
-              marginLeft: matchesMDUp ? 10 : 0,
+              marginLeft: matchesMDUp ? 5 : 0,
             }}
           >
             <MenuItem value={"all"}>All Gender</MenuItem>
@@ -529,7 +543,7 @@ export default function ServicePreferences(props) {
             <MenuItem value={"female"}>Female</MenuItem>
             
           </Select>
-          <FormHelperText>Select Gender</FormHelperText>
+          <FormHelperText>Select Genders</FormHelperText>
         </FormControl>
       </Box>
     );
@@ -551,7 +565,7 @@ export default function ServicePreferences(props) {
               height: 38,
               width: matchesMDUp ? 140 : 170,
               marginTop: matchesMDUp ? 10 : 0,
-              marginLeft: matchesMDUp ? 10 : 0,
+              marginLeft: matchesMDUp ? 5 : 0,
             }}
           >
             <MenuItem value={"all"}>All Ages</MenuItem>
@@ -568,6 +582,8 @@ export default function ServicePreferences(props) {
     );
   };
 
+  console.log("country code",countrycode);
+
   const renderPriceRangeField = () => {
     return (
       <Box>
@@ -581,12 +597,12 @@ export default function ServicePreferences(props) {
             //label="Learning Path"
             style={{
               height: 38,
-              width: matchesMDUp ? 140 : 170,
+              width: matchesMDUp ? 130 : 170,
               marginTop: 10,
-              marginLeft: matchesMDUp ? 10 : 0,
+              marginLeft: matchesMDUp ? 35 : 10,
             }}
           >
-            <MenuItem value={"all"}>All Price Ranges</MenuItem>
+            <MenuItem value={"all"}>All Cost Per Post Ranges</MenuItem>
             <MenuItem value={"less-than-100000"}>Less than  &#8358;100,000
             </MenuItem>
             <MenuItem value={"100000-200000"}>Between &#8358;100,000 to &#8358;200,000</MenuItem>
@@ -596,7 +612,43 @@ export default function ServicePreferences(props) {
 
             <MenuItem value={"above-1000000"}>Above &#8358;1,000,000</MenuItem>
           </Select>
-          <FormHelperText>Select Price Range</FormHelperText>
+          <FormHelperText style={{marginLeft:40}}>Select Cost Per Post</FormHelperText>
+        </FormControl>
+      </Box>
+    );
+  };
+
+
+
+   const renderDollarsPriceRangeField = () => {
+    return (
+      <Box>
+        <FormControl variant="outlined" className={classes.accountType}>
+          {/* <InputLabel id="vendor_city">City</InputLabel> */}
+          <Select
+            labelId="priceRange"
+            id="priceRange"
+            value={priceRange}
+            onChange={handlePriceRangeChange}
+            //label="Learning Path"
+            style={{
+              height: 38,
+              width: matchesMDUp ? 130 : 170,
+              marginTop: 10,
+              marginLeft: matchesMDUp ? 35 : 10,
+            }}
+          >
+            <MenuItem value={"all"}>All Cost Per Post Ranges</MenuItem>
+            <MenuItem value={"less-than-500"}>Less than  $500
+            </MenuItem>
+            <MenuItem value={"500-3000"}>Between $500 to $3,000</MenuItem>
+            <MenuItem value={"3000-20000"}>Between $3,000 to $20,000</MenuItem>
+            <MenuItem value={"20000-50000"}>Between $20,000 to $50,000</MenuItem>
+            <MenuItem value={"50000-100000"}>Between $50,000 to $100,000</MenuItem>
+
+            <MenuItem value={"above-100000"}>Above $100,000</MenuItem>
+          </Select>
+          <FormHelperText style={{marginLeft:40}}>Select Cost Per Post</FormHelperText>
         </FormControl>
       </Box>
     );
@@ -607,11 +659,13 @@ export default function ServicePreferences(props) {
     props.updateCountryPathHandler(country)
     props.updateLanguagePathHandler(language)
     props.updateNichePathHandler(niche)
-    props.updateDeliveryDaysPathHandler(deliveryDays)
+    //props.updateDeliveryDaysPathHandler(deliveryDays)
     props.updateAgePathInfoHandler(age)
     props.updateGenderPathHandler(gender)
     props.updatePricePathHandler(priceRange)
     props.updateServicePathInfoInfo();
+    props.updatePlatformPathHandler(platform)
+    props.updateCountryCodeHandler(countrycode) 
 
   }
 
@@ -619,22 +673,30 @@ export default function ServicePreferences(props) {
     <>
       {matchesMDUp ? (
         <Card className={classes.root}>
+          <Typography variant="h3" style={{marginLeft:'40%',marginBottom:30, marginTop:30}}>Influencers</Typography>
           <Grid container direction="row" style={{ marginTop: 20 }}>
-            <Grid item style={{ width: "9%" }}>
-              <CardContent>{renderPriceRangeField()}</CardContent>
-            </Grid>
             <Grid item style={{ width: "9%", marginLeft: 40 }}>
+              <CardContent>{renderPlatformField()}</CardContent>
+            </Grid>
+             <Grid item style={{ width: "9%", marginLeft: 40 }}>
               <CardContent>{renderCountryField()}</CardContent>
             </Grid>
+            {countrycode ==="682211ebd6574a66fcbe10e3" && <Grid item style={{ width: "9%" }}>
+              <CardContent>{renderPriceRangeField()}</CardContent>
+            </Grid>}
+            {countrycode !=="682211ebd6574a66fcbe10e3" && <Grid item style={{ width: "9%" }}>
+              <CardContent>{renderDollarsPriceRangeField()}</CardContent>
+            </Grid>}
+
+            
+           
             <Grid item style={{ width: "9%", marginLeft: 40 }}>
               <CardContent>{renderLanguagesField()}</CardContent>
             </Grid>
             <Grid item style={{ width: "9%", marginLeft: 40 }}>
               <CardContent>{renderNichesField()}</CardContent>
             </Grid>
-            <Grid item style={{ width: "9%", marginLeft: 40 }}>
-              <CardContent>{renderDeliveryDaysField()}</CardContent>
-            </Grid>
+            
             <Grid item style={{ width: "9%", marginLeft: 40 }}>
               <CardContent>{renderAgeField()}</CardContent>
             </Grid>
@@ -658,12 +720,16 @@ export default function ServicePreferences(props) {
          
           <Grid container direction="column" style={{ marginTop: 20, width: 350 }}>
             <Grid item container direction="row" style={{width:350}}>
-            <Grid item style={{ width: 170 }}>
-              <CardContent>{renderPriceRangeField()}</CardContent>
-            </Grid>
-            <Grid item style={{ width: 170, marginLeft: 10 }}>
+             <Grid item style={{ width: 170, marginLeft: 0 }}>
               <CardContent>{renderCountryField()}</CardContent>
-            </Grid>            
+            </Grid> 
+            {countrycode ==="682211ebd6574a66fcbe10e3" &&<Grid item style={{ width: 170 }}>
+              <CardContent>{renderPriceRangeField()}</CardContent>
+            </Grid>}
+            {countrycode !=="682211ebd6574a66fcbe10e3" &&<Grid item style={{ width: 170 }}>
+              <CardContent>{renderDollarsPriceRangeField()}</CardContent>
+            </Grid>}
+                     
             </Grid>
 
             <Grid item container direction="row" style={{width:350,marginTop: "-25px"}}>
@@ -687,7 +753,7 @@ export default function ServicePreferences(props) {
 
             <Grid item container direction="row" style={{width:350,marginTop: "-25px"}}>
             <Grid item style={{ width: 350 }}>
-              <CardContent>{renderDeliveryDaysField()}</CardContent>
+              <CardContent>{renderPlatformField()}</CardContent>
             </Grid>
                        
             </Grid>

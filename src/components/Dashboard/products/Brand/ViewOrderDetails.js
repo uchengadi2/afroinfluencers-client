@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const renderNameField = ({
+const renderSingleLineField = ({
   input,
   label,
   meta: { touched, error, invalid },
@@ -94,17 +94,14 @@ const {params, token, userId} = props;
 
   const [loading, setLoading] = useState(false);
 
-  console.log('params:',params)
-
+  
   const dispatch = useDispatch();
 
   const buttonContent = () => {
     return <React.Fragment> Close</React.Fragment>;
   };
 
-  console.log('params:', params);
-
-  
+    
 
   return (
     <form id="viewOrderDetails">
@@ -156,48 +153,178 @@ const {params, token, userId} = props;
           type="text"
           helperText="Order Number"
           readOnly={true}
-          component={renderNameField}
+          component={renderSingleLineField}
         />
          <Field
           label=""
-          id="creativeType"
-          name="creativeType"
-          defaultValue={params[0].creativeType}
+          id="project"
+          name="project"
+          defaultValue={params[0].projectName}
           type="text"
-          helperText="Creative Type"
+          helperText="Project Name"
           readOnly={true}
-          component={renderNameField}
+          component={renderSingleLineField}
         />
         <Field
           label=""
-          id="creativeLanguage"
-          name="creativeLanguage"
-          defaultValue={params[0].creativeLanguage}
+          id="brand"
+          name="brand"
+          defaultValue={params[0].brandName}
           type="text"
-          helperText="Required Creative Language"
+          helperText="Brand Name"
           readOnly={true}
-          component={renderNameField}
+          component={renderSingleLineField}
 
         />
         <Field
           label=""
-          id="orderedCreativeQuantity"
-          name="orderedCreativeQuantity"
-          defaultValue={params[0].orderedCreativeQuantity}
+          id="platforms"
+          name="platforms"
+          defaultValue={params[0].platforms}
           type="text"
-          helperText="Ordered Creative Quantity"
+          helperText="Selected Platforms"
           readOnly={true}
-          component={renderNameField}
+          component={renderSingleLineField}
+        />
+         {params[0].platforms.includes('facebook') && <Field
+          label=""
+          id="facebookPostQuantity"
+          name="facebookPostQuantity"
+          defaultValue={params[0].facebookPostQuantity}
+          type="text"
+          helperText="Number of Facebook Post "
+          readOnly={true}
+          component={renderSingleLineField}
+        />}
+         {params[0].platforms.includes('facebook') && <Field
+          label=""
+          id="facebookCostPerPost"
+          name="facebookCostPerPost"
+          defaultValue={params[0].facebookCostPerPost}
+          type="text"
+          helperText="Facebook Cost Per Post"
+          readOnly={true}
+          component={renderSingleLineField}
+        />}
+        {params[0].platforms.includes('instagram') && <Field
+          label=""
+          id="instagramPostQuantity"
+          name="instagramPostQuantity"
+          defaultValue={params[0].instagramPostQuantity}
+          type="text"
+          helperText="Number of Instagram Post "
+          readOnly={true}
+          component={renderSingleLineField}
+        />}
+        {params[0].platforms.includes('instagram') && <Field
+          label=""
+          id="instagramCostPerPost"
+          name="instagramCostPerPost"
+          defaultValue={params[0].instagramCostPerPost}
+          type="text"
+          helperText="Instagram Cost Per Post "
+          readOnly={true}
+          component={renderSingleLineField}
+        />}
+        {params[0].platforms.includes('twitter') && <Field
+          label=""
+          id="twitterPostQuantity"
+          name="twitterPostQuantity"
+          defaultValue={params[0].twitterPostQuantity}
+          type="text"
+          helperText="Number of Twitter Post "
+          readOnly={true}
+          component={renderSingleLineField}
+        />}
+        {params[0].platforms.includes('twitter') && <Field
+          label=""
+          id="twitterCostPerPost"
+          name="twitterCostPerPost"
+          defaultValue={params[0].twitterCostPerPost}
+          type="text"
+          helperText="Twitter Cost Per Post "
+          readOnly={true}
+          component={renderSingleLineField}
+        />}
+        {params[0].platforms.includes('tiktok') && <Field
+          label=""
+          id="tiktokPostQuantity"
+          name="tiktokPostQuantity"
+          defaultValue={params[0].tiktokPostQuantity}
+          type="text"
+          helperText="Number of Tiktok Post "
+          readOnly={true}
+          component={renderSingleLineField}
+        />}
+        {params[0].platforms.includes('tiktok') && <Field
+          label=""
+          id="tiktokCostPerPost"
+          name="tiktokCostPerPost"
+          defaultValue={params[0].tiktokCostPerPost}
+          type="text"
+          helperText="Tiktok Cost Per Post "
+          readOnly={true}
+          component={renderSingleLineField}
+        />}
+        {params[0].platforms.includes('linkedin') && <Field
+          label=""
+          id="linkedInPostQuantity"
+          name="linkedInPostQuantity"
+          defaultValue={params[0].linkedInPostQuantity}
+          type="text"
+          helperText="Number of LinkedIn Post "
+          readOnly={true}
+          component={renderSingleLineField}
+        />}
+        {params[0].platforms.includes('linkedin') && <Field
+          label=""
+          id="linkedInCostPerPost"
+          name="linkedInCostPerPost"
+          defaultValue={params[0].linkedInCostPerPost}
+          type="text"
+          helperText="LinkedIn Cost Per Post "
+          readOnly={true}
+          component={renderSingleLineField}
+        />}
+        {params[0].platforms.includes('blog') && <Field
+          label=""
+          id="blogPostQuantity"
+          name="blogPostQuantity"
+          defaultValue={params[0].blogPostQuantity}
+          type="text"
+          helperText="Number of Blog Post "
+          readOnly={true}
+          component={renderSingleLineField}
+        />}
+         {params[0].platforms.includes('blog') && <Field
+          label=""
+          id="blogCostPerPost"
+          name="blogCostPerPost"
+          defaultValue={params[0].blogCostPerPost}
+          type="text"
+          helperText="Blog Cost Per Post "
+          readOnly={true}
+          component={renderSingleLineField}
+        />}
+        <Field
+          label=""
+          id="agencyServicePlan"
+          name="agencyServicePlan"
+          defaultValue={params[0].agencyServicePlan.charAt(0).toUpperCase() + params[0].agencyServicePlan.slice(1)}
+          type="text"
+          helperText="Agency Service Plan"
+          readOnly={true}
+          component={renderSingleLineField}
         />
         <Field
           label=""
-          id="orderedHookQuantity"
-          name="orderedHookQuantity"
-          defaultValue={params[0].orderedHookQuantity}
+          id="contractProcessingFee"
+          name="contractProcessingFee"
+          defaultValue={params[0].contractProcessingFee}
           type="text"
-          helperText="Ordered Hook Quantity"
+          helperText="Contract Processin Fee"
           readOnly={true}
-          component={renderNameField}
+          component={renderSingleLineField}
         />
         <Field
           label=""
@@ -207,9 +334,70 @@ const {params, token, userId} = props;
           type="text"
           helperText="Creator Name"
           readOnly={true}
-          component={renderNameField}
+          component={renderSingleLineField}
 
         />
+        {params[0].platforms.includes('facebook') && <Field
+          label=""
+          id="facebookTotalFollowers"
+          name="facebookTotalFollowers"
+          defaultValue={params[0].facebookTotalFollowers}
+          type="text"
+          helperText="Facebook Number Of Followers "
+          readOnly={true}
+          component={renderSingleLineField}
+        />}
+        {params[0].platforms.includes('instagram') && <Field
+          label=""
+          id="instagramTotalFollowers"
+          name="instagramTotalFollowers"
+          defaultValue={params[0].instagramTotalFollowers}
+          type="text"
+          helperText="Instagram Number Of Followers "
+          readOnly={true}
+          component={renderSingleLineField}
+        />}
+        {params[0].platforms.includes('twitter') && <Field
+          label=""
+          id="twitterTotalFollowers"
+          name="twitterTotalFollowers"
+          defaultValue={params[0].twitterTotalFollowers}
+          type="text"
+          helperText="Twitter Number Of Followers "
+          readOnly={true}
+          component={renderSingleLineField}
+        />}
+        {params[0].platforms.includes('tiktok') && <Field
+          label=""
+          id="tiktokTotalFollowers"
+          name="tiktokTotalFollowers"
+          defaultValue={params[0].tiktokTotalFollowers}
+          type="text"
+          helperText="Tiktok Number Of Followers "
+          readOnly={true}
+          component={renderSingleLineField}
+        />}
+        {params[0].platforms.includes('linkedin') && <Field
+          label=""
+          id="linkedInTotalFollowers"
+          name="linkedInTotalFollowers"
+          defaultValue={params[0].linkedInTotalFollowers}
+          type="text"
+          helperText="LinkedIn Number Of Followers "
+          readOnly={true}
+          component={renderSingleLineField}
+        />}
+        {params[0].platforms.includes('blog') && <Field
+          label=""
+          id="blogTotalVisitorsPerMonth"
+          name="blogTotalVisitorsPerMonth"
+          defaultValue={params[0].blogTotalVisitorsPerMonth}
+          type="text"
+          helperText="Blog Estimated Number Of Visitors Per Month "
+          readOnly={true}
+          component={renderSingleLineField}
+        />}
+
         <Field
           label=""
           id="creatorCountry"
@@ -218,18 +406,29 @@ const {params, token, userId} = props;
           type="text"
           helperText="Creator Country"
           readOnly={true}
-          component={renderNameField}
+          component={renderSingleLineField}
 
         />
         <Field
           label=""
-          id="projectName"
-          name="projectName"
-          defaultValue={params[0].projectName}
+          id="age"
+          name="age"
+          defaultValue={params[0].creatorAge}
           type="text"
-          helperText="Project Name"
+          helperText="Creator Age"
           readOnly={true}
-          component={renderNameField}
+          component={renderSingleLineField}
+
+        />
+        <Field
+          label=""
+          id="gender"
+          name="gender"
+          defaultValue={params[0].creatorGender.charAt(0).toUpperCase() + params[0].creatorGender.slice(1)}
+          type="text"
+          helperText="Creator Gender"
+          readOnly={true}
+          component={renderSingleLineField}
 
         />
 

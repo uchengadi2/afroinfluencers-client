@@ -346,7 +346,7 @@ function AddBrandForm(props) {
             //defaultValue={props.yourCountry}
             onChange={handleCountryChange}
             // label="User"
-            style={{ marginTop: 0, width: matchesMDUp? 660:220, height: 38, marginLeft:0,marginRight:0 }}
+            style={{ marginTop: 0, width: matchesMDUp? 650:220, height: 38, marginLeft:0,marginRight:0 }}
             //{...input}
           >
             {renderCountriesList()}
@@ -366,7 +366,7 @@ function AddBrandForm(props) {
   const onSubmit = (formValues) => {
     setLoading(true);
 
-    if(!props.hasInfo){
+    if(props.hasInfo && !props.brandId){
 
       if (
         !formValues["name"] ||
@@ -528,7 +528,7 @@ function AddBrandForm(props) {
             style={{ color: "grey", fontSize: "1.8em" }}
             component="legend"
           >
-            {props.hasInfo ? "Update Your Brand Information" : "Complete Your Brand Information"}
+            {props.hasInfo && props.brandId ? "Update Your Brand Information" : "Complete Your Brand Information"}
           </FormLabel>
           
         </Grid>
@@ -597,7 +597,7 @@ function AddBrandForm(props) {
           floatingLabelText={"Upload Your Brand Photo"}
           fullWidth={true}
         />
-        {props.hasInfo && <Button
+        {props.hasInfo && props.brandId && <Button
           variant="contained"
           className={matchesMDUp ? classes.submitUpdateButton : classes.submitUpdateButtonMobile}
           onClick={props.handleSubmit(onSubmit)}
@@ -608,7 +608,7 @@ function AddBrandForm(props) {
             buttonUpdateContent()
           )}
         </Button>}
-        {!props.hasInfo && <Button
+        {props.hasInfo && !props.brandId && <Button
           variant="contained"
           className={matchesMDUp ? classes.submitButton : classes.submitButtonMobile}
           onClick={props.handleSubmit(onSubmit)}

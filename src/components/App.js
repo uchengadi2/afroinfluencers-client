@@ -47,6 +47,7 @@ import DashboardBrand from "./Dashboard/DashboardBrand";
 import DashboardCreator from "./Dashboard/DashboardCreator";
 import ResetUserPasswordForm from "./authForms/ResetUserPasswordForm";
 
+
 function App() {
   const { token, setToken } = useToken();
   const { userId, setUserId } = useUserId();
@@ -55,6 +56,10 @@ function App() {
   const [resetCookie, setResetCookie] = useState(false);
   const [cartCounter, setCartCounter] = useState(0);
   const [cartItemForCheckout, setCartItemForCheckout] = useState(false);
+  const[hasInfo, setHasInfo] = useState(false);
+  const [creator, setCreator] = useState({});
+  const [policy, setPolicy] = useState({});
+  const [name, setName] = useState("");
   const [cartIsUpdatedAfterRemoval, setCartIsUpdatedAfterRemoval] =
     useState(false);
   const [alert, setAlert] = useState({
@@ -137,6 +142,72 @@ function App() {
     setCartCounter((prevState) => prevState + value);
   };
 
+
+  //spoool the creator details
+
+   useEffect(() => {
+        const fetchData = async () => {
+          let allData = {};
+          api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+          const response = await api.get(`/creators`,{params:{
+            user:userId
+          }});
+          const workingData = response.data.data.data;
+  
+       
+         
+         if(workingData.length > 0){
+  
+          workingData.map((item) => {
+           
+             setCreator(item)
+             setName(item.name)
+          })
+           setHasInfo(true);
+         
+         
+         
+          
+          }else{
+          setHasInfo(false);
+         }
+          
+        };
+    
+        //call the function
+    
+        fetchData().catch(console.error);
+      }, [token, userId]);
+
+      //spool the site policy
+
+     useEffect(() => {
+                   const fetchData = async () => {
+                     let allData = {};
+                     //api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+                     const response = await api.get(`/policies`);
+                     const workingData = response.data.data.data;
+                         
+                    
+                    if(workingData.length > 0){
+                     
+                   
+                     workingData.map((item) => {
+           
+                        setPolicy(item)
+                    })
+         
+                     
+                     }else{
+                     setHasInfo(false);
+                    }
+                     
+                   };
+               
+                   //call the function
+               
+                   fetchData().catch(console.error);
+                 }, []); 
   return (
     <div className="wrapper">
       <ThemeProvider theme={theme}>
@@ -151,6 +222,7 @@ function App() {
             cartCounter={cartCounter}
             setToken={setToken ? setToken : null}
             setUserId={setUserId ? setUserId : null}
+            policy={policy}
           />
 
           <Switch>
@@ -160,6 +232,7 @@ function App() {
                 userId={userId}
                 setToken={setToken ? setToken : {}}
                 setUserId={setUserId ? setUserId : {}}
+                policy={policy}
               />
             </Route>
             {/* <Route path="/orders">
@@ -182,7 +255,7 @@ function App() {
                 setUserId={setUserId ? setUserId : {}}
               />
             </Route>
-            <Route path="/categories/:catSlug/:slug">
+              <Route path="/categories/:catSlug/:slug">
               <ProductDetails
                 token={token}
                 userId={userId}
@@ -251,7 +324,7 @@ function App() {
               />
             </Route>
 
-            <Route path="/carts">
+            <Route path="/collections">
               <ShowCustomerCart
                 token={token}
                 userId={userId}
@@ -401,6 +474,9 @@ function App() {
                 setToken={setToken ? setToken : {}}
                 userId={userId}
                 setUserId={setUserId ? setUserId : {}}
+                creator={creator}
+                policy={policy}
+                name={name}
               />
             </Route>
             <Route path="/channel/:channel/:programme/:programmeSlug">

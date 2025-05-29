@@ -310,20 +310,16 @@ function ProductDetails(props) {
       });
       const creator = response.data.data.data;
 
+      console.log("creator data is:", creator);
+
       if (creator.length >= 1) {
         allData.push({
-          id: creator[0]._id,
+            id: creator[0]._id,
             name: creator[0].name,
             image: creator[0].image,
             bio: creator[0].bio,
             user: creator[0].user,
             currency: creator[0].currency,
-            videoPrice: creator[0].videoPrice,
-            videoHookPrice: creator[0].videoHookPrice,
-            videoDeliveryDays: creator[0].videoDeliveryDays,
-            soundPrice: creator[0].soundPrice,
-            soundHookPrice: creator[0].soundHookPrice,
-            soundDeliveryDays: creator[0].soundDeliveryDays,
             age: creator[0].age,
             gender: creator[0].gender,
             rate: creator[0].rate,
@@ -335,8 +331,45 @@ function ProductDetails(props) {
             status: creator[0].status,
             creatorContactPhoneNumber: creator[0].creatorContactPhoneNumber,
             creatorContactEmailAddress: creator[0].creatorContactEmailAddress,
-          
-        });
+            platforms: creator[0].platforms,
+            facebookProfileLink: creator[0].facebookProfileLink,
+            instagramProfileLink: creator[0].instagramProfileLink,
+            tiktokProfileLink: creator[0].tiktokProfileLink,
+            twitterProfileLink: creator[0].twitterProfileLink,
+            linkedInProfileLink: creator[0].linkedInProfileLink,
+            blogSiteLink: creator[0].blogSiteLink,
+            facebookTotalFollowers: creator[0].facebookTotalFollowers,
+            instagramTotalFollowers: creator[0].instagramTotalFollowers,
+            tiktokTotalFollowers: creator[0].tiktokTotalFollowers,
+            twitterTotalFollowers: creator[0].twitterTotalFollowers,
+            linkedInTotalFollowers: creator[0].linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: creator[0].blogTotalVisitorsPerMonth,
+            facebookEngagementRate: creator[0].facebookEngagementRate,
+            instagramEngagementRate: creator[0].instagramEngagementRate,
+            tiktokEngagementRate: creator[0].tiktokEngagementRate,
+            twitterEngagementRate: creator[0].twitterEngagementRate,
+            linkedInEngagementRate: creator[0].linkedInEngagementRate,
+            facebookCostPerPost: creator[0].facebookCostPerPost,
+            instagramCostPerPost: creator[0].instagramCostPerPost,
+            tiktokCostPerPost: creator[0].tiktokCostPerPost,
+            twitterCostPerPost: creator[0].twitterCostPerPost,
+            linkedInCostPerPost: creator[0].linkedInCostPerPost,
+            blogCostPerPost: creator[0].blogCostPerPost,
+            blogPostCostDuration: creator[0].blogPostCostDuration,
+            facebookCategory: creator[0].facebookCategory,
+            instagramCategory: creator[0].instagramCategory,
+            twitterCategory: creator[0].twitterCategory,
+            tiktokCategory: creator[0].tiktokCategory,
+            linkedInCategory: creator[0].linkedInCategory,
+            blogCategory: creator[0].blogCategory,
+           twiiterCostPerPost: creator[0].twiiterCostPerPost,
+           instagranCostPerPost: creator[0].instagranCostPerPost,
+           platforms: creator[0].platforms,
+            
+
+            
+            
+          });
 
         setCreator({
           id: allData[0].id,
@@ -345,13 +378,6 @@ function ProductDetails(props) {
             bio: allData[0].bio,
             user: allData[0].user,
             currency: allData[0].currency,
-            videoPrice: allData[0].videoPrice,
-            videoHookPrice: allData[0].videoHookPrice,
-            videoDeliveryDays: allData[0].videoDeliveryDays,
-
-            soundPrice: allData[0].soundPrice,
-            soundHookPrice: allData[0].soundHookPrice,
-            soundDeliveryDays: allData[0].soundDeliveryDays,
             age: allData[0].age,
             gender: allData[0].gender,
             rate: allData[0].rate,
@@ -363,6 +389,38 @@ function ProductDetails(props) {
             status: allData[0].status,
             creatorContactPhoneNumber: allData[0].creatorContactPhoneNumber,
             creatorContactEmailAddress: allData[0].creatorContactEmailAddress,
+            platforms: allData[0].platforms,
+            facebookProfileLink: allData[0].facebookProfileLink,
+            instagramProfileLink: allData[0].instagramProfileLink,
+            tiktokProfileLink: allData[0].tiktokProfileLink,
+            twitterProfileLink: allData[0].twitterProfileLink,
+            linkedInProfileLink: allData[0].linkedInProfileLink,
+            blogSiteLink: allData[0].blogSiteLink,
+            facebookTotalFollowers: allData[0].facebookTotalFollowers,
+            instagramTotalFollowers: allData[0].instagramTotalFollowers,
+            tiktokTotalFollowers: allData[0].tiktokTotalFollowers,
+            twitterTotalFollowers: allData[0].twitterTotalFollowers,
+            linkedInTotalFollowers: allData[0].linkedInTotalFollowers,
+            blogTotalVisitorsPerMonth: allData[0].blogTotalVisitorsPerMonth,
+            facebookEngagementRate: allData[0].facebookEngagementRate,
+            instagramEngagementRate: allData[0].instagramEngagementRate,
+            tiktokEngagementRate: allData[0].tiktokEngagementRate,
+            twitterEngagementRate: allData[0].twitterEngagementRate,
+            linkedInEngagementRate: allData[0].linkedInEngagementRate,
+            facebookCostPerPost: allData[0].facebookCostPerPost,
+            instagramCostPerPost: allData[0].instagramCostPerPost,
+            tiktokCostPerPost: allData[0].tiktokCostPerPost,
+            twitterCostPerPost: allData[0].twitterCostPerPost,
+            linkedInCostPerPost: allData[0].linkedInCostPerPost,
+            blogCostPerPost: allData[0].blogCostPerPost,
+            blogPostCostDuration: allData[0].blogPostCostDuration,
+            facebookCategory: allData[0].facebookCategory,
+            instagramCategory: allData[0].instagramCategory,
+            twitterCategory: allData[0].twitterCategory,
+            tiktokCategory: allData[0].tiktokCategory,
+            linkedInCategory: allData[0].linkedInCategory,
+            blogCategory: allData[0].blogCategory,
+            platforms: allData[0].platforms,
         });
         setCreatorId(allData[0].id);
 
@@ -394,20 +452,10 @@ function ProductDetails(props) {
             bio = {creator.bio}
             user= {creator.user}
             currency={creator.currency}
-            videoPrice={creator.videoPrice}
-            videoHookPrice={creator.videoHookPrice}
-            videoDeliveryDays={creator.videoDeliveryDays}
-
-            soundPrice={creator.soundPrice}
-            soundHookPrice={creator.soundHookPrice}
-            soundDeliveryDays={creator.soundDeliveryDays}
             age={creator.age}
             gender={creator.gender}
             rate= {creator.rate}
             country={creator.country}
-            category={creator.category}
-            categoryName = {creator.category ? creator.category[0].name : ""}
-            categoryCode = {creator.category ? creator.category[0].code : ""}
             niches={creator.niches}
             languages={creator.languages}
             slug= {creator.slug}
@@ -448,20 +496,11 @@ function ProductDetails(props) {
               bio = {creator.bio}
               user= {creator.user}
               currency={creator.currency}
-              videoPrice={creator.videoPrice}
-              videoHookPrice={creator.videoHookPrice}
-              videoDeliveryDays={creator.videoDeliveryDays}
-  
-              soundPrice={creator.soundPrice}
-              soundHookPrice={creator.soundHookPrice}
-              soundDeliveryDays={creator.soundDeliveryDays}
+          
               age={creator.age}
               gender={creator.gender}
               rate= {creator.rate}
               country={creator.country}
-              category={creator.category}
-              categoryName = {creator.category ? creator.category[0].name : ""}
-              categoryCode = {creator.category ? creator.category[0].code : ""}
               niches={creator.niches}
               languages={creator.languages}
               slug= {creator.slug}

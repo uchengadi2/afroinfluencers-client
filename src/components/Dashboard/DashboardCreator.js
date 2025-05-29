@@ -67,7 +67,7 @@ function DashboardCreator(props) {
   const [slug, setSlug] = useState();
     const { token, setToken } = useToken();
     const { userId, setUserId } = useUserId();
-    const [creator,setCreator] = useState();
+    const [thisCreator,setThisCreator] = useState({});
     const [hasInfo,setHasInfo] = useState(false);
     const [yourName, setYourName] = useState('');
     const [yourAge, setYourAge] = useState('');
@@ -96,7 +96,12 @@ function DashboardCreator(props) {
      const [policyId, setPolicyId] = useState();
      const [platformRateIsIncludedAsPartOfUserInputedAmount, setPlatformRateIsIncludedAsPartOfUserInputedAmount] = useState();
      const [vatIsIncludedAsPartOfUserInputedAmount, setVatIsIncludedAsPartOfUserInputedAmount] = useState();
-    
+    const [facebookProfileLink, setFacebookProfileLink] = useState();
+    const [instagramProfileLink, setInstagramProfileLink] = useState();
+    const [twitterProfileLink, setTwitterProfileLink] = useState();
+    const [tiktokProfileLink, setTiktokProfileLink] = useState();
+    const [linkedInProfileLink, setLinkedInProfileLink] = useState();
+    const [blogSiteLink, setBlogSiteLink] = useState();
    const theme = useTheme();
     const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
     const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
@@ -114,6 +119,7 @@ function DashboardCreator(props) {
     });
 
     const currentUser = params.userId;
+   
 
     //const user=userId
 
@@ -130,19 +136,23 @@ function DashboardCreator(props) {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
 
-
+console.log("name is:",props.name);
   useEffect(() => {
       const fetchData = async () => {
         let allData = {};
         api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        const response = await api.get(`/creators`,{params:{
-          user:currentUser
-        }});
+        const response = await api.get(`/creators/`,{params: {user: currentUser}});
         const workingData = response.data.data.data;
-                   
-  
+
+       
        
        if(workingData.length > 0){
+
+        workingData.map((item) => {
+         
+           setThisCreator(item)
+           setCreatorId(item.id);
+        })
         setHasInfo(true);
         setYourName(workingData[0].name);
         setYourAge(workingData[0].age)
@@ -156,7 +166,7 @@ function DashboardCreator(props) {
         setImage(workingData[0].image);
         setCurrency(workingData[0].currency);
         setCategory(workingData[0].category[0].id)
-        setCreatorId(workingData[0].id);
+        
         setBio(workingData[0].bio);
         setSoundPrice(workingData[0].soundPrice)
         setSoundHookPrice(workingData[0].soundHookPrice)
@@ -164,6 +174,13 @@ function DashboardCreator(props) {
         setCreatorContactPhoneNumber(workingData[0].creatorContactPhoneNumber);
         setCreatorContactEmailAddress(workingData[0].creatorContactEmailAddress);
         setBankDetails(workingData[0].bankDetails)
+        setFacebookProfileLink(workingData[0].facebookProfileLink);
+        setInstagramProfileLink(workingData[0].instagramProfileLink);
+        setTwitterProfileLink(workingData[0].twitterProfileLink);
+        setTiktokProfileLink(workingData[0].tiktokProfileLink);
+        setLinkedInProfileLink(workingData[0].linkedInProfileLink);
+        setBlogSiteLink(workingData[0].blogSiteLink);
+       
         
         }else{
         setHasInfo(false);
@@ -250,6 +267,8 @@ function DashboardCreator(props) {
     //setBecomePartnerOpen(true);
   };
 
+console.log("thisCreator:",thisCreator);
+
   return (
     <Box sx={{ flexGrow: 1 }} style={{ marginTop:matchesMDUp ? 80: 30 }}>
       {matchesMDUp ? <Grid container spacing={2}>
@@ -257,7 +276,7 @@ function DashboardCreator(props) {
           <Paper sx={{ width: 320, maxWidth: "100%" }}>
             <MenuList className={classes.menu}>
               <Typography style={{ marginLeft: 10, fontWeight: "Bold" }}>
-                Creator Information & Work Samples
+                Influencer Information & Work Samples
               </Typography>
               <MenuItem
                 className={slug === "creator-information" ? classes.selected : null}
@@ -270,7 +289,7 @@ function DashboardCreator(props) {
                 <ListItemIcon>
                   <BarChartIcon fontSize="small" />
                 </ListItemIcon>
-                <ListItemText>Creator Details</ListItemText>
+                <ListItemText>Influencer Details</ListItemText>
               </MenuItem>
               <MenuItem
                 className={slug === "creator-work-samples" ? classes.selected : null}
@@ -335,7 +354,7 @@ function DashboardCreator(props) {
              token={token}
              userId={userId}
              hasInfo={hasInfo}
-             yourName={yourName}
+             yourName={props.name}
              yourAge={yourAge}
              yourGender={yourGender}
              yourCountry={yourCountry}
@@ -361,6 +380,9 @@ function DashboardCreator(props) {
             policyId ={policyId}
             platformRateIsIncludedAsPartOfUserInputedAmount={platformRateIsIncludedAsPartOfUserInputedAmount}
             vatIsIncludedAsPartOfUserInputedAmount={vatIsIncludedAsPartOfUserInputedAmount}
+            creator={thisCreator}
+            policy={props.policy}
+        
              />
           </Grid>
         )}
@@ -492,7 +514,7 @@ function DashboardCreator(props) {
              token={token}
              userId={userId}
              hasInfo={hasInfo}
-             yourName={yourName}
+             yourName={props.name}
              yourAge={yourAge}
              yourGender={yourGender}
              yourCountry={yourCountry}
@@ -518,6 +540,9 @@ function DashboardCreator(props) {
             policyId ={policyId}
             platformRateIsIncludedAsPartOfUserInputedAmount={platformRateIsIncludedAsPartOfUserInputedAmount}
             vatIsIncludedAsPartOfUserInputedAmount={vatIsIncludedAsPartOfUserInputedAmount}
+            creator={thisCreator}
+            policy={props.policy}
+           
              />
           </Grid>
         )}

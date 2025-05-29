@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   submitButton: {
     borderRadius: 10,
     height: 40,
-    width: 200,
+    width: 240,
     marginLeft: 70,
     marginTop: 30,
     color: "white",
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   checkout: {
     borderRadius: 10,
     height: 40,
-    width: 190,
+    width: 220,
     marginLeft: 80,
     marginTop: 30,
     color: "white",
@@ -93,7 +93,7 @@ function Paystack(props) {
   // you can call this function anything
   const handlePaystackCloseAction = () => {
     // implementation for  whatever you want to do when the Paystack dialog closed.
-    console.log("closed paystck");
+    console.log("closed paystack");
   };
 
   const componentProps = {
@@ -109,16 +109,16 @@ function Paystack(props) {
       recipientName: props.data.recipientName,
       recipientPhoneNumber: props.data.recipientPhoneNumber,
       recipientEmailAddress: props.data.recipientEmailAddress,
-      brand: props.data.brand,
-      project:props.data.project,
-      grandTotal: props.data.grandTotal,
-      totalProductCost: props.data.totalProductCost,
-      // totalProductCostUs: props.data.totalProductCostUs,
-      // totalProductCostUk: props.data.totalProductCostUk,
+      totalLocalContractProcessingFee: props.data.totalLocalContractProcessingFee,
+      totalInternationalContractProcessingFee: props.data.totalInternationalContractProcessingFee,
       paymentMethod: props.data.paymentMethod,
-      paymentStatus: "to-be-confirmed",
+      paymentStatus: props.data.paymentStatus,
       orderedBy: props.data.orderedBy,
-      productCurrency: props.data.productCurrency,
+      status: props.data.status,
+      brand:props.data.brand,
+      project:props.data.project,
+      totalNumberOfInfluencers:props.data.totalNumberOfInfluencers,
+      
     };
 
     if (transData) {
@@ -134,40 +134,185 @@ function Paystack(props) {
             payload: response.data.data.data,
           });
 
-          props.productList.map((cart, index) => {
+           props.productList.map((cart, index) => {
+            let cumulativeAgencyServiceFee = 0;
+            let totalProjectCost = 0;
+            if(cart.platforms.includes("facebook")){
+              totalProjectCost = totalProjectCost + cart.facebookPostQuantity * cart.creator.facebookCostPerPost
+            }else if(cart.platforms.includes('instagram')){
+              totalProjectCost += cart.instagramPostQuantity * cart.creator.instagranCostPerPost
+            }else if(cart.platforms.includes('twitter')){
+              totalProjectCost += cart.twitterPostQuantity * cart.creator.twiiterCostPerPost
+            }else if(cart.platforms.includes('tiktok')){
+              totalProjectCost += cart.tiktokPostQuantity * cart.creator.tiktokCostPerPost
+            }else if(cart.platforms.includes('linkedin')){
+              totalProjectCost += cart.linkedInPostQuantity * cart.creator.linkedInCostPerPost
+            }else if(cart.platforms.includes('blog')){
+              totalProjectCost += cart.blogCostPerPost * cart.creator.blogCostPerPost
+            }
+            //computing cumulative agency service plan
+            if (cart.agencyServicePlan === "platinum") {
+              cumulativeAgencyServiceFee = props.policy.platinumAgencyServiceFee/100 * totalProjectCost;
+            } else if (cart.agencyServicePlan === "gold") {
+              cumulativeAgencyServiceFee = props.policy.goldAgencyServiceFee/100 * totalProjectCost;
+            }else if (cart.agencyServicePlan === "bronze") {
+              if(cart.platforms && cart.platforms.includes('facebook')){
+                if(cart.creator.facebookCategory === "celebrity-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.celebrityInfluencerRecruitmentFee
+                }else if(cart.creator.facebookCategory === "mega-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.megaInfluencerRecruitmentFee
+                }else if(cart.creator.facebookCategory === "macro-influencer"){
+                  cumulativeAgencyServiceFee =props.policy.macroInfluencerRecruitmentFee
+                }else if(cart.creator.facebookCategory === "micro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.microInfluencerRecruitmentFee
+                }else if(cart.creator.facebookCategory === "nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.nanoInfluencerRecruitmentFee
+                }else if(cart.creator.facebookCategory === "sub-nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.subNanoInfluencerRecruitmentFee
+                }
+              }
+              if(cart.platforms && cart.platforms.includes('instagram')){
+                if(cart.creator.instagramCategory === "celebrity-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.celebrityInfluencerRecruitmentFee
+                }else if(cart.creator.instagramCategory === "mega-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.megaInfluencerRecruitmentFee
+                }else if(cart.creator.instagramCategory === "macro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.macroInfluencerRecruitmentFee
+                }else if(cart.creator.instagramCategory === "micro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.microInfluencerRecruitmentFee
+                }else if(cart.creator.instagramCategory === "nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.nanoInfluencerRecruitmentFee
+                }else if(cart.creator.instagramCategory === "sub-nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.subNanoInfluencerRecruitmentFee
+                }
+              }
+              if(cart.platforms && cart.platforms.includes('twitter')){
+                if(cart.creator.twitterCategory === "celebrity-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.celebrityInfluencerRecruitmentFee
+                }else if(cart.creator.twitterCategory === "mega-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.megaInfluencerRecruitmentFee
+                }else if(cart.creator.twitterCategory === "macro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.macroInfluencerRecruitmentFee
+                }else if(cart.creator.twitterCategory === "micro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.microInfluencerRecruitmentFee
+                }else if(cart.creator.twitterCategory === "nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.nanoInfluencerRecruitmentFee
+                }else if(cart.creator.twitterCategory === "sub-nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.subNanoInfluencerRecruitmentFee
+                }
+              }
+              if(cart.platforms && cart.platforms.includes('tiktok')){
+                if(cart.creator.tiktokCategory === "celebrity-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.celebrityInfluencerRecruitmentFee
+                }else if(cart.creator.tiktokCategory === "mega-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.megaInfluencerRecruitmentFee
+                }else if(cart.creator.tiktokCategory === "macro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.macroInfluencerRecruitmentFee
+                }else if(cart.creator.tiktokCategory === "micro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.microInfluencerRecruitmentFee
+                }else if(cart.creator.tiktokCategory === "nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.nanoInfluencerRecruitmentFee
+                }else if(cart.creator.tiktokCategory === "sub-nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.subNanoInfluencerRecruitmentFee
+                }
+              }
+              if(cart.platforms && cart.platforms.includes('linkedin')){
+                if(cart.creator.linkedInCategory === "celebrity-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.celebrityInfluencerRecruitmentFee
+                }else if(cart.creator.linkedInCategory === "mega-influencer"){
+                  cumulativeAgencyServiceFee =props.policy.megaInfluencerRecruitmentFee
+                }else if(cart.creator.linkedInCategory === "macro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.macroInfluencerRecruitmentFee
+                }else if(cart.creator.linkedInCategory === "micro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.microInfluencerRecruitmentFee
+                }else if(cart.creator.linkedInCategory === "nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.nanoInfluencerRecruitmentFee
+                }else if(cart.creator.linkedInCategory === "sub-nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.subNanoInfluencerRecruitmentFee
+                }
+              }
+              if(cart.platforms && cart.platforms.includes('blog')){
+                if(cart.creator.blogCategory === "celebrity-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.celebrityInfluencerRecruitmentFee
+                }else if(cart.creator.blogCategory === "mega-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.megaInfluencerRecruitmentFee
+                }else if(cart.creator.blogCategory === "macro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.macroInfluencerRecruitmentFee
+                }else if(cart.creator.blogCategory === "micro-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.microInfluencerRecruitmentFee
+                }else if(cart.creator.blogCategory === "nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.nanoInfluencerRecruitmentFee
+                }else if(cart.creator.blogCategory === "sub-nano-influencer"){
+                  cumulativeAgencyServiceFee = props.policy.subNanoInfluencerRecruitmentFee
+                }
+              }
+            }
+
             const data = {
               orderNumber: props.data.orderNumber,
               transactionId: transId,
-              creator: cart.creator,
-              orderedCreativePricePerUnit: cart.creativeUnitPrice,
-              orderedHookPricePerUnit:cart.creativeHookUnitPrice,
+              creator: cart.creator.id,
+              brand: cart.brand.id,
+              project: cart.project.id,
               recipientName: props.data.recipientName,
               recipientPhoneNumber: props.data.recipientPhoneNumber,
               recipientEmailAddress: props.data.recipientEmailAddress,
+              platforms: cart.platforms,
+              currency: cart.currency.id,
+              contractProcessingFee: cart.currency && cart.currency.name.toLowerCase() === "naira" ? props.policy.contractProcessingFeeForLocals : props.policy.contractProcessingFeeForNonLocals,
+
+              agencyServicePlan: cart.agencyServicePlan,
+
               cartId: cart.id,
-              quantityAdddedToCart: cart.creativeQuantity,
-              orderedCreativeQuantity: cart.creativeQuantity,
-              orderedHookQuantity:cart.creativeHookQuantity,
-              dateAddedToCart: cart.dateAddedToCart,
-              productCurrency: cart.currency.id,
-              currencyName:cart.currencyName,
+              dateAddedToCart: cart.dateAddedToCart,              
               paymentMethod: props.data.paymentMethod,
-              paymentStatus: "to-be-confirmed",
-              orderedBy: cart.cartHolder,
-              project:cart.project.id,
-              projectName:cart.project.name,
-              creativeType: cart.creativeType,              
-              productCategory: cart.category[0].id,              
-              //paymentOptions: cart.paymentOptions,
+              paymentStatus: props.data.paymentStatus,
+              orderedBy: props.data.orderedBy,
+              //status: props.data.status,
+
+              //cumulativeAgencyServiceFee: cumulativeAgencyServiceFee,
+              facebookPostQuantity: cart.platforms && cart.platforms.includes('facebook') ?cart.facebookPostQuantity :0,
+              instagramPostQuantity: cart.platforms && cart.platforms.includes('instagram') ? cart.instagramPostQuantity:0,
+              twitterPostQuantity: cart.platforms && cart.platforms.includes('twitter') ? cart.twitterPostQuantity:0,
+              tiktokPostQuantity: cart.platforms && cart.platforms.includes('tiktok') ? cart.tiktokPostQuantity :0,
+              linkedInPostQuantity: cart.platforms && cart.platforms.includes('linkedin') ? cart.linkedInPostQuantity :0,
+              blogPostQuantity: cart.platforms && cart.platforms.includes('blog') ? cart.blogPostQuantity :0,
+              facebookProfileLink: cart.platforms && cart.platforms.includes('facebook') ? cart.creator.facebookProfileLink : "",
+              instagramProfileLink: cart.platforms && cart.platforms.includes('instagram') ? cart.creator.instagramProfileLink : "",
+              twitterProfileLink: cart.platforms && cart.platforms.includes('twitter') ? cart.creator.twitterProfileLink : "",
+              tiktokProfileLink: cart.platforms && cart.platforms.includes('tiktok') ? cart.creator.tiktokProfileLink: "",
+              linkedInProfileLink: cart.platforms && cart.platforms.includes('linkedin') ? cart.creator.linkedInProfileLink : "",
+              blogSiteLink: cart.platforms && cart.platforms.includes('blog') ? cart.creator.blogSiteLink: "",
+
+              facebookTotalFollowers: cart.platforms && cart.platforms.includes('facebook') ? cart.creator.facebookTotalFollowers :0,
+              instagramTotalFollowers: cart.platforms && cart.platforms.includes('instagram') ? cart.creator.instagramTotalFollowers:0,
+              twitterTotalFollowers: cart.platforms && cart.platforms.includes('twitter') ? cart.creator.twitterTotalFollowers:0,
+              tiktokTotalFollowers: cart.platforms && cart.platforms.includes('tiktok') ? cart.creator.tiktokTotalFollowers:0,
+              linkedInTotalFollowers: cart.platforms && cart.platforms.includes('linkedin') ? cart.creator.linkedInTotalFollowers:0,
+              blogTotalVisitorsPerMonth: cart.platforms && cart.platforms.includes('blog') ? cart.creator.blogTotalVisitorsPerMonth:0,
+
+              facebookEngagementRate: cart.platforms && cart.platforms.includes('facebook') ? cart.creator.facebookEngagementRate:0,
+              instagramEngagementRate: cart.platforms && cart.platforms.includes('instagram') ? cart.creator.instagramEngagementRate:0,
+              twitterEngagementRate: cart.platforms && cart.platforms.includes('twitter') ? cart.creator.twitterEngagementRate :0,
+              tiktokEngagementRate: cart.platforms && cart.platforms.includes('tiktok') ? cart.creator.tiktokEngagementRate:0,
+              linkedInEngagementRate: cart.platforms && cart.platforms.includes('linkedin') ? cart.creator.linkedInEngagementRate:0,
+
+              facebookCostPerPost: cart.platforms && cart.platforms.includes('facebook') ? cart.creator.facebookCostPerPost :0,
+              instagramCostPerPost: cart.platforms && cart.platforms.includes('instagram') ? cart.creator.instagramCostPerPost:0,
+              twitterCostPerPost: cart.platforms && cart.platforms.includes('twitter') ? cart.creator.twitterCostPerPost :0,
+              tiktokCostPerPost: cart.platforms && cart.platforms.includes('tiktok') ? cart.creator.tiktokCostPerPost:0,
+              linkedInCostPerPost: cart.platforms && cart.platforms.includes('linkedin') ? cart.creator.linkedInCostPerPost:0,
+              blogCostPerPost: cart.platforms && cart.platforms.includes('blog') ? cart.creator.blogCostPerPost:0,
+              blogPostCostDuration: cart.platforms && cart.platforms.includes('blog') ? cart.creator.blogPostCostDuration:"weekly",
+
+              facebookCategory: cart.platforms && cart.platforms.includes('facebook') ? cart.creator.facebookCategory: "",
+              instagramCategory: cart.platforms && cart.platforms.includes('instagram') ? cart.creator.instagramCategory: "",
+              twitterCategory: cart.platforms && cart.platforms.includes('twitter') ? cart.creator.twitterCategory: "",
+              tiktokCategory: cart.platforms && cart.platforms.includes('tiktok') ?cart.creator.tiktokCategory: "",
+              linkedInCategory: cart.platforms && cart.platforms.includes('linkedin') ? cart.creator.linkedInCategory: "",
+              blogCategory: cart.platforms && cart.platforms.includes('blog') ? cart.creator.blogCategory: "",
+              
               slug: cart.slug,
-              brand: cart.brand,
-              brandName: cart.brandName,
-              brandCountry: cart.brandCountry,
-              creativeLanguage: cart.creativeLanguage.language,
-              language:cart.creativeLanguage.id,
-              creatorCategoryCode: cart.creatorCategoryCode,
-              creativeDeliveryDays: cart.creativeDeliveryDays,
-              image: cart.image,
               
             };
             if (data) {
@@ -227,7 +372,7 @@ function Paystack(props) {
       });
     });
     props.handleSuccessfulCreateSnackbar(
-      `Thank you for your patronage, we will contact the creator to commence work immediately on the project`
+      `Thank you for your valued patronage. We are now moving forward with the contract process and will follow up shortly with the next steps `
     );
     history.push("/thankyou");
   };

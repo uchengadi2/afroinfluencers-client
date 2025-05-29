@@ -21,7 +21,7 @@ class UserSignUpCreator extends React.Component {
       if (this.props.token.status === "success") {
         this.props.setToken(this.props.token);
         this.props.setUserId(this.props.token);
-        this.props.handleSuccessfulSignUpDialogOpenStatusWithSnackbar(
+        this.props.handleSuccessfulSignUpCreatorDialogOpenStatusWithSnackbar(
           "You have successfully signed up"
         );
         this.setState({ counter: 5 });
@@ -52,20 +52,21 @@ class UserSignUpCreator extends React.Component {
         <Box>
           <SignUpCreatorForm
             onSubmit={this.onSubmit}
-            handleSignUpDialogOpenStatus={
-              this.props.handleSignUpDialogOpenStatus
-            }
-            handleMakeOpenCreatorSignUpDialogStatus={
+           handleMakeOpenCreatorSignUpDialogStatus={
               this.props.handleMakeOpenCreatorSignUpDialogStatus
             }
-            handleMakeCloseSignCreatorUpDialogStatus={
-              this.props.handleMakeCloseSignCreatorUpDialogStatus
+            handleMakeCloseSignUpCreatorDialogStatus={
+              this.props.handleMakeCloseSignUpCreatorDialogStatus
             }
-            handleFailedSignUpDialogOpenStatusWithSnackbar={
-              this.props.handleFailedSignUpDialogOpenStatusWithSnackbar
+            handleFailedSignUpCreatorDialogOpenStatusWithSnackbar={
+              this.props.handleFailedSignUpCreatorDialogOpenStatusWithSnackbar
             }
-            handleMakeCloseSignUpDialogStatus={
-              this.props.handleMakeCloseSignUpDialogStatus
+            handleSuccessfulSignUpCreatorDialogOpenStatusWithSnackbar={
+              this.props.handleSuccessfulSignUpCreatorDialogOpenStatusWithSnackbar
+            }
+           
+            handleMakeOpenLoginFormDialogStatus={
+              this.props.handleMakeOpenLoginFormDialogStatus
             }
             token={this.props.token}
           />

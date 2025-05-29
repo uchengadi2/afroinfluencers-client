@@ -233,6 +233,23 @@ const useStyles = makeStyles((theme) => ({
       color: "white",
     },
   },
+
+  collections: {
+    ...theme.typography.estimate,
+    borderRadius: "250px",
+    marginLeft: "2px",
+    marginRight: "2px",
+    height: "45px",
+    width: "140px",
+    fontSize: "13px",
+    fontWeight: "500px",
+    "&:hover": {
+      backgroundColor: theme.palette.secondary.light,
+      color: "white",
+    },
+  },
+
+  
   menu: {
     backgroundColor: theme.palette.common.blue,
     color: "white",
@@ -544,6 +561,20 @@ const Header = (props) => {
     setOpenDrawer(false);
   };
 
+
+  const handleSuccessfulSignUpCreatorDialogOpenStatusWithSnackbar = (message) => {
+    // history.push("/categories/new");
+
+    setAlert({
+      open: true,
+      message: message,
+      backgroundColor: "#4BB543",
+    });
+    setOpenSignUpForm(false);
+    setOpenCreatorSignUpForm(false);
+    setOpenDrawer(false);
+  };
+
   const handleFailedSignUpDialogOpenStatusWithSnackbar = (message) => {
     // history.push("/categories/new");
     setAlert({
@@ -553,6 +584,18 @@ const Header = (props) => {
       backgroundColor: "#FF3232",
     });
     setOpenSignUpForm(true);
+  };
+
+
+  const handleFailedSignUpCreatorDialogOpenStatusWithSnackbar = (message) => {
+    // history.push("/categories/new");
+    setAlert({
+      open: true,
+      message: message,
+
+      backgroundColor: "#FF3232",
+    });
+    setOpenCreatorSignUpForm(true);
   };
 
 
@@ -616,6 +659,12 @@ const Header = (props) => {
   
 
   const handleMakeCloseSignUpDialogStatus = () => {
+    // history.push("/categories/new");
+    setOpenSignUpForm(false);
+    setOpenCreatorSignUpForm(false);
+  };
+
+  const handleMakeCloseSignUpCreatorDialogStatus = () => {
     // history.push("/categories/new");
     setOpenSignUpForm(false);
     setOpenCreatorSignUpForm(false);
@@ -757,18 +806,18 @@ const Header = (props) => {
             Dashboard
           </Button>}
 
-          {/* <Button
+          {userRole === 'brand' && <Button
             onClick={() => <ShowCustomerCart />}
             disableRipple
             component={Link}
             // to={`/carts/${props.userId}`}
-            to={`/carts`}
-            className={classes.checkout}
+            to={`/collections`}
+            className={classes.collections}
           >
-            <img alt="company logo" src={logo} className={classes.logo} />
-            {`Cart` + `(${props.cartCounter})`}
-          </Button> */}
-          <Button
+            {/* <img alt="company logo" src={logo} className={classes.logo} /> */}
+            {`Collections` + `(${props.cartCounter})`}
+          </Button>}
+          {userRole === 'brand' && <Button
             onClick={() => <CheckoutPage />}
             disableRipple
             component={Link}
@@ -778,7 +827,7 @@ const Header = (props) => {
           >
             {/* <img alt="company logo" src={logo} className={classes.logo} /> */}
             Checkout
-          </Button>
+          </Button>}
           <Button
             onClick={() => <ProfileLayout />}
             disableRipple
@@ -967,6 +1016,9 @@ const Header = (props) => {
             handleMakeCloseSignCreatorUpDialogStatus={
               handleMakeCloseSignCreatorUpDialogStatus
             }
+            handleLoginDialogOpenStatus={
+              handleLoginDialogOpenStatus
+            }
             setToken={props.setToken}
             setUserId={props.setUserId}
           />
@@ -994,15 +1046,16 @@ const Header = (props) => {
             handleMakeOpenLoginFormDialogStatus={
               handleMakeOpenLoginFormDialogStatus
             }
-            handleSuccessfulSignUpDialogOpenStatusWithSnackbar={
-              handleSuccessfulSignUpDialogOpenStatusWithSnackbar
+            handleSuccessfulSignUpCreatorDialogOpenStatusWithSnackbar={
+              handleSuccessfulSignUpCreatorDialogOpenStatusWithSnackbar
             }
-            handleFailedSignUpDialogOpenStatusWithSnackbar={
-              handleFailedSignUpDialogOpenStatusWithSnackbar
+            handleFailedSignUpCreatorDialogOpenStatusWithSnackbar={
+              handleFailedSignUpCreatorDialogOpenStatusWithSnackbar
             }
-            handleMakeCloseSignUpDialogStatus={
-              handleMakeCloseSignUpDialogStatus
+            handleMakeCloseSignUpCreatorDialogStatus={
+              handleMakeCloseSignUpCreatorDialogStatus
             }
+            handleLoginDialogOpenStatus={handleLoginDialogOpenStatus}
 
             setToken={props.setToken}
             setUserId={props.setUserId}
@@ -1240,8 +1293,33 @@ const Header = (props) => {
                   Dashboard
                 </ListItemText>
               </ListItem>}
+
+              {userRole === 'brand' && <ListItem
+                className={classes.drawerItem}
+                onClick={() => [
+                  setOpenDrawer(false),
+                  props.setValue(6),
+                  <ShowCustomerCart />,
+                ]}
+                //onClick={() => [setOpenLoginForm(true), history.push("/")]}
+                //onClick={() => <CheckoutPage />}
+                divider
+                button
+                component={Link}
+                // to={`/checkouts/${props.userId}`}
+                to={`/collections`}
+                classes={{
+                  root: classes.drawerItem,
+                  selected: classes.drawerItemSelected,
+                }}
+                selected={props.value === 5}
+              >
+                <ListItemText className={classes.drawerItem} disableTypography>
+                  Collections
+                </ListItemText>
+              </ListItem>}
               
-              <ListItem
+              {userRole === 'brand' && <ListItem
                 className={classes.drawerItem}
                 onClick={() => [
                   setOpenDrawer(false),
@@ -1264,7 +1342,7 @@ const Header = (props) => {
                 <ListItemText className={classes.drawerItem} disableTypography>
                   Checkout
                 </ListItemText>
-              </ListItem>
+              </ListItem>}
               <ListItem
                 className={classes.drawerItem}
                 onClick={() => [

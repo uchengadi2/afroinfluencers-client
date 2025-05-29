@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
   removeItem: {
     borderRadius: 10,
     height: 40,
-    width: 190,
+    width: 250,
     marginLeft: 80,
     marginTop: 30,
     marginBottom: 20,
@@ -545,8 +545,11 @@ function CartUpdateAndDeliveryForm(props) {
   };
 
   const checkoutButtonContent = () => {
-    return <React.Fragment>Remove from Cart</React.Fragment>;
+    return <React.Fragment>Remove from Collection</React.Fragment>;
   };
+
+  console.log('props.creator:', props.creator);
+  console.log("props:", props);
 
   const onItemRemovalSubmit = () => {
     setLoadingRemoval(true);
@@ -659,11 +662,87 @@ function CartUpdateAndDeliveryForm(props) {
     }
   };
 
+  //calculating total reach
+  let totalReach =0;
+  if(props.platforms && props.platforms.includes("facebook") && props.creator && props.creator.facebookTotalFollowers){
+  totalReach += props.creator.facebookTotalFollowers;
+  }
+  if(props.platforms && props.platforms.includes("instagram") && props.creator && props.creator.instagramTotalFollowers){
+  totalReach += props.creator.instagramTotalFollowers;
+  }
+  if(props.platforms && props.platforms.includes("twitter") && props.creator && props.creator.twitterTotalFollowers){
+  totalReach += props.creator.twitterTotalFollowers;
+  }
+  if(props.platforms && props.platforms.includes("tiktok") && props.creator && props.creator.tiktokTotalFollowers){
+  totalReach += props.creator.tiktokTotalFollowers;
+  }
+  if(props.platforms && props.platforms.includes("blog") && props.creator && props.creator.blogTotalVisitorsPerMonth){ 
+  totalReach += props.creator.blogTotalVisitorsPerMonth;
+  }
+  if(props.platforms && props.platforms.includes("linkedin") && props.creator && props.creator.linkedInTotalFollowers){
+  totalReach += props.creator.linkedInTotalFollowers;
+  }
+
+  //computing the average engagement rate
+  let averageEngagementRate = 0;
+  let totalEngagementRate = 0;
+  if(props.platforms && props.platforms.includes("facebook") && props.creator && props.creator.facebookEngagementRate){
+  totalEngagementRate += props.creator.facebookEngagementRate;
+  }
+  if(props.platforms && props.platforms.includes("instagram") && props.creator && props.creator.instagramEngagementRate){
+  totalEngagementRate += props.creator.instagramEngagementRate;
+  }
+  if(props.platforms && props.platforms.includes("twitter") && props.creator && props.creator.twitterEngagementRate){
+  totalEngagementRate += props.creator.twitterEngagementRate;
+  }
+  if(props.platforms && props.platforms.includes("tiktok") && props.creator && props.creator.tiktokEngagementRate){
+  totalEngagementRate += props.creator.tiktokEngagementRate;
+  }
+  // if(props.platforms && props.platforms.includes("blog") && props.creator && props.creator.blogEngagementRate){
+  // totalEngagementRate += props.creator.blogEngagementRate;
+  // }
+  if(props.platforms && props.platforms.includes("linkedin") && props.creator && props.creator.linkedInEngagementRate){
+  totalEngagementRate += props.creator.linkedInEngagementRate;
+  }
+
+  if(props.platforms && props.platforms.length > 0){
+  averageEngagementRate = totalEngagementRate / props.platforms.length;
+  }
+
+
+  //computing the total cost per post
+  let totalCostPerPost = 0;
+  if(props.platforms && props.platforms.includes("facebook") && props.creator && props.creator.facebookCostPerPost){
+      totalCostPerPost += props.creator.facebookCostPerPost;
+  }
+  if(props.platforms && props.platforms.includes("instagram") && props.creator && props.creator.instagranCostPerPost){
+      totalCostPerPost += props.creator.instagranCostPerPost;
+  }
+  if(props.platforms && props.platforms.includes("twitter") && props.creator && props.creator.twiiterCostPerPost){
+      totalCostPerPost += props.creator.twiiterCostPerPost;
+  }
+  if(props.platforms && props.platforms.includes("tiktok") && props.creator && props.creator.tiktokCostPerPost){
+      totalCostPerPost += props.creator.tiktokCostPerPost;
+  }
+  if(props.platforms && props.platforms.includes("blog") && props.creator && props.creator.blogCostPerPost){
+      totalCostPerPost += props.creator.blogCostPerPost;
+  }
+  if(props.platforms && props.platforms.includes("linkedin") && props.creator && props.creator.linkedInCostPerPost){
+      totalCostPerPost += props.creator.linkedInCostPerPost;
+  }
+  //computing the average cost per reach
+  let averageCostPerReach = 0;
+  if(totalReach > 0){
+  averageCostPerReach = (totalCostPerPost / totalReach);
+  }
+
+ 
+
   return (
     <form id="cartUpdateAndDeliveryForm">
       <Box
         sx={{
-          width: 200,
+          width: 400,
           //height: 450,
         }}
         noValidate
@@ -676,41 +755,13 @@ function CartUpdateAndDeliveryForm(props) {
           style={{ marginTop: 10, marginBottom: 10 }}
           justifyContent="center"
         ></Grid>
-        <Field
-          label=""
-          id="minimumQuantity"
-          name="minimumQuantity"
-          defaultValue={`${minimumQuantity}`}
-          type="text"
-          component={renderMinimumQuantityField}
-          style={{ width: 300 }}
-        />
-        <Field
-          label=""
-          id="quantity"
-          name="quantity"
-          defaultValue={quantity}
-          type="number"
-          onChange={onChange}
-          component={renderRequestedQuantityField}
-          style={{ width: 300, marginTop: 10 }}
-        />
-        <Grid container direction="row">
-          <Grid item style={{ width: 50, marginTop: 10, fontSize: 25 }}>
-            <span style={{ color: "grey" }}>&#8358;</span>
-          </Grid>
-          <Grid item style={{ marginLeft: 0, width: 150 }}>
-            <Field
-              label=""
-              id="total"
-              name="total"
-              defaultValue={total}
-              type="text"
-              component={renderTotalField}
-              style={{ width: 150 }}
-            />
-          </Grid>
-        </Grid>
+       
+        <Typography variant="h5" style={{ color: "black", fontSize: 16, marginTop: 20, marginBottom:20 }}><strong>Influencer's Cumulative Stats In Summary</strong></Typography>
+        <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Total Reach</strong>:&nbsp;&nbsp;{totalReach.toLocaleString()}</Typography>
+        <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Average Engagement Rate</strong>:&nbsp;&nbsp;{averageEngagementRate.toLocaleString()}%</Typography>
+        {props.currency.name.toLowerCase()==='naira' && <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Average Cost Per Reach</strong>:&nbsp;&nbsp;&#8358;{averageCostPerReach.toLocaleString()}</Typography>}
+        {props.currency.name.toLowerCase()!=='naira' && <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Average Cost Per Reach</strong>:&nbsp;&nbsp;&#36;{averageCostPerReach.toLocaleString()}</Typography>}
+
 
         <Button
           variant="outlined"

@@ -187,17 +187,19 @@ function AboutUsForm(props) {
                 marginTop: 50,
                 marginLeft: 100,
                 color: "aqua",
-                fontSize: 16,
+                fontSize: 20,
+                padding:100
               }}
             >
               <strong>
-              At TopCreators, we believe that powerful storytelling is at the heart of every successful brand.
-              Our platform is designed to connect businesses with top-tier creators specializing in marketing videos and jingles 
-              that captivate audiences and leave a lasting impression
+              We are a full-service influencer marketing agency that connects brands with top-performing influencers across Africa. Through our curated marketplace, 
+              brands can search, evaluate, and engage influencers directly via our platform. We facilitate 
+              contract execution, content management, and performance reporting from start to finish, 
+              ensuring every campaign is professionally managed and delivers results.
                 <br />
               </strong>
             </Typography>
-            <br />
+            {/* <br />
             <Typography
               //variant="h4"
               style={{
@@ -207,15 +209,15 @@ function AboutUsForm(props) {
                 fontSize: 16,
               }}
             >
-              {/* <strong> */}
+              
               We bring together talented video producers, animators, voice-over artists, and musicians who are passionate about
               helping brands stand out in today’s competitive market. Whether you need an engaging ad, a product explainer, 
               or a catchy jingle to reinforce your brand identity, our curated network of professionals is here to bring your 
               vision to life.
 
-              {/* </strong> */}
-            </Typography>
-            <Typography
+              
+            </Typography> */}
+            {/* <Typography
               //variant="h4"
               style={{
                 marginTop: 20,
@@ -224,10 +226,10 @@ function AboutUsForm(props) {
                 fontSize: 16,
               }}
             >
-              {/* <strong> */}
+              
               Our mission is simple: to make high-quality creative production accessible, seamless, and results-driven. With an intuitive platform, transparent collaboration, and a commitment to excellence, we empower brands to produce marketing content that resonates, 
               inspires, and drives growth
-              {/* </strong> */}
+             
             </Typography>
             <Typography
               //variant="h4"
@@ -238,10 +240,9 @@ function AboutUsForm(props) {
                 fontSize: 16,
               }}
             >
-              {/* <strong> */}
-              Join us and discover how the right creative partnership can take your brand to new heights!
-              {/* </strong> */}
-            </Typography>
+                  oin us and discover how the right creative partnership can take your brand to new heights!
+              
+            </Typography> */}
           </Grid>
           {/* <Grid item style={{ width: "50%" }}>
             <Typography>This is where content will stay</Typography>

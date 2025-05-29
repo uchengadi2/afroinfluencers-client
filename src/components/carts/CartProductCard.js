@@ -49,9 +49,9 @@ const useStyles = makeStyles((theme) => ({
     // },
   },
   media: {
-    // height: 700,
+    height: 400,
     // width: 350,
-    height: "100%",
+    //height: "100%",
     width: "100%",
     //padding: 20,
   },
@@ -134,7 +134,7 @@ export default function CartProductCard(props) {
   const [promoMinQuantity, setPromoMinQuantity] = useState();
   const [price, setPrice] = useState();
   const [minQuantity, setMinQuantity] = useState(1);
-  const [course, setCourse] = useState({});
+  const [influencer, setInfluencer] = useState({});
 
   // const { token, setToken } = useToken();
   // const { userId, setUserId } = useUserId();
@@ -151,131 +151,74 @@ export default function CartProductCard(props) {
   const matchesMDUp = useMediaQuery(theme.breakpoints.up("md"));
 
   useEffect(() => {
-    setPrice(props.course.price);
-    setMinQuantity(props.course.minimumQuantity);
+    //setPrice(props.course.price);
+    //setMinQuantity(props.course.minimumQuantity);
   }, [props]);
 
   useEffect(() => {
     // 👇️ scroll to top on page load
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
+
+  console.log('props.creator:', props.creator);
   //get the product details
   useEffect(() => {
     const fetchData = async () => {
       let allData = [];
       api.defaults.headers.common["Authorization"] = `Bearer ${props.token}`;
-      const response = await api.get(`/courses/${props.course}`);
-      const course = response.data.data.data;
+      const response = await api.get(`/creators/${props.creator.id}`);
+      const influencer = response.data.data.data;
 
       allData.push({
-        id: course._id,
-        title: course.title,
-        imageCover: course.imageCover,
-        shortDescription: course.shortDescription,
-        longDescription: course.longDescription,
-        features: course.features,
-        deliveryMethod: course.deliveryMethod,
-        duration: course.duration,
-        category: course.category,
-        commencementDate: course.commencementDate,
-        price: course.price,
-        currency: course.currency,
-        venue: course.venue,
-        refNumber: course.refNumber,
-        sessionDuration: course.sessionDuration,
-        sessionPeriod: course.sessionPeriod,
-        studyPeriod: course.studyPeriod,
-        lectureDuration: course.lectureDuration,
-        projectDuration: course.projectDuration,
-        instructor: course.instructor,
-        image: course.imageCover,
-        createBy: course.createBy,
-        prerequisites: course.prerequisites,
-        tools: course.tools,
-        targetAudience: course.targetAudience,
-        whatToLearn: course.whatToLearn,
-        venueLink: course.venueLink,
-        commencementWeekdaysDate: course.commencementWeekdaysDate,
-        commencementWeekendsDate: course.commencementWeekendsDate,
-        genericWeekdayStartDateText: course.genericWeekdayStartDateText,
-        genericWeekendStartDateText: course.genericWeekendStartDateText,
-        showGenericWeekdayStartDateText: course.showGenericWeekdayStartDateText,
-        showGenericWeekendStartDateText: course.showGenericWeekendStartDateText,
-        weekdaySessionPeriod: course.weekdaySessionPeriod,
-        weekendSessionPeriod: course.weekendSessionPeriod,
-        paymentOptions: course.paymentOptions,
-        track: course.track,
-        isCourseAuditable: course.isCourseAuditable,
-        weekdayAuditDays: course.weekdayAuditDays,
-        weekendAuditDays: course.weekendAuditDays,
-        hasMentorshipCredit: course.hasMentorshipCredit,
-        mentorshipCredit: course.mentorshipCredit,
-        mentorshipDuration: course.mentorshipDuration,
-        hasSeries: course.hasSeries,
-        series: course.series,
-        costPerMentorshipCredit: course.costPerMentorshipCredit,
-        isInstallmentalPaymentAllowed: course.isInstallmentalPaymentAllowed,
-        maximumInstallmentalPayment: course.maximumInstallmentalPayment,
-        allowLifeTimeAccess: course.allowLifeTimeAccess,
-        priceLabel: course.priceLabel,
+        id: influencer._id,
+          creator: influencer.creator,
+          brand: influencer.brand,
+          cartHolder: influencer.cartHolder,
+          dateAddedToCart: influencer.dateAddedToCart,
+          refNumber: influencer.refNumber,
+          quantity: influencer.quantity,
+          status: influencer.status,
+          agencyServicePlan:influencer.agencyServicePlan,
+          project: influencer.project,
+          creativeLanguage: influencer.creativeLanguage,
+          currency: influencer.currency,
+          slug: influencer.slug,
+          creatorImage: influencer.creatorImage,
+          platforms: influencer.platforms,
+          facebookPostQuantity: influencer.facebookPostQuantity,
+          instagramPostQuantity: influencer.instagramPostQuantity,
+          twitterPostQuantity: influencer.twitterPostQuantity,
+          tiktokPostQuantity: influencer.tiktokPostQuantity,
+          linkedInPostQuantity: influencer.linkedInPostQuantity,
+          blogPostQuantity: influencer.blogPostQuantity,
       });
 
       if (!allData) {
         return;
       }
-      setCourse({
-        id: allData[0].id,
-        title: allData[0].title,
-        imageCover: allData[0].imageCover,
-        shortDescription: allData[0].shortDescription,
-        longDescription: allData[0].longDescription,
-        features: allData[0].features,
-        deliveryMethod: allData[0].deliveryMethod,
-        duration: allData[0].duration,
-        category: allData[0].category,
-        commencementDate: allData[0].commencementDate,
-        price: allData[0].price,
-        currency: allData[0].currency,
-        venue: allData[0].venue,
-        refNumber: allData[0].refNumber,
-        sessionDuration: allData[0].sessionDuration,
-        sessionPeriod: allData[0].sessionPeriod,
-        studyPeriod: allData[0].studyPeriod,
-        lectureDuration: allData[0].lectureDuration,
-        projectDuration: allData[0].projectDuration,
-        instructor: allData[0].instructor,
-        image: allData[0].image,
-        createBy: allData[0].createBy,
-        prerequisites: allData[0].prerequisites,
-        tools: allData[0].tools,
-        targetAudience: allData[0].targetAudience,
-        whatToLearn: allData[0].whatToLearn,
-        venueLink: allData[0].venueLink,
-        commencementWeekdaysDate: allData[0].commencementWeekdaysDate,
-        commencementWeekendsDate: allData[0].commencementWeekendsDate,
-        genericWeekdayStartDateText: allData[0].genericWeekdayStartDateText,
-        genericWeekendStartDateText: allData[0].genericWeekendStartDateText,
-        showGenericWeekdayStartDateText:
-          allData[0].showGenericWeekdayStartDateText,
-        showGenericWeekendStartDateText:
-          allData[0].showGenericWeekendStartDateText,
-        weekdaySessionPeriod: allData[0].weekdaySessionPeriod,
-        weekendSessionPeriod: allData[0].weekendSessionPeriod,
-        paymentOptions: allData[0].paymentOptions,
-        track: allData[0].track,
-        isCourseAuditable: allData[0].isCourseAuditable,
-        weekdayAuditDays: allData[0].weekdayAuditDays,
-        weekendAuditDays: allData[0].weekendAuditDays,
-        hasMentorshipCredit: allData[0].hasMentorshipCredit,
-        mentorshipCredit: allData[0].mentorshipCredit,
-        mentorshipDuration: allData[0].mentorshipDuration,
-        hasSeries: allData[0].hasSeries,
-        series: allData[0].series,
-        costPerMentorshipCredit: allData[0].costPerMentorshipCredit,
-        isInstallmentalPaymentAllowed: allData[0].isInstallmentalPaymentAllowed,
-        maximumInstallmentalPayment: allData[0].maximumInstallmentalPayment,
-        allowLifeTimeAccess: allData[0].allowLifeTimeAccess,
-        priceLabel: allData[0].priceLabel,
+      setInfluencer({
+        
+        id: allData[0]._id,
+          creator: allData[0].creator,
+          brand: allData[0].brand,
+          cartHolder: allData[0].cartHolder,
+          dateAddedToCart: allData[0].dateAddedToCart,
+          refNumber: allData[0].refNumber,
+          quantity: allData[0].quantity,
+          status: allData[0].status,
+          agencyServicePlan:allData[0].agencyServicePlan,
+          project: allData[0].project,
+          creativeLanguage: allData[0].creativeLanguage,
+          currency: allData[0].currency,
+          slug: allData[0].slug,
+          creatorImage: allData[0].creatorImage,
+          platforms: allData[0].platforms,
+          facebookPostQuantity: allData[0].facebookPostQuantity,
+          instagramPostQuantity: allData[0].instagramPostQuantity,
+          twitterPostQuantity: allData[0].twitterPostQuantity,
+          tiktokPostQuantity: allData[0].tiktokPostQuantity,
+          linkedInPostQuantity: allData[0].linkedInPostQuantity,
+          blogPostQuantity: allData[0].blogPostQuantity,
       });
     };
 
@@ -285,8 +228,8 @@ export default function CartProductCard(props) {
   }, []);
 
   let imageUrl = "";
-  if (course) {
-    imageUrl = `${baseURL}/images/courses/${course.imageCover}`;
+  if (props.creator) {
+    imageUrl = `${baseURL}/images/creators/${props.creator.image}`;
   }
 
   const Str = require("@supercharge/strings");
@@ -500,10 +443,40 @@ export default function CartProductCard(props) {
     }
   };
 
-  if (!course) {
+  if (!influencer) {
     return <></>;
   }
 
+ 
+  let facebookCostPerReach = 0;
+  let instagramCostPerReach = 0;
+  let twitterCostPerReach = 0;
+  let tiktokCostPerReach = 0;
+  let linkedInCostPerReach = 0;
+  let blogCostPerReach = 0;
+  if(props.platforms && props.platforms.includes("facebook") && props.creator && props.creator.facebookCostPerPost && props.creator.facebookTotalFollowers){
+    facebookCostPerReach = props.creator.facebookCostPerPost/props.creator.facebookTotalFollowers;
+  }
+  if(props.platforms && props.platforms.includes("instagram") && props.creator && props.creator.instagramCostPerPost && props.creator.instagramTotalFollowers){
+    instagramCostPerReach = props.creator.instagramCostPerPost/props.creator.instagramTotalFollowers;
+  }
+  if(props.platforms && props.platforms.includes("twitter") && props.creator && props.creator.twitterCostPerPost && props.creator.twitterTotalFollowers){
+    twitterCostPerReach = props.creator.twitterCostPerPost/props.creator.twitterTotalFollowers;
+  }
+  if(props.platforms && props.platforms.includes("tiktok") && props.creator && props.creator.tiktokCostPerPost && props.creator.tiktokTotalFollowers){
+    tiktokCostPerReach = props.creator.tiktokCostPerPost/props.creator.tiktokTotalFollowers;
+  }
+  if(props.platforms && props.platforms.includes("linkedin") && props.creator && props.creator.linkedInCostPerPost && props.creator.linkedinTotalFollowers){
+    linkedInCostPerReach = props.creator.linkedInCostPerPost/props.creator.linkedinTotalFollowers;
+  }
+  if(props.platforms && props.platforms.includes("blog") && props.creator && props.creator.blogCostPerPost && props.creator.blogTotalVisitorsPerMonth){
+    blogCostPerReach = props.creator.blogCostPerPost/props.creator.blogTotalVisitorsPerMonth;
+  }
+
+
+  
+
+  
   return (
     <>
       {matchesMDUp ? (
@@ -514,7 +487,7 @@ export default function CartProductCard(props) {
               <CardMedia
                 className={classes.media}
                 component="img"
-                alt={course.title}
+                alt={props.creator.name}
                 image={imageUrl}
                 //title={product.name}
                 crossOrigin="anonymous"
@@ -522,316 +495,252 @@ export default function CartProductCard(props) {
             </Grid>
             <Grid item style={{ width: "46.19%", border: "1px dotted grey" }}>
               <CardContent disableRipple>
-                {course.hasSeries ? (
+               
                   <Typography variant="h4" color="textSecondary" component="p">
-                    {course.title}
-                    <span style={{ fontSize: 16, fontWeight: 700 }}>
-                      <em> ({course.series})</em>
-                    </span>
+                    {props.creator.name}<scan style={{fontSize:15, fontWeight:500}}>{props.creator.country && ` (${props.creator.country[0].name}, ${props.creator.age}years ${props.creator.gender.charAt(0).toUpperCase() + props.creator.gender.slice(1)})` }</scan>
                   </Typography>
-                ) : (
-                  <Typography variant="h4" color="textSecondary" component="p">
-                    {course.title}
+                
+               
+                
+                {props.project && (
+                  <Typography
+                    variant="h5"
+                    style={{ color: "black", fontSize: 15, marginTop: 20 }}
+                  >
+                    <span style={{ marginRight: 20 }}>
+                      {" "}
+                      <strong>Project:</strong>
+                    </span>
+                    {props.project.name}
                   </Typography>
                 )}
-                <Typography
-                  variant="subtitle1"
-                  color="textSecondary"
-                  component="p"
-                  style={{ marginTop: 20 }}
-                >
-                  {Str(course.shortDescription).limit(200, "...").get()}
+                {props.brand && (
+                  <Typography
+                    variant="h5"
+                    style={{ color: "black", fontSize: 15 }}
+                  >
+                    <span style={{ marginRight: 20 }}>
+                      {" "}
+                      <strong>Project Owner:</strong>
+                    </span>
+                    {props.brand.name}
+                  </Typography>
+                )}
+                <Typography variant="h5" style={{ color: "black", fontSize: 15, marginLeft:15, marginTop:10 }}><strong>Selected Platforms for the Campaign</strong></Typography>
+               <Typography style={{marginLeft:25}}>
+                {props.platforms && props.platforms.map((platform, index)=> (
+               
+                    <span style={{ marginRight: 10, marginLeft: 5 }} key={index}>
+                     {platform},
+                    </span>
+                    
+                    
+                
+                ))}
                 </Typography>
-                <Typography
-                  variant="h5"
-                  color="textSecondary"
-                  component="p"
-                  style={{ marginTop: 30 }}
-                >
-                  <span style={{ marginLeft: 130 }}>
-                    <strong>
-                      {getCurrencyCode()}
-                      {course.price
-                        ? course.price
-                            .toFixed(2)
-                            .replace(/\d(?=(\d{3})+\.)/g, "$&,")
-                        : ""}
-                    </strong>
-                  </span>
-                </Typography>
-                {course.priceLabel !== undefined && (
-                  <Typography
-                    variant="h5"
-                    style={{
-                      fontSize: 15,
-                      color: "red",
-                      marginTop: 9,
-                      marginBottom: 15,
-                      marginLeft: 10,
-                    }}
-                  >
-                    {course.priceLabel}
-                  </Typography>
+                {props.platforms && props.platforms.includes("facebook") && props.facebookPostQuantity && (
+                  <Typography  variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15, marginTop:10 }}><strong>Number of Facebook Post Required</strong>:&nbsp;&nbsp;{props.facebookPostQuantity}</Typography>
                 )}
-                {course.refNumber !== undefined && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      {" "}
-                      <strong>Reference Number:</strong>
-                    </span>
-                    {course.refNumber}
-                  </Typography>
+                {props.platforms && props.platforms.includes("facebook") && props.creator.facebookCostPerPost && props.currency.name.toLowerCase() ==='naira' && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Facebook Cost Per Post</strong>:&nbsp;&nbsp;&#8358;{props.creator.facebookCostPerPost.toLocaleString()}</Typography>
                 )}
-                {course.duration !== undefined && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      {" "}
-                      <strong>Duration:</strong>
-                    </span>
-                    {course.duration}
-                  </Typography>
+                {props.platforms && props.platforms.includes("facebook") && props.creator.facebookCostPerPost && props.currency.name.toLowerCase() !=='naira' && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Facebook Cost Per Post</strong>:&nbsp;&nbsp;&#36;{props.creator.facebookCostPerPost.toLocaleString()}</Typography>
                 )}
-                {course.commencementDate !== undefined && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      {" "}
-                      <strong>Start date:</strong>
-                    </span>
-                    {course.commencementDate
-                      ? new Date(course.commencementDate).toDateString()
-                      : "Coming Soon"}
-                  </Typography>
+           
+
+                {props.platforms && props.platforms.includes("instagram") && props.instagramPostQuantity && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Number of Instagram Post Required</strong>:&nbsp;&nbsp;{props.instagramPostQuantity}</Typography>
                 )}
-                {course.deliveryMethod !== undefined && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      {" "}
-                      <strong>Delivery Method:</strong>
-                    </span>
-                    {course.deliveryMethod}
-                  </Typography>
+                {props.platforms && props.platforms.includes("instagram") && props.creator.instagramCostPerPost && props.currency.name.toLowerCase() ==='naira' &&(
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Instagram Cost Per Post</strong>:&nbsp;&nbsp;&#8358;{props.creator.instagramCostPerPost.toLocaleString()}</Typography>
                 )}
-                {course.venue !== undefined && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      {" "}
-                      <strong>Venue:</strong>
-                    </span>
-                    {course.venue}
-                  </Typography>
+                {props.platforms && props.platforms.includes("instagram") && props.creator.instagramCostPerPost && props.currency.name.toLowerCase() !=='naira' &&(
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Instagram Cost Per Post</strong>:&nbsp;&nbsp;&#36;{props.creator.instagramCostPerPost.toLocaleString()}</Typography>
                 )}
-                {course.track !== undefined && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      {" "}
-                      <strong>Track:</strong>
-                    </span>
-                    {course.track}
-                  </Typography>
+
+
+
+                {props.platforms && props.platforms.includes("twitter") && props.twitterPostQuantity && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Number of Twitter Post Required</strong>:&nbsp;&nbsp;{props.twitterPostQuantity}</Typography>
                 )}
-                {course.commencementWeekdaysDate !== undefined && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      <strong>Weekday Start Date(s):</strong>
-                    </span>
-                    <span style={{ marginLeft: 3, textAlign: "center" }}>
-                      {/* {course.commencementWeekdaysDate.join("|")} */}
-                      {course.commencementWeekdaysDate}
-                    </span>
-                  </Typography>
+                {props.platforms && props.platforms.includes("twitter") && props.creator.twitterCostPerPost && props.currency.name.toLowerCase() ==='naira' && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Twitter Cost Per Post</strong>:&nbsp;&nbsp;&#8358;{props.creator.twitterCostPerPost.toLocaleString()}</Typography>
                 )}
-                {course.commencementWeekendsDate !== undefined && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      <strong>Weekend Start Date(s):</strong>
-                    </span>
-                    <span style={{ marginLeft: 3, textAlign: "center" }}>
-                      {/* {course.commencementWeekendsDate.join("|")} */}
-                      {course.commencementWeekendsDate}
-                    </span>
-                  </Typography>
+                {props.platforms && props.platforms.includes("twitter") && props.creator.twitterCostPerPost && props.currency.name.toLowerCase() !=='naira' && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Twitter Cost Per Post</strong>:&nbsp;&nbsp;&#36;{props.creator.twitterCostPerPost.toLocaleString()}</Typography>
                 )}
-                <Typography
-                  variant="h5"
-                  style={{ color: "black", fontSize: 15 }}
-                >
-                  <span style={{ marginRight: 20 }}>
-                    <strong>Weekday Lecture Period:</strong>
-                  </span>
-                  <span style={{ marginLeft: 3, textAlign: "center" }}>
-                    {course.weekdaySessionPeriod}
-                  </span>
-                </Typography>
-                <Typography
-                  variant="h5"
-                  style={{ color: "black", fontSize: 15 }}
-                >
-                  <span style={{ marginRight: 20 }}>
-                    <strong>Weekend Lecture Period:</strong>
-                  </span>
-                  <span style={{ marginLeft: 3, textAlign: "center" }}>
-                    {course.weekendSessionPeriod}
-                  </span>
-                </Typography>
-                {course.hasMentorshipCredit && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      <strong>Mentorship Credit:</strong>
-                    </span>
-                    <span style={{ marginLeft: 3, textAlign: "center" }}>
-                      {course.mentorshipCredit}&nbsp; Units &nbsp; (to be used
-                      after graduation)
-                    </span>
-                  </Typography>
+
+
+                {props.platforms && props.platforms.includes("tiktok") && props.tiktokPostQuantity && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Number of Tiktok Post Required</strong>:&nbsp;&nbsp;{props.tiktokPostQuantity}</Typography>
                 )}
-                {course.hasMentorshipCredit && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      <strong>Total Value of Mentorship Credit:</strong>
-                    </span>
-                    <span style={{ marginLeft: 3, textAlign: "center" }}>
-                      {getCurrencyCode()}
-                      {(
-                        course.mentorshipCredit * course.costPerMentorshipCredit
-                      )
-                        .toFixed(2)
-                        .replace(/\d(?=(\d{3})+\.)/g, "$&,")}
-                    </span>
-                  </Typography>
+                {props.platforms && props.platforms.includes("tiktok") && props.creator.tiktokCostPerPost && props.currency.name.toLowerCase() ==='naira' &&(
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Tiktok Cost Per Post</strong>:&nbsp;&nbsp;&#8358;{props.creator.tiktokCostPerPost.toLocaleString()}</Typography>
                 )}
-                {course.hasMentorshipCredit && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      <strong>Mentorship Duration:</strong>
-                    </span>
-                    <span style={{ marginLeft: 3, textAlign: "center" }}>
-                      {course.mentorshipDuration}&nbsp;&nbsp; ( from the day of
-                      graduation)
-                    </span>
-                  </Typography>
+                {props.platforms && props.platforms.includes("tiktok") && props.creator.tiktokCostPerPost && props.currency.name.toLowerCase() !=='naira' &&(
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Tiktok Cost Per Post</strong>:&nbsp;&nbsp;&#36;{props.creator.tiktokCostPerPost.toLocaleString()}</Typography>
                 )}
-                {course.isInstallmentalPaymentAllowed === "yes" && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      <strong>Is Installmental Payment Allowed :</strong>
-                    </span>
-                    <span style={{ marginLeft: 3, textAlign: "center" }}>
-                      {course.isInstallmentalPaymentAllowed
-                        .charAt(0)
-                        .toUpperCase() +
-                        course.isInstallmentalPaymentAllowed.slice(1)}
-                    </span>
-                  </Typography>
+
+
+                {props.platforms && props.platforms.includes("linkedin") && props.linkedInPostQuantity && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Number of LinkedIn Post Required</strong>:&nbsp;&nbsp;{props.linkedInPostQuantity}</Typography>
                 )}
-                {course.isInstallmentalPaymentAllowed === "yes" && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      <strong>
-                        Maximum Number of Installmental Payment Allowed :
-                      </strong>
-                    </span>
-                    <span style={{ marginLeft: 3, textAlign: "center" }}>
-                      {course.maximumInstallmentalPayment}&nbsp;times
-                    </span>
-                  </Typography>
+                {props.platforms && props.platforms.includes("linkedin") && props.creator.linkedInCostPerPost && props.currency.name.toLowerCase() ==='naira' &&(
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>LinkedIn Cost Per Post</strong>:&nbsp;&nbsp;&#8358;{props.creator.linkedInCostPerPost.toLocaleString()}</Typography>
                 )}
-                {course.passGrade !== undefined && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      {" "}
-                      <strong>Minimum NextChamp Grade:</strong>
-                    </span>
-                    {course.passGrade}
-                  </Typography>
+                {props.platforms && props.platforms.includes("linkedin") && props.creator.linkedInCostPerPost && props.currency.name.toLowerCase() !=='naira' &&(
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>LinkedIn Cost Per Post</strong>:&nbsp;&nbsp;&#36;{props.creator.linkedInCostPerPost.toLocaleString()}</Typography>
                 )}
-                <Typography
-                  variant="h5"
-                  style={{ color: "black", fontSize: 15 }}
-                >
-                  <span style={{ marginRight: 20 }}>
-                    {" "}
-                    <strong>
-                      Is Life Time Access To This Course Allowed?:
-                    </strong>
-                  </span>
-                  {course.allowLifeTimeAccess}
-                </Typography>
-                <br /> <br />
-                {course.isCourseAuditable && (
-                  <Typography>
-                    <span
-                      style={{
-                        fontSize: 18,
-                        marginLeft: 14,
-                        //textAlign: "center",
-                      }}
-                    >
-                      You can audit this course for FREE for up to
-                      <strong>
-                        <span>{course.weekdayAuditDays}</span>
-                      </strong>
-                      &nbsp;. You only make payment afterwards when you are sure
-                      the course is a good fit for you
-                    </span>
-                  </Typography>
+
+
+                {props.platforms && props.platforms.includes("blog") && props.blogPostQuantity && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Number of Blog Post Required</strong>:&nbsp;&nbsp;{props.blogPostQuantity}</Typography>
                 )}
+                {props.platforms && props.platforms.includes("blog") && props.blogCostPerPost && props.currency.name.toLowerCase() ==='naira' &&(
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Blog Cost Per Post</strong>:&nbsp;&nbsp;&#8358;{props.creator.blogCostPerPost.toLocaleString()}&nbsp;&nbsp;{props.creator.blogPostCostDuration}</Typography>
+                  // <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Blog Cost Per Post</strong>:&nbsp;&nbsp;&#8358;{props.creator.blogCostPerPost.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("blog") && props.blogCostPerPost && props.currency.name.toLowerCase() !=='naira' &&(
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Blog Cost Per Post</strong>:&nbsp;&nbsp;&#36;{props.blogCostPerPost.toLocaleString()}&nbsp;&nbsp;{props.creator.blogPostCostDuration}</Typography>
+                )}
+
+
+
+                <Typography variant="h5" style={{ color: "black", fontSize: 18, marginTop: 20 }}><strong>Social Media Influencer Stats</strong></Typography>
+
+                {props.platforms && props.platforms.includes("facebook") && props.creator && props.creator.facebookTotalFollowers &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15, marginTop:10 }}><strong>Facebook Total Followers</strong>:&nbsp;&nbsp;{props.creator.facebookTotalFollowers.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("facebook") && props.creator && props.creator.facebookEngagementRate &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Estmated Facebook Engagement Rate:</strong>:&nbsp;&nbsp;{props.creator.facebookEngagementRate.toLocaleString()}%</Typography>
+                )}
+                {props.platforms && props.platforms.includes("facebook") && props.currency.name.toLowerCase()==='naira' &&(
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Facebook Cost Per Reach</strong>:&nbsp;&nbsp;&#8358;{facebookCostPerReach.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("facebook") && props.currency.name.toLowerCase()!=='naira' &&(
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Facebook Cost Per Reach</strong>:&nbsp;&nbsp;&#36;{facebookCostPerReach.toLocaleString()}</Typography>
+                )}
+
+
+
+                {props.platforms && props.platforms.includes("instagram") && props.creator && props.creator.instagramTotalFollowers &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Instagram Total Followers</strong>:&nbsp;&nbsp;{props.creator.instagramTotalFollowers.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("instagram") && props.creator && props.creator.instagramEngagementRate &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Estmated Instagram Engagement Rate:</strong>:&nbsp;&nbsp;{props.creator.instagramEngagementRate.toLocaleString()}%</Typography>
+                )}
+                {props.platforms && props.platforms.includes("instagram") && props.currency.name.toLowerCase()==='naira' &&(
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Instagram Cost Per Reach</strong>:&nbsp;&nbsp;&#8358;{instagramCostPerReach.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("instagram") && props.currency.name.toLowerCase()!=='naira' &&(
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Instagram Cost Per Reach</strong>:&nbsp;&nbsp;&#36;{instagramCostPerReach.toLocaleString()}</Typography>
+                )}
+
+
+
+                {props.platforms && props.platforms.includes("twitter") && props.creator && props.creator.twitterTotalFollowers &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Twitter Total Followers</strong>:&nbsp;&nbsp;{props.creator.twitterTotalFollowers.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("twitter") && props.creator && props.creator.twitterEngagementRate &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Estmated Twitter Engagement Rate:</strong>:&nbsp;&nbsp;{props.creator.twitterEngagementRate.toLocaleString()}%</Typography>
+                )}
+                {props.platforms && props.platforms.includes("twitter") && props.currency.name.toLowerCase()==='naira' && (
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Twitter Cost Per Reach</strong>:&nbsp;&nbsp;&#8358;{twitterCostPerReach.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("twitter") && props.currency.name.toLowerCase()!=='naira' && (
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Twitter Cost Per Reach</strong>:&nbsp;&nbsp;&#36;{twitterCostPerReach.toLocaleString()}</Typography>
+                )}
+
+
+                {props.platforms && props.platforms.includes("tiktok") && props.creator && props.creator.tiktokTotalFollowers &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Tiktok Total Followers</strong>:&nbsp;&nbsp;{props.creator.tiktokTotalFollowers.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("tiktok") && props.creator && props.creator.tiktokEngagementRate &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Estmated Tiktok Engagement Rate:</strong>:&nbsp;&nbsp;{props.creator.tiktokEngagementRate.toLocaleString()}%</Typography>
+                )}
+                {props.platforms && props.platforms.includes("tiktok") && props.currency.name.toLowerCase()==='naira' &&(
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Tiktok Cost Per Reach</strong>:&nbsp;&nbsp;&#8358;{tiktokCostPerReach.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("tiktok") && props.currency.name.toLowerCase()!=='naira' &&(
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Tiktok Cost Per Reach</strong>:&nbsp;&nbsp;&#36;{tiktokCostPerReach.toLocaleString()}</Typography>
+                )}
+
+
+                {props.platforms && props.platforms.includes("linkedin") && props.creator && props.creator.linkedinTotalFollowers &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>LinkedIn Total Followers</strong>:&nbsp;&nbsp;{props.creator.linkedinTotalFollowers.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("linkedin") && props.creator && props.creator.linkedinEngagementRate &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Estmated LinkedIn Engagement Rate:</strong>:&nbsp;&nbsp;{props.creator.linkedinEngagementRate.toLocaleString()}%</Typography>
+                )}
+                {props.platforms && props.platforms.includes("linkedin") && props.currency.name.toLowerCase()==='naira' &&(
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>LinkedIn Cost Per Reach</strong>:&nbsp;&nbsp;&#8358;{linkedInCostPerReach.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("linkedin") && props.currency.name.toLowerCase()!=='naira' &&(
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>LinkedIn Cost Per Reach</strong>:&nbsp;&nbsp;&#36;{linkedInCostPerReach.toLocaleString()}</Typography>
+                )}
+
+
+
+                {props.platforms && props.platforms.includes("blog") && props.creator && props.creator.blogTotalVisitorsPerMonth &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Blog Average Number Of Visitors Per Month</strong>:&nbsp;&nbsp;{props.creator.blogTotalVisitorsPerMonth.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("blog") && props.creator && props.creator.blogEngagementRate &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Estmated Blog Engagement Rate:</strong>:&nbsp;&nbsp;{props.creator.blogEngagementRate.toLocaleString()}%</Typography>
+                )}
+                {props.platforms && props.platforms.includes("blog") && props.currency.name.toLowerCase()==='naira' &&(
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Blog Cost Per Reach</strong>:&nbsp;&nbsp;&#8358;{blogCostPerReach.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("blog") && props.currency.name.toLowerCase()!=='naira' &&(
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Blog Cost Per Reach</strong>:&nbsp;&nbsp;&#36;{blogCostPerReach.toLocaleString()}</Typography>
+                )}
+
+
+
+                <Typography variant="h5" style={{ color: "black", fontSize: 18, marginTop: 20 }}><strong>Selected Agency Plan</strong></Typography>
+
+               
+                {props.agencyServicePlan && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Agency Service Plan</strong>:&nbsp;&nbsp;{props.agencyServicePlan.charAt(0).toUpperCase() + props.agencyServicePlan.slice(1)}</Typography>
+                )}
+                
               </CardContent>
             </Grid>
 
             <Grid item style={{ width: "26.50%", border: "1px dotted grey" }}>
-              {course.price && (
+              {props.creator && (
                 <CartUpdateAndDeliveryForm
-                  price={course.price}
-                  minimumQuantity={course.minimumQuantity}
-                  courseId={course.id}
-                  currency={course.currency}
-                  preferredStartDate={props.preferredStartDate}
+                  creator={props.creator}
+                  platforms={props.platforms}
+                  creatorId={props.creator.id}
+                  currency={props.currency}
                   cartCounterHandler={props.cartCounterHandler}
                   token={props.token}
                   userId={props.userId}
-                  quantity={props.quantity}
                   cartId={props.cartId}
                   handleMakeOpenLoginFormDialogStatus={
                     handleMakeOpenLoginFormDialogStatus
@@ -861,7 +770,7 @@ export default function CartProductCard(props) {
               <CardMedia
                 className={classes.mediaMobile}
                 component="img"
-                alt={course.title}
+                alt={props.creator.name}
                 image={imageUrl}
                 //title={product.name}
                 crossOrigin="anonymous"
@@ -869,311 +778,252 @@ export default function CartProductCard(props) {
             </Grid>
             <Grid item style={{ width: "100%", border: "1px dotted grey" }}>
               <CardContent disableRipple>
-                {course.hasSeries ? (
+               
                   <Typography variant="h4" color="textSecondary" component="p">
-                    {course.title}
-                    <span style={{ fontSize: 16, fontWeight: 700 }}>
-                      <em> ({course.series})</em>
-                    </span>
+                    {props.creator.name}<scan style={{fontSize:15, fontWeight:500}}>{props.creator.country && ` (${props.creator.country[0].name}, ${props.creator.age}years ${props.creator.gender.charAt(0).toUpperCase() + props.creator.gender.slice(1)})` }</scan>
                   </Typography>
-                ) : (
-                  <Typography variant="h4" color="textSecondary" component="p">
-                    {course.title}
+                
+               
+                
+                {props.project && (
+                  <Typography
+                    variant="h5"
+                    style={{ color: "black", fontSize: 15, marginTop: 20 }}
+                  >
+                    <span style={{ marginRight: 20 }}>
+                      {" "}
+                      <strong>Project:</strong>
+                    </span>
+                    {props.project.name}
                   </Typography>
                 )}
-                <Typography
-                  variant="subtitle1"
-                  color="textSecondary"
-                  component="p"
-                >
-                  {Str(course.shortDescription).limit(200, "...").get()}
+                {props.brand && (
+                  <Typography
+                    variant="h5"
+                    style={{ color: "black", fontSize: 15 }}
+                  >
+                    <span style={{ marginRight: 20 }}>
+                      {" "}
+                      <strong>Project Owner:</strong>
+                    </span>
+                    {props.brand.name}
+                  </Typography>
+                )}
+                <Typography variant="h5" style={{ color: "black", fontSize: 15, marginLeft:15, marginTop:10 }}><strong>Selected Platforms for the Campaign</strong></Typography>
+               <Typography style={{marginLeft:25}}>
+                {props.platforms && props.platforms.map((platform, index)=> (
+               
+                    <span style={{ marginRight: 10, marginLeft: 5 }} key={index}>
+                     {platform},
+                    </span>
+                    
+                    
+                
+                ))}
                 </Typography>
-                <Typography
-                  variant="h5"
-                  color="textSecondary"
-                  component="p"
-                  style={{ marginTop: 5 }}
-                >
-                  <span style={{ marginLeft: 130 }}>
-                    <strong>
-                      {getCurrencyCode()}
-                      {course.price
-                        ? course.price
-                            .toFixed(2)
-                            .replace(/\d(?=(\d{3})+\.)/g, "$&,")
-                        : ""}
-                    </strong>
-                  </span>
-                </Typography>
-                {course.priceLabel !== undefined && (
-                  <Typography
-                    variant="h5"
-                    style={{
-                      fontSize: 15,
-                      color: "red",
-                      marginTop: 9,
-                      marginBottom: 15,
-                      marginLeft: 10,
-                    }}
-                  >
-                    {course.priceLabel}
-                  </Typography>
+                {props.platforms && props.platforms.includes("facebook") && props.facebookPostQuantity && (
+                  <Typography  variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15, marginTop:10 }}><strong>Number of Facebook Post Required</strong>:&nbsp;&nbsp;{props.facebookPostQuantity}</Typography>
                 )}
-                {course.refNumber !== undefined && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      {" "}
-                      <strong>Reference Number:</strong>
-                    </span>
-                    {course.refNumber}
-                  </Typography>
+                {props.platforms && props.platforms.includes("facebook") && props.creator.facebookCostPerPost && props.currency.name.toLowerCase() ==='naira' && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Facebook Cost Per Post</strong>:&nbsp;&nbsp;&#8358;{props.creator.facebookCostPerPost.toLocaleString()}</Typography>
                 )}
-                {course.duration !== undefined && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      {" "}
-                      <strong>Duration:</strong>
-                    </span>
-                    {course.duration}
-                  </Typography>
+                {props.platforms && props.platforms.includes("facebook") && props.creator.facebookCostPerPost && props.currency.name.toLowerCase() !=='naira' && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Facebook Cost Per Post</strong>:&nbsp;&nbsp;&#36;{props.creator.facebookCostPerPost.toLocaleString()}</Typography>
                 )}
-                {course.commencementDate !== undefined && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      {" "}
-                      <strong>Start date:</strong>
-                    </span>
-                    {course.commencementDate
-                      ? new Date(course.commencementDate).toDateString()
-                      : "Coming Soon"}
-                  </Typography>
+           
+
+                {props.platforms && props.platforms.includes("instagram") && props.instagramPostQuantity && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Number of Instagram Post Required</strong>:&nbsp;&nbsp;{props.instagramPostQuantity}</Typography>
                 )}
-                {course.deliveryMethod !== undefined && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      {" "}
-                      <strong>Delivery Method:</strong>
-                    </span>
-                    {course.deliveryMethod}
-                  </Typography>
+                {props.platforms && props.platforms.includes("instagram") && props.creator.instagramCostPerPost && props.currency.name.toLowerCase() ==='naira' &&(
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Instagram Cost Per Post</strong>:&nbsp;&nbsp;&#8358;{props.creator.instagramCostPerPost.toLocaleString()}</Typography>
                 )}
-                {course.venue !== undefined && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      {" "}
-                      <strong>Venue:</strong>
-                    </span>
-                    {course.venue}
-                  </Typography>
+                {props.platforms && props.platforms.includes("instagram") && props.creator.instagramCostPerPost && props.currency.name.toLowerCase() !=='naira' &&(
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Instagram Cost Per Post</strong>:&nbsp;&nbsp;&#36;{props.creator.instagramCostPerPost.toLocaleString()}</Typography>
                 )}
-                {course.track !== undefined && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      {" "}
-                      <strong>Track:</strong>
-                    </span>
-                    {course.track}
-                  </Typography>
+
+
+
+                {props.platforms && props.platforms.includes("twitter") && props.twitterPostQuantity && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Number of Twitter Post Required</strong>:&nbsp;&nbsp;{props.twitterPostQuantity}</Typography>
                 )}
-                {course.commencementWeekdaysDate !== undefined && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      <strong>Weekday Start Date():</strong>
-                    </span>
-                    <span style={{ marginLeft: 3, textAlign: "center" }}>
-                      {/* {course.commencementWeekdaysDate.join("|")} */}
-                      {course.commencementWeekdaysDate}
-                    </span>
-                  </Typography>
+                {props.platforms && props.platforms.includes("twitter") && props.creator.twitterCostPerPost && props.currency.name.toLowerCase() ==='naira' && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Twitter Cost Per Post</strong>:&nbsp;&nbsp;&#8358;{props.creator.twitterCostPerPost.toLocaleString()}</Typography>
                 )}
-                {course.commencementWeekendsDate !== undefined && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      <strong>Weekend Start Date(s):</strong>
-                    </span>
-                    <span style={{ marginLeft: 3, textAlign: "center" }}>
-                      {/* {course.commencementWeekendsDate.join("|")} */}
-                      {course.commencementWeekendsDate}
-                    </span>
-                  </Typography>
+                {props.platforms && props.platforms.includes("twitter") && props.creator.twitterCostPerPost && props.currency.name.toLowerCase() !=='naira' && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Twitter Cost Per Post</strong>:&nbsp;&nbsp;&#36;{props.creator.twitterCostPerPost.toLocaleString()}</Typography>
                 )}
-                <Typography
-                  variant="h5"
-                  style={{ color: "black", fontSize: 15 }}
-                >
-                  <span style={{ marginRight: 20 }}>
-                    <strong>Weekday Lecture Period:</strong>
-                  </span>
-                  <span style={{ marginLeft: 3, textAlign: "center" }}>
-                    {course.weekdaySessionPeriod}
-                  </span>
-                </Typography>
-                <Typography
-                  variant="h5"
-                  style={{ color: "black", fontSize: 15 }}
-                >
-                  <span style={{ marginRight: 20 }}>
-                    <strong>Weekend Lecture Period:</strong>
-                  </span>
-                  <span style={{ marginLeft: 3, textAlign: "center" }}>
-                    {course.weekendSessionPeriod}
-                  </span>
-                </Typography>
-                {course.hasMentorshipCredit && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      <strong>Mentorship Credit:</strong>
-                    </span>
-                    <span style={{ marginLeft: 3, textAlign: "center" }}>
-                      {course.mentorshipCredit}&nbsp; Units &nbsp;
-                    </span>
-                  </Typography>
+
+
+                {props.platforms && props.platforms.includes("tiktok") && props.tiktokPostQuantity && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Number of Tiktok Post Required</strong>:&nbsp;&nbsp;{props.tiktokPostQuantity}</Typography>
                 )}
-                {course.hasMentorshipCredit && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      <strong>Mentorship Credit Value:</strong>
-                    </span>
-                    <span style={{ marginLeft: 1, textAlign: "center" }}>
-                      {getCurrencyCode()}
-                      {(
-                        course.mentorshipCredit * course.costPerMentorshipCredit
-                      )
-                        .toFixed(2)
-                        .replace(/\d(?=(\d{3})+\.)/g, "$&,")}
-                    </span>
-                  </Typography>
+                {props.platforms && props.platforms.includes("tiktok") && props.creator.tiktokCostPerPost && props.currency.name.toLowerCase() ==='naira' &&(
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Tiktok Cost Per Post</strong>:&nbsp;&nbsp;&#8358;{props.creator.tiktokCostPerPost.toLocaleString()}</Typography>
                 )}
-                {course.hasMentorshipCredit && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      <strong>Mentorship Duration:</strong>
-                    </span>
-                    <span style={{ marginLeft: 3, textAlign: "center" }}>
-                      {course.mentorshipDuration}&nbsp;&nbsp;
-                    </span>
-                  </Typography>
+                {props.platforms && props.platforms.includes("tiktok") && props.creator.tiktokCostPerPost && props.currency.name.toLowerCase() !=='naira' &&(
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Tiktok Cost Per Post</strong>:&nbsp;&nbsp;&#36;{props.creator.tiktokCostPerPost.toLocaleString()}</Typography>
                 )}
-                {course.isInstallmentalPaymentAllowed === "yes" && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      <strong>Installmental Payment Allowed :</strong>
-                    </span>
-                    <span style={{ marginLeft: 3, textAlign: "center" }}>
-                      {course.isInstallmentalPaymentAllowed
-                        .charAt(0)
-                        .toUpperCase() +
-                        course.isInstallmentalPaymentAllowed.slice(1)}
-                    </span>
-                  </Typography>
+
+
+                {props.platforms && props.platforms.includes("linkedin") && props.linkedInPostQuantity && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Number of LinkedIn Post Required</strong>:&nbsp;&nbsp;{props.linkedInPostQuantity}</Typography>
                 )}
-                {course.isInstallmentalPaymentAllowed === "yes" && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      <strong>No. of Installmental Payment:</strong>
-                    </span>
-                    <span style={{ marginLeft: 3, textAlign: "center" }}>
-                      {course.maximumInstallmentalPayment}&nbsp;times
-                    </span>
-                  </Typography>
+                {props.platforms && props.platforms.includes("linkedin") && props.creator.linkedInCostPerPost && props.currency.name.toLowerCase() ==='naira' &&(
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>LinkedIn Cost Per Post</strong>:&nbsp;&nbsp;&#8358;{props.creator.linkedInCostPerPost.toLocaleString()}</Typography>
                 )}
-                {course.passGrade !== undefined && (
-                  <Typography
-                    variant="h5"
-                    style={{ color: "black", fontSize: 15 }}
-                  >
-                    <span style={{ marginRight: 20 }}>
-                      {" "}
-                      <strong>Minimum NextChamp Grade:</strong>
-                    </span>
-                    {course.passGrade}
-                  </Typography>
+                {props.platforms && props.platforms.includes("linkedin") && props.creator.linkedInCostPerPost && props.currency.name.toLowerCase() !=='naira' &&(
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>LinkedIn Cost Per Post</strong>:&nbsp;&nbsp;&#36;{props.creator.linkedInCostPerPost.toLocaleString()}</Typography>
                 )}
-                <Typography
-                  variant="h5"
-                  style={{ color: "black", fontSize: 15 }}
-                >
-                  <span style={{ marginRight: 20 }}>
-                    {" "}
-                    <strong>
-                      Is Life Time Access To This Course Allowed?:
-                    </strong>
-                  </span>
-                  {course.allowLifeTimeAccess}
-                </Typography>
-                <br /> <br />
-                {course.isCourseAuditable && (
-                  <Typography>
-                    <span
-                      style={{
-                        fontSize: 18,
-                        marginLeft: 14,
-                        //textAlign: "center",
-                      }}
-                    >
-                      You can audit this course for FREE for up to
-                      <strong>
-                        <span>{course.weekdayAuditDays}</span>
-                      </strong>
-                      &nbsp;. You only make payment afterwards when you are sure
-                      the course is a good fit for you
-                    </span>
-                  </Typography>
+
+
+                {props.platforms && props.platforms.includes("blog") && props.blogPostQuantity && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Number of Blog Post Required</strong>:&nbsp;&nbsp;{props.blogPostQuantity}</Typography>
                 )}
+                {props.platforms && props.platforms.includes("blog") && props.blogCostPerPost && props.currency.name.toLowerCase() ==='naira' &&(
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Blog Cost Per Post</strong>:&nbsp;&nbsp;&#8358;{props.creator.blogCostPerPost.toLocaleString()}&nbsp;&nbsp;{props.creator.blogPostCostDuration}</Typography>
+                  // <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Blog Cost Per Post</strong>:&nbsp;&nbsp;&#8358;{props.creator.blogCostPerPost.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("blog") && props.blogCostPerPost && props.currency.name.toLowerCase() !=='naira' &&(
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Blog Cost Per Post</strong>:&nbsp;&nbsp;&#36;{props.blogCostPerPost.toLocaleString()}&nbsp;&nbsp;{props.creator.blogPostCostDuration}</Typography>
+                )}
+
+
+
+                <Typography variant="h5" style={{ color: "black", fontSize: 18, marginTop: 20 }}><strong>Social Media Influencer Stats</strong></Typography>
+
+                {props.platforms && props.platforms.includes("facebook") && props.creator && props.creator.facebookTotalFollowers &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15, marginTop:10 }}><strong>Facebook Total Followers</strong>:&nbsp;&nbsp;{props.creator.facebookTotalFollowers.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("facebook") && props.creator && props.creator.facebookEngagementRate &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Estmated Facebook Engagement Rate:</strong>:&nbsp;&nbsp;{props.creator.facebookEngagementRate.toLocaleString()}%</Typography>
+                )}
+                {props.platforms && props.platforms.includes("facebook") && props.currency.name.toLowerCase()==='naira' &&(
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Facebook Cost Per Reach</strong>:&nbsp;&nbsp;&#8358;{facebookCostPerReach.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("facebook") && props.currency.name.toLowerCase()!=='naira' &&(
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Facebook Cost Per Reach</strong>:&nbsp;&nbsp;&#36;{facebookCostPerReach.toLocaleString()}</Typography>
+                )}
+
+
+
+                {props.platforms && props.platforms.includes("instagram") && props.creator && props.creator.instagramTotalFollowers &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Instagram Total Followers</strong>:&nbsp;&nbsp;{props.creator.instagramTotalFollowers.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("instagram") && props.creator && props.creator.instagramEngagementRate &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Estmated Instagram Engagement Rate:</strong>:&nbsp;&nbsp;{props.creator.instagramEngagementRate.toLocaleString()}%</Typography>
+                )}
+                {props.platforms && props.platforms.includes("instagram") && props.currency.name.toLowerCase()==='naira' &&(
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Instagram Cost Per Reach</strong>:&nbsp;&nbsp;&#8358;{instagramCostPerReach.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("instagram") && props.currency.name.toLowerCase()!=='naira' &&(
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Instagram Cost Per Reach</strong>:&nbsp;&nbsp;&#36;{instagramCostPerReach.toLocaleString()}</Typography>
+                )}
+
+
+
+                {props.platforms && props.platforms.includes("twitter") && props.creator && props.creator.twitterTotalFollowers &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Twitter Total Followers</strong>:&nbsp;&nbsp;{props.creator.twitterTotalFollowers.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("twitter") && props.creator && props.creator.twitterEngagementRate &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Estmated Twitter Engagement Rate:</strong>:&nbsp;&nbsp;{props.creator.twitterEngagementRate.toLocaleString()}%</Typography>
+                )}
+                {props.platforms && props.platforms.includes("twitter") && props.currency.name.toLowerCase()==='naira' && (
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Twitter Cost Per Reach</strong>:&nbsp;&nbsp;&#8358;{twitterCostPerReach.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("twitter") && props.currency.name.toLowerCase()!=='naira' && (
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Twitter Cost Per Reach</strong>:&nbsp;&nbsp;&#36;{twitterCostPerReach.toLocaleString()}</Typography>
+                )}
+
+
+                {props.platforms && props.platforms.includes("tiktok") && props.creator && props.creator.tiktokTotalFollowers &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Tiktok Total Followers</strong>:&nbsp;&nbsp;{props.creator.tiktokTotalFollowers.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("tiktok") && props.creator && props.creator.tiktokEngagementRate &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Estmated Tiktok Engagement Rate:</strong>:&nbsp;&nbsp;{props.creator.tiktokEngagementRate.toLocaleString()}%</Typography>
+                )}
+                {props.platforms && props.platforms.includes("tiktok") && props.currency.name.toLowerCase()==='naira' &&(
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Tiktok Cost Per Reach</strong>:&nbsp;&nbsp;&#8358;{tiktokCostPerReach.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("tiktok") && props.currency.name.toLowerCase()!=='naira' &&(
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Tiktok Cost Per Reach</strong>:&nbsp;&nbsp;&#36;{tiktokCostPerReach.toLocaleString()}</Typography>
+                )}
+
+
+                {props.platforms && props.platforms.includes("linkedin") && props.creator && props.creator.linkedinTotalFollowers &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>LinkedIn Total Followers</strong>:&nbsp;&nbsp;{props.creator.linkedinTotalFollowers.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("linkedin") && props.creator && props.creator.linkedinEngagementRate &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Estmated LinkedIn Engagement Rate:</strong>:&nbsp;&nbsp;{props.creator.linkedinEngagementRate.toLocaleString()}%</Typography>
+                )}
+                {props.platforms && props.platforms.includes("linkedin") && props.currency.name.toLowerCase()==='naira' &&(
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>LinkedIn Cost Per Reach</strong>:&nbsp;&nbsp;&#8358;{linkedInCostPerReach.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("linkedin") && props.currency.name.toLowerCase()!=='naira' &&(
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>LinkedIn Cost Per Reach</strong>:&nbsp;&nbsp;&#36;{linkedInCostPerReach.toLocaleString()}</Typography>
+                )}
+
+
+
+                {props.platforms && props.platforms.includes("blog") && props.creator && props.creator.blogTotalVisitorsPerMonth &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Blog Average Number Of Visitors Per Month</strong>:&nbsp;&nbsp;{props.creator.blogTotalVisitorsPerMonth.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("blog") && props.creator && props.creator.blogEngagementRate &&(
+                  
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Estmated Blog Engagement Rate:</strong>:&nbsp;&nbsp;{props.creator.blogEngagementRate.toLocaleString()}%</Typography>
+                )}
+                {props.platforms && props.platforms.includes("blog") && props.currency.name.toLowerCase()==='naira' &&(
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Blog Cost Per Reach</strong>:&nbsp;&nbsp;&#8358;{blogCostPerReach.toLocaleString()}</Typography>
+                )}
+                {props.platforms && props.platforms.includes("blog") && props.currency.name.toLowerCase()!=='naira' &&(
+                        
+                  <Typography variant="h5" style={{fontSize: 15,marginLeft:15,marginBottom:7 }}><strong>Blog Cost Per Reach</strong>:&nbsp;&nbsp;&#36;{blogCostPerReach.toLocaleString()}</Typography>
+                )}
+
+
+
+                <Typography variant="h5" style={{ color: "black", fontSize: 18, marginTop: 20 }}><strong>Selected Agency Plan</strong></Typography>
+
+               
+                {props.agencyServicePlan && (
+                  <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Agency Service Plan</strong>:&nbsp;&nbsp;{props.agencyServicePlan.charAt(0).toUpperCase() + props.agencyServicePlan.slice(1)}</Typography>
+                )}
+                
               </CardContent>
             </Grid>
 
             <Grid item style={{ width: "100%", border: "1px dotted grey" }}>
-              {course.price && (
+              {props.creator && (
                 <CartUpdateAndDeliveryForm
-                  price={course.price}
-                  minimumQuantity={course.minimumQuantity}
-                  courseId={course.id}
-                  currency={course.currency}
-                  preferredStartDate={props.preferredStartDate}
+                   creator={props.creator}
+                   platforms={props.platforms}
+                  creatorIdId={props.creator.id}
+                  currency={props.currency}
                   cartCounterHandler={props.cartCounterHandler}
                   token={props.token}
                   userId={props.userId}
-                  quantity={props.quantity}
                   cartId={props.cartId}
                   handleMakeOpenLoginFormDialogStatus={
                     handleMakeOpenLoginFormDialogStatus
