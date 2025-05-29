@@ -46,6 +46,7 @@ import ProductAssessmentDetails from "./products/ProductAssessmentDetails";
 import DashboardBrand from "./Dashboard/DashboardBrand";
 import DashboardCreator from "./Dashboard/DashboardCreator";
 import ResetUserPasswordForm from "./authForms/ResetUserPasswordForm";
+import InfluencerCentral from "./InfluencerCentral";
 
 
 function App() {
@@ -245,6 +246,15 @@ function App() {
                 userId={userId}
                 setToken={setToken ? setToken : {}}
                 setUserId={setUserId ? setUserId : {}}
+              />
+            </Route>
+            <Route path="/influencercentral/">
+              <InfluencerCentral
+                token={token}
+                setToken={setToken ? setToken : {}}
+                userId={userId}
+                setUserId={setUserId ? setUserId : {}}
+              
               />
             </Route>
             <Route exact path="/categories/:categoryId">

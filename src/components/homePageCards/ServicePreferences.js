@@ -673,7 +673,7 @@ export default function ServicePreferences(props) {
     <>
       {matchesMDUp ? (
         <Card className={classes.root}>
-          <Typography variant="h3" style={{marginLeft:'40%',marginBottom:30, marginTop:30}}>Influencers</Typography>
+          {/* <Typography variant="h3" style={{marginLeft:'40%',marginBottom:30, marginTop:30}}>Influencers</Typography> */}
           <Grid container direction="row" style={{ marginTop: 20 }}>
             <Grid item style={{ width: "9%", marginLeft: 40 }}>
               <CardContent>{renderPlatformField()}</CardContent>

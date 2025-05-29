@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
       },
       uppercardMobile: {
         maxWidth: "100%",
-        height: 300,
+        height: 370,
         //height: 350,
         width: "100%",
     
@@ -366,9 +366,24 @@ const useStyles = makeStyles((theme) => ({
         ...theme.typography.estimate,
         borderRadius: "250px",
         marginLeft: "50%",
-        marginRight: "10px",
+        marginRight: "150px",
         height: "45px",
-        width: "120px",
+        width: "180px",
+          marginBottom:100,
+    
+        "&:hover": {
+          backgroundColor: theme.palette.secondary.light,
+          color: "white",
+        },
+      },
+      buttonMobile: {
+        ...theme.typography.estimate,
+        borderRadius: "250px",
+        marginLeft: "0%",
+        marginRight: "0px",
+        height: "45px",
+        width: "180px",
+      
     
         "&:hover": {
           backgroundColor: theme.palette.secondary.light,
@@ -447,7 +462,7 @@ export default function CarHireOnlyService() {
                     // alignItems="center"
                     // justifyContent="center"
                     //style={{ height: "60%", marginLeft: "3.5em" }}
-                    style={{ height: "90%", marginLeft: "10%", width:"50%", padding:50  }}
+                    style={{ height: "60%", marginLeft: "10%", width:"50%", padding:50  }}
                   >
                     <Typography style={{marginTop:40, fontSize:19}}>
                           <ReactMarkdown>Connect with Africa’s most impactful social media influencers. Our platform makes it easy for brands all around the world to discover, engage, and collaborate with influencers across the continent—securely, transparently, and at scale. </ReactMarkdown>
@@ -456,19 +471,19 @@ export default function CarHireOnlyService() {
                           <ReactMarkdown>Whether you're launching a local product or expanding across markets, we provide the tools, talent, and support to drive real results.</ReactMarkdown>
                     </Typography>
                   </Grid>
-                  {/* <Grid item  style={{width: "100%", marginTop: 10}}>
+                  <Grid item  style={{width: "100%", marginTop: 0, marginLeft:"20%", marginBottom:0}}>
                     <Button 
                         variant="contained" 
                         color="secondary" 
                         justifyContent="center" 
                         className={classes.button}
                         component={Link}
-                        to="/bookingcentral/carhireonly"
+                         to="/influencercentral/"
                     
                     >
-                        Book Now!
+                        Get Influencers!
                     </Button>
-                  </Grid> */}
+                  </Grid>
                   
                 
                
@@ -506,7 +521,7 @@ export default function CarHireOnlyService() {
                     // alignItems="center"
                     // justifyContent="center"
                     //style={{ height: "60%", marginLeft: "3.5em" }}
-                    style={{ height: "90%", marginLeft: "2%", width:"70%", padding:5, marginRight:"10%"  }}
+                    style={{ height: "70%", marginLeft: "2%", width:"70%", padding:5, marginRight:"10%"  }}
                   >
                     <Typography style={{marginTop:10, fontSize:12}}>
                           <ReactMarkdown>Connect with Africa’s most impactful social media influencers. Our platform makes it easy for brands all around the world to discover, engage, and collaborate with influencers across the continent—securely, transparently, and at scale. </ReactMarkdown>
@@ -515,7 +530,19 @@ export default function CarHireOnlyService() {
                           <ReactMarkdown>Whether you're launching a local product or expanding across markets, we provide the tools, talent, and support to drive real results.</ReactMarkdown>
                     </Typography>
                   </Grid>
-                  
+                  <Grid item  style={{width: "30%", height: "10%",marginLeft:"10%", marginBottom:0}}>
+                    <Button 
+                        variant="contained" 
+                        color="secondary" 
+                        justifyContent="center" 
+                        className={classes.buttonMobile}
+                        component={Link}
+                        to="/influencercentral/"
+                    
+                    >
+                        Get Influencers!
+                    </Button>
+                  </Grid>
                 
                
               </Grid>
