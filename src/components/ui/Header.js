@@ -157,7 +157,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "20px",
     marginRight: "10px",
     height: "45px",
-    width: "180px",
+    width: "210px",
 
     "&:hover": {
       backgroundColor: theme.palette.secondary.light,
@@ -753,7 +753,7 @@ const Header = (props) => {
             //onClick={() => [setOpenLoginForm(true), history.push("/")]}
             onClick={() => [setOpenCreatorSignUpForm(true)]}
           >
-            Sign Up As A Creator
+            Sign Up As A, Influencer
           </Button>
         </Fragment>
       );
@@ -1226,7 +1226,7 @@ const Header = (props) => {
               selected={props.value === 5}
             >
               <ListItemText className={classes.drawerItem} disableTypography>
-                Sign Up As a Creator
+                Sign Up As an Influencer
               </ListItemText>
             </ListItem>
             <ListItem

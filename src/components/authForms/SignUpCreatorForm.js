@@ -384,7 +384,7 @@ const SignUpCreatorForm = (props) => {
               style={{ color: "blue", fontSize: "1.5em" }}
               component="legend"
             >
-              Creator's Sign Up Form
+              Influencer's Sign Up Form
             </FormLabel>
           </Grid>
           <Box
@@ -504,7 +504,7 @@ const SignUpCreatorForm = (props) => {
               style={{ color: "blue", fontSize: "1.15em" }}
               component="legend"
             >
-              Creator's Sign Up Form
+              Influencer's Sign Up Form
             </FormLabel>
           </Grid>
           <Box
