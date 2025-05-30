@@ -753,7 +753,7 @@ const Header = (props) => {
             //onClick={() => [setOpenLoginForm(true), history.push("/")]}
             onClick={() => [setOpenCreatorSignUpForm(true)]}
           >
-            Sign Up As A, Influencer
+            Sign Up As An Influencer
           </Button>
         </Fragment>
       );
@@ -1226,7 +1226,7 @@ const Header = (props) => {
               selected={props.value === 5}
             >
               <ListItemText className={classes.drawerItem} disableTypography>
-                Sign Up As an Influencer
+                Sign Up As An Influencer
               </ListItemText>
             </ListItem>
             <ListItem
