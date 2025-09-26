@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
   uppercard: {
     maxWidth: "100%",
-    height: 750,
+    height: 950,
     //height: 350,
     width: "100%",
 
@@ -63,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "10em",
     marginBottom: "10em",
     padding: 0,
+     backgroundColor:"#FEF3E2",
     // "&:hover": {
     //   //border: "solid",
     //   //borderColor: theme.palette.common.grey,
@@ -71,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
    uppercardNoToken: {
     maxWidth: "100%",
     // height: 1050,
-    height: 750,
+    height: 950,
     //height: 350,
     width: "100%",
 
@@ -80,6 +81,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "10em",
     marginBottom: "10em",
     padding: 0,
+    backgroundColor:"#FEF3E2",
     // "&:hover": {
     //   //border: "solid",
     //   //borderColor: theme.palette.common.grey,
@@ -87,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
   },
   uppercardMobile: {
     maxWidth: "100%",
-    height: 2150,
+    height: 2350,
     //height: 350,
     width: "100%",
 
@@ -95,6 +97,7 @@ const useStyles = makeStyles((theme) => ({
     //borderRadius: 30,
     marginTop: "10em",
     marginBottom: "10em",
+    backgroundColor:"#FEF3E2",
     padding: 0,
     // "&:hover": {
     //   //border: "solid",
@@ -104,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
   uppercardMobileNoToken: {
     maxWidth: "100%",
     //height: 2500,
-    height: 2150,
+    height: 2350,
     //height: 350,
     width: "100%",
 
@@ -113,6 +116,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "10em",
     marginBottom: "10em",
     padding: 0,
+     backgroundColor:"#FEF3E2",
     // "&:hover": {
     //   //border: "solid",
     //   //borderColor: theme.palette.common.grey,
@@ -231,9 +235,10 @@ const useStyles = makeStyles((theme) => ({
   actionPlusMobileButton: {
     borderRadius: 10,
     height: 40,
-    width: 130,
-    marginLeft: 1,
-    marginTop: 1,
+    width: 220,
+    marginLeft: 50,
+    marginTop: 15,
+    padding:20,
     marginBottom: 20,
     borderRadius: 100,
     color: "white",
@@ -549,23 +554,29 @@ export default function TopCover(props) {
                   {/* <br /><strong>Services Include:</strong><br />                */}
                   <ReactMarkdown>{brandServices}</ReactMarkdown>
                   </Typography>
-                  {!props.token && <Typography>Ready to elevate your next campaign? Sign Up or Sign In to Start</Typography>}
+                  <Typography>Ready to elevate your next campaign? </Typography>
                 </Grid>
-                {/* {!props.token && <Grid item
+                <Grid item
                   alignItems="center"
                   // style={{ height: "60%", marginLeft: "3.5em" }}
-                  style={{ height: "15%", marginLeft: "3.5em", marginTop: 10 }}
+                  style={{ height: "15%", marginLeft: "3.5em", marginTop: 20, paddingTop:50 }}
                 >
                   <Button
-                    variant="contained"
-                    component={Link}
-                    //to="/dealscentral"
-                    onClick={() => props.handleMakeOpenSignUpDialogStatus()}
-                    className={classes.actionPlusButton}
+                    // variant="contained"
+                    // component={Link}
+                    // //to="/dealscentral"
+                    // onClick={() => props.handleMakeOpenSignUpDialogStatus()}
+                    // className={classes.actionPlusButton}
+                      variant="contained"
+                      color="secondary" 
+                      justifyContent="center" 
+                      className={classes.actionPlusButton}
+                      component={Link}
+                      to="/brandcentral/"
                   >
-                    Sign Up Now
+                    Learn More ...
                   </Button>
-                </Grid>} */}
+                </Grid>
               </Grid>
 
               <Grid
@@ -596,24 +607,25 @@ export default function TopCover(props) {
                   {/* <br /><strong>Services Include:</strong><br />                */}
                   <ReactMarkdown>{influencerServices}</ReactMarkdown>
                   </Typography>
-                  {!props.token && <Typography>Ready to collaborate with top brands and grow your influence? Sign Up or Login to start</Typography>}
+                  <Typography>Ready to collaborate with top brands and grow your influence?</Typography>
                 </Grid>
-                {/* {!props.token && <Grid
+                <Grid
                   item
                   alignItems="center"
                   // style={{ height: "60%", marginLeft: "3.5em" }}
-                  style={{ height: "15%", marginLeft: "3.5em", marginTop: '2%'}}
+                  style={{ height: "15%", marginLeft: "3.5em", marginTop: '2%',marginTop: 20, paddingTop:50}}
                 >
                   <Button
-                    variant="contained"
-                    component={Link}
-                    //to="/dealscentral"
-                    onClick={() => props.handleMakeOpenInfluencerSignUpDialogStatus()}
-                    className={classes.actionPlusButton}
+                     variant="contained"
+                      color="secondary" 
+                      justifyContent="center" 
+                      className={classes.actionPlusButton}
+                      component={Link}
+                      to="/influencershomescreen/"
                   >
-                    Sign Up Now
+                    Learn More ...
                   </Button>
-                </Grid>} */}
+                </Grid>
               </Grid>
             </Grid>
             {/* </CardActionArea> */}
@@ -707,9 +719,9 @@ export default function TopCover(props) {
                   {/* <br /><strong>Services Include:</strong><br />                */}
                   <ReactMarkdown>{brandServices}</ReactMarkdown>
                   </Typography>
-                  {!props.token && <Typography>Ready to elevate your next campaign? Sign Up or Sign In to start</Typography>}
+                  <Typography>Ready to elevate your next campaign?</Typography>
               </Grid>
-              {/* {!props.token && <Grid
+              <Grid
                 item
                 alignItems="center"
                 // style={{ height: "60%", marginLeft: "3.5em" }}
@@ -717,14 +729,15 @@ export default function TopCover(props) {
               >
                 <Button
                   variant="contained"
+                  color="secondary" 
+                  justifyContent="center" 
+                  className={classes.actionPlusMobileButton}
                   component={Link}
-                  to="/dealscentral"
-                  //onClick={() => <DealHome />}
-                  className={classes.actionButton}
+                  to="/brandcentral/"
                 >
-                  Sign Up Now
+                  Learn More ...
                 </Button>
-              </Grid>} */}
+              </Grid>
             </Grid>
 
             <Grid
@@ -753,10 +766,10 @@ export default function TopCover(props) {
                   {/* <br /><strong>Services Include:</strong><br />                */}
                   <ReactMarkdown>{influencerServices}</ReactMarkdown>
                   </Typography>
-                  {!props.token && <Typography>Ready to collaborate with top brands and grow your influence? Sign Up or Log in to start</Typography>}
+                  <Typography>Ready to collaborate with top brands and grow your influence? Sign Up or Log in to start</Typography>
               </Grid>
 
-              {/* {!props.token && <Grid
+              <Grid
                 item
                 alignItems="center"
                 // style={{ height: "60%", marginLeft: "3.5em" }}
@@ -764,14 +777,15 @@ export default function TopCover(props) {
               >
                 <Button
                   variant="contained"
+                  color="secondary" 
+                  justifyContent="center" 
+                  className={classes.actionPlusMobileButton}
                   component={Link}
-                  to="/dealscentral"
-                  //onClick={() => <DealHome />}
-                  className={classes.actionButton}
+                  to="/influencershomescreen/"
                 >
-                  Sign Up Now
+                  Learn More ...
                 </Button>
-              </Grid>} */}
+              </Grid>
             </Grid>
           </Grid>
           

@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "28f87baa1c4d2caafcde1fc5d870c0a2",
+    "revision": "a276ab783294bbe45df869579d2441b3",
     "url": "/index.html"
   },
   {
-    "revision": "c7b7bcde8f642636fceb",
+    "revision": "0b3df135e6f9f7197d7b",
     "url": "/static/css/main.8a8db68b.chunk.css"
   },
   {
-    "revision": "776769c95aa3df0ad170",
-    "url": "/static/js/2.42aef0a3.chunk.js"
+    "revision": "209ba702720f7ecd0f77",
+    "url": "/static/js/2.ce856af8.chunk.js"
   },
   {
-    "revision": "c7b7bcde8f642636fceb",
-    "url": "/static/js/main.a3158e68.chunk.js"
+    "revision": "0b3df135e6f9f7197d7b",
+    "url": "/static/js/main.7a898bbf.chunk.js"
   },
   {
     "revision": "56256c405bfa76082cb3",
@@ -148,8 +148,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/delivery.ed8eced3.png"
   },
   {
-    "revision": "73caaa01e4d700f4b23e47665ecc2727",
-    "url": "/static/media/facebook.73caaa01.svg"
+    "revision": "c95af783da234448e6b522bd80339aee",
+    "url": "/static/media/facebook.c95af783.svg"
   },
   {
     "revision": "9ceacef9678dd54bdf2bd143cca73b83",
@@ -172,12 +172,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/image25.af125325.webp"
   },
   {
+    "revision": "7148294d422f8e4dc3c485968fb7b3db",
+    "url": "/static/media/image29.7148294d.webp"
+  },
+  {
     "revision": "cb3f09b00fafa1ceea8dfb4f4bf44770",
     "url": "/static/media/infoBackground.cb3f09b0.svg"
   },
   {
-    "revision": "0b117993cfdc06f6a05973ffa37ab7dc",
-    "url": "/static/media/instagram.0b117993.svg"
+    "revision": "8a1f257287cb0615e1a97abefedcaaac",
+    "url": "/static/media/instagram.8a1f2572.svg"
   },
   {
     "revision": "e15bca45e89e9d7b96bcae77451228ee",
@@ -232,8 +236,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/repeatingBackground.c608f23f.svg"
   },
   {
-    "revision": "435fc4bc44c1e90d5f00f4efccdb9b1d",
-    "url": "/static/media/twitter.435fc4bc.svg"
+    "revision": "13b0990004faa8299dd60e83b2b12569",
+    "url": "/static/media/twitter.13b09900.svg"
   },
   {
     "revision": "6b90d7dca8c7d0d5340cc0748c6bdb3c",

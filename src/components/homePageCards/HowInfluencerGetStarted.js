@@ -25,7 +25,8 @@ import backgroundRetail from "./../../assets/images/covers/delivery.png";
 
 import backgroundProduct from "./../../assets/images/covers/aboutus-cover.jpg";
 import backgroundGrowth from "./../../assets/images/covers/channels.jpg";
-import heroImage from "./../../assets/images/controlsoft/creator2.jpg";
+import backgroundMetrics from "./../../assets/images/covers/assessment.jpg";
+import heroImage from "./../../assets/images/controlsoft/cover1.webp";
 
 import { baseURL } from "./../../apis/util";
 
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     
       uppercard: {
         maxWidth: "100%",
-        height: 500,
+        height: 700,
         //height: 350,
         width: "100%",
     
@@ -59,16 +60,16 @@ const useStyles = makeStyles((theme) => ({
         //borderRadius: 30,
         marginTop: "3em",
         marginBottom: "1em",
-        padding: 20,
-        backgroundColor:"#FFFFFF"
+        padding: 40,
+        backgroundColor:"#FEF3E2"
         // "&:hover": {
         //   //border: "solid",
         //   //borderColor: theme.palette.common.grey,
         // },
       },
       uppercardMobile: {
-        maxWidth: "100%",
-        height: 370,
+       maxWidth: "100%",
+        height: 430,
         //height: 350,
         width: "100%",
     
@@ -77,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "3em",
         marginBottom: "1em",
         padding: 10,
-        backgroundColor:"#FFFFFF"
+        backgroundColor:"#FEF3E2"
         // "&:hover": {
         //   //border: "solid",
         //   //borderColor: theme.palette.common.grey,
@@ -112,7 +113,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "2.5em",
         marginBottom: "0.5em",
         padding: 0,
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "#FEF3E2",
     
         "&:hover": {
           //border: "solid",
@@ -332,11 +333,11 @@ const useStyles = makeStyles((theme) => ({
         backgroundSize: "cover",
         //backgroundAttachment: "fixed",
         backgroundRepeat: "no-repeat",
-        height: "30em",
+        height: "27em",
         width: "50%",
         marginLeft: "8em",
         marginBottom: "0.5em",
-        marginTop:"40px",
+        marginTop:"10px",
         marginRight: 0,
         borderRadius: 25,
         [theme.breakpoints.down("md")]: {
@@ -344,31 +345,32 @@ const useStyles = makeStyles((theme) => ({
           backgroundAttachment: "inherit",
         },
       },
-       heroImageMobile: {
-        backgroundImage: `url(${heroImage})`,
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-        //backgroundAttachment: "fixed",
-        backgroundRepeat: "no-repeat",
-        height: "15em",
-        width: "50%",
-        marginLeft: "2em",
-        marginBottom: "0.5em",
-        marginTop:"40px",
-        marginRight: 0,
-        borderRadius: 25,
-        [theme.breakpoints.down("md")]: {
-          // backgroundImage: `url(${mobileBackground})`,
-          backgroundAttachment: "inherit",
-        },
-      },
+      heroImageMobile: {
+              backgroundImage: `url(${heroImage})`,
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+              //backgroundAttachment: "fixed",
+              backgroundRepeat: "no-repeat",
+              height: "15em",
+              width: "55%",
+              marginLeft: "0px",
+              marginBottom: "0.5em",
+              marginTop:"10px",
+              marginRight: 0,
+              borderRadius: 25,
+              [theme.breakpoints.down("md")]: {
+                // backgroundImage: `url(${mobileBackground})`,
+                backgroundAttachment: "inherit",
+              },
+    },
       button: {
         ...theme.typography.estimate,
         borderRadius: "250px",
         marginLeft: "50%",
+        marginTop: "100px",
         marginRight: "150px",
-        height: "45px",
-        width: "180px",
+        height: "35px",
+        width: "240px",
           marginBottom:100,
     
         "&:hover": {
@@ -381,8 +383,10 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "250px",
         marginLeft: "0%",
         marginRight: "0px",
-        height: "45px",
-        width: "180px",
+        //height: "35px",
+        width: "200px",
+        fontSize:11,
+        marginTop:40,
       
     
         "&:hover": {
@@ -392,7 +396,7 @@ const useStyles = makeStyles((theme) => ({
       },
 }));
 
-export default function CarHireOnlyService() {
+export default function HowInfluencerGetStarted() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [openLoginForm, setOpenLoginForm] = useState(false);
@@ -428,179 +432,193 @@ export default function CarHireOnlyService() {
 
   const Str = require("@supercharge/strings");
 
-  const whatwedoSection = "Connect with Africa’s most impactful content creators. Our platform makes it easy for brands to discover, engage, and collaborate with influencers across the continent—securely, transparently, and at scale. Whether you're launching a local product or expanding across markets, we provide the tools, talent, and support to drive real results..\n\n\n\n";
-    return (
-      <>
-        {matchesMDUp ? (
-          <>
-            <Box className={classes.uppercard} disableRipple={true}>
-              {/* <Typography variant="h5" style={{marginLeft:"60%", marginBottom:0, width:"100%"}}>Our Process</Typography> */}
-              <Grid
-                container
-                direction="row"
-                style={{ marginTop: 0, height: "100%" }}
-                
-              >
+  const theProcess = "* **Step 1: Sign Up as an Influencer**: Create your account and complete your profile with key details.\n\n* **Step 2: Showcase Your Work**: Upload sample content to strengthen your profile and attract brand collaborations.\n\n";
+  const armyProcess = "* **Step 1: Register & Verify**: Sign up, verify your identity and social accounts. You’ll be assessed and placed into engagement tiers.\n\n* **Step 2: Browse Campaigns**: Choose from open missions based on your platforms and interests. See required actions and rewards per task.\n\n* **Step 3: Complete Tasks**: Engage with brand content exactly as instructed. The more precise and impactful your action, the higher your reward.\n\n* **Step 4: Get Paid**: Receive rewards directly into your wallet for every verified engagement or delivery.";
+      return (
+        <>
+          {matchesMDUp ? (
+            <>
+              <Box className={classes.uppercard} disableRipple={true}>
+                {/* <Typography variant="h5" style={{marginLeft:"60%", marginBottom:0, width:"100%"}}>Our Process</Typography> */}
                 <Grid
                   container
                   direction="row"
-                  style={{ marginLeft: 20, width: "30%", marginTop: 0 }}
-                  alignItems="center"
-                  className={classes.heroImage}
-                  justifyContent={matchesSM ? "center" : "space-between"}
-                  //direction={matchesSM ? "column" : "row"}
-                  item
-                >
-                  {/* <Typography variant="h5" style={{marginLeft:"30%", marginBottom:20, width:"60%"}}>Our Process</Typography> */}
+                  style={{ marginTop: 0, height: "100%" }}
                   
-                </Grid>
-                {/* <Typography style={{marginTop:0, padding: 70}}>
-                          <ReactMarkdown>{whatwedoSection}</ReactMarkdown>
+                >
+                  
+                  {/* <Typography variant="h4" style={{marginLeft:'50%',marginBottom:30, fontSize:30, fontWeight:700, color:"black"}}>Airport Protocol Services</Typography> */}
+                    <Grid
+                      item
+                      // alignItems="center"
+                      // justifyContent="center"
+                      //style={{ height: "60%", marginLeft: "3.5em" }}
+                      style={{ height: "90%", marginLeft: "10%", width:"50%", padding:10,marginTop:70  }}
+                    >
+                      <Typography variant="h3" style={{marginLeft:'0%',marginBottom:30}}>How To Get Started</Typography>
+                     {/* <Typography style={{marginTop:0, padding: 0,fontSize:17}}>
+                          <strong><ReactMarkdown>Fast-Track Your Arrival. Elevate Your Departure.</ReactMarkdown></strong>
                     </Typography> */}
-                  <Grid
-                    item
-                    // alignItems="center"
-                    // justifyContent="center"
-                    //style={{ height: "60%", marginLeft: "3.5em" }}
-                    style={{ height: "60%", marginLeft: "10%", width:"50%", padding:50  }}
-                  >
-                    <Typography style={{marginTop:40, fontSize:19}}>
-                          <ReactMarkdown>Connect with Africa’s most impactful social media influencers. Our platform makes it easy for brands all around the world to discover, engage, and collaborate with influencers across the continent—securely, transparently, and at scale. </ReactMarkdown>
+                      <Typography style={{marginTop:10, fontSize:15}}>
+                            <ReactMarkdown>Getting started as an influencer is simple—just follow these steps to set up your profile and connect with brands.</ReactMarkdown>
+                      </Typography>
+                      <Typography style={{marginTop:30, fontSize:15}}>
+                          <ReactMarkdown>{theProcess}</ReactMarkdown>
                     </Typography>
-                    <Typography style={{marginTop:20, fontSize:19}}>
-                          <ReactMarkdown>Whether you're launching a local product or expanding across markets, we provide the tools, talent, and support to drive real results.</ReactMarkdown>
+                      <Typography style={{marginTop:30, fontSize:15}}>
+                          <em><ReactMarkdown>Start building your influence today and unlock opportunities with leading brands.</ReactMarkdown></em>
                     </Typography>
-                  </Grid>
-                  <Grid item  style={{width: "100%", marginTop: 0, marginLeft:"20%", marginBottom:50}}>
-                    <Button 
+                     {/* <Button 
                         variant="contained" 
                         color="secondary" 
                         justifyContent="center" 
                         className={classes.button}
                         component={Link}
-                         to="/influencercentral/"
+                         to="/protocolcentral/"
                     
                     >
-                        Get Influencers!
-                    </Button>
-                  </Grid>
-                  
-                
-               
-              </Grid>
-             
-             
-            </Box>
-          </>
-        ) : (
-          <Box className={classes.uppercardMobile} disableRipple>
-             <Grid
-                container
-                direction="column"
-                style={{ marginTop: 20, height: "100%" }}
-                
-              >
-                <Grid
-                  container
-                  direction="row"
-                  style={{ marginLeft: 3, width: "30%", marginTop: 0 }}
-                  alignItems="center"
-                  className={classes.heroImageMobile}
-                  justifyContent={matchesSM ? "center" : "space-between"}
-                  //direction={matchesSM ? "column" : "row"}
-                  item
-                >
-                  {/* <Typography variant="h5" style={{marginLeft:"30%", marginBottom:20, width:"60%"}}>Our Process</Typography> */}
-                  
-                </Grid>
-                {/* <Typography style={{marginTop:0, padding: 70}}>
-                          <ReactMarkdown>{whatwedoSection}</ReactMarkdown>
-                    </Typography> */}
-                  <Grid
+                       Book Your VIP Protocol Now
+                    </Button> */}
+                    </Grid>
+                    <Grid
+                    container
+                    direction="row"
+                    className={classes.heroImage}
+                    style={{ marginLeft: 20, width: "30%", marginTop: 50 }}
+                    alignItems="center"
+                    
+                    justifyContent={matchesSM ? "center" : "space-between"}
+                    //direction={matchesSM ? "column" : "row"}
                     item
-                    // alignItems="center"
-                    // justifyContent="center"
-                    //style={{ height: "60%", marginLeft: "3.5em" }}
-                    style={{ height: "70%", marginLeft: "2%", width:"70%", padding:5, marginRight:"10%"  }}
                   >
-                    <Typography style={{marginTop:10, fontSize:12}}>
-                          <ReactMarkdown>Connect with Africa’s most impactful social media influencers. Our platform makes it easy for brands all around the world to discover, engage, and collaborate with influencers across the continent—securely, transparently, and at scale. </ReactMarkdown>
-                    </Typography>
-                    <Typography style={{marginTop:10, fontSize:12}}>
-                          <ReactMarkdown>Whether you're launching a local product or expanding across markets, we provide the tools, talent, and support to drive real results.</ReactMarkdown>
-                    </Typography>
-                  </Grid>
-                  <Grid item  style={{width: "30%", height: "10%",marginLeft:"10%", marginBottom:0}}>
-                    <Button 
-                        variant="contained" 
-                        color="secondary" 
-                        justifyContent="center" 
-                        className={classes.buttonMobile}
-                        component={Link}
-                        to="/influencercentral/"
+                    {/* <Typography variant="h5" style={{marginLeft:"30%", marginBottom:20, width:"60%"}}>Our Process</Typography> */}
                     
-                    >
-                        Get Influencers!
-                    </Button>
                   </Grid>
-                
+                   
+                    
+                  
+                 
+                </Grid>
                
-              </Grid>
-          </Box>
-        )}
-        <Dialog
-          //style={{ zIndex: 1302 }}
-          fullScreen={matchesXS}
-          open={open}
-          onClose={() => setOpen(false)}
-          PaperProps={{
-            style: {
-              paddingTop: matchesXS ? "1em" : "3em",
-              marginTop: 110,
-              height: 540,
-              paddingBottom: "3em",
-              paddingLeft: matchesXS
-                ? 0
-                : matchesSM
-                ? "3em"
-                : matchesMD
-                ? "10em"
-                : "2em",
-              paddingRight: matchesXS
-                ? 0
-                : matchesSM
-                ? "5em"
-                : matchesMD
-                ? "10em"
-                : "2em",
-            },
-          }}
-        >
-          <DialogContent>
-            <Card className={classes.dialog}>
-              <CardActionArea>
-                <CardMedia
-                  className={classes.media}
-                  component="img"
-                  alt={product.name}
-                  image={imageUrl}
-                  crossOrigin="anonymous"
-                />
-              </CardActionArea>
-            </Card>
-          </DialogContent>
-        </Dialog>
-  
-        <Snackbar
-          open={alert.open}
-          message={alert.message}
-          ContentProps={{
-            style: { backgroundColor: alert.backgroundColor },
-          }}
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          onClose={() => setAlert({ ...alert, open: false })}
-          autoHideDuration={4000}
-        />
-      </>
-    );
+               
+              </Box>
+            </>
+          ) : (
+            <Box className={classes.uppercardMobile} disableRipple>
+                {/* <Typography variant="h4" style={{marginLeft:'40%',marginBottom:10}}>Airport Protocol Services</Typography> */}
+                    <Grid
+                            container
+                            direction="column"
+                            style={{ marginTop: 20, height: "100%" }}
+                            
+                          >
+                            <Grid
+                              container
+                              direction="row"
+                              style={{ marginLeft: 3, width: "30%", marginTop: 0 }}
+                              alignItems="center"
+                              className={classes.heroImageMobile}
+                              justifyContent={matchesSM ? "center" : "space-between"}
+                              //direction={matchesSM ? "column" : "row"}
+                              item
+                            >
+                              {/* <Typography variant="h5" style={{marginLeft:"30%", marginBottom:20, width:"60%"}}>Our Process</Typography> */}
+                              
+                            </Grid>
+                            {/* <Typography style={{marginTop:0, padding: 70}}>
+                                      <ReactMarkdown>{whatwedoSection}</ReactMarkdown>
+                                </Typography> */}
+                              <Grid
+                                item
+                                // alignItems="center"
+                                // justifyContent="center"
+                                //style={{ height: "60%", marginLeft: "3.5em" }}
+                                style={{ height: "90%", marginLeft: "2%", width:"70%", padding:2, marginRight:"10%"  }}
+                              >
+                               <Typography variant="h5" style={{marginLeft:'0%',marginBottom:30, fontWeight:700}}>How To Get Started</Typography>
+                              {/* <Typography style={{marginTop:0, padding: 0,fontSize:10}}>
+                                  <strong><ReactMarkdown>Fast-Track Your Arrival. Elevate Your Departure.</ReactMarkdown></strong>
+                              </Typography> */}
+                                <Typography style={{marginTop:10, fontSize:10}}>
+                                <ReactMarkdown>Getting started as an influencer is simple—just follow these steps to set up your profile and connect with brands.</ReactMarkdown>
+                              </Typography>
+                              <Typography style={{marginTop:30, fontSize:10}}>
+                                 <ReactMarkdown>{theProcess}</ReactMarkdown>
+                              </Typography>
+                               <Typography style={{marginTop:30, fontSize:10}}>
+                                <em><ReactMarkdown>Start building your influence today and unlock opportunities with leading brands.</ReactMarkdown></em>
+                              </Typography>
+                              {/* <Button 
+                                variant="contained"
+                                color="secondary" 
+                                justifyContent="center" 
+                                className={classes.buttonMobile}
+                                component={Link}
+                                to="/protocolcentral/"
+                    
+                          >
+                              Book Your VIP Protocol Now
+                          </Button> */}
+                      </Grid>
+                              
+                            
+                           
+                          </Grid>
+                      </Box>
+          )}
+          <Dialog
+            //style={{ zIndex: 1302 }}
+            fullScreen={matchesXS}
+            open={open}
+            onClose={() => setOpen(false)}
+            PaperProps={{
+              style: {
+                paddingTop: matchesXS ? "1em" : "3em",
+                marginTop: 110,
+                height: 540,
+                paddingBottom: "3em",
+                paddingLeft: matchesXS
+                  ? 0
+                  : matchesSM
+                  ? "3em"
+                  : matchesMD
+                  ? "10em"
+                  : "2em",
+                paddingRight: matchesXS
+                  ? 0
+                  : matchesSM
+                  ? "5em"
+                  : matchesMD
+                  ? "10em"
+                  : "2em",
+              },
+            }}
+          >
+            <DialogContent>
+              <Card className={classes.dialog}>
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    component="img"
+                    alt={product.name}
+                    image={imageUrl}
+                    crossOrigin="anonymous"
+                  />
+                </CardActionArea>
+              </Card>
+            </DialogContent>
+          </Dialog>
+    
+          <Snackbar
+            open={alert.open}
+            message={alert.message}
+            ContentProps={{
+              style: { backgroundColor: alert.backgroundColor },
+            }}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            onClose={() => setAlert({ ...alert, open: false })}
+            autoHideDuration={4000}
+          />
+        </>
+      );
 }

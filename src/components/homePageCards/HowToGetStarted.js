@@ -25,7 +25,8 @@ import backgroundRetail from "./../../assets/images/covers/delivery.png";
 
 import backgroundProduct from "./../../assets/images/covers/aboutus-cover.jpg";
 import backgroundGrowth from "./../../assets/images/covers/channels.jpg";
-import heroImage from "./../../assets/images/controlsoft/creator2.jpg";
+import heroImage from "./../../assets/images/controlsoft/image24.webp";
+
 
 import { baseURL } from "./../../apis/util";
 
@@ -51,16 +52,16 @@ const useStyles = makeStyles((theme) => ({
     
       uppercard: {
         maxWidth: "100%",
-        height: 500,
+        height: 700,
         //height: 350,
         width: "100%",
     
         marginLeft: "10px",
         //borderRadius: 30,
-        marginTop: "3em",
+        marginTop: "7em",
         marginBottom: "1em",
         padding: 20,
-        backgroundColor:"#FFFFFF"
+        backgroundColor:"#FEF3E2"
         // "&:hover": {
         //   //border: "solid",
         //   //borderColor: theme.palette.common.grey,
@@ -77,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "3em",
         marginBottom: "1em",
         padding: 10,
-        backgroundColor:"#FFFFFF"
+        backgroundColor:"#FEF3E2"
         // "&:hover": {
         //   //border: "solid",
         //   //borderColor: theme.palette.common.grey,
@@ -392,7 +393,7 @@ const useStyles = makeStyles((theme) => ({
       },
 }));
 
-export default function CarHireOnlyService() {
+export default function HowToGetStarted() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [openLoginForm, setOpenLoginForm] = useState(false);
@@ -428,17 +429,17 @@ export default function CarHireOnlyService() {
 
   const Str = require("@supercharge/strings");
 
-  const whatwedoSection = "Connect with Africa’s most impactful content creators. Our platform makes it easy for brands to discover, engage, and collaborate with influencers across the continent—securely, transparently, and at scale. Whether you're launching a local product or expanding across markets, we provide the tools, talent, and support to drive real results..\n\n\n\n";
+  const howToGetStartedSection = "* **Sign Up**: Create your brand account and complete your profile. \n\n* **Share Your Brief**: Upload or craft a clear project brief with your campaign goals.\n\n* **Find Your Match**: Select the right influencers to bring your project to life.\n\n\n\n";
     return (
       <>
         {matchesMDUp ? (
           <>
             <Box className={classes.uppercard} disableRipple={true}>
-              {/* <Typography variant="h5" style={{marginLeft:"60%", marginBottom:0, width:"100%"}}>Our Process</Typography> */}
+               <Typography variant="h3" style={{marginLeft:'40%',marginBottom:30}}>How To Get Started</Typography>
               <Grid
                 container
                 direction="row"
-                style={{ marginTop: 0, height: "100%" }}
+                style={{ marginTop: 20, height: "100%" }}
                 
               >
                 <Grid
@@ -455,7 +456,7 @@ export default function CarHireOnlyService() {
                   
                 </Grid>
                 {/* <Typography style={{marginTop:0, padding: 70}}>
-                          <ReactMarkdown>{whatwedoSection}</ReactMarkdown>
+                          <ReactMarkdown>{howToGetStartedSection}</ReactMarkdown>
                     </Typography> */}
                   <Grid
                     item
@@ -465,10 +466,10 @@ export default function CarHireOnlyService() {
                     style={{ height: "60%", marginLeft: "10%", width:"50%", padding:50  }}
                   >
                     <Typography style={{marginTop:40, fontSize:19}}>
-                          <ReactMarkdown>Connect with Africa’s most impactful social media influencers. Our platform makes it easy for brands all around the world to discover, engage, and collaborate with influencers across the continent—securely, transparently, and at scale. </ReactMarkdown>
+                          <ReactMarkdown>Getting started is simple—just follow three easy steps to launch your influencer campaign. </ReactMarkdown>
                     </Typography>
                     <Typography style={{marginTop:20, fontSize:19}}>
-                          <ReactMarkdown>Whether you're launching a local product or expanding across markets, we provide the tools, talent, and support to drive real results.</ReactMarkdown>
+                          <ReactMarkdown>{howToGetStartedSection}</ReactMarkdown>
                     </Typography>
                   </Grid>
                   <Grid item  style={{width: "100%", marginTop: 0, marginLeft:"20%", marginBottom:50}}>
@@ -514,7 +515,7 @@ export default function CarHireOnlyService() {
                   
                 </Grid>
                 {/* <Typography style={{marginTop:0, padding: 70}}>
-                          <ReactMarkdown>{whatwedoSection}</ReactMarkdown>
+                          <ReactMarkdown>{howToGetStartedSection}</ReactMarkdown>
                     </Typography> */}
                   <Grid
                     item
@@ -524,10 +525,10 @@ export default function CarHireOnlyService() {
                     style={{ height: "70%", marginLeft: "2%", width:"70%", padding:5, marginRight:"10%"  }}
                   >
                     <Typography style={{marginTop:10, fontSize:12}}>
-                          <ReactMarkdown>Connect with Africa’s most impactful social media influencers. Our platform makes it easy for brands all around the world to discover, engage, and collaborate with influencers across the continent—securely, transparently, and at scale. </ReactMarkdown>
+                          <ReactMarkdown>Getting started is simple—just follow three easy steps to launch your influencer campaign. </ReactMarkdown>
                     </Typography>
                     <Typography style={{marginTop:10, fontSize:12}}>
-                          <ReactMarkdown>Whether you're launching a local product or expanding across markets, we provide the tools, talent, and support to drive real results.</ReactMarkdown>
+                          <ReactMarkdown>{howToGetStartedSection}</ReactMarkdown>
                     </Typography>
                   </Grid>
                   <Grid item  style={{width: "30%", height: "10%",marginLeft:"10%", marginBottom:0}}>

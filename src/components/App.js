@@ -47,6 +47,8 @@ import DashboardBrand from "./Dashboard/DashboardBrand";
 import DashboardCreator from "./Dashboard/DashboardCreator";
 import ResetUserPasswordForm from "./authForms/ResetUserPasswordForm";
 import InfluencerCentral from "./InfluencerCentral";
+import BrandServicesHomeScreen from "./BrandServicesHomeScreen"
+import InfluencerServicesHomeScreen from "./InfluencerServicesHomeScreen";
 
 
 function App() {
@@ -257,6 +259,26 @@ function App() {
               
               />
             </Route>
+             <Route path="/brandcentral">
+              <BrandServicesHomeScreen
+                token={token}
+                setToken={setToken ? setToken : {}}
+                userId={userId}
+                setUserId={setUserId ? setUserId : {}}
+              
+              />
+            </Route>
+             <Route path="/influencershomescreen">
+              <InfluencerServicesHomeScreen
+                token={token}
+                setToken={setToken ? setToken : {}}
+                userId={userId}
+                setUserId={setUserId ? setUserId : {}}
+              
+              />
+            </Route>
+
+            
             <Route exact path="/categories/:categoryId">
               <ProductsForCategory
                 token={token}

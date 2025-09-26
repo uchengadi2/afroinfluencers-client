@@ -28,14 +28,15 @@ import animationData from "../animations/landinganimation/data";
 import revolutionBackground from "./../assets/repeatingBackground.svg";
 import infoBackground from "./../assets/infoBackground.svg";
 
-import background from "./../assets/images/influencers/cover1.webp";
+//import background from "./../assets/images/influencers/cover1.webp";
+import background from "./../assets/images/controlsoft/image29.webp";
 import UpperFooter from "./ui/UpperFooter";
 import TopCover from "./homePageCards/TopCover";
 import LearningPath from "./homePageCards/LearningPath";
 import TopCoverNew from "./homePageCards/TopCoverNew";
 import TopCoverServices from "./homePageCards/TopCoverServices";
 import ServicePreferences from "./homePageCards/ServicePreferences";
-import HeroSection from "./homePageCards/HeroSection";
+import HeroSectionBrand from "./homePageCards/HeroSectionBrand";
 import OurProcesses from "./homePageCards/OurProcesses";
 //import mobileBackground from "./../../assets/mobileBackground.jpg";
 
@@ -45,6 +46,7 @@ import { baseURL } from "../apis/util";
 import AllCreatorsOnList from "./homePageCards/AllCreatorsOnList";
 import AllProductsInCardDesign from "./homePageCards/AllProductsInCardDesign.";
 import OurServicePlans from "./homePageCards/OurServicePlans";
+import HowToGetStarted from "./homePageCards/HowToGetStarted";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -272,7 +274,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Marketplace = (props) => {
+const BrandServicesHomeScreen = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
@@ -13504,18 +13506,18 @@ const renderLoginForm = () => {
                         }}
                       >
                         {" "}
-                      Africa’s influencer economy is booming—and we’re the engine. <br />
+                      Harness the power of influential voices to amplify your reach, <br />
                       </span>{" "}
                       <span style={{ marginLeft: matchesSM ? 20 : 60 }}>
-                      We plug top influencers into world-class brands 
+                      accelerate trust, and convert audiences into loyal 
                       </span>
                       <br />
                       <span style={{ marginLeft: matchesSM ? 20 : 110 }}>
-                      for campaigns that cut through the noise.
+                      Customers
                       </span>
                       <br />
                     </Typography>
-                    <Typography variant={matchesSM ? "subtitle2" : "h2"} align="left" style={{ marginTop: "2rem" }}><strong style={{marginLeft:matchesSM ? 10 : 110}}>Bold stories. Bigger results. No fluff.</strong></Typography>
+                    <Typography variant={matchesSM ? "subtitle2" : "h2"} align="left" style={{ marginTop: "2rem" }}><strong style={{marginLeft:matchesSM ? 10 : 50}}>Influence Drives Growth. Make It Work for Your Brand.</strong></Typography>
                     </>
                   ) : (
                     <>
@@ -13532,25 +13534,25 @@ const renderLoginForm = () => {
                         }}
                       >
                         {" "}
-                      Africa’s influencer economy is booming—and <br />
+                      Harness the power of influential voices to amplify  <br />
                       </span>{" "}
                       <span style={{ marginLeft: matchesSM ? 20 : 60 }}>
-                      we are the engine. 
+                      your reach, accelerate trust, and convert 
                       </span>
                       <br />
                       <span style={{ marginLeft: matchesSM ? 30 : 60 }}>
-                       We plug top influencers into world-class
+                       audiences into loyal Customers
                       </span>
                       <br />
-                      <span style={{ marginLeft: matchesSM ? 40 : 110 }}>
+                      {/* <span style={{ marginLeft: matchesSM ? 40 : 110 }}>
                        brands for campaigns  that cut through
                       </span>
                       <br />
                       <span style={{ marginLeft: matchesSM ? 50 : 140 }}>
                         the noise.
-                      </span>
+                      </span> */}
                     </Typography>
-                    <Typography variant={matchesSM ? "subtitle2" : "h5"} align="left" style={{ marginTop: "2rem" }}><strong style={{marginLeft:matchesSM ? 10 : 110}}>Bold stories. Bigger results. No fluff.</strong></Typography>
+                       <Typography variant={matchesSM ? "subtitle2" : "h5"} align="center" style={{ marginTop: "2rem" }}><strong style={{marginLeft:matchesSM ? 10 : 110}}>Influence Drives Growth. Make It Work for Your Brand.</strong></Typography>
                     </>
                     
                   )}
@@ -13577,8 +13579,8 @@ const renderLoginForm = () => {
           </Grid>
         </Grid>
         {/* </section> */}
-        <HeroSection />
-        <TopCover 
+        <HeroSectionBrand />
+        {/* <TopCover 
               token={props.token}
               userId={props.userId}
               setToken={props.setToken}
@@ -13591,8 +13593,8 @@ const renderLoginForm = () => {
               handleMakeOpenInfluencerSignUpDialogStatus={handleMakeOpenInfluencerSignUpDialogStatus}
               handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar={handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar}
               handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar={handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar}
-        />
-        {/**<OurProcesses 
+        /> */}
+        <OurProcesses 
           token={props.token}
           userId={props.userId}
           setToken={props.setToken}
@@ -13605,8 +13607,8 @@ const renderLoginForm = () => {
           handleMakeOpenInfluencerSignUpDialogStatus={handleMakeOpenInfluencerSignUpDialogStatus}
           handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar={handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar}
           handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar={handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar}
-        /> **/}
-       { /**<OurServicePlans 
+        /> 
+        <OurServicePlans 
           token={props.token}
           userId={props.userId}
           setToken={props.setToken}
@@ -13619,15 +13621,17 @@ const renderLoginForm = () => {
           handleMakeOpenInfluencerSignUpDialogStatus={handleMakeOpenInfluencerSignUpDialogStatus}
           handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar={handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar}
           handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar={handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar}
-        />**/}
-        {/* <TopCoverServices />
-        <TopCoverNew /> */}
+        />
+        <HowToGetStarted />
+
+
+        {/* <TopCoverNew /> */}
         {/* <TopCover /> */}
         {/* <LearningPath
           updatePathHandler={updatePathHandler}
           updateLearningPathInfoInfo={updateLearningPathInfoInfo}
         /> */}
-        <ServicePreferences
+        {/* <ServicePreferences
           //updateCourseTypeHandler={updateCourseTypeHandler}
           updateAgePathInfoHandler={updateAgePathInfoHandler}
           updatePricePathHandler={updatePricePathHandler}
@@ -13652,19 +13656,19 @@ const renderLoginForm = () => {
           handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar={handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar}
           
     
-        />
-
+        /> */}
+    
         
 
-        {isLoading && (
+        {/* {isLoading && (
           <CircularProgress
             size={100}
             color="inherit"
             style={{ marginTop: 250, marginLeft: 650 }}
           />
-        )}
+        )} */}
         {/**if there is no course */}
-        {!isLoading && creatorsList.length === 0 && (
+        {/* {!isLoading && creatorsList.length === 0 && (
           <Typography
             variant="h4"
             color="textSecondary"
@@ -13673,7 +13677,7 @@ const renderLoginForm = () => {
           >
             No Influencer Is Found
           </Typography>
-        )}
+        )} */}
         {/** This is for path = crash-course**/}
        
         {/** This is for path = all**/}
@@ -13681,7 +13685,7 @@ const renderLoginForm = () => {
         {/* {!isLoading && path === "all" && (
           <Grid item>{allCreatorsList}</Grid>
         )} */}
-         {!isLoading && path === "all" && (
+         {/* {!isLoading && path === "all" && (
           // <Grid item>{allCreatorsList}</Grid>
           <AllProductsInCardDesign
              creatorsList={creatorsList}
@@ -13693,7 +13697,7 @@ const renderLoginForm = () => {
                 updateLearningPathInfoInfo={updateLearningPathInfoInfo}
                 path={path}
             />
-        )}
+        )} */}
           {renderLoginForm()}
           {renderSignUpForm()}
           {renderForgotPasswordForm()}
@@ -13706,4 +13710,4 @@ const renderLoginForm = () => {
   );
 };
 
-export default Marketplace;
+export default BrandServicesHomeScreen;

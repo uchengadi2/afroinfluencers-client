@@ -392,7 +392,7 @@ const useStyles = makeStyles((theme) => ({
       },
 }));
 
-export default function CarHireOnlyService() {
+export default function HeroSectionBrand() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [openLoginForm, setOpenLoginForm] = useState(false);

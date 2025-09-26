@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "10em",
     marginBottom: "1em",
     padding: 0,
-    backgroundColor: "#ECFFE6",
+    backgroundColor: "#FFFFFF",
   },
   rootMobile: {
     maxWidth: "100%",
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 30,
     marginBottom: "3em",
     padding: 0,
-    backgroundColor: "#ECFFE6",
+    backgroundColor: "#FFFFFF",
 
     "&:hover": {
       //border: "solid",

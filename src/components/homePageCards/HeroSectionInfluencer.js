@@ -25,7 +25,7 @@ import backgroundRetail from "./../../assets/images/covers/delivery.png";
 
 import backgroundProduct from "./../../assets/images/covers/aboutus-cover.jpg";
 import backgroundGrowth from "./../../assets/images/covers/channels.jpg";
-import heroImage from "./../../assets/images/controlsoft/creator2.jpg";
+import heroImage from "./../../assets/images/controlsoft/image24.webp";
 
 import { baseURL } from "./../../apis/util";
 
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     
       uppercard: {
         maxWidth: "100%",
-        height: 500,
+        height: 700,
         //height: 350,
         width: "100%",
     
@@ -59,8 +59,8 @@ const useStyles = makeStyles((theme) => ({
         //borderRadius: 30,
         marginTop: "3em",
         marginBottom: "1em",
-        padding: 20,
-        backgroundColor:"#FFFFFF"
+        padding: 40,
+        //backgroundColor:"#DDEB9D"
         // "&:hover": {
         //   //border: "solid",
         //   //borderColor: theme.palette.common.grey,
@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
       },
       uppercardMobile: {
         maxWidth: "100%",
-        height: 370,
+        height: 430,
         //height: 350,
         width: "100%",
     
@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "3em",
         marginBottom: "1em",
         padding: 10,
-        backgroundColor:"#FFFFFF"
+        //backgroundColor:"#DDEB9D"
         // "&:hover": {
         //   //border: "solid",
         //   //borderColor: theme.palette.common.grey,
@@ -367,8 +367,8 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "250px",
         marginLeft: "50%",
         marginRight: "150px",
-        height: "45px",
-        width: "180px",
+        height: "35px",
+        width: "160px",
           marginBottom:100,
     
         "&:hover": {
@@ -381,8 +381,10 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "250px",
         marginLeft: "0%",
         marginRight: "0px",
-        height: "45px",
-        width: "180px",
+        //height: "35px",
+        width: "140px",
+        fontSize:11,
+        marginTop:10,
       
     
         "&:hover": {
@@ -392,7 +394,7 @@ const useStyles = makeStyles((theme) => ({
       },
 }));
 
-export default function CarHireOnlyService() {
+export default function HeroSectionInfluencer() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [openLoginForm, setOpenLoginForm] = useState(false);
@@ -428,13 +430,13 @@ export default function CarHireOnlyService() {
 
   const Str = require("@supercharge/strings");
 
-  const whatwedoSection = "Connect with Africa’s most impactful content creators. Our platform makes it easy for brands to discover, engage, and collaborate with influencers across the continent—securely, transparently, and at scale. Whether you're launching a local product or expanding across markets, we provide the tools, talent, and support to drive real results..\n\n\n\n";
+  const whatwegetSection ="* Paid brand collaborations tailored to you \n\n* Exclusive campaigns and ongoing projects\n\n* Tangible rewards for authentic engagement\n\n\n\n";
     return (
       <>
         {matchesMDUp ? (
           <>
             <Box className={classes.uppercard} disableRipple={true}>
-              {/* <Typography variant="h5" style={{marginLeft:"60%", marginBottom:0, width:"100%"}}>Our Process</Typography> */}
+               {/* <Typography variant="h4" style={{marginLeft:'50%',marginBottom:30, fontSize:30, fontWeight:700, color:"black"}}>Car Rental Services</Typography> */}
               <Grid
                 container
                 direction="row"
@@ -451,39 +453,45 @@ export default function CarHireOnlyService() {
                   //direction={matchesSM ? "column" : "row"}
                   item
                 >
-                  {/* <Typography variant="h5" style={{marginLeft:"30%", marginBottom:20, width:"60%"}}>Our Process</Typography> */}
+                {/* <Typography variant="h3" style={{marginLeft:'0%',marginBottom:30}}>Chauffeur-Driven Exotic Car Rentals in Lagos</Typography> */}
                   
                 </Grid>
-                {/* <Typography style={{marginTop:0, padding: 70}}>
-                          <ReactMarkdown>{whatwedoSection}</ReactMarkdown>
-                    </Typography> */}
+                {/* <Typography variant="h3" style={{marginLeft:'0%',marginBottom:30}}>Chauffeur-Driven Exotic Car Rentals in Lagos</Typography> */}
                   <Grid
                     item
                     // alignItems="center"
                     // justifyContent="center"
                     //style={{ height: "60%", marginLeft: "3.5em" }}
-                    style={{ height: "60%", marginLeft: "10%", width:"50%", padding:50  }}
+                    style={{ height: "60%", marginLeft: "5%", width:"60%", padding:30, marginTop:70  }}
                   >
-                    <Typography style={{marginTop:40, fontSize:19}}>
-                          <ReactMarkdown>Connect with Africa’s most impactful social media influencers. Our platform makes it easy for brands all around the world to discover, engage, and collaborate with influencers across the continent—securely, transparently, and at scale. </ReactMarkdown>
+                    <Typography variant="h3" style={{marginLeft:'0%',marginBottom:30}}>Earn Rewards for Your Influence</Typography>
+                    <Typography style={{marginTop:0, padding: 0,fontSize:17}}>
+                          <strong><ReactMarkdown>Every collaboration is a chance to grow your income and impact</ReactMarkdown></strong>
                     </Typography>
-                    <Typography style={{marginTop:20, fontSize:19}}>
-                          <ReactMarkdown>Whether you're launching a local product or expanding across markets, we provide the tools, talent, and support to drive real results.</ReactMarkdown>
+                    <Typography style={{marginTop:20, fontSize:15}}>
+                          <ReactMarkdown>Use your platform to partner with trusted brands, access exclusive projects, and earn rewards that reflect the value of your voice and audience. </ReactMarkdown>
                     </Typography>
+                    <Typography style={{marginTop:30, fontSize:15}}>
+                          <ReactMarkdown>**What You Get:**</ReactMarkdown>
+                    </Typography>
+                    <Typography style={{marginTop:30, fontSize:15}}>
+                          <em><ReactMarkdown>{whatwegetSection}</ReactMarkdown></em>
+                    </Typography>
+                    
                   </Grid>
-                  <Grid item  style={{width: "100%", marginTop: 0, marginLeft:"20%", marginBottom:50}}>
-                    <Button 
+                  {/* <Grid item  style={{width: "100%", marginTop: 0, marginLeft:"20%", marginBottom:0}}>
+                     <Button 
                         variant="contained" 
                         color="secondary" 
                         justifyContent="center" 
                         className={classes.button}
                         component={Link}
-                         to="/influencercentral/"
+                        to="/bookingcentral/carhireandsecurity"
                     
                     >
-                        Get Influencers!
+                        Book Now!
                     </Button>
-                  </Grid>
+                  </Grid> */}
                   
                 
                
@@ -494,12 +502,14 @@ export default function CarHireOnlyService() {
           </>
         ) : (
           <Box className={classes.uppercardMobile} disableRipple>
+            {/* <Typography variant="h5" style={{marginLeft:"30%", marginBottom:20, width:"70%"}}>Car Rental Services</Typography> */}
              <Grid
                 container
                 direction="column"
                 style={{ marginTop: 20, height: "100%" }}
                 
               >
+                
                 <Grid
                   container
                   direction="row"
@@ -510,7 +520,7 @@ export default function CarHireOnlyService() {
                   //direction={matchesSM ? "column" : "row"}
                   item
                 >
-                  {/* <Typography variant="h5" style={{marginLeft:"30%", marginBottom:20, width:"60%"}}>Our Process</Typography> */}
+                  {/* <Typography variant="h5" style={{marginLeft:"30%", marginBottom:20, width:"100%"}}>What Is PPAR (Pay Per Actual Reach)?</Typography> */}
                   
                 </Grid>
                 {/* <Typography style={{marginTop:0, padding: 70}}>
@@ -521,28 +531,35 @@ export default function CarHireOnlyService() {
                     // alignItems="center"
                     // justifyContent="center"
                     //style={{ height: "60%", marginLeft: "3.5em" }}
-                    style={{ height: "70%", marginLeft: "2%", width:"70%", padding:5, marginRight:"10%"  }}
+                    style={{ height: "85%", marginLeft: "2%", width:"65%", padding:5, marginRight:"10%"  }}
                   >
-                    <Typography style={{marginTop:10, fontSize:12}}>
-                          <ReactMarkdown>Connect with Africa’s most impactful social media influencers. Our platform makes it easy for brands all around the world to discover, engage, and collaborate with influencers across the continent—securely, transparently, and at scale. </ReactMarkdown>
+                   <Typography variant="h5" style={{marginLeft:'0%',marginBottom:30, fontWeight:700}}>Earn Rewards for Your Influence</Typography>
+                    <Typography style={{marginTop:0, padding: 0,fontSize:12}}>
+                          <strong><ReactMarkdown>Every collaboration is a chance to grow your income and impact</ReactMarkdown></strong>
                     </Typography>
-                    <Typography style={{marginTop:10, fontSize:12}}>
-                          <ReactMarkdown>Whether you're launching a local product or expanding across markets, we provide the tools, talent, and support to drive real results.</ReactMarkdown>
+                    <Typography style={{marginTop:10, fontSize:10}}>
+                          <ReactMarkdown>Use your platform to partner with trusted brands, access exclusive projects, and earn rewards that reflect the value of your voice and audience. </ReactMarkdown>
+                    </Typography>
+                    <Typography style={{marginTop:10, fontSize:10}}>
+                          <ReactMarkdown>**What You Get:**</ReactMarkdown>
+                    </Typography>
+                    <Typography style={{marginTop:10, fontSize:10}}>
+                          <em><ReactMarkdown>{whatwegetSection}</ReactMarkdown></em>
                     </Typography>
                   </Grid>
-                  <Grid item  style={{width: "30%", height: "10%",marginLeft:"10%", marginBottom:0}}>
+                  {/* <Grid item  style={{width: "30%", height: "5%",marginLeft:"0%", marginBottom:0}}>
                     <Button 
-                        variant="contained" 
+                        variant="contained"
+                        //disabled={true} 
                         color="secondary" 
                         justifyContent="center" 
                         className={classes.buttonMobile}
                         component={Link}
-                        to="/influencercentral/"
-                    
+                        to="/bookingcentral/carhireandsecurity"                 
                     >
-                        Get Influencers!
+                        Book Now!
                     </Button>
-                  </Grid>
+                  </Grid> */}
                 
                
               </Grid>
