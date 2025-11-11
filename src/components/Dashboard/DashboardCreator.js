@@ -519,6 +519,7 @@ console.log("thisCreator:",thisCreator);
              yourGender={yourGender}
              yourCountry={yourCountry}
              category={category}
+           
              videoPrice={videoPrice}
              videoHookPrice={videoHookPrice}
              videoDeliveryDays={videoDeliveryDays}

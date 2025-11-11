@@ -547,7 +547,7 @@ export default function AllProductsInCardDesign(props) {
                      />
                 </CardActionArea>  
                 <CardContent style={{height:210}}>
-                    <Typography><strong>{creator.name}(<em>{creator.age} years, {creator.gender}</em>)</strong></Typography>
+                    <Typography><strong>{creator.refNumber}(<em>{creator.age} years, {creator.gender}</em>)</strong></Typography>
                     {creator.country && <Typography style={{marginTop:10, fontSize:12}}><strong>Nationality</strong>: {creator.country[0].name}</Typography>}
                      <Typography style={{marginTop:5, fontSize:12}}><strong>Choice Niches:</strong></Typography>
                       <Grid container direction="row" style={{marginLeft:10}}>
@@ -646,7 +646,7 @@ export default function AllProductsInCardDesign(props) {
                      />
                 </CardActionArea>  
                 <CardContent style={{height:270}}>
-                    <Typography><strong>{creator.name}(<em>{creator.age} years, {creator.gender}</em>)</strong></Typography>
+                    <Typography><strong>{creator.refNumber}(<em>{creator.age} years, {creator.gender}</em>)</strong></Typography>
                     {creator.country && <Typography style={{marginTop:10, fontSize:12}}><strong>Nationality</strong>: {creator.country[0].name}</Typography>}
                      <Typography style={{marginTop:5, fontSize:12}}><strong>Choice Niches:</strong></Typography>
                       <Grid container direction="row" style={{marginLeft:10}}>

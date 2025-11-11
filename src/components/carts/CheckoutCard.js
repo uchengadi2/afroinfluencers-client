@@ -528,7 +528,7 @@ export default function CheckoutCard(props) {
               <CardMedia
                 className={classes.media}
                 component="img"
-                alt={props.creator.name}
+                alt={props.creator.refNumber}
                 image={imageUrl}
                 //title={product.name}
                 crossOrigin="anonymous"
@@ -537,7 +537,7 @@ export default function CheckoutCard(props) {
             <Grid item style={{ width: "46.19%", border: "1px dotted grey" }}>
               <CardContent disableRipple>
                 <Typography variant="h4" color="textSecondary" component="p">
-                                    {props.creator.name}<scan style={{fontSize:15, fontWeight:500}}>{props.creator.country && ` (${props.creator.country[0].name}, ${props.creator.age}years ${props.creator.gender.charAt(0).toUpperCase() + props.creator.gender.slice(1)})` }</scan>
+                                    {props.creator.refNumber}<scan style={{fontSize:15, fontWeight:500}}>{props.creator.country && ` (${props.creator.country[0].name}, ${props.creator.age}years ${props.creator.gender.charAt(0).toUpperCase() + props.creator.gender.slice(1)})` }</scan>
                                   </Typography>
                                 
                                
@@ -639,7 +639,7 @@ export default function CheckoutCard(props) {
               <CardMedia
                 className={classes.mediaMobile}
                 component="img"
-                alt={creator.name}
+                alt={creator.refNumber}
                 image={imageUrl}
                 //title={product.name}
                 crossOrigin="anonymous"
@@ -655,7 +655,7 @@ export default function CheckoutCard(props) {
             >
               <CardContent disableRipple>
                 <Typography variant="h4" color="textSecondary" component="p">
-                                    {props.creator.name}<scan style={{fontSize:15, fontWeight:500}}>{props.creator.country && ` (${props.creator.country[0].name}, ${props.creator.age}years ${props.creator.gender.charAt(0).toUpperCase() + props.creator.gender.slice(1)})` }</scan>
+                                    {props.creator.refNumber}<scan style={{fontSize:15, fontWeight:500}}>{props.creator.country && ` (${props.creator.country[0].name}, ${props.creator.age}years ${props.creator.gender.charAt(0).toUpperCase() + props.creator.gender.slice(1)})` }</scan>
                                   </Typography>
                                 
                                

@@ -1154,16 +1154,16 @@ if(projectType === "video"){
         {props.creator.platforms && props.creator.platforms.includes('facebook') && <Typography style={{width:matchesMDUp ? 350:300,marginTop:10, backgroundColor:"#90D1CA", fontSize:18, fontWeight:700}}><strong>Influencer Facebook Details:</strong></Typography>}  
         {props.creator.platforms && props.creator.platforms.includes('facebook') &&<Typography style={{marginTop:10}} ><strong>Influencer Category:</strong> {facebookInfluencerCategory}</Typography>}
          {props.creator.platforms && props.creator.platforms.includes('facebook') &&<Typography><strong>Total Followers:</strong> {props.creator.facebookTotalFollowers.toLocaleString()}</Typography>}
-          {props.creator.platforms && props.creator.platforms.includes('facebook') &&<Typography><strong>Engagement Rate:</strong> {props.creator.facebookEngagementRate}%</Typography>}
-          {props.creator.platforms && props.creator.platforms.includes('facebook') &&<Typography><strong>Profile Link:</strong>  <a href={props.creator.facebookProfileLink} target="_blank">{props.creator.facebookProfileLink}</a></Typography>}
+          {props.creator.platforms && props.creator.platforms.includes('facebook') &&<Typography><strong>Estimated Engagement Rate:</strong> {props.creator.facebookEngagementRate}%</Typography>}
+          {/* {props.creator.platforms && props.creator.platforms.includes('facebook') &&<Typography><strong>Profile Link:</strong>  <a href={props.creator.facebookProfileLink} target="_blank">{props.creator.facebookProfileLink}</a></Typography>} */}
            {props.creator.platforms && props.creator.platforms.includes('facebook') && props.creator.currency && props.creator.currency[0].name.toLowerCase()==='naira' && <Typography><strong>Cost Per Post: </strong>&#8358;{props.creator.facebookCostPerPost.toLocaleString()}</Typography>}
            {props.creator.platforms && props.creator.platforms.includes('facebook') && props.creator.currency && props.creator.currency[0].name.toLowerCase()!=='naira' && <Typography><strong>Cost Per Post: </strong>&#36;{props.creator.facebookCostPerPost.toLocaleString()}</Typography>}
 
            {props.creator.platforms && props.creator.platforms.includes('instagram') && <Typography style={{width: matchesMDUp ? 350 :300,marginTop:10, backgroundColor:"#90D1CA", fontSize:18, fontWeight:700}}><strong>Influencer Instagram Details:</strong></Typography>}  
         {props.creator.platforms && props.creator.platforms.includes('instagram') &&<Typography style={{marginTop:10}} ><strong>Influencer Category:</strong> {instagramInfluencerCategory}</Typography>}
          {props.creator.platforms && props.creator.platforms.includes('instagram') &&<Typography><strong>Total Followers:</strong> {props.creator.instagramTotalFollowers.toLocaleString()}</Typography>}
-          {props.creator.platforms && props.creator.platforms.includes('instagram') &&<Typography><strong>Engagement Rate:</strong> {props.creator.instagramEngagementRate}%</Typography>}
-          {props.creator.platforms && props.creator.platforms.includes('instagram') &&<Typography><strong>Profile Link:</strong>  <a href={props.creator.instagramProfileLink} target="_blank">{props.creator.instagramProfileLink}</a></Typography>}
+          {props.creator.platforms && props.creator.platforms.includes('instagram') &&<Typography><strong>Estimated Engagement Rate:</strong> {props.creator.instagramEngagementRate}%</Typography>}
+          {/* {props.creator.platforms && props.creator.platforms.includes('instagram') &&<Typography><strong>Profile Link:</strong>  <a href={props.creator.instagramProfileLink} target="_blank">{props.creator.instagramProfileLink}</a></Typography>} */}
            {props.creator.platforms && props.creator.platforms.includes('instagram') && props.creator.currency[0].name.toLowerCase()==='naira' && <Typography><strong>Cost Per Post: </strong>&#8358;{props.creator.instagramCostPerPost.toLocaleString()}</Typography>}
            {props.creator.platforms && props.creator.platforms.includes('instagram') && props.creator.currency[0].name.toLowerCase()!=='naira' &&<Typography><strong>Cost Per Post: </strong>&#36;{props.creator.instagramCostPerPost.toLocaleString()}</Typography>}
 
@@ -1171,8 +1171,8 @@ if(projectType === "video"){
            {props.creator.platforms && props.creator.platforms.includes('tiktok') && <Typography style={{width:matchesMDUp ? 350:300,marginTop:10, backgroundColor:"#90D1CA", fontSize:18, fontWeight:700}}><strong>Influencer Tiktok Details:</strong></Typography>}  
         {props.creator.platforms && props.creator.platforms.includes('tiktok') &&<Typography style={{marginTop:10}} ><strong>Influencer Category:</strong> {tiktokInfluencerCategory}</Typography>}
          {props.creator.platforms && props.creator.platforms.includes('tiktok') &&<Typography><strong>Total Followers:</strong> {props.creator.tiktokTotalFollowers.toLocaleString()}</Typography>}
-          {props.creator.platforms && props.creator.platforms.includes('tiktok') &&<Typography><strong>Engagement Rate:</strong> {props.creator.tiktokEngagementRate}%</Typography>}
-          {props.creator.platforms && props.creator.platforms.includes('tiktok') &&<Typography><strong>Profile Link:</strong>  <a href={props.creator.tiktokProfileLink} target="_blank">{props.creator.tiktokProfileLink}</a></Typography>}
+          {props.creator.platforms && props.creator.platforms.includes('tiktok') &&<Typography><strong>Estimated Engagement Rate:</strong> {props.creator.tiktokEngagementRate}%</Typography>}
+          {/* {props.creator.platforms && props.creator.platforms.includes('tiktok') &&<Typography><strong>Profile Link:</strong>  <a href={props.creator.tiktokProfileLink} target="_blank">{props.creator.tiktokProfileLink}</a></Typography>} */}
            {props.creator.platforms && props.creator.platforms.includes('tiktok') && props.creator.currency[0].name.toLowerCase()==='naira' &&<Typography><strong>Cost Per Post: </strong>&#8358;{props.creator.tiktokCostPerPost.toLocaleString()}</Typography>}
            {props.creator.platforms && props.creator.platforms.includes('tiktok') && props.creator.currency[0].name.toLowerCase()!=='naira' &&<Typography><strong>Cost Per Post: </strong>&#36;{props.creator.tiktokCostPerPost.toLocaleString()}</Typography>}
 
@@ -1180,8 +1180,8 @@ if(projectType === "video"){
             {props.creator.platforms && props.creator.platforms.includes('twitter') && <Typography style={{width:matchesMDUp? 350:300,marginTop:10, backgroundColor:"#90D1CA", fontSize:18, fontWeight:700}}><strong>Influencer Twitter(X) Details:</strong></Typography>}  
         {props.creator.platforms && props.creator.platforms.includes('twitter') &&<Typography style={{marginTop:10}} ><strong>Influencer Category:</strong> {twitterInfluencerCategory}</Typography>}
          {props.creator.platforms && props.creator.platforms.includes('twitter') &&<Typography><strong>Total Followers:</strong> {props.creator.twitterTotalFollowers.toLocaleString()}</Typography>}
-          {props.creator.platforms && props.creator.platforms.includes('twitter') &&<Typography><strong>Engagement Rate:</strong> {props.creator.twitterEngagementRate}%</Typography>}
-          {props.creator.platforms && props.creator.platforms.includes('twitter') &&<Typography><strong>Profile Link:</strong>  <a href={props.creator.twitterProfileLink} target="_blank">{props.creator.twitterProfileLink}</a></Typography>}
+          {props.creator.platforms && props.creator.platforms.includes('twitter') &&<Typography><strong>Estimated Engagement Rate:</strong> {props.creator.twitterEngagementRate}%</Typography>}
+          {/* {props.creator.platforms && props.creator.platforms.includes('twitter') &&<Typography><strong>Profile Link:</strong>  <a href={props.creator.twitterProfileLink} target="_blank">{props.creator.twitterProfileLink}</a></Typography>} */}
            {props.creator.platforms && props.creator.platforms.includes('twitter') &&props.creator.currency[0].name.toLowerCase()==='naira' &&<Typography><strong>Cost Per Post: </strong>&#8358;{props.creator.twitterCostPerPost.toLocaleString()}</Typography>}
            {props.creator.platforms && props.creator.platforms.includes('twitter') &&props.creator.currency[0].name.toLowerCase()!=='naira' &&<Typography><strong>Cost Per Post: </strong>&#36;{props.creator.twitterCostPerPost.toLocaleString()}</Typography>}
 
@@ -1189,8 +1189,8 @@ if(projectType === "video"){
             {props.creator.platforms && props.creator.platforms.includes('linkedin') && <Typography style={{width: matchesMDUp ? 350:300,marginTop:10, backgroundColor:"#90D1CA", fontSize:18, fontWeight:700}}><strong>Influencer LinkedIn Details:</strong></Typography>}  
         {props.creator.platforms && props.creator.platforms.includes('linkedin') &&<Typography style={{marginTop:10}} ><strong>Influencer Category:</strong> {linkedinInfluencerCategory}</Typography>}
          {props.creator.platforms && props.creator.platforms.includes('linkedin') &&<Typography><strong>Total Followers:</strong> {props.creator.linkedInTotalFollowers.toLocaleString()}</Typography>}
-          {props.creator.platforms && props.creator.platforms.includes('linkedin') &&<Typography><strong>Engagement Rate:</strong> {props.creator.linkedInEngagementRate}%</Typography>}
-          {props.creator.platforms && props.creator.platforms.includes('linkedin') &&<Typography><strong>Profile Link:</strong>  <a href={props.creator.linkedInProfileLink} target="_blank">{props.creator.linkedInProfileLink}</a></Typography>}
+          {props.creator.platforms && props.creator.platforms.includes('linkedin') &&<Typography><strong>Estimated Engagement Rate:</strong> {props.creator.linkedInEngagementRate}%</Typography>}
+          {/* {props.creator.platforms && props.creator.platforms.includes('linkedin') &&<Typography><strong>Profile Link:</strong>  <a href={props.creator.linkedInProfileLink} target="_blank">{props.creator.linkedInProfileLink}</a></Typography>} */}
            {props.creator.platforms && props.creator.platforms.includes('linkedin') && props.creator.currency[0].name.toLowerCase()==='naira' &&<Typography><strong>Cost Per Post: </strong>&#8358;{props.creator.linkedInCostPerPost.toLocaleString()}</Typography>}
            {props.creator.platforms && props.creator.platforms.includes('linkedin') && props.creator.currency[0].name.toLowerCase()!=='naira' &&<Typography><strong>Cost Per Post: </strong>&#36;{props.creator.linkedInCostPerPost.toLocaleString()}</Typography>}
 
@@ -1198,7 +1198,7 @@ if(projectType === "video"){
             {props.creator.platforms && props.creator.platforms.includes('blog') && <Typography style={{width: matchesMDUp ? 350:300,marginTop:10, backgroundColor:"#90D1CA", fontSize:18, fontWeight:700}}><strong>Influencer Blog Details:</strong></Typography>}  
         {props.creator.platforms && props.creator.platforms.includes('blog') &&<Typography style={{marginTop:10}} ><strong>Influencer Category:</strong> {blogInfluencerCategory}</Typography>}
          {props.creator.platforms && props.creator.platforms.includes('blog') &&<Typography><strong>Average Monthly Site Visitors :</strong> {props.creator.blogTotalVisitorsPerMonth.toLocaleString()}</Typography>}
-          {props.creator.platforms && props.creator.platforms.includes('blog') &&<Typography><strong>Blog Site Link:</strong>  <a href={props.creator.blogSiteLink} target="_blank">{props.creator.blogSiteLink}</a></Typography>}
+          {/* {props.creator.platforms && props.creator.platforms.includes('blog') &&<Typography><strong>Blog Site Link:</strong>  <a href={props.creator.blogSiteLink} target="_blank">{props.creator.blogSiteLink}</a></Typography>} */}
            {props.creator.platforms && props.creator.platforms.includes('blog') && props.creator.currency[0].name.toLowerCase()==='naira' &&<Typography><strong>Cost Per Post: </strong>&#8358;{props.creator.blogCostPerPost.toLocaleString()}  {props.creator.blogPostCostDuration}</Typography>}
            {props.creator.platforms && props.creator.platforms.includes('blog') && props.creator.currency[0].name.toLowerCase()!=='naira' &&<Typography><strong>Cost Per Post: </strong>&#36;{props.creator.blogCostPerPost.toLocaleString()}  {props.creator.blogPostCostDuration}</Typography>}
         <Grid

@@ -10,6 +10,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import { useDispatch } from "react-redux";
 import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
 import Grid from "@material-ui/core/Grid";
+import { Typography } from "@mui/material";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -424,6 +425,8 @@ function AddCreatorForm(props) {
     setBlogPostCostDuration(event.target.value)
   }
 
+
+  console.log('creator details:',props.creator);
   
 
   //get the countries list
@@ -927,11 +930,23 @@ console.log('creator id is:',props.creator._id)
 
       
       const slug = `${formValues.name.replace(/\s/g, '-').toLowerCase()}-${Math.floor(Math.random() * 100000000)}`;
-   
+      
       const Str = require("@supercharge/strings");
+          const refNumber =
+        "CRT" + "-" + Math.floor(Math.random() * 100000000000) + "-" + "IUC";
   
       const form = new FormData();
+
+    // if (!formValues["refNumber"]) {
+    //   const refNumber =
+    //     "CRT" + "-" + Math.floor(Math.random() * 100000000000) + "-" + "IUC";
+
+    //   form.append("refNumber", refNumber);
+    // } else {
+    //   form.append("refNumber", formValues.refNumber);
+    // }
       form.append("name", formValues.name);
+       form.append("refNumber", refNumber);
       form.append("slug", slug);
       form.append("age", formValues.age);
       form.append("bio", formValues.bio);
@@ -941,7 +956,7 @@ console.log('creator id is:',props.creator._id)
       form.append("currency", currency);
       form.append("country", country);
       //form.append("category", category);
-      //form.append("status", status);
+      //  form.append("refNumber", refNumber);
       form.append("creatorContactPhoneNumber", formValues.creatorContactPhoneNumber);
       form.append("creatorContactEmailAddress", formValues.creatorContactEmailAddress);
       form.append("facebookProfileLink", formValues.facebookProfileLink);
@@ -1046,10 +1061,13 @@ console.log('creator id is:',props.creator._id)
 
       const Str = require("@supercharge/strings");
   
+
+     
+  
       const form = new FormData();
       form.append("name", formValues.name ? formValues.name : props.creator.name);
-      //form.append("slug", slug);
-      
+  
+       form.append("refNumber", props.creator.refNumber);
       form.append("age", formValues.age ? formValues.age : props.creator.age);  
       form.append("bio", formValues.bio ? formValues.bio : props.creator.bio);
       form.append("gender", gender ? gender : props.creator.gender);
@@ -1287,6 +1305,7 @@ console.log('creator id is:',props.creator._id)
           </FormLabel>
           
         </Grid>
+        <Typography>Influencer Unique Number is: {props.creator.refNumber}</Typography>
 
         <Field
           label=""

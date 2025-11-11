@@ -594,7 +594,7 @@ console.log('props:', props)
             <Grid item className={classes.secondRow}>
               <Box>
               {props.creator.country && <Typography variant="h4" color="textSecondary" component="p">
-                    {props.creator.name}
+                    {props.creator.refNumber}
                     <span style={{ fontSize: 16, fontWeight: 700 }}>
                       <em> ({props.creator.country[0].name},  {props.creator.age} years, {props.creator.gender.charAt(0).toUpperCase() + props.creator.gender.slice(1)})</em>
                     </span>
@@ -748,7 +748,7 @@ console.log('props:', props)
             <Grid item className={classes.secondRowMobile}>
                <Box>
               {props.creator.country && <Typography variant="h4" color="textSecondary" component="p">
-                    {props.creator.name}
+                    {props.creator.refNumber}
                     <span style={{ fontSize: 16, fontWeight: 700 }}>
                       <em> ({props.creator.country[0].name},  {props.creator.age} years, {props.creator.gender.charAt(0).toUpperCase() + props.creator.gender.slice(1)})</em>
                     </span>

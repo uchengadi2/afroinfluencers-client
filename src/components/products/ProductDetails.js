@@ -318,6 +318,7 @@ function ProductDetails(props) {
             name: creator[0].name,
             image: creator[0].image,
             bio: creator[0].bio,
+            refNumber:creator[0].refNumber,
             user: creator[0].user,
             currency: creator[0].currency,
             age: creator[0].age,
@@ -376,6 +377,7 @@ function ProductDetails(props) {
             name: allData[0].name,
             image: allData[0].image,
             bio: allData[0].bio,
+            refNumber:allData[0].refNumber,
             user: allData[0].user,
             currency: allData[0].currency,
             age: allData[0].age,
@@ -448,6 +450,7 @@ function ProductDetails(props) {
             creator={creator}
             creatorId={creator.id}
             name= {creator.name}
+            refNumber={creator.refNumber}
             image= {creator.image}
             bio = {creator.bio}
             user= {creator.user}
@@ -496,7 +499,7 @@ function ProductDetails(props) {
               bio = {creator.bio}
               user= {creator.user}
               currency={creator.currency}
-          
+              refNumber={creator.refNumber}
               age={creator.age}
               gender={creator.gender}
               rate= {creator.rate}

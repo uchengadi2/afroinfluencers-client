@@ -497,7 +497,7 @@ export default function CartProductCard(props) {
               <CardContent disableRipple>
                
                   <Typography variant="h4" color="textSecondary" component="p">
-                    {props.creator.name}<scan style={{fontSize:15, fontWeight:500}}>{props.creator.country && ` (${props.creator.country[0].name}, ${props.creator.age}years ${props.creator.gender.charAt(0).toUpperCase() + props.creator.gender.slice(1)})` }</scan>
+                    {props.creator.refNumber}<scan style={{fontSize:15, fontWeight:500}}>{props.creator.country && ` (${props.creator.country[0].name}, ${props.creator.age}years ${props.creator.gender.charAt(0).toUpperCase() + props.creator.gender.slice(1)})` }</scan>
                   </Typography>
                 
                
@@ -770,7 +770,7 @@ export default function CartProductCard(props) {
               <CardMedia
                 className={classes.mediaMobile}
                 component="img"
-                alt={props.creator.name}
+                alt={props.creator.refNumber}
                 image={imageUrl}
                 //title={product.name}
                 crossOrigin="anonymous"
@@ -780,7 +780,7 @@ export default function CartProductCard(props) {
               <CardContent disableRipple>
                
                   <Typography variant="h4" color="textSecondary" component="p">
-                    {props.creator.name}<scan style={{fontSize:15, fontWeight:500}}>{props.creator.country && ` (${props.creator.country[0].name}, ${props.creator.age}years ${props.creator.gender.charAt(0).toUpperCase() + props.creator.gender.slice(1)})` }</scan>
+                    {props.creator.refNumber}<scan style={{fontSize:15, fontWeight:500}}>{props.creator.country && ` (${props.creator.country[0].name}, ${props.creator.age}years ${props.creator.gender.charAt(0).toUpperCase() + props.creator.gender.slice(1)})` }</scan>
                   </Typography>
                 
                
