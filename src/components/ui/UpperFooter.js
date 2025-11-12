@@ -376,7 +376,7 @@ function UpperFooter(props) {
                     <Typography variant="subtitle2">Say hello!</Typography>
                   ) : (
                     <Typography variant="subtitle2" style={{ fontSize: 14 }}>
-                      <span> 64 Okota Road, Isolo, Lagos</span>
+                      {/* <span> 64 Okota Road, Isolo, Lagos</span> */}
                       <br />
 
                       <span>controlsoftng@gmail.com</span>

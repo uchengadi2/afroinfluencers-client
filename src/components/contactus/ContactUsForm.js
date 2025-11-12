@@ -85,14 +85,14 @@ function ContactUsForm(props) {
       >
         <Grid item container direction="row" alignItems="center">
           <Typography variant="h5" style={{ marginTop: 50 }}>
-            <span style={{ color: "orange" }}>Address:</span>{" "}
-            <span style={{ marginLeft: 10 }}>
+            {/* <span style={{ color: "orange" }}>Address:</span>{" "} */}
+            {/* <span style={{ marginLeft: 10 }}>
               64 Okota Road, Isolo{" "}
               <span style={{ marginLeft: 100 }}> Lagos </span>{" "}
-              {/* <span style={{ marginLeft: 100 }}>
+              <span style={{ marginLeft: 100 }}>
                 Estate, Ilasa, Lagos, Nigeria
-              </span> */}
-            </span>
+              </span>
+            </span> */}
             <br /> <br />
           </Typography>
           <Typography variant="h5" style={{ marginTop: 10 }}>
