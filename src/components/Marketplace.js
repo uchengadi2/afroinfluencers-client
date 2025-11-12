@@ -13524,9 +13524,10 @@ const renderLoginForm = () => {
                     <Typography
                       variant={matchesSM ? "subtitle2" : "h2"}
                       align="left"
-                      style={{ marginTop: "18rem", fontSize: "1.2rem" }}
+                      style={{ marginTop: "18rem", fontSize: "1.2rem", color:"black", fontWeight:600 }}
                       justifyContent="center"
                       alignItems="center"
+
                     >
                       <span
                         style={{
@@ -13552,7 +13553,7 @@ const renderLoginForm = () => {
                         the noise.
                       </span>
                     </Typography>
-                    <Typography variant={matchesSM ? "subtitle2" : "h5"} align="left" style={{ marginTop: "2rem" }}><strong style={{marginLeft:matchesSM ? 10 : 110}}>Bold stories. Bigger results. No fluff.</strong></Typography>
+                    <Typography variant={matchesSM ? "subtitle2" : "h6"} align="left" style={{ marginTop: "2rem", fontSize:18 }}><strong style={{marginLeft:matchesSM ? 10 : 110}}>Bold stories. Bigger results. No fluff.</strong></Typography>
                     </>
                     
                   )}

@@ -710,7 +710,7 @@ export default function TopCover(props) {
               <Grid
                 item
                 alignItems="center"
-                style={{ height: "60%", marginLeft: 25 }}
+                style={{ height: "60%", marginLeft: 25, marginBottom:0 }}
               >
                  
                   {/* <br /><strong>Services Include:</strong><br />                */}
@@ -725,7 +725,7 @@ export default function TopCover(props) {
                 item
                 alignItems="center"
                 // style={{ height: "60%", marginLeft: "3.5em" }}
-                style={{ height: "10%", marginLeft: "0.5em" }}
+                style={{ height: "10%", marginLeft: "0.5em", marginTop:10 }}
               >
                 <Button
                   variant="contained"

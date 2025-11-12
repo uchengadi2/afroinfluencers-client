@@ -219,10 +219,10 @@ const useStyles = makeStyles((theme) => ({
     ...theme.typography.learnButton,
     fontSize: "0.7rem",
     height: 35,
-    width: 210,
+    width: 230,
     padding: 5,
     marginTop: "55px",
-    marginLeft: "5%",
+    marginLeft: "2%",
     border: `2px solid ${theme.palette.common.blue}`,
     [theme.breakpoints.down("sm")]: {
       marginBottom: "1em",
@@ -645,7 +645,7 @@ export default function AllProductsInCardDesign(props) {
                         crossOrigin="anonymous"
                      />
                 </CardActionArea>  
-                <CardContent style={{height:270}}>
+                <CardContent style={{height:270, marginBottom:20}}>
                     <Typography><strong>{creator.refNumber}(<em>{creator.age} years, {creator.gender}</em>)</strong></Typography>
                     {creator.country && <Typography style={{marginTop:10, fontSize:12}}><strong>Nationality</strong>: {creator.country[0].name}</Typography>}
                      <Typography style={{marginTop:5, fontSize:12}}><strong>Choice Niches:</strong></Typography>
