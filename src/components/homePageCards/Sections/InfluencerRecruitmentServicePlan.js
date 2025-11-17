@@ -17,20 +17,20 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Snackbar from "@material-ui/core/Snackbar";
-import heroSection from "./../../assets/images/covers/food2.png";
-import backgroundDerica from "./../../assets/images/covers/food2.png";
-import backgroundPaint from "./../../assets/images/covers/delivery.png";
-import backgroundBulk from "./../../assets/images/covers/payment1.png";
-import backgroundRetail from "./../../assets/images/covers/delivery.png";
+import heroSection from "./../../../assets/images/covers/food2.png";
+import backgroundDerica from "./../../../assets/images/covers/food2.png";
+import backgroundPaint from "./../../../assets/images/covers/delivery.png";
+import backgroundBulk from "./../../../assets/images/covers/payment1.png";
+import backgroundRetail from "./../../../assets/images/covers/delivery.png";
 
-import backgroundProduct from "./../../assets/images/covers/aboutus-cover.jpg";
-import backgroundGrowth from "./../../assets/images/covers/channels.jpg";
-import heroImage from "./../../assets/images/controlsoft/image24.webp";
+import backgroundProduct from "./../../../assets/images/covers/aboutus-cover.jpg";
+import backgroundGrowth from "./../../../assets/images/covers/channels.jpg";
+import backgroundMetrics from "./../../../assets/images/covers/assessment.jpg";
+import heroImage from "./../../../assets/images/influencers/cover1.webp";
 
+import { baseURL } from "./../../../apis/util";
 
-import { baseURL } from "./../../apis/util";
-
-import theme from "./../ui/Theme";
+import theme from "./../../ui/Theme";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -58,27 +58,27 @@ const useStyles = makeStyles((theme) => ({
     
         marginLeft: "10px",
         //borderRadius: 30,
-        marginTop: "7em",
-        marginBottom: "1em",
-        padding: 20,
-        backgroundColor:"#FFFFFF"
+        marginTop: "3em",
+       // marginBottom: "1em",
+        padding: 40,
+        backgroundColor:"#FEF3E2"
         // "&:hover": {
         //   //border: "solid",
         //   //borderColor: theme.palette.common.grey,
         // },
       },
       uppercardMobile: {
-        maxWidth: "100%",
-        height: 370,
+       maxWidth: "100%",
+        height: 430,
         //height: 350,
         width: "100%",
     
         marginLeft: "0px",
         //borderRadius: 30,
-        marginTop: "3em",
+        marginTop: "1em",
         marginBottom: "1em",
         padding: 10,
-        backgroundColor:"#FFFFFF"
+       backgroundColor:"#FEF3E2"
         // "&:hover": {
         //   //border: "solid",
         //   //borderColor: theme.palette.common.grey,
@@ -333,11 +333,11 @@ const useStyles = makeStyles((theme) => ({
         backgroundSize: "cover",
         //backgroundAttachment: "fixed",
         backgroundRepeat: "no-repeat",
-        height: "30em",
+        height: "27em",
         width: "50%",
         marginLeft: "8em",
         marginBottom: "0.5em",
-        marginTop:"40px",
+        marginTop:"10px",
         marginRight: 0,
         borderRadius: 25,
         [theme.breakpoints.down("md")]: {
@@ -345,30 +345,31 @@ const useStyles = makeStyles((theme) => ({
           backgroundAttachment: "inherit",
         },
       },
-       heroImageMobile: {
-        backgroundImage: `url(${heroImage})`,
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-        //backgroundAttachment: "fixed",
-        backgroundRepeat: "no-repeat",
-        height: "15em",
-        width: "50%",
-        marginLeft: "2em",
-        marginBottom: "0.5em",
-        marginTop:"40px",
-        marginRight: 0,
-        borderRadius: 25,
-        [theme.breakpoints.down("md")]: {
-          // backgroundImage: `url(${mobileBackground})`,
-          backgroundAttachment: "inherit",
-        },
-      },
+      heroImageMobile: {
+              backgroundImage: `url(${heroImage})`,
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+              //backgroundAttachment: "fixed",
+              backgroundRepeat: "no-repeat",
+              height: "15em",
+              width: "55%",
+              marginLeft: "0px",
+              marginBottom: "0.5em",
+              marginTop:"10px",
+              marginRight: 0,
+              borderRadius: 25,
+              [theme.breakpoints.down("md")]: {
+                // backgroundImage: `url(${mobileBackground})`,
+                backgroundAttachment: "inherit",
+              },
+    },
       button: {
         ...theme.typography.estimate,
         borderRadius: "250px",
-        marginLeft: "50%",
+        marginLeft: "25%",
+        marginTop: "100px",
         marginRight: "150px",
-        height: "45px",
+        height: "35px",
         width: "240px",
           marginBottom:100,
     
@@ -382,8 +383,10 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "250px",
         marginLeft: "0%",
         marginRight: "0px",
-        height: "45px",
+        //height: "35px",
         width: "240px",
+        fontSize:11,
+        marginTop:40,
       
     
         "&:hover": {
@@ -393,7 +396,7 @@ const useStyles = makeStyles((theme) => ({
       },
 }));
 
-export default function HowToGetStarted() {
+export default function InfluencerRecruitmentServicePlan() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [openLoginForm, setOpenLoginForm] = useState(false);
@@ -429,179 +432,195 @@ export default function HowToGetStarted() {
 
   const Str = require("@supercharge/strings");
 
-  const howToGetStartedSection = "* **Sign Up**: Create your brand account and complete your profile. \n\n* **Share Your Brief**: Upload or craft a clear project brief with your campaign goals.\n\n* **Initiate Request**: Make your request, and we’ll source the perfect influencers to execute your vision.\n\n\n\n";
-    return (
-      <>
-        {matchesMDUp ? (
-          <>
-            <Box className={classes.uppercard} disableRipple={true}>
-               <Typography variant="h3" style={{marginLeft:'40%',marginBottom:30}}>How To Get Started</Typography>
-              <Grid
-                container
-                direction="row"
-                style={{ marginTop: 20, height: "100%" }}
-                
-              >
+  const keyFeatures = "* Tailored influencer sourcing\n\n* Comprehensive vetting and authenticity checks \n\n* Verified contact details \n\n* Brand-fit recommendations based on your brief";
+  const armyProcess = "* **Step 1: Register & Verify**: Sign up, verify your identity and social accounts. You’ll be assessed and placed into engagement tiers.\n\n* **Step 2: Browse Campaigns**: Choose from open missions based on your platforms and interests. See required actions and rewards per task.\n\n* **Step 3: Complete Tasks**: Engage with brand content exactly as instructed. The more precise and impactful your action, the higher your reward.\n\n* **Step 4: Get Paid**: Receive rewards directly into your wallet for every verified engagement or delivery.";
+      return (
+        <>
+          {matchesMDUp ? (
+            <>
+              <Box className={classes.uppercard} disableRipple={true}>
+                {/* <Typography variant="h3" style={{marginLeft:"40%", marginBottom:40, width:"100%", fontSize:40, fontWeight:700}}>What We Do for You</Typography> */}
                 <Grid
                   container
                   direction="row"
-                  style={{ marginLeft: 20, width: "30%", marginTop: 0 }}
-                  alignItems="center"
-                  className={classes.heroImage}
-                  justifyContent={matchesSM ? "center" : "space-between"}
-                  //direction={matchesSM ? "column" : "row"}
-                  item
-                >
-                  {/* <Typography variant="h5" style={{marginLeft:"30%", marginBottom:20, width:"60%"}}>Our Process</Typography> */}
+                  style={{ marginTop: 0, height: "100%" }}
                   
-                </Grid>
-                {/* <Typography style={{marginTop:0, padding: 70}}>
-                          <ReactMarkdown>{howToGetStartedSection}</ReactMarkdown>
+                >
+                  
+                  {/* <Typography variant="h4" style={{marginLeft:'50%',marginBottom:30, fontSize:30, fontWeight:700, color:"black"}}>Airport Protocol Services</Typography> */}
+                    <Grid
+                      item
+                      // alignItems="center"
+                      // justifyContent="center"
+                      //style={{ height: "60%", marginLeft: "3.5em" }}
+                      style={{ height: "90%", marginLeft: "10%", width:"50%", padding:10,marginTop:70  }}
+                    >
+                     <Typography variant="h3" style={{marginLeft:'30%',marginBottom:30}}>Service Plan</Typography>
+                     <Typography style={{marginTop:0, padding: 0,fontSize:17}}>
+                          <strong><ReactMarkdown>₦150,000 or $105 per influencer recruited per campaign or project. This includes:</ReactMarkdown></strong>
+                    </Typography>
+                      <Typography style={{marginTop:10, fontSize:15}}>
+                            <ReactMarkdown>{keyFeatures}</ReactMarkdown>
+                      </Typography>
+                      {/* <Typography style={{marginTop:30, fontSize:15}}>
+                          <ReactMarkdown>From business strategy and process optimization to performance management and organizational development, we deliver insights and frameworks that turn complexity into clarity. With a focus on measurable outcomes, we help you strengthen your competitive position and achieve sustainable excellence.</ReactMarkdown>
                     </Typography> */}
-                  <Grid
-                    item
-                    // alignItems="center"
-                    // justifyContent="center"
-                    //style={{ height: "60%", marginLeft: "3.5em" }}
-                    style={{ height: "60%", marginLeft: "10%", width:"50%", padding:50  }}
-                  >
-                    <Typography style={{marginTop:40, fontSize:19}}>
-                          <ReactMarkdown>Getting started is simple—just follow three easy steps to launch your influencer campaign. </ReactMarkdown>
+                      <Typography style={{marginTop:30, fontSize:15}}>
+                          <em><ReactMarkdown>Custom pricing is available for bulk or ongoing recruitment needs. Note that all pricing excludes VAT</ReactMarkdown></em>
                     </Typography>
-                    <Typography style={{marginTop:20, fontSize:19}}>
-                          <ReactMarkdown>{howToGetStartedSection}</ReactMarkdown>
-                    </Typography>
-                  </Grid>
-                  <Grid item  style={{width: "100%", marginTop: 0, marginLeft:"20%", marginBottom:50}}>
-                    <Button 
+                     <Button 
                         variant="contained" 
+                        disabled={false}
                         color="secondary" 
                         justifyContent="center" 
                         className={classes.button}
                         component={Link}
-                         to="/influencercentral/"
-                    
-                    >
-                       Request Your Influencer Shortlist
-                    </Button>
-                  </Grid>
-                  
-                
-               
-              </Grid>
-             
-             
-            </Box>
-          </>
-        ) : (
-          <Box className={classes.uppercardMobile} disableRipple>
-             <Grid
-                container
-                direction="column"
-                style={{ marginTop: 20, height: "100%" }}
-                
-              >
-                <Grid
-                  container
-                  direction="row"
-                  style={{ marginLeft: 3, width: "30%", marginTop: 0 }}
-                  alignItems="center"
-                  className={classes.heroImageMobile}
-                  justifyContent={matchesSM ? "center" : "space-between"}
-                  //direction={matchesSM ? "column" : "row"}
-                  item
-                >
-                  {/* <Typography variant="h5" style={{marginLeft:"30%", marginBottom:20, width:"60%"}}>Our Process</Typography> */}
-                  
-                </Grid>
-                {/* <Typography style={{marginTop:0, padding: 70}}>
-                          <ReactMarkdown>{howToGetStartedSection}</ReactMarkdown>
-                    </Typography> */}
-                  <Grid
-                    item
-                    // alignItems="center"
-                    // justifyContent="center"
-                    //style={{ height: "60%", marginLeft: "3.5em" }}
-                    style={{ height: "70%", marginLeft: "2%", width:"70%", padding:5, marginRight:"10%"  }}
-                  >
-                    <Typography style={{marginTop:10, fontSize:12}}>
-                          <ReactMarkdown>Getting started is simple—just follow three easy steps to launch your influencer campaign. </ReactMarkdown>
-                    </Typography>
-                    <Typography style={{marginTop:10, fontSize:12}}>
-                          <ReactMarkdown>{howToGetStartedSection}</ReactMarkdown>
-                    </Typography>
-                  </Grid>
-                  <Grid item  style={{width: "30%", height: "10%",marginLeft:"5%", marginBottom:0}}>
-                    <Button 
-                        variant="contained" 
-                        color="secondary" 
-                        justifyContent="center" 
-                        className={classes.buttonMobile}
-                        component={Link}
-                        to="/influencercentral/"
+                         to="/branddiscoverycentral/"
                     
                     >
                         Request Your Influencer Shortlist
                     </Button>
+                    </Grid>
+                    <Grid
+                    container
+                    direction="row"
+                    className={classes.heroImage}
+                    style={{ marginLeft: 20, width: "30%", marginTop: 100, marginBottom:100 }}
+                    alignItems="center"
+                    
+                    justifyContent={matchesSM ? "center" : "space-between"}
+                    //direction={matchesSM ? "column" : "row"}
+                    item
+                  >
+                    {/* <Typography variant="h5" style={{marginLeft:"30%", marginBottom:20, width:"60%"}}>Our Process</Typography> */}
+                    
                   </Grid>
-                
+                   
+                    
+                  
+                 
+                </Grid>
                
-              </Grid>
-          </Box>
-        )}
-        <Dialog
-          //style={{ zIndex: 1302 }}
-          fullScreen={matchesXS}
-          open={open}
-          onClose={() => setOpen(false)}
-          PaperProps={{
-            style: {
-              paddingTop: matchesXS ? "1em" : "3em",
-              marginTop: 110,
-              height: 540,
-              paddingBottom: "3em",
-              paddingLeft: matchesXS
-                ? 0
-                : matchesSM
-                ? "3em"
-                : matchesMD
-                ? "10em"
-                : "2em",
-              paddingRight: matchesXS
-                ? 0
-                : matchesSM
-                ? "5em"
-                : matchesMD
-                ? "10em"
-                : "2em",
-            },
-          }}
-        >
-          <DialogContent>
-            <Card className={classes.dialog}>
-              <CardActionArea>
-                <CardMedia
-                  className={classes.media}
-                  component="img"
-                  alt={product.name}
-                  image={imageUrl}
-                  crossOrigin="anonymous"
-                />
-              </CardActionArea>
-            </Card>
-          </DialogContent>
-        </Dialog>
-  
-        <Snackbar
-          open={alert.open}
-          message={alert.message}
-          ContentProps={{
-            style: { backgroundColor: alert.backgroundColor },
-          }}
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          onClose={() => setAlert({ ...alert, open: false })}
-          autoHideDuration={4000}
-        />
-      </>
-    );
+               
+              </Box>
+            </>
+          ) : (
+            <Box className={classes.uppercardMobile} disableRipple>
+                {/* <Typography variant="h4" style={{marginLeft:'40%',marginBottom:10}}>Our Brand Services</Typography> */}
+                    <Grid
+                            container
+                            direction="column"
+                            style={{ marginTop: 20, height: "100%" }}
+                            
+                          >
+                            <Grid
+                              container
+                              direction="row"
+                              style={{ marginLeft: 3, width: "30%", marginTop: 0 }}
+                              alignItems="center"
+                              className={classes.heroImageMobile}
+                              justifyContent={matchesSM ? "center" : "space-between"}
+                              //direction={matchesSM ? "column" : "row"}
+                              item
+                            >
+                              {/* <Typography variant="h5" style={{marginLeft:"30%", marginBottom:20, width:"60%"}}>Our Process</Typography> */}
+                              
+                            </Grid>
+                            {/* <Typography style={{marginTop:0, padding: 70}}>
+                                      <ReactMarkdown>{whatwedoSection}</ReactMarkdown>
+                                </Typography> */}
+                              <Grid
+                                item
+                                // alignItems="center"
+                                // justifyContent="center"
+                                //style={{ height: "60%", marginLeft: "3.5em" }}
+                                style={{ height: "90%", marginLeft: "2%", width:"70%", padding:2, marginRight:"10%"  }}
+                              >
+                               <Typography variant="h5" style={{marginLeft:'0%',marginBottom:30, fontWeight:700}}>Service Plan</Typography>
+                              <Typography style={{marginTop:0, padding: 0,fontSize:10}}>
+                                  <strong><ReactMarkdown>₦150,000 or $105 per influencer recruited per campaign or project. This includes:</ReactMarkdown></strong>
+                              </Typography>
+                                <Typography style={{marginTop:10, fontSize:10}}>
+                                <ReactMarkdown>{keyFeatures}</ReactMarkdown>
+                              </Typography>
+                              {/* <Typography style={{marginTop:30, fontSize:10}}>
+                                <ReactMarkdown>From business strategy and process optimization to performance management and organizational development, we deliver insights and frameworks that turn complexity into clarity. With a focus on measurable outcomes, we help you strengthen your competitive position and achieve sustainable excellence.</ReactMarkdown>
+                              </Typography> */}
+                               <Typography style={{marginTop:30, fontSize:10}}>
+                                <em><ReactMarkdown>Custom pricing is available for bulk or ongoing recruitment needs.Note that all pricing excludes VAT</ReactMarkdown></em>
+                              </Typography>
+                              <Button 
+                                variant="contained"
+                                color="secondary" 
+                                 disabled={false}
+                                justifyContent="center" 
+                                className={classes.buttonMobile}
+                                component={Link}
+                                to="/branddiscoverycentral/"
+                    
+                          >
+                               Request Your Influencer Shortlist
+                          </Button>
+                      </Grid>
+                              
+                            
+                           
+                          </Grid>
+                      </Box>
+          )}
+          <Dialog
+            //style={{ zIndex: 1302 }}
+            fullScreen={matchesXS}
+            open={open}
+            onClose={() => setOpen(false)}
+            PaperProps={{
+              style: {
+                paddingTop: matchesXS ? "1em" : "3em",
+                marginTop: 110,
+                height: 540,
+                paddingBottom: "3em",
+                paddingLeft: matchesXS
+                  ? 0
+                  : matchesSM
+                  ? "3em"
+                  : matchesMD
+                  ? "10em"
+                  : "2em",
+                paddingRight: matchesXS
+                  ? 0
+                  : matchesSM
+                  ? "5em"
+                  : matchesMD
+                  ? "10em"
+                  : "2em",
+              },
+            }}
+          >
+            <DialogContent>
+              <Card className={classes.dialog}>
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    component="img"
+                    alt={product.name}
+                    image={imageUrl}
+                    crossOrigin="anonymous"
+                  />
+                </CardActionArea>
+              </Card>
+            </DialogContent>
+          </Dialog>
+    
+          <Snackbar
+            open={alert.open}
+            message={alert.message}
+            ContentProps={{
+              style: { backgroundColor: alert.backgroundColor },
+            }}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            onClose={() => setAlert({ ...alert, open: false })}
+            autoHideDuration={4000}
+          />
+        </>
+      );
 }

@@ -49,6 +49,8 @@ import ResetUserPasswordForm from "./authForms/ResetUserPasswordForm";
 import InfluencerCentral from "./InfluencerCentral";
 import BrandServicesHomeScreen from "./BrandServicesHomeScreen"
 import InfluencerServicesHomeScreen from "./InfluencerServicesHomeScreen";
+import BrandInfluencerDiscoveryService from "./BrandInfluencerDiscoveryService";
+import BrandInfluencerRecruitmentService from "./BrandInfluencerRecruitmentService";
 
 
 function App() {
@@ -261,6 +263,26 @@ function App() {
             </Route>
              <Route path="/brandcentral">
               <BrandServicesHomeScreen
+                token={token}
+                setToken={setToken ? setToken : {}}
+                userId={userId}
+                setUserId={setUserId ? setUserId : {}}
+              
+              />
+            </Route>
+             
+             <Route path="/brandrecruitmentcentral">
+              <BrandInfluencerRecruitmentService
+                token={token}
+                setToken={setToken ? setToken : {}}
+                userId={userId}
+                setUserId={setUserId ? setUserId : {}}
+              
+              />
+            </Route>
+           
+             <Route path="/branddiscoverycentral">
+              <BrandInfluencerDiscoveryService
                 token={token}
                 setToken={setToken ? setToken : {}}
                 userId={userId}

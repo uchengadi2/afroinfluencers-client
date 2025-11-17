@@ -17,20 +17,19 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Snackbar from "@material-ui/core/Snackbar";
-import heroSection from "./../../assets/images/covers/food2.png";
-import backgroundDerica from "./../../assets/images/covers/food2.png";
-import backgroundPaint from "./../../assets/images/covers/delivery.png";
-import backgroundBulk from "./../../assets/images/covers/payment1.png";
-import backgroundRetail from "./../../assets/images/covers/delivery.png";
+import heroSection from "./../../../assets/images/covers/food2.png";
+import backgroundDerica from "./../../../assets/images/covers/food2.png";
+import backgroundPaint from "./../../../assets/images/covers/delivery.png";
+import backgroundBulk from "./../../../assets/images/covers/payment1.png";
+import backgroundRetail from "./../../../assets/images/covers/delivery.png";
 
-import backgroundProduct from "./../../assets/images/covers/aboutus-cover.jpg";
-import backgroundGrowth from "./../../assets/images/covers/channels.jpg";
-import heroImage from "./../../assets/images/controlsoft/image24.webp";
+import backgroundProduct from "./../../../assets/images/covers/aboutus-cover.jpg";
+import backgroundGrowth from "./../../../assets/images/covers/channels.jpg";
+import heroImage from "./../../../assets/images/influencers/cover3.webp";
 
+import { baseURL } from "./../../../apis/util";
 
-import { baseURL } from "./../../apis/util";
-
-import theme from "./../ui/Theme";
+import theme from "./../../ui/Theme";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -58,10 +57,11 @@ const useStyles = makeStyles((theme) => ({
     
         marginLeft: "10px",
         //borderRadius: 30,
-        marginTop: "7em",
+        marginTop: "3em",
         marginBottom: "1em",
-        padding: 20,
-        backgroundColor:"#FFFFFF"
+        padding: 40,
+         backgroundColor:"#FFFFFF",
+        //backgroundColor:"#DDEB9D"
         // "&:hover": {
         //   //border: "solid",
         //   //borderColor: theme.palette.common.grey,
@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
       },
       uppercardMobile: {
         maxWidth: "100%",
-        height: 370,
+        height: 430,
         //height: 350,
         width: "100%",
     
@@ -78,7 +78,8 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "3em",
         marginBottom: "1em",
         padding: 10,
-        backgroundColor:"#FFFFFF"
+         backgroundColor:"#FFFFFF",
+        //backgroundColor:"#DDEB9D"
         // "&:hover": {
         //   //border: "solid",
         //   //borderColor: theme.palette.common.grey,
@@ -368,7 +369,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "250px",
         marginLeft: "50%",
         marginRight: "150px",
-        height: "45px",
+        height: "35px",
         width: "240px",
           marginBottom:100,
     
@@ -382,8 +383,10 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "250px",
         marginLeft: "0%",
         marginRight: "0px",
-        height: "45px",
+        //height: "35px",
         width: "240px",
+        fontSize:11,
+        marginTop:0,
       
     
         "&:hover": {
@@ -393,7 +396,7 @@ const useStyles = makeStyles((theme) => ({
       },
 }));
 
-export default function HowToGetStarted() {
+export default function InfluencerRecruitmentWhyBrandsChooseThisService() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [openLoginForm, setOpenLoginForm] = useState(false);
@@ -429,17 +432,17 @@ export default function HowToGetStarted() {
 
   const Str = require("@supercharge/strings");
 
-  const howToGetStartedSection = "* **Sign Up**: Create your brand account and complete your profile. \n\n* **Share Your Brief**: Upload or craft a clear project brief with your campaign goals.\n\n* **Initiate Request**: Make your request, and we’ll source the perfect influencers to execute your vision.\n\n\n\n";
+  const whyBrandsChooseThisService = "* **Expert Recruitment Without Full Management Costs**: Ideal for brands that only need accurate influencer sourcing — not campaign execution.\n\n* **Saves Time & Eliminates Guesswork**: No more sifting through profiles or dealing with unreliable creators.\n\n* **You Maintain Full Control**: We supply the influencers; you run the campaign your way.\n\n* **Reliable, High-Quality Influencer Recommendations**:Built on data, experience, and proven vetting methodologies.";
     return (
       <>
         {matchesMDUp ? (
           <>
             <Box className={classes.uppercard} disableRipple={true}>
-               <Typography variant="h3" style={{marginLeft:'40%',marginBottom:30}}>How To Get Started</Typography>
+               {/* <Typography variant="h4" style={{marginLeft:'50%',marginBottom:30, fontSize:30, fontWeight:700, color:"black"}}>Car Rental Services</Typography> */}
               <Grid
                 container
                 direction="row"
-                style={{ marginTop: 20, height: "100%" }}
+                style={{ marginTop: 0, height: "100%" }}
                 
               >
                 <Grid
@@ -452,37 +455,44 @@ export default function HowToGetStarted() {
                   //direction={matchesSM ? "column" : "row"}
                   item
                 >
-                  {/* <Typography variant="h5" style={{marginLeft:"30%", marginBottom:20, width:"60%"}}>Our Process</Typography> */}
+                {/* <Typography variant="h3" style={{marginLeft:'0%',marginBottom:30}}>Chauffeur-Driven Exotic Car Rentals in Lagos</Typography> */}
                   
                 </Grid>
-                {/* <Typography style={{marginTop:0, padding: 70}}>
-                          <ReactMarkdown>{howToGetStartedSection}</ReactMarkdown>
-                    </Typography> */}
+                {/* <Typography variant="h3" style={{marginLeft:'0%',marginBottom:30}}>Chauffeur-Driven Exotic Car Rentals in Lagos</Typography> */}
                   <Grid
                     item
                     // alignItems="center"
                     // justifyContent="center"
                     //style={{ height: "60%", marginLeft: "3.5em" }}
-                    style={{ height: "60%", marginLeft: "10%", width:"50%", padding:50  }}
+                    style={{ height: "30%", marginLeft: "5%", width:"60%", padding:20, marginTop:40  }}
                   >
-                    <Typography style={{marginTop:40, fontSize:19}}>
-                          <ReactMarkdown>Getting started is simple—just follow three easy steps to launch your influencer campaign. </ReactMarkdown>
+                    <Typography variant="h3" style={{marginLeft:'0%',marginBottom:20}}>Why Brands Choose This Service</Typography>
+                    {/* <Typography style={{marginTop:0, padding: 0,fontSize:17}}>
+                          <strong><ReactMarkdown>Chauffeur-Driven Exotic Car Rentals in Cities Across Nigeria</ReactMarkdown></strong>
+                    </Typography> */}
+                    <Typography style={{marginTop:20, fontSize:15}}>
+                          <ReactMarkdown>Brands choose this service because of the following: </ReactMarkdown>
                     </Typography>
-                    <Typography style={{marginTop:20, fontSize:19}}>
-                          <ReactMarkdown>{howToGetStartedSection}</ReactMarkdown>
+                    <Typography style={{marginTop:30, fontSize:15}}>
+                          <ReactMarkdown>{whyBrandsChooseThisService}</ReactMarkdown>
                     </Typography>
+                    {/* <Typography style={{marginTop:30, fontSize:15}}>
+                          <em><ReactMarkdown>Let your arrival speak volumes.</ReactMarkdown></em>
+                    </Typography> */}
+                    
                   </Grid>
-                  <Grid item  style={{width: "100%", marginTop: 0, marginLeft:"20%", marginBottom:50}}>
-                    <Button 
+                  <Grid item  style={{width: "100%", marginTop: 0, marginLeft:"20%", marginBottom:0}}>
+                     <Button 
                         variant="contained" 
                         color="secondary" 
+                         disabled={false}
                         justifyContent="center" 
                         className={classes.button}
                         component={Link}
-                         to="/influencercentral/"
+                        to="/brandcentral/"
                     
                     >
-                       Request Your Influencer Shortlist
+                         Request Your Influencer Shortlist
                     </Button>
                   </Grid>
                   
@@ -495,12 +505,14 @@ export default function HowToGetStarted() {
           </>
         ) : (
           <Box className={classes.uppercardMobile} disableRipple>
+            {/* <Typography variant="h5" style={{marginLeft:"30%", marginBottom:20, width:"70%"}}>Car Rental Services</Typography> */}
              <Grid
                 container
                 direction="column"
                 style={{ marginTop: 20, height: "100%" }}
                 
               >
+                
                 <Grid
                   container
                   direction="row"
@@ -511,37 +523,44 @@ export default function HowToGetStarted() {
                   //direction={matchesSM ? "column" : "row"}
                   item
                 >
-                  {/* <Typography variant="h5" style={{marginLeft:"30%", marginBottom:20, width:"60%"}}>Our Process</Typography> */}
+                  {/* <Typography variant="h5" style={{marginLeft:"30%", marginBottom:20, width:"100%"}}>What Is PPAR (Pay Per Actual Reach)?</Typography> */}
                   
                 </Grid>
                 {/* <Typography style={{marginTop:0, padding: 70}}>
-                          <ReactMarkdown>{howToGetStartedSection}</ReactMarkdown>
+                          <ReactMarkdown>{whatwedoSection}</ReactMarkdown>
                     </Typography> */}
                   <Grid
                     item
                     // alignItems="center"
                     // justifyContent="center"
                     //style={{ height: "60%", marginLeft: "3.5em" }}
-                    style={{ height: "70%", marginLeft: "2%", width:"70%", padding:5, marginRight:"10%"  }}
+                    style={{ height: "85%", marginLeft: "2%", width:"65%", padding:2, marginRight:"10%"  }}
                   >
-                    <Typography style={{marginTop:10, fontSize:12}}>
-                          <ReactMarkdown>Getting started is simple—just follow three easy steps to launch your influencer campaign. </ReactMarkdown>
+                   <Typography variant="h5" style={{marginLeft:'0%',marginBottom:30, fontWeight:700}}>Why Brands Choose This Service</Typography>
+                    {/* <Typography style={{marginTop:0, padding: 0,fontSize:12}}>
+                          <strong><ReactMarkdown>We help businesses harness the power of cutting-edge technology to improve efficiency, drive innovation, and accelerate growth. Our approach goes beyond implementation — we align technology with your business strategy to create solutions that deliver real, measurable results. </ReactMarkdown></strong>
+                    </Typography> */}
+                    <Typography style={{marginTop:10, fontSize:10}}>
+                          <ReactMarkdown>Brands choose this service because of the following: </ReactMarkdown>
                     </Typography>
-                    <Typography style={{marginTop:10, fontSize:12}}>
-                          <ReactMarkdown>{howToGetStartedSection}</ReactMarkdown>
+                    <Typography style={{marginTop:10, fontSize:10}}>
+                          <ReactMarkdown>{whyBrandsChooseThisService}</ReactMarkdown>
                     </Typography>
+                    {/* <Typography style={{marginTop:10, fontSize:10}}>
+                          <em><ReactMarkdown>Let your arrival speak volumes.</ReactMarkdown></em>
+                    </Typography> */}
                   </Grid>
-                  <Grid item  style={{width: "30%", height: "10%",marginLeft:"5%", marginBottom:0}}>
+                  <Grid item  style={{width: "30%", height: "5%",marginLeft:"0%", marginBottom:0}}>
                     <Button 
-                        variant="contained" 
+                        variant="contained"
+                        disabled={false} 
                         color="secondary" 
                         justifyContent="center" 
                         className={classes.buttonMobile}
                         component={Link}
-                        to="/influencercentral/"
-                    
+                        to="/brandcentral/"                 
                     >
-                        Request Your Influencer Shortlist
+                         Request Your Influencer Shortlist
                     </Button>
                   </Grid>
                 

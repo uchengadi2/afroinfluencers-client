@@ -28,14 +28,15 @@ import animationData from "../animations/landinganimation/data";
 import revolutionBackground from "./../assets/repeatingBackground.svg";
 import infoBackground from "./../assets/infoBackground.svg";
 
-import background from "./../assets/images/influencers/cover1.webp";
+//import background from "./../assets/images/influencers/cover1.webp";
+import background from "./../assets/images/controlsoft/image29.webp";
 import UpperFooter from "./ui/UpperFooter";
 import TopCover from "./homePageCards/TopCover";
 import LearningPath from "./homePageCards/LearningPath";
 import TopCoverNew from "./homePageCards/TopCoverNew";
 import TopCoverServices from "./homePageCards/TopCoverServices";
 import ServicePreferences from "./homePageCards/ServicePreferences";
-import HeroSection from "./homePageCards/HeroSection";
+import HeroSectionBrand from "./homePageCards/HeroSectionBrand";
 import OurProcesses from "./homePageCards/OurProcesses";
 //import mobileBackground from "./../../assets/mobileBackground.jpg";
 
@@ -45,9 +46,12 @@ import { baseURL } from "../apis/util";
 import AllCreatorsOnList from "./homePageCards/AllCreatorsOnList";
 import AllProductsInCardDesign from "./homePageCards/AllProductsInCardDesign.";
 import OurServicePlans from "./homePageCards/OurServicePlans";
-import InfluencerDiscoveryService from "./homePageCards/Sections/InfluencerDiscoveryService";
-import ManagedInfluencerService from "./homePageCards/Sections/ManagedInfluencerService";
-import InfluencerRecruitmentService from "./homePageCards/Sections/InfluencerRecruitmentService";
+import HowToGetStarted from "./homePageCards/HowToGetStarted";
+import InfluencerRecruitmentHeroSection from "./homePageCards/Sections/InfluencerRecruitmentHeroSection";
+import InfluencerRecruitmentWhatWeDoforYou from "./homePageCards/Sections/InfluencerRecruitmentWhatWeDoforYou";
+import InfluencerRecruitmentWhyBrandsChooseThisService from "./homePageCards/Sections/InfluencerRecruitmentWhyBrandsChooseThisService";
+import InfluencerRecruitmentServicePlan from "./homePageCards/Sections/InfluencerRecruitmentServicePlan";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -275,7 +279,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Marketplace = (props) => {
+const BrandInfluencerRecruitmentService = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
@@ -549,7 +553,6 @@ const Marketplace = (props) => {
             image: creator.image,
             bio: creator.bio,
             user: creator.user,
-            refNumber:creator.refNumber,
             currency: creator.currency,
             age: creator.age,
             gender: creator.gender,
@@ -611,7 +614,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            refNumber:creator.refNumber,
+            
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -669,7 +672,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            refNumber:creator.refNumber,
+            
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -727,7 +730,7 @@ const Marketplace = (props) => {
              bio: creator.bio,
              user: creator.user,
              currency: creator.currency,
-            refNumber:creator.refNumber,
+            
              age: creator.age,
              gender: creator.gender,
              rate: creator.rate,
@@ -790,7 +793,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            refNumber:creator.refNumber,
+            
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -854,7 +857,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-           refNumber:creator.refNumber,
+           
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -918,7 +921,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            refNumber:creator.refNumber,
+            
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -981,7 +984,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-           refNumber:creator.refNumber,
+           
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -1045,7 +1048,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            refNumber:creator.refNumber,
+            
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -1109,7 +1112,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            refNumber:creator.refNumber,
+            
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -1173,7 +1176,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            refNumber:creator.refNumber,
+            
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -1239,7 +1242,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-           refNumber:creator.refNumber,
+           
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -1305,7 +1308,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            refNumber:creator.refNumber,
+            
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -1374,7 +1377,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-           refNumber:creator.refNumber,
+           
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -1440,7 +1443,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-           refNumber:creator.refNumber,
+           
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -1506,7 +1509,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-           refNumber:creator.refNumber,
+           
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -1573,7 +1576,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-           refNumber:creator.refNumber,
+           
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -1639,7 +1642,7 @@ const Marketplace = (props) => {
             bio: creator.bio,
             user: creator.user,
             currency: creator.currency,
-            refNumber:creator.refNumber,
+            
             age: creator.age,
             gender: creator.gender,
             rate: creator.rate,
@@ -1705,7 +1708,7 @@ const Marketplace = (props) => {
            bio: creator.bio,
            user: creator.user,
            currency: creator.currency,
-           refNumber:creator.refNumber,
+           
            age: creator.age,
            gender: creator.gender,
            rate: creator.rate,
@@ -1771,7 +1774,7 @@ const Marketplace = (props) => {
          bio: creator.bio,
          user: creator.user,
          currency: creator.currency,
-         refNumber:creator.refNumber,
+         
          age: creator.age,
          gender: creator.gender,
          rate: creator.rate,
@@ -1837,7 +1840,7 @@ const Marketplace = (props) => {
        bio: creator.bio,
        user: creator.user,
        currency: creator.currency,
-      refNumber:creator.refNumber,
+      
        age: creator.age,
        gender: creator.gender,
        rate: creator.rate,
@@ -1904,7 +1907,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -1972,7 +1975,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     refNumber:creator.refNumber,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2040,7 +2043,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     refNumber:creator.refNumber,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2108,7 +2111,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     refNumber:creator.refNumber,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2176,7 +2179,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     refNumber:creator.refNumber,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2244,7 +2247,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     refNumber:creator.refNumber,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2312,7 +2315,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     refNumber:creator.refNumber,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2380,7 +2383,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     refNumber:creator.refNumber,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2449,7 +2452,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2518,7 +2521,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2587,7 +2590,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     refNumber:creator.refNumber,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2656,7 +2659,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     refNumber:creator.refNumber,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2725,7 +2728,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     refNumber:creator.refNumber,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2794,7 +2797,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     refNumber:creator.refNumber,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2863,7 +2866,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     refNumber:creator.refNumber,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -2932,7 +2935,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -3001,7 +3004,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -3070,7 +3073,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -3139,7 +3142,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -3208,7 +3211,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     refNumber:creator.refNumber,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -3276,7 +3279,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -3345,7 +3348,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -3414,7 +3417,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     refNumber:creator.refNumber,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -3483,7 +3486,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -3552,7 +3555,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -3620,7 +3623,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     refNumber:creator.refNumber,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -3689,7 +3692,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -3758,7 +3761,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -3828,7 +3831,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-     refNumber:creator.refNumber,
+     
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -3899,7 +3902,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -3971,7 +3974,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -4041,7 +4044,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -4112,7 +4115,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -4183,7 +4186,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -4256,7 +4259,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -4329,7 +4332,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -4402,7 +4405,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -4475,7 +4478,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -4549,7 +4552,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -4621,7 +4624,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -4693,7 +4696,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -4765,7 +4768,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -4839,7 +4842,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -4911,7 +4914,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -4983,7 +4986,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -5055,7 +5058,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -5129,7 +5132,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -5203,7 +5206,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -5277,7 +5280,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -5351,7 +5354,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -5425,7 +5428,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -5499,7 +5502,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -5573,7 +5576,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -5647,7 +5650,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -5721,7 +5724,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -5795,7 +5798,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -5869,7 +5872,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -5943,7 +5946,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -6017,7 +6020,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -6091,7 +6094,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -6165,7 +6168,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -6239,7 +6242,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -6313,7 +6316,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -6387,7 +6390,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -6461,7 +6464,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -6535,7 +6538,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -6609,7 +6612,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -6683,7 +6686,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -6757,7 +6760,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -6831,7 +6834,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -6905,7 +6908,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -6979,7 +6982,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -7053,7 +7056,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -7127,7 +7130,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -7201,7 +7204,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -7275,7 +7278,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -7349,7 +7352,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -7423,7 +7426,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -7497,7 +7500,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -7571,7 +7574,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -7645,7 +7648,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -7719,7 +7722,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -7795,7 +7798,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -7869,7 +7872,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -7943,7 +7946,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -8017,7 +8020,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -8091,7 +8094,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -8165,7 +8168,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -8239,7 +8242,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -8313,7 +8316,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -8387,7 +8390,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -8461,7 +8464,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -8535,7 +8538,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -8609,7 +8612,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -8683,7 +8686,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -8757,7 +8760,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -8831,7 +8834,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -8905,7 +8908,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -8979,7 +8982,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -9053,7 +9056,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -9127,7 +9130,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -9201,7 +9204,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -9275,7 +9278,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -9349,7 +9352,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -9423,7 +9426,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -9497,7 +9500,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -9571,7 +9574,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -9645,7 +9648,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -9719,7 +9722,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -9793,7 +9796,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -9867,7 +9870,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -9941,7 +9944,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -10015,7 +10018,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -10089,7 +10092,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -10163,7 +10166,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -10237,7 +10240,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -10311,7 +10314,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -10385,7 +10388,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -10461,7 +10464,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -10535,7 +10538,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -10609,7 +10612,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -10683,7 +10686,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -10757,7 +10760,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -10831,7 +10834,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -10905,7 +10908,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -10979,7 +10982,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -11053,7 +11056,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -11127,7 +11130,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -11201,7 +11204,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -11275,7 +11278,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -11349,7 +11352,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -11423,7 +11426,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -11497,7 +11500,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -11571,7 +11574,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -11645,7 +11648,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -11719,7 +11722,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -11793,7 +11796,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -11867,7 +11870,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -11941,7 +11944,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -12015,7 +12018,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -12089,7 +12092,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -12163,7 +12166,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -12237,7 +12240,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -12311,7 +12314,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -12385,7 +12388,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -12459,7 +12462,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -12533,7 +12536,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -12607,7 +12610,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -12681,7 +12684,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -12755,7 +12758,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -12829,7 +12832,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -12903,7 +12906,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -12977,7 +12980,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -13051,7 +13054,7 @@ const Marketplace = (props) => {
      bio: creator.bio,
      user: creator.user,
      currency: creator.currency,
-    refNumber:creator.refNumber,
+    
      age: creator.age,
      gender: creator.gender,
      rate: creator.rate,
@@ -13115,7 +13118,6 @@ const Marketplace = (props) => {
       user: creator.user,
       currency: creator.currency,
       age: creator.age,
-      refNumber:creator.refNumber,
       gender: creator.gender,
       rate: creator.rate,
       country: creator.country,
@@ -13509,28 +13511,31 @@ const renderLoginForm = () => {
                         }}
                       >
                         {" "}
-                      Africa’s influencer economy is booming—and we’re the engine. <br />
+                      You run the campaign — we handle recruitment. We identify,  <br />
                       </span>{" "}
                       <span style={{ marginLeft: matchesSM ? 20 : 60 }}>
-                      We plug top influencers into world-class brands 
+                      evaluate, and verify the right influencers for your project and 
                       </span>
                       <br />
                       <span style={{ marginLeft: matchesSM ? 20 : 110 }}>
-                      for campaigns that cut through the noise.
+                     deliver a curated, campaign-ready shortlist for your 
+                      </span>
+                      <br />
+                       <span style={{ marginLeft: matchesSM ? 20 : 120 }}>
+                     team to manage in-house.
                       </span>
                       <br />
                     </Typography>
-                    <Typography variant={matchesSM ? "subtitle2" : "h2"} align="left" style={{ marginTop: "2rem" }}><strong style={{marginLeft:matchesSM ? 10 : 110}}>Bold stories. Bigger results. No fluff.</strong></Typography>
+                    {/* <Typography variant={matchesSM ? "subtitle2" : "h2"} align="left" style={{ marginTop: "2rem" }}><strong style={{marginLeft:matchesSM ? 10 : 50}}>Influence Drives Growth. Make It Work for Your Brand.</strong></Typography> */}
                     </>
                   ) : (
                     <>
                     <Typography
                       variant={matchesSM ? "subtitle2" : "h2"}
                       align="left"
-                      style={{ marginTop: "18rem", fontSize: "1.2rem", color:"black", fontWeight:600 }}
+                      style={{ marginTop: "18rem", fontSize: "1.2rem" }}
                       justifyContent="center"
                       alignItems="center"
-
                     >
                       <span
                         style={{
@@ -13538,25 +13543,25 @@ const renderLoginForm = () => {
                         }}
                       >
                         {" "}
-                      Africa’s influencer economy is booming—and <br />
+                      You run the campaign — we handle recruitment.<br />
                       </span>{" "}
                       <span style={{ marginLeft: matchesSM ? 20 : 60 }}>
-                      we are the engine. 
+                       We identify, evaluate, and verify the right 
                       </span>
                       <br />
                       <span style={{ marginLeft: matchesSM ? 30 : 60 }}>
-                       We plug top influencers into world-class
+                       influencers  for your project and  deliver a 
                       </span>
                       <br />
                       <span style={{ marginLeft: matchesSM ? 40 : 110 }}>
-                       brands for campaigns  that cut through
+                       curated, campaign-ready  shortlist for  
                       </span>
                       <br />
                       <span style={{ marginLeft: matchesSM ? 50 : 140 }}>
-                        the noise.
+                       your  team to manage in-house.
                       </span>
                     </Typography>
-                    <Typography variant={matchesSM ? "subtitle2" : "h6"} align="left" style={{ marginTop: "2rem", fontSize:18 }}><strong style={{marginLeft:matchesSM ? 10 : 110}}>Bold stories. Bigger results. No fluff.</strong></Typography>
+                       {/* <Typography variant={matchesSM ? "subtitle2" : "h5"} align="center" style={{ marginTop: "2rem" }}><strong style={{marginLeft:matchesSM ? 10 : 110}}>Influence Drives Growth. Make It Work for Your Brand.</strong></Typography> */}
                     </>
                     
                   )}
@@ -13583,8 +13588,14 @@ const renderLoginForm = () => {
           </Grid>
         </Grid>
         {/* </section> */}
-        <HeroSection />
-        <TopCover 
+        {/* <HeroSectionBrand /> */}
+        <InfluencerRecruitmentHeroSection />
+        <InfluencerRecruitmentWhatWeDoforYou />
+        <InfluencerRecruitmentWhyBrandsChooseThisService />
+        <InfluencerRecruitmentServicePlan />
+        
+        
+        {/* <TopCover 
               token={props.token}
               userId={props.userId}
               setToken={props.setToken}
@@ -13597,11 +13608,8 @@ const renderLoginForm = () => {
               handleMakeOpenInfluencerSignUpDialogStatus={handleMakeOpenInfluencerSignUpDialogStatus}
               handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar={handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar}
               handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar={handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar}
-        />
-        <InfluencerDiscoveryService />
-        <ManagedInfluencerService />
-        <InfluencerRecruitmentService />
-        {/**<OurProcesses 
+        /> */}
+        {/* <OurProcesses 
           token={props.token}
           userId={props.userId}
           setToken={props.setToken}
@@ -13614,8 +13622,8 @@ const renderLoginForm = () => {
           handleMakeOpenInfluencerSignUpDialogStatus={handleMakeOpenInfluencerSignUpDialogStatus}
           handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar={handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar}
           handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar={handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar}
-        /> **/}
-       { /**<OurServicePlans 
+        />  */}
+        {/* <OurServicePlans 
           token={props.token}
           userId={props.userId}
           setToken={props.setToken}
@@ -13628,9 +13636,11 @@ const renderLoginForm = () => {
           handleMakeOpenInfluencerSignUpDialogStatus={handleMakeOpenInfluencerSignUpDialogStatus}
           handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar={handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar}
           handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar={handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar}
-        />**/}
-        {/* <TopCoverServices />
-        <TopCoverNew /> */}
+        /> */}
+        <HowToGetStarted />
+
+
+        {/* <TopCoverNew /> */}
         {/* <TopCover /> */}
         {/* <LearningPath
           updatePathHandler={updatePathHandler}
@@ -13662,7 +13672,7 @@ const renderLoginForm = () => {
           
     
         /> */}
-
+    
         
 
         {/* {isLoading && (
@@ -13715,4 +13725,4 @@ const renderLoginForm = () => {
   );
 };
 
-export default Marketplace;
+export default BrandInfluencerRecruitmentService;

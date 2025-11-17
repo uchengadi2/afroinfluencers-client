@@ -17,20 +17,20 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Snackbar from "@material-ui/core/Snackbar";
-import heroSection from "./../../assets/images/covers/food2.png";
-import backgroundDerica from "./../../assets/images/covers/food2.png";
-import backgroundPaint from "./../../assets/images/covers/delivery.png";
-import backgroundBulk from "./../../assets/images/covers/payment1.png";
-import backgroundRetail from "./../../assets/images/covers/delivery.png";
+import heroSection from "./../../../assets/images/covers/food2.png";
+import backgroundDerica from "./../../../assets/images/covers/food2.png";
+import backgroundPaint from "./../../../assets/images/covers/delivery.png";
+import backgroundBulk from "./../../../assets/images/covers/payment1.png";
+import backgroundRetail from "./../../../assets/images/covers/delivery.png";
 
-import backgroundProduct from "./../../assets/images/covers/aboutus-cover.jpg";
-import backgroundGrowth from "./../../assets/images/covers/channels.jpg";
-import backgroundMetrics from "./../../assets/images/covers/assessment.jpg";
-import heroImage from "./../../assets/images/controlsoft/creator1.jpg";
+import backgroundProduct from "./../../../assets/images/covers/aboutus-cover.jpg";
+import backgroundGrowth from "./../../../assets/images/covers/channels.jpg";
+import backgroundMetrics from "./../../../assets/images/covers/assessment.jpg";
+import heroImage from "./../../../assets/images/influencers/cover2.webp";
 
-import { baseURL } from "./../../apis/util";
+import { baseURL } from "./../../../apis/util";
 
-import theme from "./../ui/Theme";
+import theme from "./../../ui/Theme";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -52,16 +52,16 @@ const useStyles = makeStyles((theme) => ({
     
       uppercard: {
         maxWidth: "100%",
-        height: 750,
+        height: 700,
         //height: 350,
         width: "100%",
     
         marginLeft: "10px",
         //borderRadius: 30,
-        marginTop: "1em",
-        marginBottom: "2em",
-        padding: 20,
-         backgroundColor:"#FEF3E2",
+        marginTop: "3em",
+       // marginBottom: "1em",
+        padding: 40,
+        backgroundColor:"#FFFFFF"
         // "&:hover": {
         //   //border: "solid",
         //   //borderColor: theme.palette.common.grey,
@@ -69,16 +69,16 @@ const useStyles = makeStyles((theme) => ({
       },
       uppercardMobile: {
        maxWidth: "100%",
-        height: 600,
+        height: 430,
         //height: 350,
         width: "100%",
     
         marginLeft: "0px",
         //borderRadius: 30,
         marginTop: "3em",
-        marginBottom: "1em",
+        //marginBottom: "1em",
         padding: 10,
-        backgroundColor:"#FEF3E2",
+        backgroundColor:"#FFFFFF"
         // "&:hover": {
         //   //border: "solid",
         //   //borderColor: theme.palette.common.grey,
@@ -366,11 +366,11 @@ const useStyles = makeStyles((theme) => ({
       button: {
         ...theme.typography.estimate,
         borderRadius: "250px",
-        marginLeft: "20%",
+        marginLeft: "25%",
+        marginTop: "100px",
         marginRight: "150px",
-        
-        height: "45px",
-        width: "180px",
+        height: "35px",
+        width: "160px",
           marginBottom:100,
     
         "&:hover": {
@@ -383,8 +383,10 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "250px",
         marginLeft: "0%",
         marginRight: "0px",
-        height: "45px",
-        width: "180px",
+        //height: "35px",
+        width: "160px",
+        fontSize:11,
+        marginTop:40,
       
     
         "&:hover": {
@@ -394,7 +396,7 @@ const useStyles = makeStyles((theme) => ({
       },
 }));
 
-export default function OurProcesses() {
+export default function InfluencerRecruitmentService() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [openLoginForm, setOpenLoginForm] = useState(false);
@@ -430,7 +432,8 @@ export default function OurProcesses() {
 
   const Str = require("@supercharge/strings");
 
-  const ourProcess = "* **Browse & Select Influencers**: Brands search our platform to discover influencers across various niches, platforms, age range and countries.\n\n* **Engage & Confirm**: Once a brand selects an influencer, we initiate the process by drafting scope and commercial terms.\n\n* **Pay Initiation Fee**: A one-time contract initiation fee of N250,000 for Nigerian Influencers and $250 for Other Country Influencers is required per influencer. This fee is non-refundable but deductible from the final influencer payout.\n\n* **Finalize Contract & Budget**: The influencer's rate and deliverables are confirmed, including agency service fees and execution surcharges.\n\n* **Launch & Manage**:We manage all communications, deliverables, and reporting for each influencer engagement.";
+  const brandProcess = "* **Step 1: Submit a Campaign**: Upload a link to your post or content. Choose the platform (Instagram, X, Facebook, LinkedIn, TikTok, YouTube).\n\n* **Step 2: Set Engagement Goals**: Define the type of engagement: likes, shares, comments, DMs, tags, etc. Optionally, set audience filters.\n\n* **Step 3: Choose Reward Budget**: Set the budget and payout-per-engagement or reach (for PPAR campaigns). Our algorithm allocates tasks to the best-fit army members.\n\n* **Step 4: Monitor & Optimize**: Use a live dashboard to track progress, view engagement breakdowns, verify authenticity, and pause/resume campaigns anytime.";
+  const armyProcess = "* **Step 1: Register & Verify**: Sign up, verify your identity and social accounts. You’ll be assessed and placed into engagement tiers.\n\n* **Step 2: Browse Campaigns**: Choose from open missions based on your platforms and interests. See required actions and rewards per task.\n\n* **Step 3: Complete Tasks**: Engage with brand content exactly as instructed. The more precise and impactful your action, the higher your reward.\n\n* **Step 4: Get Paid**: Receive rewards directly into your wallet for every verified engagement or delivery.";
       return (
         <>
           {matchesMDUp ? (
@@ -444,27 +447,47 @@ export default function OurProcesses() {
                   
                 >
                   
-                  <Typography variant="h3" style={{marginLeft:'40%',marginBottom:30}}>How It Works</Typography>
+                  {/* <Typography variant="h4" style={{marginLeft:'50%',marginBottom:30, fontSize:30, fontWeight:700, color:"black"}}>Airport Protocol Services</Typography> */}
                     <Grid
                       item
                       // alignItems="center"
                       // justifyContent="center"
                       //style={{ height: "60%", marginLeft: "3.5em" }}
-                      style={{ height: "90%", marginLeft: "10%", width:"50%", padding:20  }}
+                      style={{ height: "90%", marginLeft: "10%", width:"50%", padding:10,marginTop:70  }}
                     >
-                      <Typography style={{marginTop:40, fontSize:15}}>
-                            <ReactMarkdown>{ourProcess}</ReactMarkdown>
+                      <Typography variant="h3" style={{marginLeft:'0%',marginBottom:30}}>Influencer Recruitment & Vetting Service</Typography>
+                     {/* <Typography style={{marginTop:0, padding: 0,fontSize:17}}>
+                          <strong><ReactMarkdown>Fast-Track Your Arrival. Elevate Your Departure.</ReactMarkdown></strong>
+                    </Typography> */}
+                      <Typography style={{marginTop:10, fontSize:15}}>
+                            <ReactMarkdown>Finding reliable influencers is one of the most time-consuming and uncertain parts of influencer marketing. Our Influencer Recruitment & Vetting Only service solves this challenge by giving you access to creators who have already been screened, verified, and evaluated for brand fit.</ReactMarkdown>
                       </Typography>
-                      {/* <Typography style={{marginTop:20, fontSize:19}}>
-                            <ReactMarkdown>Whether you're launching a local product or expanding across markets, we provide the tools, talent, and support to drive real results.</ReactMarkdown>
-                      </Typography> */}
+                      <Typography style={{marginTop:30, fontSize:15}}>
+                          <ReactMarkdown>From business strategy and process optimization to performance management and organizational development, we deliver insights and frameworks that turn complexity into clarity. With a focus on measurable outcomes, we help you strengthen your competitive position and achieve sustainable excellence.</ReactMarkdown>
+                    </Typography>
+                      {/* <Typography style={{marginTop:30, fontSize:15}}>
+                          <em><ReactMarkdown>Skip the lines, avoid delays, and focus on what matters — your business.</ReactMarkdown></em>
+                    </Typography> */}
+                     <Button 
+                        variant="contained" 
+                        disabled={false}
+                        color="secondary" 
+                        justifyContent="center" 
+                        className={classes.button}
+                        component={Link}
+                         to="/brandrecruitmentcentral/"
+                    
+                    >
+                       Explore Service
+                    </Button>
                     </Grid>
                     <Grid
                     container
                     direction="row"
-                    style={{ marginLeft: 20, width: "30%", marginTop: 0 }}
-                    alignItems="center"
                     className={classes.heroImage}
+                    style={{ marginLeft: 20, width: "30%", marginTop: 50 }}
+                    alignItems="center"
+                    
                     justifyContent={matchesSM ? "center" : "space-between"}
                     //direction={matchesSM ? "column" : "row"}
                     item
@@ -472,20 +495,8 @@ export default function OurProcesses() {
                     {/* <Typography variant="h5" style={{marginLeft:"30%", marginBottom:20, width:"60%"}}>Our Process</Typography> */}
                     
                   </Grid>
-                   <Grid item  style={{width: "100%", marginTop: -100, marginLeft:"20%", marginBottom:10}}>
-                    <Button 
-                        variant="contained" 
-                        color="secondary" 
-                        justifyContent="center" 
-                        className={classes.button}
-                        component={Link}
-                         to="/influencercentral/"
+                   
                     
-                    >
-                        Get Influencers
-                    </Button>
-                  </Grid>
-                     
                   
                  
                 </Grid>
@@ -495,7 +506,7 @@ export default function OurProcesses() {
             </>
           ) : (
             <Box className={classes.uppercardMobile} disableRipple>
-               <Typography variant="h3" style={{marginLeft:'20%',marginBottom:30, fontSize:25}}>How It Works</Typography>
+                {/* <Typography variant="h4" style={{marginLeft:'40%',marginBottom:10}}>Airport Protocol Services</Typography> */}
                     <Grid
                             container
                             direction="column"
@@ -523,28 +534,35 @@ export default function OurProcesses() {
                                 // alignItems="center"
                                 // justifyContent="center"
                                 //style={{ height: "60%", marginLeft: "3.5em" }}
-                                style={{ height: "90%", marginLeft: "0%", width:"70%", padding:2, marginRight:"10%"  }}
+                                style={{ height: "90%", marginLeft: "2%", width:"70%", padding:2, marginRight:"10%"  }}
                               >
-                                <Typography style={{marginTop:10, fontSize:10.5}}>
-                                      <ReactMarkdown>{ourProcess}</ReactMarkdown>
-                                </Typography>
-                                {/* <Typography style={{marginTop:10, fontSize:12}}>
-                                      <ReactMarkdown>Whether you're launching a local product or expanding across markets, we provide the tools, talent, and support to drive real results.</ReactMarkdown>
-                                </Typography> */}
-                              </Grid>
-                           <Grid item  style={{width: "30%", height: "10%",marginLeft:"10%", marginBottom:0,marginTop:-100}}>
-                                               <Button 
-                                                   variant="contained" 
-                                                   color="secondary" 
-                                                   justifyContent="center" 
-                                                   className={classes.buttonMobile}
-                                                   component={Link}
-                                                   to="/influencercentral/"
-                                               
-                                               >
-                                                   Get Influencers
-                                               </Button>
-                                             </Grid>   
+                               <Typography variant="h5" style={{marginLeft:'0%',marginBottom:30, fontWeight:700}}>Influencer Recruitment & Vetting Service</Typography>
+                              {/* <Typography style={{marginTop:0, padding: 0,fontSize:10}}>
+                                  <strong><ReactMarkdown>Fast-Track Your Arrival. Elevate Your Departure.</ReactMarkdown></strong>
+                              </Typography> */}
+                                <Typography style={{marginTop:10, fontSize:10}}>
+                                <ReactMarkdown>Need help finding the right talent? We specialize in sourcing, screening, and verifying influencers that perfectly align with your brand values and campaign goals. You focus on strategy — we’ll deliver a curated list of verified influencers ready for activation.</ReactMarkdown>
+                              </Typography>
+                              {/* <Typography style={{marginTop:30, fontSize:10}}>
+                                <ReactMarkdown>From business strategy and process optimization to performance management and organizational development, we deliver insights and frameworks that turn complexity into clarity. With a focus on measurable outcomes, we help you strengthen your competitive position and achieve sustainable excellence.</ReactMarkdown>
+                              </Typography> */}
+                               {/* <Typography style={{marginTop:30, fontSize:10}}>
+                                <em><ReactMarkdown>Skip the lines, avoid delays, and focus on what matters — your business.</ReactMarkdown></em>
+                              </Typography> */}
+                              <Button 
+                                variant="contained"
+                                color="secondary" 
+                                 disabled={false}
+                                justifyContent="center" 
+                                className={classes.buttonMobile}
+                                component={Link}
+                                to="/brandrecruitmentcentral/"
+                    
+                          >
+                              Explore Service
+                          </Button>
+                      </Grid>
+                              
                             
                            
                           </Grid>

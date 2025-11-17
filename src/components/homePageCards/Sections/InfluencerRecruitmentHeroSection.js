@@ -17,20 +17,19 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Snackbar from "@material-ui/core/Snackbar";
-import heroSection from "./../../assets/images/covers/food2.png";
-import backgroundDerica from "./../../assets/images/covers/food2.png";
-import backgroundPaint from "./../../assets/images/covers/delivery.png";
-import backgroundBulk from "./../../assets/images/covers/payment1.png";
-import backgroundRetail from "./../../assets/images/covers/delivery.png";
+import heroSection from "./../../../assets/images/covers/food2.png";
+import backgroundDerica from "./../../../assets/images/covers/food2.png";
+import backgroundPaint from "./../../../assets/images/covers/delivery.png";
+import backgroundBulk from "./../../../assets/images/covers/payment1.png";
+import backgroundRetail from "./../../../assets/images/covers/delivery.png";
 
-import backgroundProduct from "./../../assets/images/covers/aboutus-cover.jpg";
-import backgroundGrowth from "./../../assets/images/covers/channels.jpg";
-import heroImage from "./../../assets/images/controlsoft/image24.webp";
+import backgroundProduct from "./../../../assets/images/covers/aboutus-cover.jpg";
+import backgroundGrowth from "./../../../assets/images/covers/channels.jpg";
+import heroImage from "./../../../assets/images/controlsoft/creator2.jpg";
 
+import { baseURL } from "./../../../apis/util";
 
-import { baseURL } from "./../../apis/util";
-
-import theme from "./../ui/Theme";
+import theme from "./../../ui/Theme";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -58,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     
         marginLeft: "10px",
         //borderRadius: 30,
-        marginTop: "7em",
+        marginTop: "3em",
         marginBottom: "1em",
         padding: 20,
         backgroundColor:"#FFFFFF"
@@ -69,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
       },
       uppercardMobile: {
         maxWidth: "100%",
-        height: 370,
+        height: 470,
         //height: 350,
         width: "100%",
     
@@ -369,7 +368,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: "50%",
         marginRight: "150px",
         height: "45px",
-        width: "240px",
+        width: "250px",
           marginBottom:100,
     
         "&:hover": {
@@ -383,7 +382,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: "0%",
         marginRight: "0px",
         height: "45px",
-        width: "240px",
+        width: "250px",
       
     
         "&:hover": {
@@ -393,7 +392,7 @@ const useStyles = makeStyles((theme) => ({
       },
 }));
 
-export default function HowToGetStarted() {
+export default function InfluencerRecruitmentHeroSection() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [openLoginForm, setOpenLoginForm] = useState(false);
@@ -429,17 +428,17 @@ export default function HowToGetStarted() {
 
   const Str = require("@supercharge/strings");
 
-  const howToGetStartedSection = "* **Sign Up**: Create your brand account and complete your profile. \n\n* **Share Your Brief**: Upload or craft a clear project brief with your campaign goals.\n\n* **Initiate Request**: Make your request, and we’ll source the perfect influencers to execute your vision.\n\n\n\n";
+  const whatwedoSection = "Connect with Africa’s most impactful content creators. Our platform makes it easy for brands to discover, engage, and collaborate with influencers across the continent—securely, transparently, and at scale. Whether you're launching a local product or expanding across markets, we provide the tools, talent, and support to drive real results..\n\n\n\n";
     return (
       <>
         {matchesMDUp ? (
           <>
             <Box className={classes.uppercard} disableRipple={true}>
-               <Typography variant="h3" style={{marginLeft:'40%',marginBottom:30}}>How To Get Started</Typography>
+              {/* <Typography variant="h5" style={{marginLeft:"60%", marginBottom:0, width:"100%"}}>Our Process</Typography> */}
               <Grid
                 container
                 direction="row"
-                style={{ marginTop: 20, height: "100%" }}
+                style={{ marginTop: 0, height: "100%" }}
                 
               >
                 <Grid
@@ -456,7 +455,7 @@ export default function HowToGetStarted() {
                   
                 </Grid>
                 {/* <Typography style={{marginTop:0, padding: 70}}>
-                          <ReactMarkdown>{howToGetStartedSection}</ReactMarkdown>
+                          <ReactMarkdown>{whatwedoSection}</ReactMarkdown>
                     </Typography> */}
                   <Grid
                     item
@@ -466,13 +465,19 @@ export default function HowToGetStarted() {
                     style={{ height: "60%", marginLeft: "10%", width:"50%", padding:50  }}
                   >
                     <Typography style={{marginTop:40, fontSize:19}}>
-                          <ReactMarkdown>Getting started is simple—just follow three easy steps to launch your influencer campaign. </ReactMarkdown>
+                          <ReactMarkdown>Many brands prefer to keep influencer campaign management internal — but still require expert support to find credible, high-quality creators. </ReactMarkdown>
                     </Typography>
                     <Typography style={{marginTop:20, fontSize:19}}>
-                          <ReactMarkdown>{howToGetStartedSection}</ReactMarkdown>
+                          <ReactMarkdown>Our Influencer Recruitment & Vetting Only service is designed for brands that want complete control of campaign execution, while outsourcing the most critical (and time-consuming) part: identifying the right influencers.</ReactMarkdown>
+                    </Typography>
+                     <Typography style={{marginTop:20, fontSize:19}}>
+                          <ReactMarkdown>{"* You provide the brief. \n\n * We source, screen, and verify. \n\n* You take over from there"}</ReactMarkdown>
+                    </Typography>
+                     <Typography style={{marginTop:20, fontSize:19}}>
+                          <ReactMarkdown>This ensures your campaigns start with the right talent — vetted, aligned, and ready for collaboration.</ReactMarkdown>
                     </Typography>
                   </Grid>
-                  <Grid item  style={{width: "100%", marginTop: 0, marginLeft:"20%", marginBottom:50}}>
+                  <Grid item  style={{width: "100%", marginTop: 100, marginLeft:"20%", marginBottom:10}}>
                     <Button 
                         variant="contained" 
                         color="secondary" 
@@ -515,23 +520,29 @@ export default function HowToGetStarted() {
                   
                 </Grid>
                 {/* <Typography style={{marginTop:0, padding: 70}}>
-                          <ReactMarkdown>{howToGetStartedSection}</ReactMarkdown>
+                          <ReactMarkdown>{whatwedoSection}</ReactMarkdown>
                     </Typography> */}
                   <Grid
                     item
                     // alignItems="center"
                     // justifyContent="center"
                     //style={{ height: "60%", marginLeft: "3.5em" }}
-                    style={{ height: "70%", marginLeft: "2%", width:"70%", padding:5, marginRight:"10%"  }}
+                    style={{ height: "70%", marginLeft: "2%", width:"70%", padding:5, marginRight:"10%", marginBottom:20 }}
                   >
                     <Typography style={{marginTop:10, fontSize:12}}>
-                          <ReactMarkdown>Getting started is simple—just follow three easy steps to launch your influencer campaign. </ReactMarkdown>
+                          <ReactMarkdown>Many brands prefer to keep influencer campaign management internal — but still require expert support to find credible, high-quality creators. </ReactMarkdown>
                     </Typography>
                     <Typography style={{marginTop:10, fontSize:12}}>
-                          <ReactMarkdown>{howToGetStartedSection}</ReactMarkdown>
+                          <ReactMarkdown>Our Influencer Recruitment & Vetting Only service is designed for brands that want complete control of campaign execution, while outsourcing the most critical (and time-consuming) part: identifying the right influencers.</ReactMarkdown>
+                    </Typography>
+                     <Typography style={{marginTop:10, fontSize:12}}>
+                          <ReactMarkdown>{"* You provide the brief. \n\n * We source, screen, and verify. \n\n* You take over from there"}</ReactMarkdown>
+                    </Typography>
+                    <Typography style={{marginTop:10, fontSize:12}}>
+                          <ReactMarkdown>This ensures your campaigns start with the right talent — vetted, aligned, and ready for collaboration.</ReactMarkdown>
                     </Typography>
                   </Grid>
-                  <Grid item  style={{width: "30%", height: "10%",marginLeft:"5%", marginBottom:0}}>
+                  <Grid item  style={{width: "30%", height: "10%",marginLeft:"2%", marginBottom:0, marginTop:60}}>
                     <Button 
                         variant="contained" 
                         color="secondary" 

@@ -379,6 +379,35 @@ const useStyles = makeStyles((theme) => ({
       backgroundAttachment: "inherit",
     },
   },
+  button: {
+        ...theme.typography.estimate,
+        borderRadius: "250px",
+        marginLeft: "20%",
+        marginRight: "150px",
+        
+        height: "45px",
+        width: "180px",
+          marginBottom:100,
+    
+        "&:hover": {
+          backgroundColor: theme.palette.secondary.light,
+          color: "white",
+        },
+      },
+      buttonMobile: {
+        ...theme.typography.estimate,
+        borderRadius: "250px",
+        marginLeft: "0%",
+        marginRight: "0px",
+        height: "45px",
+        width: "180px",
+      
+    
+        "&:hover": {
+          backgroundColor: theme.palette.secondary.light,
+          color: "white",
+        },
+      },
 }));
 
 export default function OurServicePlans(props) {
@@ -592,7 +621,19 @@ export default function OurServicePlans(props) {
              </Typography>
              <Typography style={{marginBottom:40, color:"black", fontSize:13}}><strong><em>This Fee is non-refundable but is automatically deducted  from the final approved influencer fee upon successful contract execution</em></strong></Typography>
             </Box>
-             
+               <Grid item  style={{width: "100%", marginTop: -0, marginLeft:"20%", marginBottom:50}}>
+                                 <Button 
+                                     variant="contained" 
+                                     color="secondary" 
+                                     justifyContent="center" 
+                                     className={classes.button}
+                                     component={Link}
+                                      to="/influencercentral/"
+                                 
+                                 >
+                                     Get Influencers!
+                                 </Button>
+                               </Grid>
            
           </Box>
         </>
@@ -748,7 +789,19 @@ export default function OurServicePlans(props) {
              </Typography>
              <Typography style={{marginBottom:10, color:"black", fontSize:13}}><strong><em>This Fee is non-refundable but is automatically deducted  from the final approved influencer fee upon successful contract execution</em></strong></Typography>
             </Box>
-
+            <Grid item  style={{width: "30%", height: "10%",marginLeft:"20%", marginBottom:0,marginTop:-100}}>
+                                                           <Button 
+                                                               variant="contained" 
+                                                               color="secondary" 
+                                                               justifyContent="center" 
+                                                               className={classes.buttonMobile}
+                                                               component={Link}
+                                                               to="/influencercentral/"
+                                                           
+                                                           >
+                                                               Get Influencers
+                                                           </Button>
+                                                         </Grid>   
             
           </Grid>
           {/**This is the last lap */}

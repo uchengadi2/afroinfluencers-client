@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "10px",
     //borderRadius: 30,
     marginTop: "10em",
-    marginBottom: "10em",
+    marginBottom: "2em",
     padding: 0,
     backgroundColor:"#FEF3E2",
     // "&:hover": {
@@ -93,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
     //height: 350,
     width: "100%",
 
-    marginLeft: "10px",
+    marginLeft: "0px",
     //borderRadius: 30,
     marginTop: "10em",
     marginBottom: "10em",
@@ -458,7 +458,8 @@ export default function TopCover(props) {
   const Str = require("@supercharge/strings");
 
   const whatwedoSection = "* **Discover Top Influencers**: Search by niche, location, audience, and engagement \n\n* **Initiate & Secure Contracts**: We draft and manage agreements to protect both parties.\n\n* **Manage Campaign Execution**: From creative brief delivery to content timelines and approvals, we handle it all.\n\n* **Ensure Compliance & Quality**: We review content for brand alignment and ensure all guidelines are followed.\n\n* **Track & Report Performance**: Post-campaign insights and data are provided to evaluate ROI and impact.\n\n\n\n";
-  const brandServices = "* **Influencer Discovery & Vetting**: Access a curated database of sub-nano, nano-, micro-, macro,mega and celebrity‑influencers verified for authenticity and engagement.\n\n* **Strategic Campaign Planning**: We align influencer storytelling with your marketing objectives, target audience, and KPIs.\n\n* **Contracting & Compliance**: End‑to‑end contract drafting, negotiation, and local advertising guideline compliance\n\n* **Creative Direction & QA**: Brief development, content calendar management, and quality checks before posts go live.\n\n* **Cross‑Market Coordination**: Seamless rollout of multi‑country campaigns with localized insights and language support.\n\n* **Real‑Time Analytics & Reporting**:Transparent dashboards measuring reach, engagement, sentiment, and conversions.";
+  // const brandServices = "* **Influencer Discovery & Vetting**: Access a curated database of sub-nano, nano-, micro-, macro,mega and celebrity‑influencers verified for authenticity and engagement.\n\n* **Strategic Campaign Planning**: We align influencer storytelling with your marketing objectives, target audience, and KPIs.\n\n* **Contracting & Compliance**: End‑to‑end contract drafting, negotiation, and local advertising guideline compliance\n\n* **Creative Direction & QA**: Brief development, content calendar management, and quality checks before posts go live.\n\n* **Cross‑Market Coordination**: Seamless rollout of multi‑country campaigns with localized insights and language support.\n\n* **Real‑Time Analytics & Reporting**:Transparent dashboards measuring reach, engagement, sentiment, and conversions.";
+  const brandServices = "* **Managed Influencer Marketing Campaigns**: For brands that want end-to-end execution. You handpick the influencers, and we take care of everything else — campaign management, communication, analytics, and reporting — delivering measurable impact without the stress.\n\n* **Influencer Recruitment & Vetting Only Service**: For brands that prefer to stay hands-on but need access to high-quality, verified influencers. We source, screen, and present influencers that fit your campaign goals, ensuring authenticity and alignment with your brand values.\n\n* **Influencer Discovery & Self-Management Service**: For brands ready to take full control. Our intuitive platform gives you direct access to a comprehensive influencer database — empowering you to discover, vet, and engage creators on your own terms.";
   const influencerServices = "* **Premium Brand Collaborations**: Get matched with reputable local and global brands that fit your niche and audience.\n\n* **Profile Optimization & Media Kits**: Enhance your pitch power with professionally designed media kits showcasing verified metrics.\n\n* **Prompt & Secure Payments**: Transparent earnings dashboard and on‑time payouts in your preferred currency.\n\n* **Campaign Support & Guidance**: Dedicated account managers to help interpret briefs, negotiate deliverables, and maintain brand alignment.\n\n* **Skill‑Building Resources**: Access webinars and resources on content trends, platform algorithms, and personal brand growth.\n\n* **Long‑Term Partnership Opportunities**: Become an official brand ambassador and secure recurring revenue streams.";
   const medicalServices = "* **Emergency Airport Clearances**: Rapid clearance procedures for medical evacuation flights, ambulances, and emergency arrivals.\n\n* **Ambulance Coordination**: Pre-arranged ambulance or medical staff at airside gates or aircraft doors.\n\n* **Patient Escort**: Protocol officers accompany patients through immigration and customs, ensuring safety and comfort.\n\n* **Medical Equipment Handling**: Special assistance for the transport of wheelchairs, stretchers, oxygen tanks, or life-saving devices.\n\n* **Hospital Liaison**: Coordination with receiving hospitals, arranging medical records handovers, and transportation.\n\n* **Travel Insurance Liaison**: Coordination with travel insurance providers for claims and coverage during the trip.";  
   const airlineCrewServices = "* **Crew Meet & Greet**: Protocol officers welcome arriving or departing crew members, ensuring a smooth and timely transition.\n\n* **Accommodation & Transfers**: Booking and coordinating layover hotels, airport shuttles, and crew transportation.\n\n* **Visa & Immigration Facilitation**: Assistance with crew visa-on-arrival, temporary passes, or transit clearances.\n\n* **Lost Baggage Support**: Handling reports and coordination with airlines for missing or delayed crew baggage.\n\n* **Flight Operations Coordination**: Liaising with ground handling agents, flight dispatchers, and airport authorities to ensure timely departures.\n\n* **Crew Lounge Access**: Arranging rest areas or lounges while waiting for connecting flights or ground transportation.";
@@ -549,14 +550,14 @@ export default function TopCover(props) {
                   // style={{ height: "60%", marginLeft: "3.5em" }}
                   style={{ height: "50%", marginLeft: "3.5em" }}
                 >
-                  <Typography><ReactMarkdown>**Our comprehensive solutions empower brands to harness the full potential of influencer marketing across Africa’s diverse markets:**</ReactMarkdown></Typography>
+                  <Typography><ReactMarkdown>**Whether you want full campaign management, expert influencer recruitment, or total control through our self-service platform — we give you the tools, talent, and support to make influencer marketing simple, strategic, and successful.**</ReactMarkdown></Typography>
                   <Typography>   
-                  {/* <br /><strong>Services Include:</strong><br />                */}
+                  <br /><strong>Services Include:</strong><br />               
                   <ReactMarkdown>{brandServices}</ReactMarkdown>
                   </Typography>
-                  <Typography>Ready to elevate your next campaign? </Typography>
+                  {/* <Typography>Ready to elevate your next campaign? </Typography> */}
                 </Grid>
-                <Grid item
+                {/* <Grid item
                   alignItems="center"
                   // style={{ height: "60%", marginLeft: "3.5em" }}
                   style={{ height: "15%", marginLeft: "3.5em", marginTop: 20, paddingTop:50 }}
@@ -576,7 +577,7 @@ export default function TopCover(props) {
                   >
                     Learn More ...
                   </Button>
-                </Grid>
+                </Grid> */}
               </Grid>
 
               <Grid
@@ -645,7 +646,7 @@ export default function TopCover(props) {
             <Grid
               container
               direction="column"
-              style={{ marginLeft: 10, width: "100%", marginTop: 0 }}
+              style={{ marginLeft: 0, width: "100%", marginTop: 0 }}
             >
               <Typography variant="h5" style={{marginLeft:10, marginBottom:10, fontSize:15}}> What We Do</Typography>
               <Grid
@@ -689,61 +690,10 @@ export default function TopCover(props) {
                 </Button>
               </Grid> */}
             </Grid>
-            <Grid
+              <Grid
               container
               direction="column"
-              style={{ marginLeft: 0, width: "100%", marginTop: 0 }}
-            >
-              <Typography variant="h5" style={{marginLeft:10, marginBottom:10}}>Brand Services</Typography>
-
-              <Grid
-                container
-                //direction="row"
-                alignItems="center"
-                className={classes.qualityAssurance}
-                justifyContent={matchesSM ? "center" : "space-between"}
-                direction={matchesSM ? "column" : "row"}
-                item
-                style={{ height: "20%", marginTop: 10, marginLeft: 20 }}
-              ></Grid>
-
-              <Grid
-                item
-                alignItems="center"
-                style={{ height: "60%", marginLeft: 25, marginBottom:0 }}
-              >
-                 
-                  {/* <br /><strong>Services Include:</strong><br />                */}
-                  <Typography><ReactMarkdown>**Our comprehensive solutions empower brands to harness the full potential of influencer marketing across Africa’s diverse markets:**</ReactMarkdown></Typography>
-                  <Typography>   
-                  {/* <br /><strong>Services Include:</strong><br />                */}
-                  <ReactMarkdown>{brandServices}</ReactMarkdown>
-                  </Typography>
-                  <Typography>Ready to elevate your next campaign?</Typography>
-              </Grid>
-              <Grid
-                item
-                alignItems="center"
-                // style={{ height: "60%", marginLeft: "3.5em" }}
-                style={{ height: "10%", marginLeft: "0.5em", marginTop:10 }}
-              >
-                <Button
-                  variant="contained"
-                  color="secondary" 
-                  justifyContent="center" 
-                  className={classes.actionPlusMobileButton}
-                  component={Link}
-                  to="/brandcentral/"
-                >
-                  Learn More ...
-                </Button>
-              </Grid>
-            </Grid>
-
-            <Grid
-              container
-              direction="column"
-              style={{ marginLeft: 0, width: "100%", marginTop: 0 }}
+              style={{ marginLeft: 10, width: "100%", marginTop: 0 }}
             >
               <Typography variant="h5" style={{marginLeft:10, marginBottom:0}}>Influencers Services</Typography>
               <Grid
@@ -787,6 +737,58 @@ export default function TopCover(props) {
                 </Button>
               </Grid>
             </Grid>
+            <Grid
+              container
+              direction="column"
+              style={{ marginLeft: 10, width: "100%", marginTop: 0 }}
+            >
+              <Typography variant="h5" style={{marginLeft:10, marginBottom:10}}>Brand Services</Typography>
+
+              <Grid
+                container
+                //direction="row"
+                alignItems="center"
+                className={classes.qualityAssurance}
+                justifyContent={matchesSM ? "center" : "space-between"}
+                direction={matchesSM ? "column" : "row"}
+                item
+                style={{ height: "20%", marginTop: 10, marginLeft: 20 }}
+              ></Grid>
+
+              <Grid
+                item
+                alignItems="center"
+                style={{ height: "60%", marginLeft: 25, marginBottom:0 }}
+              >
+                 
+                  {/* <br /><strong>Services Include:</strong><br />                */}
+                  <Typography><ReactMarkdown>**Whether you want full campaign management, expert influencer recruitment, or total control through our self-service platform — we give you the tools, talent, and support to make influencer marketing simple, strategic, and successful.**</ReactMarkdown></Typography>
+                  <Typography>   
+                  <br /><strong>Services Include:</strong><br />               
+                  <ReactMarkdown>{brandServices}</ReactMarkdown>
+                  </Typography>
+                  {/* <Typography>Ready to elevate your next campaign?</Typography> */}
+              </Grid>
+              {/* <Grid
+                item
+                alignItems="center"
+                // style={{ height: "60%", marginLeft: "3.5em" }}
+                style={{ height: "10%", marginLeft: "0.5em", marginTop:10 }}
+              >
+                <Button
+                  variant="contained"
+                  color="secondary" 
+                  justifyContent="center" 
+                  className={classes.actionPlusMobileButton}
+                  component={Link}
+                  to="/brandcentral/"
+                >
+                  Learn More ...
+                </Button>
+              </Grid> */}
+            </Grid>
+
+          
           </Grid>
           
           

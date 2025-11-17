@@ -58,6 +58,9 @@ import UserSignUpCreator from "../users/UserSignUpCreator";
 import DashboardCreator from "../Dashboard/DashboardCreator";
 import DashboardBrand from "../Dashboard/DashboardBrand";
 import AddCreatorForm from "../Dashboard/products/AddCreatorForm";
+import SignUpForm from "../authForms/SignUpForm";
+import SignUpCreatorForm from "../authForms/SignUpCreatorForm";
+
 
 function ElevationScroll(props) {
   const { children } = props;
@@ -1001,6 +1004,7 @@ const Header = (props) => {
       >
         <DialogContent>
           <UserSignUp
+          // {/* <SignUpForm  
             token={props.token}
             handleMakeOpenSignUpDialogStatus={handleMakeOpenSignUpDialogStatus}
             handleMakeCloseSignUpDialogStatus={
@@ -1040,6 +1044,7 @@ const Header = (props) => {
       >
         <DialogContent>
           <UserSignUpCreator
+         
             token={props.token}
             handleMakeOpenCreatorSignUpDialogStatus={handleMakeOpenCreatorSignUpDialogStatus}
             handleMakeCloseSignCreatorUpDialogStatus={

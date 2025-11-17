@@ -17,20 +17,20 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Snackbar from "@material-ui/core/Snackbar";
-import heroSection from "./../../assets/images/covers/food2.png";
-import backgroundDerica from "./../../assets/images/covers/food2.png";
-import backgroundPaint from "./../../assets/images/covers/delivery.png";
-import backgroundBulk from "./../../assets/images/covers/payment1.png";
-import backgroundRetail from "./../../assets/images/covers/delivery.png";
+import heroSection from "./../../../assets/images/covers/food2.png";
+import backgroundDerica from "./../../../assets/images/covers/food2.png";
+import backgroundPaint from "./../../../assets/images/covers/delivery.png";
+import backgroundBulk from "./../../../assets/images/covers/payment1.png";
+import backgroundRetail from "./../../../assets/images/covers/delivery.png";
 
-import backgroundProduct from "./../../assets/images/covers/aboutus-cover.jpg";
-import backgroundGrowth from "./../../assets/images/covers/channels.jpg";
-import heroImage from "./../../assets/images/controlsoft/image24.webp";
+import backgroundProduct from "./../../../assets/images/covers/aboutus-cover.jpg";
+import backgroundGrowth from "./../../../assets/images/covers/channels.jpg";
+import heroImage from "./../../../assets/images/controlsoft/image24.webp";
 
 
-import { baseURL } from "./../../apis/util";
+import { baseURL } from "./../../../apis/util";
 
-import theme from "./../ui/Theme";
+import theme from "./../../ui/Theme";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -369,7 +369,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: "50%",
         marginRight: "150px",
         height: "45px",
-        width: "240px",
+        width: "180px",
           marginBottom:100,
     
         "&:hover": {
@@ -383,7 +383,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: "0%",
         marginRight: "0px",
         height: "45px",
-        width: "240px",
+        width: "180px",
       
     
         "&:hover": {
@@ -393,7 +393,7 @@ const useStyles = makeStyles((theme) => ({
       },
 }));
 
-export default function HowToGetStarted() {
+export default function InfluencerDiscoveryHowToGetStarted() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [openLoginForm, setOpenLoginForm] = useState(false);
@@ -429,7 +429,7 @@ export default function HowToGetStarted() {
 
   const Str = require("@supercharge/strings");
 
-  const howToGetStartedSection = "* **Sign Up**: Create your brand account and complete your profile. \n\n* **Share Your Brief**: Upload or craft a clear project brief with your campaign goals.\n\n* **Initiate Request**: Make your request, and we’ll source the perfect influencers to execute your vision.\n\n\n\n";
+  const howToGetStartedSection = "* **Sign Up**: Create your brand account and complete your profile. \n\n* **Choose Your Subscription Plan**: Subscribe monthly or annually\n\n* **Share Your Brief**: Upload or craft a clear project brief with your campaign goals.\n\n* **Find Your Match**: Select the right influencers to bring your project to life.\n\n\n\n";
     return (
       <>
         {matchesMDUp ? (
@@ -466,7 +466,7 @@ export default function HowToGetStarted() {
                     style={{ height: "60%", marginLeft: "10%", width:"50%", padding:50  }}
                   >
                     <Typography style={{marginTop:40, fontSize:19}}>
-                          <ReactMarkdown>Getting started is simple—just follow three easy steps to launch your influencer campaign. </ReactMarkdown>
+                          <ReactMarkdown>Getting started is simple—just follow four easy steps to launch your influencer campaign. </ReactMarkdown>
                     </Typography>
                     <Typography style={{marginTop:20, fontSize:19}}>
                           <ReactMarkdown>{howToGetStartedSection}</ReactMarkdown>
@@ -482,7 +482,7 @@ export default function HowToGetStarted() {
                          to="/influencercentral/"
                     
                     >
-                       Request Your Influencer Shortlist
+                        Subscribe
                     </Button>
                   </Grid>
                   
@@ -525,13 +525,13 @@ export default function HowToGetStarted() {
                     style={{ height: "70%", marginLeft: "2%", width:"70%", padding:5, marginRight:"10%"  }}
                   >
                     <Typography style={{marginTop:10, fontSize:12}}>
-                          <ReactMarkdown>Getting started is simple—just follow three easy steps to launch your influencer campaign. </ReactMarkdown>
+                          <ReactMarkdown>Getting started is simple—just follow four easy steps to launch your influencer campaign. </ReactMarkdown>
                     </Typography>
                     <Typography style={{marginTop:10, fontSize:12}}>
                           <ReactMarkdown>{howToGetStartedSection}</ReactMarkdown>
                     </Typography>
                   </Grid>
-                  <Grid item  style={{width: "30%", height: "10%",marginLeft:"5%", marginBottom:0}}>
+                  <Grid item  style={{width: "30%", height: "10%",marginLeft:"10%", marginBottom:0}}>
                     <Button 
                         variant="contained" 
                         color="secondary" 
@@ -541,7 +541,7 @@ export default function HowToGetStarted() {
                         to="/influencercentral/"
                     
                     >
-                        Request Your Influencer Shortlist
+                        Subscribe
                     </Button>
                   </Grid>
                 

@@ -31,12 +31,7 @@ import infoBackground from "./../assets/infoBackground.svg";
 //import background from "./../assets/images/influencers/cover1.webp";
 import background from "./../assets/images/controlsoft/image29.webp";
 import UpperFooter from "./ui/UpperFooter";
-import TopCover from "./homePageCards/TopCover";
-import LearningPath from "./homePageCards/LearningPath";
-import TopCoverNew from "./homePageCards/TopCoverNew";
-import TopCoverServices from "./homePageCards/TopCoverServices";
-import ServicePreferences from "./homePageCards/ServicePreferences";
-import HeroSectionBrand from "./homePageCards/HeroSectionBrand";
+
 import OurProcesses from "./homePageCards/OurProcesses";
 //import mobileBackground from "./../../assets/mobileBackground.jpg";
 
@@ -47,6 +42,8 @@ import AllCreatorsOnList from "./homePageCards/AllCreatorsOnList";
 import AllProductsInCardDesign from "./homePageCards/AllProductsInCardDesign.";
 import OurServicePlans from "./homePageCards/OurServicePlans";
 import HowToGetStarted from "./homePageCards/HowToGetStarted";
+import InfluencerManagedServiceHeroSection from "./homePageCards/Sections/InfluencerManagedServiceHeroSection";
+import InfluencerManagedServiceHowToGetStarted from "./homePageCards/Sections/InfluencerManagedServiceHowToGetStarted";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13506,18 +13503,22 @@ const renderLoginForm = () => {
                         }}
                       >
                         {" "}
-                      Harness the power of influential voices to amplify your reach, <br />
+                      From strategy and influencer selection to execution, reporting, <br />
                       </span>{" "}
                       <span style={{ marginLeft: matchesSM ? 20 : 60 }}>
-                      accelerate trust, and convert audiences into loyal 
+                       and optimization — we handle every aspect of your influencer  
                       </span>
                       <br />
                       <span style={{ marginLeft: matchesSM ? 20 : 110 }}>
-                      Customers
+                      marketing campaign, allowing you to focus on your brand 
+                      </span>
+                      <br />
+                       <span style={{ marginLeft: matchesSM ? 20 : 120 }}>
+                       while we deliver measurable results
                       </span>
                       <br />
                     </Typography>
-                    <Typography variant={matchesSM ? "subtitle2" : "h2"} align="left" style={{ marginTop: "2rem" }}><strong style={{marginLeft:matchesSM ? 10 : 50}}>Influence Drives Growth. Make It Work for Your Brand.</strong></Typography>
+                    {/* <Typography variant={matchesSM ? "subtitle2" : "h2"} align="left" style={{ marginTop: "2rem" }}><strong style={{marginLeft:matchesSM ? 10 : 50}}>Influence Drives Growth. Make It Work for Your Brand.</strong></Typography> */}
                     </>
                   ) : (
                     <>
@@ -13534,14 +13535,26 @@ const renderLoginForm = () => {
                         }}
                       >
                         {" "}
-                      Harness the power of influential voices to amplify  <br />
+                      From strategy and influencer selection to   <br />
                       </span>{" "}
                       <span style={{ marginLeft: matchesSM ? 20 : 60 }}>
-                      your reach, accelerate trust, and convert 
+                       execution, reporting, and optimization — we 
                       </span>
                       <br />
                       <span style={{ marginLeft: matchesSM ? 30 : 60 }}>
-                       audiences into loyal Customers
+                      handle every aspect of your influencer 
+                      </span>
+                      <br />
+                       <span style={{ marginLeft: matchesSM ? 40 : 60 }}>
+                      marketing campaign, allowing you to 
+                      </span>
+                      <br />
+                         <span style={{ marginLeft: matchesSM ? 50 : 60 }}>
+                       focus on your brand  while we  deliver
+                      </span>
+                      <br />
+                         <span style={{ marginLeft: matchesSM ? 60 : 60 }}>
+                        measurable results
                       </span>
                       <br />
                       {/* <span style={{ marginLeft: matchesSM ? 40 : 110 }}>
@@ -13552,7 +13565,7 @@ const renderLoginForm = () => {
                         the noise.
                       </span> */}
                     </Typography>
-                       <Typography variant={matchesSM ? "subtitle2" : "h5"} align="center" style={{ marginTop: "2rem" }}><strong style={{marginLeft:matchesSM ? 10 : 110}}>Influence Drives Growth. Make It Work for Your Brand.</strong></Typography>
+                       {/* <Typography variant={matchesSM ? "subtitle2" : "h5"} align="center" style={{ marginTop: "2rem" }}><strong style={{marginLeft:matchesSM ? 10 : 110}}>Influence Drives Growth. Make It Work for Your Brand.</strong></Typography> */}
                     </>
                     
                   )}
@@ -13579,7 +13592,8 @@ const renderLoginForm = () => {
           </Grid>
         </Grid>
         {/* </section> */}
-        <HeroSectionBrand />
+        {/* <HeroSectionBrand /> */}
+        <InfluencerManagedServiceHeroSection />
         {/* <TopCover 
               token={props.token}
               userId={props.userId}
@@ -13622,7 +13636,8 @@ const renderLoginForm = () => {
           handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar={handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar}
           handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar={handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar}
         />
-        <HowToGetStarted />
+        {/* <HowToGetStarted /> */}
+        <InfluencerManagedServiceHowToGetStarted />
 
 
         {/* <TopCoverNew /> */}

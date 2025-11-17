@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Field, reduxForm } from "redux-form";
 import qs from "qs";
 import Grid from "@material-ui/core/Grid";
+import { useDispatch } from "react-redux";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -16,6 +17,7 @@ import { TextField, Typography } from "@material-ui/core";
 import background from "./../../assets/images/covers/aboutus-cover.jpg";
 import history from "./../../history";
 import api from "./../../apis/local";
+import { SIGN_UP } from "../../actions/types";
 
 const useStyles = makeStyles((theme) => ({
   sendButton: {
@@ -268,6 +270,8 @@ const SignUpForm = (props) => {
     props.handleMakeOpenLoginFormDialogStatus();
   };
 
+    const dispatch = useDispatch();
+
   const validateEmail = (email) => {
     return String(email)
       .toLowerCase()
@@ -356,10 +360,43 @@ const SignUpForm = (props) => {
 
         if (response.data.results === 0) {
           props.onSubmit(data);
+          //do a post transaction here
+          //  const response = await api.post(`/users/signup`, data);
+          //  console.log('response is:',response)
+          
+          //         if (response.status === 200) {
+          //           const token = {
+          //             status: "success",
+          //             token: response.data.token,
+          //             userId: response.data.data.user.id,
+          //           };
+          
+          //           props.setToken(token);
+          //           props.setUserId(token);
+          //           // dispatch({
+          //           //   //type: SIGN_UP,
+          //           //   payload: response.data,
+          //           // });
+          
+          //           props.handleSuccessfulSignUpDialogOpenStatusWithSnackbar(
+          //             `You have successfully signed up`
+          //           );
+          //           //props.onSubmit(response.data.token);
+          
+          //           setLoading(false);
+          //         } else {
+          //           props.handleFailedSignUpDialogOpenStatusWithSnackbar(
+          //             "Incorrect Login Credentials. Check your email and password and try again 1111"
+          //           );
+          //           setLoading(false);
+          
+          //           return;
+          //         }
+         // console.log("signup data is:",data);
           setLoading(true);
         } else {
           props.handleFailedSignUpDialogOpenStatusWithSnackbar(
-            "This email is already registered on this platform. Please try logging in instead"
+            "This email is already registered on this platform. Please try loggin instead"
           );
           setLoading(true);
         }
