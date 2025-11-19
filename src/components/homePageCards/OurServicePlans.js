@@ -579,7 +579,7 @@ export default function OurServicePlans(props) {
               <Grid
                 container
                 direction="column"
-                style={{ marginLeft: 20, width: "22%", marginTop: 0 }}
+                style={{ marginLeft: 20, width: "22%", marginTop: 0, marginBottom:200 }}
               >
               <Typography variant="h5" style={{marginLeft:80, marginBottom:0}}>Custom</Typography>
                 <Grid
@@ -612,15 +612,13 @@ export default function OurServicePlans(props) {
                 
               </Grid>
               
-              
-            </Grid>
-            <Box style={{marginBottom:40, marginTop:10,backgroundColor:"#FFFFFF"}}>
+              <Box style={{marginBottom:40, marginTop:40,backgroundColor:"#FFFFFF"}}>
            <Typography><strong>Note</strong></Typography>
               <Typography style={{marginBottom:10,color:"black", fontSize:13}}>A per influencer <strong>Contract Initiation Fee</strong> of <strong>&#8358;{"250,000"}</strong> for Nigerian Influencers and <strong>&#36;{"250"}</strong> for Other Country Influencers is required to begin any collaboration irrespective of the service plan selected. This ensures serious engagement, covers matchmaking, vetting, and onboarding processes, and protects the value of time and resources for all parties involved.         
                 
              </Typography>
              <Typography style={{marginBottom:40, color:"black", fontSize:13}}><strong><em>This Fee is non-refundable but is automatically deducted  from the final approved influencer fee upon successful contract execution</em></strong></Typography>
-            </Box>
+           
                <Grid item  style={{width: "100%", marginTop: -0, marginLeft:"20%", marginBottom:50}}>
                                  <Button 
                                      variant="contained" 
@@ -631,9 +629,13 @@ export default function OurServicePlans(props) {
                                       to="/influencercentral/"
                                  
                                  >
-                                     Get Influencers!
+                                     Get Influencers
                                  </Button>
                                </Grid>
+                    </Box>  
+              
+            </Grid>
+                      
            
           </Box>
         </>
@@ -754,7 +756,7 @@ export default function OurServicePlans(props) {
             <Grid
               container
               direction="column"
-              style={{ marginLeft: 10, width: "100%", marginTop: 0 }}
+              style={{ marginLeft: 10, width: "100%", marginTop: 0, marginBottom:0 }}
             >
                <Typography variant="h5" style={{marginLeft:10, marginBottom:0}}>Custom</Typography>
               <Grid
@@ -780,16 +782,20 @@ export default function OurServicePlans(props) {
                   <Typography><strong>Agency Fee (<em style={{fontSize:11}}>Nigerian Influencers</em>):</strong>&nbsp; &#8358;{"3,500,000/influencer/month"}</Typography>
                   <Typography><strong>Agency Fee(<em style={{fontSize:11}}>Other Country Influencers</em>):</strong>&nbsp; &#36;{"2,500/influencer/month"}</Typography>
               </Grid>
+
+
+            
               
             </Grid>
-            <Box style={{marginBottom:5, marginTop:20,backgroundColor:"#FFFFFF"}}>
+
+              <Box style={{marginBottom:5, marginTop:10,backgroundColor:"#FFFFFF"}}>
            <Typography><strong>Note</strong></Typography>
               <Typography style={{marginBottom:10,color:"black", fontSize:13}}>A per influencer <strong>Contract Initiation Fee</strong> of <strong>&#8358;{"250,000"}</strong> for Nigerian Influencers and <strong>&#36;{"250"}</strong> for Other Country Influencers is required to begin any collaboration irrespective of the service plan selected. This ensures serious engagement, covers matchmaking, vetting, and onboarding processes, and protects the value of time and resources for all parties involved.         
                 
              </Typography>
              <Typography style={{marginBottom:10, color:"black", fontSize:13}}><strong><em>This Fee is non-refundable but is automatically deducted  from the final approved influencer fee upon successful contract execution</em></strong></Typography>
-            </Box>
-            <Grid item  style={{width: "30%", height: "10%",marginLeft:"20%", marginBottom:0,marginTop:-100}}>
+           
+            <Grid item  style={{width: "30%", height: "10%",marginLeft:"20%", marginBottom:0,marginTop:100}}>
                                                            <Button 
                                                                variant="contained" 
                                                                color="secondary" 
@@ -802,6 +808,8 @@ export default function OurServicePlans(props) {
                                                                Get Influencers
                                                            </Button>
                                                          </Grid>   
+              </Box>   
+                                                     
             
           </Grid>
           {/**This is the last lap */}
