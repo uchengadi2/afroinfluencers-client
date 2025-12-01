@@ -612,7 +612,8 @@ function CheckoutDeliveryAndPayment(props) {
       status: "unprocessed",
       brand:props.brand,
       project:props.project,
-      totalNumberOfInfluencers:props.cartList.length,     
+      totalNumberOfInfluencers:props.cartList.length,
+      servicePreference:"managed",        
 
     };
 
@@ -760,6 +761,7 @@ function CheckoutDeliveryAndPayment(props) {
               contractProcessingFee: cart.currency && cart.currency.name.toLowerCase() === "naira" ? props.policy.contractProcessingFeeForLocals : props.policy.contractProcessingFeeForNonLocals,
 
               agencyServicePlan: cart.agencyServicePlan,
+              servicePreference:"managed",
 
               cartId: cart.id,
               dateAddedToCart: cart.dateAddedToCart,              
@@ -1223,11 +1225,11 @@ function CheckoutDeliveryAndPayment(props) {
               }}
             >
               
-              &#8358;{totalProductCostForDisplay}&nbsp;<em style={{fontSize:12}}>(This Payment could be done Online or Offline)</em>
+              &#8358;{totalProductCostForDisplay}&nbsp;<em style={{fontSize:12}}>(This Payment could be done Online or Offline!)</em>
             </Typography>
            
             
-
+              {/**this is online payment function that calls paystack */}
             {renderPaymentMethodField()}
             {!isOnlinePayment && paymentMethod === "foreigner" && (
               <Typography className={classes.bankDetails}>

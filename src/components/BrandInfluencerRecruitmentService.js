@@ -29,7 +29,7 @@ import revolutionBackground from "./../assets/repeatingBackground.svg";
 import infoBackground from "./../assets/infoBackground.svg";
 
 //import background from "./../assets/images/influencers/cover1.webp";
-import background from "./../assets/images/controlsoft/image29.webp";
+import background from "./../assets/images/influencers/image6.jpg";
 import UpperFooter from "./ui/UpperFooter";
 import TopCover from "./homePageCards/TopCover";
 import LearningPath from "./homePageCards/LearningPath";
@@ -310,6 +310,14 @@ const BrandInfluencerRecruitmentService = (props) => {
   const [openSignUpForm, setOpenSignUpForm] = useState(false);
   const [openInfluencerSignUpForm, setInfluencerOpenSignUpForm] = useState(false);
   const [openForgotPasswordForm, setOpenForgotPasswordForm] = useState(false);
+  const [brandId, setBrandId] = useState();
+  const [brandName,setBrandName] = useState();
+  const [brandCountry,setBrandCountry] = useState();
+  const [customerEmail, setCustomerEmail] = useState();
+  const [customerName, setCustomerName] = useState();
+  const [customerPhoneNumber, setCustomerPhoneNumber] = useState();
+
+
   
 
 
@@ -532,6 +540,97 @@ const BrandInfluencerRecruitmentService = (props) => {
     });
   };
 
+  const handleSuccessfulCreateSnackbar = (message) => {
+    // history.push("/categories/new");
+    //setOpenSignUpForm(false);
+    setAlert({
+      open: true,
+      message: message,
+      backgroundColor: "#4BB543",
+    });
+  };
+
+  const handleFailedSnackbar = (message) => {
+    // history.push("/categories/new");
+    setAlert({
+      open: true,
+      message:message,
+        
+      backgroundColor: "#FF3232",
+    });
+    //setOpenSignUpForm(false);
+  };
+
+
+
+
+  //getting the brand id
+     useEffect(() => {
+             const fetchData = async () => {
+               let allData = {};
+               if(props.userId){
+                data.defaults.headers.common["Authorization"] = `Bearer ${props.token}`;
+                const response = await data.get(`/brands`,{
+                 params:{
+                  user:props.userId
+                }});
+                const workingData = response.data.data.data;
+   
+                           
+          
+               
+               if(workingData.length > 0){
+                     
+                setBrandId(workingData[0].id);
+                setBrandName(workingData[0].name);
+                setBrandCountry(workingData[0].country[0].id);
+              
+                
+                }
+               }
+               
+               
+             };
+         
+             //call the function
+         
+             fetchData().catch(console.error);
+           }, [props.token, props.userId]);
+
+
+  
+//retrieving  the details of the logined user
+
+   useEffect(() => {
+        const fetchData = async () => {
+          let allData = [];
+          data.defaults.headers.common["Authorization"] = `Bearer ${props.token}`;
+          const response = await data.get(`/users/${props.userId}`);
+          const user = response.data.data.data;
+
+         
+          allData.push({
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            phone: user.phoneNumber,
+          });
+          setCustomerEmail(allData[0].email);
+          setCustomerName(allData[0].name);
+          setCustomerPhoneNumber(allData[0].phone);
+        };
+    
+        //call the function
+    
+        fetchData().catch(console.error);
+      }, [props.token,props.userId ]);
+
+
+
+
+
+
+//retrieving data
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -13186,6 +13285,8 @@ const BrandInfluencerRecruitmentService = (props) => {
 
   const Str = require("@supercharge/strings");
 
+
+
 const renderLoginForm = () => {
       return (
         <Dialog
@@ -13463,6 +13564,9 @@ const renderLoginForm = () => {
     </React.Fragment>
   );
 
+
+  
+
   return (
     <>
       {/* <Grid container direction="row" className={classes.mainContainer}> */}
@@ -13589,10 +13693,58 @@ const renderLoginForm = () => {
         </Grid>
         {/* </section> */}
         {/* <HeroSectionBrand /> */}
-        <InfluencerRecruitmentHeroSection />
-        <InfluencerRecruitmentWhatWeDoforYou />
-        <InfluencerRecruitmentWhyBrandsChooseThisService />
-        <InfluencerRecruitmentServicePlan />
+        <InfluencerRecruitmentHeroSection 
+          token={props.token}
+                setToken={props.setToken}
+                userId={props.userId}
+                setUserId={props.setUserId}
+                policy={props.policy}
+                brandId={brandId}
+                customerEmail={customerEmail}
+                customerName={customerName}
+                customerPhoneNumber={customerPhoneNumber}
+                handleSuccessfulCreateSnackbar={props.handleSuccessfulCreateSnackbar}
+                handleFailedSnackbar={props.handleFailedSnackbar}
+        />
+        <InfluencerRecruitmentWhatWeDoforYou 
+          token={props.token}
+                setToken={props.setToken}
+                userId={props.userId}
+                setUserId={props.setUserId}
+                policy={props.policy}
+                 brandId={brandId}
+                 customerEmail={customerEmail}
+                customerName={customerName}
+                customerPhoneNumber={customerPhoneNumber}
+                handleSuccessfulCreateSnackbar={props.handleSuccessfulCreateSnackbar}
+                handleFailedSnackbar={props.handleFailedSnackbar}
+        />
+        <InfluencerRecruitmentWhyBrandsChooseThisService 
+          token={props.token}
+                setToken={props.setToken}
+                userId={props.userId}
+                setUserId={props.setUserId}
+                policy={props.policy}
+                brandId={brandId}
+                customerEmail={customerEmail}
+                customerName={customerName}
+                customerPhoneNumber={customerPhoneNumber}
+                handleSuccessfulCreateSnackbar={props.handleSuccessfulCreateSnackbar}
+                handleFailedSnackbar={props.handleFailedSnackbar}
+        />
+        <InfluencerRecruitmentServicePlan
+          token={props.token}
+                setToken={props.setToken}
+                userId={props.userId}
+                setUserId={props.setUserId}
+                policy={props.policy}
+                brandId={brandId}
+                customerEmail={customerEmail}
+                customerName={customerName}
+                customerPhoneNumber={customerPhoneNumber}
+                handleSuccessfulCreateSnackbar={props.handleSuccessfulCreateSnackbar}
+                handleFailedSnackbar={props.handleFailedSnackbar}
+        />
         
         
         {/* <TopCover 
@@ -13637,7 +13789,19 @@ const renderLoginForm = () => {
           handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar={handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar}
           handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar={handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar}
         /> */}
-        <HowToGetStarted />
+        <HowToGetStarted 
+          token={props.token}
+                setToken={props.setToken}
+                userId={props.userId}
+                setUserId={props.setUserId}
+                policy={props.policy}
+                brandId={brandId}
+                customerEmail={customerEmail}
+                customerName={customerName}
+                customerPhoneNumber={customerPhoneNumber}
+                handleSuccessfulCreateSnackbar={props.handleSuccessfulCreateSnackbar}
+                handleFailedSnackbar={props.handleFailedSnackbar}
+        />
 
 
         {/* <TopCoverNew /> */}

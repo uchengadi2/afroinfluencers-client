@@ -396,7 +396,7 @@ const useStyles = makeStyles((theme) => ({
       },
 }));
 
-export default function InfluencerDiscoveryService() {
+export default function InfluencerDiscoveryService(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [openLoginForm, setOpenLoginForm] = useState(false);
@@ -429,6 +429,8 @@ export default function InfluencerDiscoveryService() {
   if (product) {
     imageUrl = `${baseURL}/images/courses/${product.imageCover}`;
   }
+
+  console.log('props are:',props);
 
   const Str = require("@supercharge/strings");
 
@@ -478,7 +480,7 @@ export default function InfluencerDiscoveryService() {
                          to="/branddiscoverycentral/"
                     
                     >
-                       Explore Services
+                       Explore Service
                     </Button>
                     </Grid>
                     <Grid
@@ -560,7 +562,7 @@ export default function InfluencerDiscoveryService() {
                                 to="/branddiscoverycentral/"
                     
                           >
-                              Explore Services
+                              Explore Service
                           </Button>
                       </Grid>
                               

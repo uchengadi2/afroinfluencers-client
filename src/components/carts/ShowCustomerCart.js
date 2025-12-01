@@ -32,7 +32,7 @@ import BecomePartnerFormContainer from "./../partner/BecomePartnerFormContainer"
 import CategoryProductsCard from "../CategoryProductsCard";
 import CartProductCard from "./CartProductCard";
 import UpperFooter from "../ui/UpperFooter";
-import { EDIT_CART } from "../../actions/types";
+import { CREATE_ORDER, CREATE_TRANSACTION, DELETE_CART, EDIT_CART } from "../../actions/types";
 
 import { baseURL } from "./../../apis/util";
 import api from "./../../apis/local";
@@ -204,8 +204,8 @@ const useStyles = makeStyles((theme) => ({
   submitButton: {
     borderRadius: 10,
     height: 40,
-    width: 200,
-    marginLeft: 1100,
+    width: 410,
+    marginLeft: 950,
     marginTop: 30,
     color: "white",
     backgroundColor: theme.palette.common.green,
@@ -215,10 +215,10 @@ const useStyles = makeStyles((theme) => ({
   },
   submitButtonMobile: {
     borderRadius: 10,
-    height: 40,
-    //width: 200,
+    height: 55,
+    width: '100%',
     //marginLeft: 1100,
-    marginLeft: 180,
+    marginLeft: 120,
     marginTop: 30,
     color: "white",
     backgroundColor: theme.palette.common.green,
@@ -226,6 +226,36 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.common.green,
     },
   },
+
+
+   submitSubscriptionButton: {
+    borderRadius: 10,
+    height: 40,
+    width: 320,
+    marginLeft: 1000,
+    marginTop: 30,
+    color: "white",
+    backgroundColor: theme.palette.common.blue,
+    "&:hover": {
+      backgroundColor: theme.palette.common.green,
+    },
+  },
+  submitSubscriptionButtonMobile: {
+    borderRadius: 10,
+    height: 40,
+    width: '100%',
+    //marginLeft: 1100,
+    marginLeft: 120,
+    marginTop: 30,
+    color: "white",
+    backgroundColor: theme.palette.common.blue,
+    "&:hover": {
+      backgroundColor: theme.palette.common.green,
+    },
+  },
+
+
+  
 }));
 
 function ShowCustomerCart(props) {
@@ -239,11 +269,22 @@ function ShowCustomerCart(props) {
   const [contactUsOpen, setContactUsOpen] = useState(false);
   const [becomePartnerOpen, setBecomePartnerOpen] = useState(false);
   const [cartProductList, setCartProductList] = useState([]);
+  const [cartProductListForSubscription, setCartProductListForSubscription] = useState([]);
+  const [cartProductListForManagedService, setCartProductListForManagedService] = useState([]);
   const [loading, setLoading] = useState(false);
   const [updateCart, setUpdateCart] = useState();
   const [count, setCount] = useState(0);
   const [isProcessed, setIsProcessed] = useState(false);
   const [isLoading, setIsLoading] = useState(null);
+  const [isOnsubscription, setIsOnSubscription] = useState(false);
+  const [isOnManagedService, setIsOnManagedService] = useState(false);
+  const [customerEmail, setCustomerEmail] = useState();
+  const [customerName, setCustomerName] = useState();
+  const [customerPhoneNumber, setCustomerPhoneNumber] = useState();
+  const [orderNumber, setOrderNumber] = useState(
+      "OR-" + Math.floor(Math.random() * 10000000000000) + "-" + "ES"
+    );
+  
 
   const dispatch = useDispatch();
 
@@ -266,6 +307,8 @@ function ShowCustomerCart(props) {
   const renderCartUpdate = (value) => {
     setUpdateCart(value);
   };
+
+
 
   const handleBecomeAPartnerOpenDialogBox = () => {
     setBecomePartnerOpen(false);
@@ -330,6 +373,7 @@ function ShowCustomerCart(props) {
           tiktokPostQuantity: cart.tiktokPostQuantity,
           linkedInPostQuantity: cart.linkedInPostQuantity,
           blogPostQuantity: cart.blogPostQuantity,
+          servicePreference:cart.servicePreference
 
         });
       });
@@ -339,12 +383,53 @@ function ShowCustomerCart(props) {
       }
       setCartProductList(allData);
       setIsLoading(false);
+      for(let item = 0;item<allData.length;++item){
+        if(allData[item].servicePreference ==="subscription"){
+          setIsOnSubscription(true)
+          //setCartProductListForSubscription(allData[item]);
+        }
+          
+      }
+      for(let item = 0;item<allData.length;++item){
+        if(allData[item].servicePreference ==="managed"){
+          setIsOnManagedService(true)
+          //setCartProductListForManagedService(allData[item])
+        }
+          
+      }
+
+      
     };
 
     //call the function
 
     fetchData().catch(console.error);
   }, [updateCart]);
+
+
+//retrieve logged in user details
+  useEffect(() => {
+      const fetchData = async () => {
+        let allData = [];
+        api.defaults.headers.common["Authorization"] = `Bearer ${props.token}`;
+        const response = await api.get(`/users/${props.userId}`);
+        const user = response.data.data.data;
+        allData.push({
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          phone: user.phoneNumber,
+        });
+        setCustomerEmail(allData[0].email);
+        setCustomerName(allData[0].name);
+        setCustomerPhoneNumber(allData[0].phone);
+      };
+  
+      //call the function
+  
+      fetchData().catch(console.error);
+    }, [props.userId, props.token]);
+  
 
   useEffect(() => {
     // 👇️ scroll to top on page load
@@ -382,6 +467,7 @@ function ShowCustomerCart(props) {
               //preferredStartDate={cart.preferredStartDate}
               cartCounterHandler={props.cartCounterHandler}
               refNumber={cart.refNumber}
+              servicePreference={cart.servicePreference}
              // quantity={cart.quantity}
               token={props.token}
               userId={props.userId}
@@ -394,6 +480,7 @@ function ShowCustomerCart(props) {
               handleFailedSnackbar={props.handleFailedSnackbar}
               renderCartUpdate={renderCartUpdate}
               renderCartUpdateAfterRemoval={props.renderCartUpdateAfterRemoval}
+         
             />
           ))}
         </Grid>
@@ -433,6 +520,7 @@ function ShowCustomerCart(props) {
               //preferredStartDate={cart.preferredStartDate}
               cartCounterHandler={props.cartCounterHandler}
               refNumber={cart.refNumber}
+              servicePreference={cart.servicePreference}
              // quantity={cart.quantity}
               token={props.token}
               userId={props.userId}
@@ -452,9 +540,22 @@ function ShowCustomerCart(props) {
     </React.Fragment>
   );
 
+
+
   const buttonContent = () => {
-    return <React.Fragment>Proceed to Checkout</React.Fragment>;
+    return <React.Fragment>Forward "Managed Service Influencers" to Checkout</React.Fragment>;
   };
+
+
+    const buttonSubscriptionContent = () => {
+    return <React.Fragment>Add Influencers to Subscription List</React.Fragment>;
+  };
+
+
+   
+
+   
+
 
   const onSubmit = () => {
     setLoading(true);
@@ -471,16 +572,21 @@ function ShowCustomerCart(props) {
 
     let allData = [];
 
+    
     cartProductList.map((cart) => {
       allData.push({
         id: cart.id,
+        servicePreference:cart.servicePreference
       });
     });
+
+   
+
 
     let count;
 
     for (count = 0; count < allData.length; ++count) {
-      if (data) {
+      if (data && allData[count].servicePreference ==='managed') {
         const createForm = async () => {
           api.defaults.headers.common[
             "Authorization"
@@ -521,6 +627,318 @@ function ShowCustomerCart(props) {
     history.push(`/checkouts`);
   };
 
+
+
+
+
+
+
+  //adding influencers to subscription list
+  const onSubscriptionListSubmit = () => {
+      setLoading(true);
+
+
+      //get all items for only sunscription preference
+
+   let allSubs = [];
+     cartProductList.map((cart) => {
+      if(cart.servicePreference ==='subscription'){
+          allSubs.push(
+         
+          cart
+      );
+      }
+      
+    });
+     
+      const transData = {
+        orderNumber: orderNumber,
+        recipientName: customerName,
+        recipientPhoneNumber: customerPhoneNumber,
+        recipientEmailAddress: customerEmail,
+        totalLocalContractProcessingFee: 0,
+        totalInternationalContractProcessingFee: 0,
+        paymentMethod: "not-applicable",
+        paymentStatus: "not-applicable",
+        orderedBy: props.userId,
+        //productCurrency: "Payment in Naira By Bank Transfer",
+        status: "unprocessed",
+        brand:allSubs[0].brand,
+        //project:props.project,
+        totalNumberOfInfluencers:allSubs.length,
+        servicePreference:"subscription",    
+  
+      };
+  
+         //write to the transaction table first
+      if (transData) {
+        const createForm = async () => {
+          api.defaults.headers.common["Authorization"] = `Bearer ${props.token}`;
+          const response = await api.post(`/transactions`, transData);
+  
+         const transId = response.data.data.data.id;
+  
+          if (response.data.status === "success") {
+            dispatch({
+              type: CREATE_TRANSACTION,
+              payload: response.data.data.data,
+            });
+  
+            setLoading(false);
+  
+            allSubs.map((cart, index) => {
+              let cumulativeAgencyServiceFee = 0;
+              let totalProjectCost = 0;
+              if(cart.platforms.includes("facebook")){
+                totalProjectCost = totalProjectCost + cart.facebookPostQuantity * cart.creator.facebookCostPerPost
+              }else if(cart.platforms.includes('instagram')){
+                totalProjectCost += cart.instagramPostQuantity * cart.creator.instagranCostPerPost
+              }else if(cart.platforms.includes('twitter')){
+                totalProjectCost += cart.twitterPostQuantity * cart.creator.twiiterCostPerPost
+              }else if(cart.platforms.includes('tiktok')){
+                totalProjectCost += cart.tiktokPostQuantity * cart.creator.tiktokCostPerPost
+              }else if(cart.platforms.includes('linkedin')){
+                totalProjectCost += cart.linkedInPostQuantity * cart.creator.linkedInCostPerPost
+              }else if(cart.platforms.includes('blog')){
+                totalProjectCost += cart.blogCostPerPost * cart.creator.blogCostPerPost
+              }
+              //computing cumulative agency service plan
+              if (cart.agencyServicePlan === "platinum") {
+                cumulativeAgencyServiceFee = props.policy.platinumAgencyServiceFee/100 * totalProjectCost;
+              } else if (cart.agencyServicePlan === "gold") {
+                cumulativeAgencyServiceFee = props.policy.goldAgencyServiceFee/100 * totalProjectCost;
+              }else if (cart.agencyServicePlan === "bronze") {
+                if(cart.platforms && cart.platforms.includes('facebook')){
+                  if(cart.creator.facebookCategory === "celebrity-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.celebrityInfluencerRecruitmentFee
+                  }else if(cart.creator.facebookCategory === "mega-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.megaInfluencerRecruitmentFee
+                  }else if(cart.creator.facebookCategory === "macro-influencer"){
+                    cumulativeAgencyServiceFee =props.policy.macroInfluencerRecruitmentFee
+                  }else if(cart.creator.facebookCategory === "micro-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.microInfluencerRecruitmentFee
+                  }else if(cart.creator.facebookCategory === "nano-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.nanoInfluencerRecruitmentFee
+                  }else if(cart.creator.facebookCategory === "sub-nano-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.subNanoInfluencerRecruitmentFee
+                  }
+                }
+                if(cart.platforms && cart.platforms.includes('instagram')){
+                  if(cart.creator.instagramCategory === "celebrity-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.celebrityInfluencerRecruitmentFee
+                  }else if(cart.creator.instagramCategory === "mega-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.megaInfluencerRecruitmentFee
+                  }else if(cart.creator.instagramCategory === "macro-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.macroInfluencerRecruitmentFee
+                  }else if(cart.creator.instagramCategory === "micro-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.microInfluencerRecruitmentFee
+                  }else if(cart.creator.instagramCategory === "nano-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.nanoInfluencerRecruitmentFee
+                  }else if(cart.creator.instagramCategory === "sub-nano-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.subNanoInfluencerRecruitmentFee
+                  }
+                }
+                if(cart.platforms && cart.platforms.includes('twitter')){
+                  if(cart.creator.twitterCategory === "celebrity-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.celebrityInfluencerRecruitmentFee
+                  }else if(cart.creator.twitterCategory === "mega-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.megaInfluencerRecruitmentFee
+                  }else if(cart.creator.twitterCategory === "macro-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.macroInfluencerRecruitmentFee
+                  }else if(cart.creator.twitterCategory === "micro-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.microInfluencerRecruitmentFee
+                  }else if(cart.creator.twitterCategory === "nano-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.nanoInfluencerRecruitmentFee
+                  }else if(cart.creator.twitterCategory === "sub-nano-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.subNanoInfluencerRecruitmentFee
+                  }
+                }
+                if(cart.platforms && cart.platforms.includes('tiktok')){
+                  if(cart.creator.tiktokCategory === "celebrity-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.celebrityInfluencerRecruitmentFee
+                  }else if(cart.creator.tiktokCategory === "mega-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.megaInfluencerRecruitmentFee
+                  }else if(cart.creator.tiktokCategory === "macro-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.macroInfluencerRecruitmentFee
+                  }else if(cart.creator.tiktokCategory === "micro-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.microInfluencerRecruitmentFee
+                  }else if(cart.creator.tiktokCategory === "nano-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.nanoInfluencerRecruitmentFee
+                  }else if(cart.creator.tiktokCategory === "sub-nano-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.subNanoInfluencerRecruitmentFee
+                  }
+                }
+                if(cart.platforms && cart.platforms.includes('linkedin')){
+                  if(cart.creator.linkedInCategory === "celebrity-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.celebrityInfluencerRecruitmentFee
+                  }else if(cart.creator.linkedInCategory === "mega-influencer"){
+                    cumulativeAgencyServiceFee =props.policy.megaInfluencerRecruitmentFee
+                  }else if(cart.creator.linkedInCategory === "macro-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.macroInfluencerRecruitmentFee
+                  }else if(cart.creator.linkedInCategory === "micro-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.microInfluencerRecruitmentFee
+                  }else if(cart.creator.linkedInCategory === "nano-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.nanoInfluencerRecruitmentFee
+                  }else if(cart.creator.linkedInCategory === "sub-nano-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.subNanoInfluencerRecruitmentFee
+                  }
+                }
+                if(cart.platforms && cart.platforms.includes('blog')){
+                  if(cart.creator.blogCategory === "celebrity-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.celebrityInfluencerRecruitmentFee
+                  }else if(cart.creator.blogCategory === "mega-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.megaInfluencerRecruitmentFee
+                  }else if(cart.creator.blogCategory === "macro-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.macroInfluencerRecruitmentFee
+                  }else if(cart.creator.blogCategory === "micro-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.microInfluencerRecruitmentFee
+                  }else if(cart.creator.blogCategory === "nano-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.nanoInfluencerRecruitmentFee
+                  }else if(cart.creator.blogCategory === "sub-nano-influencer"){
+                    cumulativeAgencyServiceFee = props.policy.subNanoInfluencerRecruitmentFee
+                  }
+                }
+              }
+  
+              const data = {
+                orderNumber: orderNumber,
+                transactionId: transId,
+                creator: cart.creator.id,
+                brand: cart.brand.id,
+                project: cart.project.id,
+                recipientName: customerName,
+                recipientPhoneNumber: customerPhoneNumber,
+                recipientEmailAddress: customerEmail,
+                platforms: cart.platforms,
+                currency: cart.currency.id,
+                contractProcessingFee: 0,
+                servicePreference:"subscription",
+  
+                agencyServicePlan: "not-applicable",
+  
+                cartId: cart.id,
+                dateAddedToCart: cart.dateAddedToCart,              
+                paymentMethod: "not-applicable",
+                paymentStatus: "not-applicable",
+                orderedBy: cart.cartHolder,
+  
+                //cumulativeAgencyServiceFee: cumulativeAgencyServiceFee,
+                facebookPostQuantity: cart.platforms && cart.platforms.includes('facebook') ?cart.facebookPostQuantity :0,
+                instagramPostQuantity: cart.platforms && cart.platforms.includes('instagram') ? cart.instagramPostQuantity:0,
+                twitterPostQuantity: cart.platforms && cart.platforms.includes('twitter') ? cart.twitterPostQuantity:0,
+                tiktokPostQuantity: cart.platforms && cart.platforms.includes('tiktok') ? cart.tiktokPostQuantity :0,
+                linkedInPostQuantity: cart.platforms && cart.platforms.includes('linkedin') ? cart.linkedInPostQuantity :0,
+                blogPostQuantity: cart.platforms && cart.platforms.includes('blog') ? cart.blogPostQuantity :0,
+                facebookProfileLink: cart.platforms && cart.platforms.includes('facebook') ? cart.creator.facebookProfileLink : "",
+                instagramProfileLink: cart.platforms && cart.platforms.includes('instagram') ? cart.creator.instagramProfileLink : "",
+                twitterProfileLink: cart.platforms && cart.platforms.includes('twitter') ? cart.creator.twitterProfileLink : "",
+                tiktokProfileLink: cart.platforms && cart.platforms.includes('tiktok') ? cart.creator.tiktokProfileLink: "",
+                linkedInProfileLink: cart.platforms && cart.platforms.includes('linkedin') ? cart.creator.linkedInProfileLink : "",
+                blogSiteLink: cart.platforms && cart.platforms.includes('blog') ? cart.creator.blogSiteLink: "",
+  
+                facebookTotalFollowers: cart.platforms && cart.platforms.includes('facebook') ? cart.creator.facebookTotalFollowers :0,
+                instagramTotalFollowers: cart.platforms && cart.platforms.includes('instagram') ? cart.creator.instagramTotalFollowers:0,
+                twitterTotalFollowers: cart.platforms && cart.platforms.includes('twitter') ? cart.creator.twitterTotalFollowers:0,
+                tiktokTotalFollowers: cart.platforms && cart.platforms.includes('tiktok') ? cart.creator.tiktokTotalFollowers:0,
+                linkedInTotalFollowers: cart.platforms && cart.platforms.includes('linkedin') ? cart.creator.linkedInTotalFollowers:0,
+                blogTotalVisitorsPerMonth: cart.platforms && cart.platforms.includes('blog') ? cart.creator.blogTotalVisitorsPerMonth:0,
+  
+                facebookEngagementRate: cart.platforms && cart.platforms.includes('facebook') ? cart.creator.facebookEngagementRate:0,
+                instagramEngagementRate: cart.platforms && cart.platforms.includes('instagram') ? cart.creator.instagramEngagementRate:0,
+                twitterEngagementRate: cart.platforms && cart.platforms.includes('twitter') ? cart.creator.twitterEngagementRate :0,
+                tiktokEngagementRate: cart.platforms && cart.platforms.includes('tiktok') ? cart.creator.tiktokEngagementRate:0,
+                linkedInEngagementRate: cart.platforms && cart.platforms.includes('linkedin') ? cart.creator.linkedInEngagementRate:0,
+  
+                facebookCostPerPost: cart.platforms && cart.platforms.includes('facebook') ? cart.creator.facebookCostPerPost :0,
+                instagramCostPerPost: cart.platforms && cart.platforms.includes('instagram') ? cart.creator.instagramCostPerPost:0,
+                twitterCostPerPost: cart.platforms && cart.platforms.includes('twitter') ? cart.creator.twitterCostPerPost :0,
+                tiktokCostPerPost: cart.platforms && cart.platforms.includes('tiktok') ? cart.creator.tiktokCostPerPost:0,
+                linkedInCostPerPost: cart.platforms && cart.platforms.includes('linkedin') ? cart.creator.linkedInCostPerPost:0,
+                blogCostPerPost: cart.platforms && cart.platforms.includes('blog') ? cart.creator.blogCostPerPost:0,
+                blogPostCostDuration: cart.platforms && cart.platforms.includes('blog') ? cart.creator.blogPostCostDuration:"weekly",
+  
+                facebookCategory: cart.platforms && cart.platforms.includes('facebook') ? cart.creator.facebookCategory: "",
+                instagramCategory: cart.platforms && cart.platforms.includes('instagram') ? cart.creator.instagramCategory: "",
+                twitterCategory: cart.platforms && cart.platforms.includes('twitter') ? cart.creator.twitterCategory: "",
+                tiktokCategory: cart.platforms && cart.platforms.includes('tiktok') ?cart.creator.tiktokCategory: "",
+                linkedInCategory: cart.platforms && cart.platforms.includes('linkedin') ? cart.creator.linkedInCategory: "",
+                blogCategory: cart.platforms && cart.platforms.includes('blog') ? cart.creator.blogCategory: "",
+                
+                slug: cart.slug,
+                
+              };
+  
+             
+  
+              if (data) {
+                const createForm = async () => {
+                  api.defaults.headers.common[
+                    "Authorization"
+                  ] = `Bearer ${props.token}`;
+                  const response2 = await api.post(`/orders`, data);
+  
+                  if (response2.data.status === "success") {
+                    dispatch({
+                      type: CREATE_ORDER,
+                      payload: response2.data.data.data,
+                    });
+  
+                    setLoading(false);
+                  } else {
+                    props.handleFailedSnackbar(
+                      "Something went wrong, please try again!!!"
+                    );
+                  }
+                };
+                createForm().catch((err) => {
+                  //props.handleFailedSnackbar();
+                  console.log("err:", err.message);
+                });
+              } else {
+                //props.handleFailedSnackbar("Something went wrong, please try again!!!");
+              }
+            });
+          } else {
+            // props.handleFailedSnackbar(
+            //   "Something went wrong, please try again!!!"
+            // );
+          }
+        };
+        createForm().catch((err) => {
+          //props.handleFailedSnackbar();
+          console.log("err:", err.message);
+        });
+      }
+  
+      const cartData = {
+        status: "checkedout",
+      };
+  
+      //change the status of this cart items
+      allSubs.map((cart, index) => {
+        const createForm = async () => {
+          api.defaults.headers.common["Authorization"] = `Bearer ${props.token}`;
+          await api.delete(`/carts/${cart.id}`);
+  
+          dispatch({
+            type: DELETE_CART,
+            //payload: response2.data.data.data,
+          });
+        };
+        createForm().catch((err) => {
+          props.handleFailedSnackbar();
+          console.log("err:", err.message);
+        });
+      });
+      props.handleSuccessfulCreateSnackbar(
+        `These influencers  are successfully added to the subscription list`
+      );
+      history.push("/");
+    };
+
+
+
+
   return (
     <Grid container direction="row" className={classes.root}>
       <Grid item style={{ width: "100%", marginTop: "20px" }}>
@@ -554,10 +972,11 @@ function ShowCustomerCart(props) {
       </Grid>
 
       {matchesMD
-        ? !isLoading &&
+        ? !isLoading && isOnManagedService && 
           (cartProductList.length === 0 ? (
             ""
           ) : (
+
             <Button
               variant="contained"
               className={classes.submitButton}
@@ -570,7 +989,7 @@ function ShowCustomerCart(props) {
               )}
             </Button>
           ))
-        : !isLoading && (
+        : !isLoading && isOnManagedService && (
             <Button
               variant="contained"
               className={classes.submitButtonMobile}
@@ -583,6 +1002,40 @@ function ShowCustomerCart(props) {
               )}
             </Button>
           )}
+
+           {matchesMD
+        ? !isLoading && isOnsubscription && 
+          (cartProductList.length === 0 ? (
+            ""
+          ) : (
+
+            <Button
+              variant="contained"
+              className={classes.submitSubscriptionButton}
+              onClick={onSubscriptionListSubmit}
+            >
+              {loading ? (
+                <CircularProgress size={30} color="inherit" />
+              ) : (
+                buttonSubscriptionContent()
+              )}
+            </Button>
+          ))
+        : !isLoading && isOnsubscription && (
+            <Button
+              variant="contained"
+              className={classes.submitSubscriptionButtonMobile}
+              onClick={onSubscriptionListSubmit}
+            >
+              {loading ? (
+                <CircularProgress size={30} color="inherit" />
+              ) : (
+                buttonSubscriptionContent()
+              )}
+            </Button>
+          )}
+
+          
 
       <Grid item className={classes.footer}>
         <UpperFooter />

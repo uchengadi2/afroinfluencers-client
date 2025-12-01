@@ -186,7 +186,16 @@ import {
   FETCH_SAMPLES,
   FETCH_SAMPLE,
   DELETE_SAMPLE,
-  EDIT_SAMPLE
+  EDIT_SAMPLE,
+  CREATE_SUBSCRIPTION,
+  FETCH_SUBSCRIPTIONS,
+  FETCH_SUBSCRIPTION,
+  EDIT_SUBSCRIPTION,
+  DELETE_SUBSCRIPTION,
+  CREATE_RECRUITMENT,
+  FETCH_RECRUITMENT,
+  EDIT_RECRUITMENT,
+  DELETE_RECRUITMENT
   
 } from "./types";
 
@@ -1905,6 +1914,103 @@ export const deleteSample = (id) => {
   return async (dispatch) => {
     await data.delete(`/samples/${id}`);
     dispatch({ type: DELETE_SAMPLE, payload: id });
+    //history.push("/");
+  };
+};
+
+
+
+////////////////////////////////////////BRAND SUBSCRIPTION ///////////////////////////////
+//SUBSCRIPTION crud operations
+export const createSubscription = (formValues) => {
+  return async (dispatch, getState) => {
+    const { userId } = getState().auth;
+    const response = await data.post("/creatorSubscriptions", {
+      ...formValues,
+      userId,
+    });
+
+    //console.log(response);
+    dispatch({ type: CREATE_SUBSCRIPTION, payload: response.data });
+    // history.push("/");
+  };
+};
+
+export const fetchSubscriptions = () => {
+  return async (dispatch) => {
+    const response = await data.get("/creatorSubscriptions");
+    dispatch({ type: FETCH_SUBSCRIPTIONS, payload: response.data.data.data });
+  };
+};
+
+export const fetchSubscription= (id) => {
+  return async (dispatch) => {
+    const response = await data.get(`/creatorSubscriptions/${id}`);
+    dispatch({ type: FETCH_SUBSCRIPTION, payload: response.data.data });
+  };
+};
+
+export const editSubscription = (id, formValues) => {
+  return async (dispatch) => {
+    const response = await data.patch(`/creatorSubscriptions/${id}`, formValues);
+    dispatch({ type: EDIT_SUBSCRIPTION, payload: response.data.data });
+    //history.push("/");
+  };
+};
+
+export const deleteSubscription = (id) => {
+  return async (dispatch) => {
+    await data.delete(`/creatorSubscriptions/${id}`);
+    dispatch({ type: DELETE_SUBSCRIPTION, payload: id });
+    //history.push("/");
+  };
+};
+
+
+
+////////////////////////////////////////BRAND RECRUITMENT ///////////////////////////////
+//RECRUITMENT crud operations
+
+export const createRecruitment = (formValues) => {
+  return async (dispatch, getState) => {
+    const { userId } = getState().auth;
+    const response = await data.post("/creatorRecruitments", {
+      ...formValues,
+      userId,
+    });
+
+    //console.log(response);
+    dispatch({ type: CREATE_RECRUITMENT, payload: response.data });
+    // history.push("/");
+  };
+};
+
+export const FETCH_RECRUITMENTS = () => {
+  return async (dispatch) => {
+    const response = await data.get("/creatorRecruitments");
+    dispatch({ type: FETCH_RECRUITMENTS, payload: response.data.data.data });
+  };
+};
+
+export const fetchRecruitment= (id) => {
+  return async (dispatch) => {
+    const response = await data.get(`/creatorRecruitments/${id}`);
+    dispatch({ type: FETCH_RECRUITMENT, payload: response.data.data });
+  };
+};
+
+export const editRecruitment = (id, formValues) => {
+  return async (dispatch) => {
+    const response = await data.patch(`/creatorRecruitments/${id}`, formValues);
+    dispatch({ type: EDIT_RECRUITMENT, payload: response.data.data });
+    //history.push("/");
+  };
+};
+
+export const deleteRecruitment = (id) => {
+  return async (dispatch) => {
+    await data.delete(`/creatorRecruitments/${id}`);
+    dispatch({ type: DELETE_RECRUITMENT, payload: id });
     //history.push("/");
   };
 };

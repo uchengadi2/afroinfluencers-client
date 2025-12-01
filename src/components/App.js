@@ -51,6 +51,7 @@ import BrandServicesHomeScreen from "./BrandServicesHomeScreen"
 import InfluencerServicesHomeScreen from "./InfluencerServicesHomeScreen";
 import BrandInfluencerDiscoveryService from "./BrandInfluencerDiscoveryService";
 import BrandInfluencerRecruitmentService from "./BrandInfluencerRecruitmentService";
+import ThankYouWithAccountDetails from "./thankyou/ThankYouWithAccountDetails";
 
 
 function App() {
@@ -192,8 +193,7 @@ function App() {
                      //api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
                      const response = await api.get(`/policies`);
                      const workingData = response.data.data.data;
-                         
-                    
+
                     if(workingData.length > 0){
                      
                    
@@ -213,6 +213,9 @@ function App() {
                
                    fetchData().catch(console.error);
                  }, []); 
+
+
+                
   return (
     <div className="wrapper">
       <ThemeProvider theme={theme}>
@@ -267,6 +270,9 @@ function App() {
                 setToken={setToken ? setToken : {}}
                 userId={userId}
                 setUserId={setUserId ? setUserId : {}}
+                policy={policy}
+                handleSuccessfulCreateSnackbar={handleSuccessfulCreateSnackbar}
+                handleFailedSnackbar={handleFailedSnackbar}
               
               />
             </Route>
@@ -277,6 +283,9 @@ function App() {
                 setToken={setToken ? setToken : {}}
                 userId={userId}
                 setUserId={setUserId ? setUserId : {}}
+                policy={policy}
+                handleSuccessfulCreateSnackbar={handleSuccessfulCreateSnackbar}
+                handleFailedSnackbar={handleFailedSnackbar}
               
               />
             </Route>
@@ -287,6 +296,9 @@ function App() {
                 setToken={setToken ? setToken : {}}
                 userId={userId}
                 setUserId={setUserId ? setUserId : {}}
+                policy={policy}
+                handleSuccessfulCreateSnackbar={handleSuccessfulCreateSnackbar}
+                handleFailedSnackbar={handleFailedSnackbar}
               
               />
             </Route>
@@ -382,6 +394,7 @@ function App() {
               <ShowCustomerCart
                 token={token}
                 userId={userId}
+                policy={policy}
                 setToken={setToken ? setToken : {}}
                 setUserId={setUserId ? setUserId : {}}
                 cartCounterHandler={cartCounterHandler}
@@ -389,6 +402,7 @@ function App() {
                 handleSuccessfulCreateSnackbar={handleSuccessfulCreateSnackbar}
                 handleFailedSnackbar={handleFailedSnackbar}
                 renderCartUpdateAfterRemoval={renderCartUpdateAfterRemoval}
+         
               />
             </Route>
 
@@ -437,6 +451,18 @@ function App() {
               <ThankYou
                 token={token}
                 userId={userId}
+                policy={policy}
+                setToken={setToken ? setToken : {}}
+                setUserId={setUserId ? setUserId : {}}
+                handleSuccessfulCreateSnackbar={handleSuccessfulCreateSnackbar}
+                handleFailedSnackbar={handleFailedSnackbar}
+              />
+            </Route>
+            <Route path="/thankswithaccounts/:orderNumber/:amount">
+              <ThankYouWithAccountDetails
+                token={token}
+                userId={userId}
+                policy={policy}
                 setToken={setToken ? setToken : {}}
                 setUserId={setUserId ? setUserId : {}}
                 handleSuccessfulCreateSnackbar={handleSuccessfulCreateSnackbar}

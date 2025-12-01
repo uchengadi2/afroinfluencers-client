@@ -35,6 +35,7 @@ import SendCourseToCheckoutForm from "./SendCourseToCheckoutForm";
 
 import { baseURL } from "./../../apis/util";
 import api from "./../../apis/local";
+import { forEach } from "lodash";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -222,6 +223,8 @@ function ProductDetails(props) {
   const [creatorId, setCreatorId] = useState("");
   const[brandName, setBrandName] = useState("");
   const [brandCountry, setBrandCountry] = useState("");
+  const [brandSubscribers, setBrandSubscribers] = useState([]);
+  const [hasActiveSubscription, setHasActiveSubscription] = useState(false);
 
   const [alert, setAlert] = useState({
     open: false,
@@ -298,6 +301,8 @@ function ProductDetails(props) {
            fetchData().catch(console.error);
          }, [props.token, props.userId]);
 
+
+  
   
 
   useEffect(() => {
@@ -310,8 +315,7 @@ function ProductDetails(props) {
       });
       const creator = response.data.data.data;
 
-      console.log("creator data is:", creator);
-
+      
       if (creator.length >= 1) {
         allData.push({
             id: creator[0]._id,
@@ -436,9 +440,45 @@ function ProductDetails(props) {
     fetchData().catch(console.error);
   }, [slug]);
 
+
+
+
+
+//retrieve all brand active subscribers
+  useEffect(() => {
+          const fetchData = async () => {
+            let allData = [];
+    
+          const response = await api.get(`/creatorSubscriptions`, {
+              params: { status: "active" },
+        });
+            const workingData = response.data.data.data;
+            workingData.map((brand) => {
+              allData.push({ 
+                //id: brand._id,
+                brand:brand.brand[0].id, 
+                //status:brand.status
+                
+            });
+            });
+            setBrandSubscribers(allData);
+          for(let item=0; item<allData.length;++item ){
+            if(allData[item].brand ===brandId){
+              setHasActiveSubscription(true);
+            }
+          }
   
-  
-  
+           
+            
+            
+          };
+      
+          //call the function
+      
+          fetchData().catch(console.error);
+        }, [props.token, brandId]);
+
+   
 
   const Str = require("@supercharge/strings");
 
@@ -478,6 +518,7 @@ function ProductDetails(props) {
             brandId={brandId}
             brandCountry={brandCountry}
             brandName={brandName}
+            hasActiveSubscription={hasActiveSubscription}
           />
         </Grid>
       }
@@ -523,6 +564,7 @@ function ProductDetails(props) {
               brandId={brandId}
               brandCountry={brandCountry}
               brandName={brandName}
+              hasActiveSubscription={hasActiveSubscription}
           />
         </Grid>
       }

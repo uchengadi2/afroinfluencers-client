@@ -336,17 +336,18 @@ const LoginForm = (props) => {
               <Grid
                 item
                 container
-                style={{ width: "5%", marginLeft: 10, fontSize: 10 }}
+                alignItems="flex-start"
+                style={{ width: "85%", marginLeft:100 }}
               >
-                {/* <Button
+                <Button
                   variant="text"
                   onClick={() => [
                     handleMakeOpenSignUpDialogStatus(),
                     //history.push("/"),
                   ]}
                 >
-                  Sign Up
-                </Button> */}
+                  Sign Up As A Brand
+                </Button>
               </Grid>
             </Grid>
 
@@ -438,7 +439,7 @@ const LoginForm = (props) => {
                     variant="text"
                     onClick={() => [handleMakeOpenSignUpDialogStatus()]}
                   >
-                    <span style={{ fontSize: 10 }}>Sign Up</span>
+                    <span style={{ fontSize: 10 }}>Sign Up As A Brand</span>
                   </Button>
                 </Grid>
               </Grid>

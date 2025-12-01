@@ -28,6 +28,8 @@ import nicheReducer from "./nicheReducer";
 import projectReducer from "./projectReducer";
 import creatorReducer from "./creatorReducer";
 import brandReducer from "./brandReducer";
+import subscriptionReducer from "./subscriptionReducer";
+import recruitmentReducer from "./recruitmentReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -59,4 +61,6 @@ export default combineReducers({
   project: projectReducer,
   creator: creatorReducer,
   brand: brandReducer,
+  subscription:subscriptionReducer,
+  recruitment:recruitmentReducer
 });

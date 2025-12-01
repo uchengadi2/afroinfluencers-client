@@ -683,6 +683,7 @@ console.log('props:', props)
                     handleFailedSignUpDialogOpenStatusWithSnackbar
                   }
                   cartCounterHandler={props.cartCounterHandler}
+                  hasActiveSubscription={props.hasActiveSubscription}
                 />
               </Box>
             </Grid>
@@ -834,6 +835,7 @@ console.log('props:', props)
                      handleFailedSignUpDialogOpenStatusWithSnackbar
                    }
                    cartCounterHandler={props.cartCounterHandler}
+                   hasActiveSubscription={props.hasActiveSubscription}
                 />
               </Box>
             </Grid>

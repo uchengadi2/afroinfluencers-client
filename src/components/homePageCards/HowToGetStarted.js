@@ -17,6 +17,9 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Snackbar from "@material-ui/core/Snackbar";
+import LoginForm from "../authForms/LoginForm";
+import UserSignUp from "../users/UserSignUp";
+import UserPasswordReset from "../users/UserPasswordReset";
 import heroSection from "./../../assets/images/covers/food2.png";
 import backgroundDerica from "./../../assets/images/covers/food2.png";
 import backgroundPaint from "./../../assets/images/covers/delivery.png";
@@ -26,11 +29,13 @@ import backgroundRetail from "./../../assets/images/covers/delivery.png";
 import backgroundProduct from "./../../assets/images/covers/aboutus-cover.jpg";
 import backgroundGrowth from "./../../assets/images/covers/channels.jpg";
 import heroImage from "./../../assets/images/controlsoft/image24.webp";
+import InfluencerRecruitmentForm from "./BrandServices/InfluencerRecruitmentForm";
 
 
 import { baseURL } from "./../../apis/util";
 
 import theme from "./../ui/Theme";
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -382,8 +387,9 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "250px",
         marginLeft: "0%",
         marginRight: "0px",
-        height: "45px",
+        height: "30px",
         width: "240px",
+        
       
     
         "&:hover": {
@@ -393,12 +399,14 @@ const useStyles = makeStyles((theme) => ({
       },
 }));
 
-export default function HowToGetStarted() {
+export default function HowToGetStarted(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
   const [openLoginForm, setOpenLoginForm] = useState(false);
   const [openSignUpForm, setOpenSignUpForm] = useState(false);
   const [openForgotPasswordForm, setOpenForgotPasswordForm] = useState(false);
+  const [openRecruitmentForm, setOpenRecruitmentForm] =useState(false);
 
   const [currencyName, setCurrencyName] = useState("naira");
   const [countryName, setCountryName] = useState();
@@ -426,6 +434,281 @@ export default function HowToGetStarted() {
   if (product) {
     imageUrl = `${baseURL}/images/courses/${product.imageCover}`;
   }
+
+
+  const handleLoginDialogOpenStatus = () => {
+            // history.push("/categories/new");
+            setOpenLoginForm(false);
+          };
+          const handleLoginDialogCloseStatus = () => {
+            // history.push("/categories/new");
+            setOpenLoginForm(false);
+          };
+        
+          const handleSuccessfulLoginDialogOpenStatusWithSnackbar = (message) => {
+            // history.push("/categories/new");
+        
+            setAlert({
+              open: true,
+              message: message,
+              backgroundColor: "#4BB543",
+            });
+            setOpenLoginForm(false);
+            setOpenDrawer(false);
+          };
+        
+          const handleFailedLoginDialogOpenStatusWithSnackbar = (message) => {
+            // history.push("/categories/new");
+            setAlert({
+              open: true,
+              message: message,
+        
+              backgroundColor: "#FF3232",
+            });
+            setOpenLoginForm(true);
+          };
+        
+          const handleSuccessfulSignUpDialogOpenStatusWithSnackbar = (message) => {
+            // history.push("/categories/new");
+        
+            setAlert({
+              open: true,
+              message: message,
+              backgroundColor: "#4BB543",
+            });
+            setOpenSignUpForm(false);
+            setOpenDrawer(false);
+          };
+        
+        
+          
+        
+          const handleFailedSignUpDialogOpenStatusWithSnackbar = (message) => {
+            // history.push("/categories/new");
+            setAlert({
+              open: true,
+              message: message,
+        
+              backgroundColor: "#FF3232",
+            });
+            setOpenSignUpForm(true);
+          };
+        
+        
+        
+          // const handleCurrentClick = () => {
+          //   ref.current.focus();
+          // };
+        
+          const handleMakeOpenLoginFormDialogStatus = () => {
+            // history.push("/categories/new");
+            setOpenSignUpForm(false);
+            //setOpenCreatorSignUpForm(false);
+            setOpenLoginForm(true);
+          };
+        
+        
+          const handleMakeOpenForgotPasswordFormDialogStatus = () => {
+            // history.push("/categories/new");
+            setOpenForgotPasswordForm(true);
+            setOpenLoginForm(false);
+          };
+        
+        
+          const handleMakeCloseForgotPasswordFormDialogStatus = () => {
+            // history.push("/categories/new");
+            setOpenForgotPasswordForm(false);
+            setOpenLoginForm(false);
+          };
+        
+        
+          const handleMakeOpenSignUpDialogStatus = () => {
+            // history.push("/categories/new");
+            setOpenSignUpForm(true);
+            setOpenLoginForm(false);
+           // setOpenCreatorSignUpForm(false);
+          };
+        
+           
+        
+          const handleMakeCloseSignUpDialogStatus = () => {
+            // history.push("/categories/new");
+            setOpenSignUpForm(false);
+            //setOpenCreatorSignUpForm(false);
+          };
+
+
+  const handleSuccessfulForgotPasswordDialogOpenStatusWithSnackbar = (message) => {
+    // history.push("/categories/new");
+
+    setAlert({
+      open: true,
+      message: message,
+      backgroundColor: "#4BB543",
+    });
+    setOpenForgotPasswordForm(false);
+    setOpenDrawer(false);
+  };
+
+  const handleFailedForgotPasswordDialogOpenStatusWithSnackbar = (message) => {
+    // history.push("/categories/new");
+    setAlert({
+      open: true,
+      message: message,
+
+      backgroundColor: "#FF3232",
+    });
+    setOpenForgotPasswordForm(false);
+  };
+        
+          
+        
+   const handleOpenRecriutmentFormDialogOpenStatus = () => {
+          // history.push("/categories/new");
+          setOpenRecruitmentForm(false);
+        };
+        
+          const renderRecruitmentForm = () => {
+              return (
+                <Dialog
+                  //style={{ zIndex: 1302 }}
+                  fullScreen={matchesXS}
+                 open={openRecruitmentForm}
+                  onClose={() => [setOpenRecruitmentForm(false)]}
+                >
+                  <DialogContent>
+                    <InfluencerRecruitmentForm
+                      token={props.token}
+                      userId={props.userId}
+                      brandId={props.brandId}
+                      customerEmail={props.customerEmail}
+                      customerName={props.customerName}
+                      customerPhoneNumber={props.customerPhoneNumber}
+                      policy={props.policy}
+                      setToken={props.setToken}
+                      setUserId={props.setUserId}
+                      handleOpenRecriutmentFormDialogOpenStatus={handleOpenRecriutmentFormDialogOpenStatus}
+                      // updateUserInfoHandler={updateUserInfoHandler}
+                      // handleMakeChangeNameDialogForm={handleMakeChangeNameDialogForm}
+                        // handleSuccessfulCreateSnackbar={handleSuccessfulCreateSnackbar}
+                      // handleFailedSnackbar={handleFailedSnackbar}
+                      // user={user}
+                      handleSuccessfulCreateSnackbar={props.handleSuccessfulCreateSnackbar}
+                      handleFailedSnackbar={props.handleFailedSnackbar}
+                    />
+                  </DialogContent>
+                </Dialog>
+              );
+            };
+        
+            const renderLoginForm = () => {
+                return (
+                  <Dialog
+                    //style={{ zIndex: 1302 }}
+                    fullScreen={matchesXS}
+                    open={openLoginForm}
+                    //onClose={() => [setOpenLoginForm(false), history.push("/")]}
+                    onClose={() => [setOpenLoginForm(false)]}
+                  >
+                  
+            
+                    <DialogContent>
+                      <LoginForm
+                        handleLoginDialogOpenStatus={handleLoginDialogOpenStatus}
+                        handleMakeOpenSignUpDialogStatus={handleMakeOpenSignUpDialogStatus}
+                        handleMakeCloseSignUpDialogStatus={
+                          handleMakeCloseSignUpDialogStatus
+                        }
+                        handleLoginDialogCloseStatus={handleLoginDialogCloseStatus}
+                        handleMakeOpenForgotPasswordFormDialogStatus={
+                          handleMakeOpenForgotPasswordFormDialogStatus
+                        }
+                        handleSuccessfulLoginDialogOpenStatusWithSnackbar={
+                          handleSuccessfulLoginDialogOpenStatusWithSnackbar
+                        }
+                        handleFailedLoginDialogOpenStatusWithSnackbar={
+                          handleFailedLoginDialogOpenStatusWithSnackbar
+                        }
+                        setToken={props.setToken}
+                        setUserId={props.setUserId}
+                      />
+                    </DialogContent>
+                  </Dialog>
+                );
+              };
+            
+              const renderSignUpForm = () => {
+                return (
+                  <Dialog
+                    //style={{ zIndex: 1302 }}
+                    fullScreen={matchesXS}
+                    open={openSignUpForm}
+                    // onClose={() => [setOpenSignUpForm(false), history.push("/")]}
+                    onClose={() => [setOpenSignUpForm(false)]}
+                  >
+                    <DialogContent>
+                      <UserSignUp
+                      // {/* <SignUpForm  
+                        token={props.token}
+                        handleMakeOpenSignUpDialogStatus={handleMakeOpenSignUpDialogStatus}
+                        handleMakeCloseSignUpDialogStatus={
+                          handleMakeCloseSignUpDialogStatus
+                        }
+                        handleMakeOpenLoginFormDialogStatus={
+                          handleMakeOpenLoginFormDialogStatus
+                        }
+                        handleSuccessfulSignUpDialogOpenStatusWithSnackbar={
+                          handleSuccessfulSignUpDialogOpenStatusWithSnackbar
+                        }
+                        handleFailedSignUpDialogOpenStatusWithSnackbar={
+                          handleFailedSignUpDialogOpenStatusWithSnackbar
+                        }
+                    
+                        handleLoginDialogOpenStatus={
+                          handleLoginDialogOpenStatus
+                        }
+                        setToken={props.setToken}
+                        setUserId={props.setUserId}
+                      />
+                    </DialogContent>
+                  </Dialog>
+                );
+              };
+
+              const renderForgotPasswordForm = () => {
+                  return (
+                    <Dialog
+                      //style={{ zIndex: 1302 }}
+                      fullScreen={matchesXS}
+                      open={openForgotPasswordForm}
+                      //onClose={() => [setOpenForgotPasswordForm(false), history.push("/")]}
+                      onClose={() => [setOpenForgotPasswordForm(false)]}
+                    >
+                      <DialogContent>
+                        <UserPasswordReset
+                          token={props.token}
+                          userId={props.userId}
+                          handleMakeOpenSignUpDialogStatus={handleMakeOpenSignUpDialogStatus}
+                          handleMakeCloseSignUpDialogStatus={
+                            handleMakeCloseSignUpDialogStatus
+                          }
+                          handleMakeOpenLoginFormDialogStatus={
+                            handleMakeOpenLoginFormDialogStatus
+                          }
+                          handleMakeCloseForgotPasswordFormDialogStatus={
+                            handleMakeCloseForgotPasswordFormDialogStatus
+                          }
+                          handleSuccessfulForgotPasswordDialogOpenStatusWithSnackbar={
+                            handleSuccessfulForgotPasswordDialogOpenStatusWithSnackbar
+                          }
+                          handleFailedForgotPasswordDialogOpenStatusWithSnackbar={
+                            handleFailedForgotPasswordDialogOpenStatusWithSnackbar
+                          }
+                        />
+                      </DialogContent>
+                    </Dialog>
+                  );
+                };
 
   const Str = require("@supercharge/strings");
 
@@ -473,23 +756,35 @@ export default function HowToGetStarted() {
                     </Typography>
                   </Grid>
                   <Grid item  style={{width: "100%", marginTop: 0, marginLeft:"20%", marginBottom:50}}>
-                    <Button 
+                    {props.token && <Button 
                         variant="contained" 
                         color="secondary" 
                         justifyContent="center" 
                         className={classes.button}
-                        component={Link}
-                         to="/influencercentral/"
+                        onClick={() => [setOpenRecruitmentForm(true)]}
                     
                     >
                        Request Your Influencer Shortlist
-                    </Button>
+                    </Button>}
+                    {!props.token && <Button 
+                        variant="contained" 
+                        color="secondary" 
+                        justifyContent="center" 
+                        className={classes.button}
+                        onClick={() => [setOpenLoginForm(true)]}
+                    
+                    >
+                       Request Your Influencer Shortlist
+                    </Button>}
                   </Grid>
                   
                 
                
               </Grid>
-             
+             {renderRecruitmentForm()}
+              {renderLoginForm()}
+              {renderSignUpForm()}
+              {renderForgotPasswordForm()}
              
             </Box>
           </>
@@ -524,6 +819,7 @@ export default function HowToGetStarted() {
                     //style={{ height: "60%", marginLeft: "3.5em" }}
                     style={{ height: "70%", marginLeft: "2%", width:"70%", padding:5, marginRight:"10%"  }}
                   >
+                    <Typography variant="h5" style={{marginLeft:'0%',marginBottom:20}}>How To Get Started</Typography>
                     <Typography style={{marginTop:10, fontSize:12}}>
                           <ReactMarkdown>Getting started is simple—just follow three easy steps to launch your influencer campaign. </ReactMarkdown>
                     </Typography>
@@ -531,22 +827,35 @@ export default function HowToGetStarted() {
                           <ReactMarkdown>{howToGetStartedSection}</ReactMarkdown>
                     </Typography>
                   </Grid>
-                  <Grid item  style={{width: "30%", height: "10%",marginLeft:"5%", marginBottom:0}}>
-                    <Button 
+                  <Grid item  style={{width: "30%", height: "10%",marginLeft:"5%", marginBottom:0, marginTop:30}}>
+                    {props.token && <Button 
                         variant="contained" 
                         color="secondary" 
                         justifyContent="center" 
                         className={classes.buttonMobile}
-                        component={Link}
-                        to="/influencercentral/"
+                         onClick={() => [setOpenRecruitmentForm(true)]}
                     
                     >
                         Request Your Influencer Shortlist
-                    </Button>
+                    </Button>}
+                     {!props.token && <Button 
+                        variant="contained" 
+                        color="secondary" 
+                        justifyContent="center" 
+                        className={classes.buttonMobile}
+                         onClick={() => [setOpenSignUpForm(true)]}
+                    
+                    >
+                        Request Your Influencer Shortlist
+                    </Button>}
                   </Grid>
                 
                
               </Grid>
+              {renderRecruitmentForm()}
+              {renderLoginForm()}
+              {renderSignUpForm()}
+              {renderForgotPasswordForm()}
           </Box>
         )}
         <Dialog

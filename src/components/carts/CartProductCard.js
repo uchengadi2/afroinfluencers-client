@@ -30,6 +30,7 @@ import { baseURL } from "./../../apis/util";
 import theme from "./../ui/Theme";
 import CartUpdateAndDeliveryForm from "./CartUpdateAndDeliveryForm";
 import AllCourses from "../homePageCards/AllCourses";
+import { Container } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -526,6 +527,8 @@ export default function CartProductCard(props) {
                     {props.brand.name}
                   </Typography>
                 )}
+                
+             
                 <Typography variant="h5" style={{ color: "black", fontSize: 15, marginLeft:15, marginTop:10 }}><strong>Selected Platforms for the Campaign</strong></Typography>
                <Typography style={{marginLeft:25}}>
                 {props.platforms && props.platforms.map((platform, index)=> (
@@ -720,13 +723,20 @@ export default function CartProductCard(props) {
                 )}
 
 
-
+                 {props.servicePreference ==='managed' && <Container>
                 <Typography variant="h5" style={{ color: "black", fontSize: 18, marginTop: 20 }}><strong>Selected Agency Plan</strong></Typography>
 
                
                 {props.agencyServicePlan && (
                   <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Agency Service Plan</strong>:&nbsp;&nbsp;{props.agencyServicePlan.charAt(0).toUpperCase() + props.agencyServicePlan.slice(1)}</Typography>
                 )}
+                </Container>}
+                 {props.servicePreference ==='subscription' && <Container>
+                <Typography variant="h5" style={{ color: "red", fontSize: 18, marginTop: 20 }}><strong>This Influencer will be added to the Subscription List</strong></Typography>
+
+               
+                </Container>}
+        
                 
               </CardContent>
             </Grid>
@@ -757,6 +767,7 @@ export default function CartProductCard(props) {
                   renderCartUpdateAfterRemoval={
                     props.renderCartUpdateAfterRemoval
                   }
+                  servicePreference = {props.servicePreference}
                 />
               )}
             </Grid>
@@ -809,6 +820,7 @@ export default function CartProductCard(props) {
                     {props.brand.name}
                   </Typography>
                 )}
+            
                 <Typography variant="h5" style={{ color: "black", fontSize: 15, marginLeft:15, marginTop:10 }}><strong>Selected Platforms for the Campaign</strong></Typography>
                <Typography style={{marginLeft:25}}>
                 {props.platforms && props.platforms.map((platform, index)=> (
@@ -1003,14 +1015,21 @@ export default function CartProductCard(props) {
                 )}
 
 
-
+              {props.servicePreference ==='managed' && <Container>
                 <Typography variant="h5" style={{ color: "black", fontSize: 18, marginTop: 20 }}><strong>Selected Agency Plan</strong></Typography>
 
                
                 {props.agencyServicePlan && (
                   <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Agency Service Plan</strong>:&nbsp;&nbsp;{props.agencyServicePlan.charAt(0).toUpperCase() + props.agencyServicePlan.slice(1)}</Typography>
                 )}
+                </Container>}
+                 {props.servicePreference ==='subscription' && <Container>
+                <Typography variant="h5" style={{ color: "red", fontSize: 18, marginTop: 20 }}><strong>This Influencer will be added to the Subscription List</strong></Typography>
+
+               
                 
+                </Container>}
+               
               </CardContent>
             </Grid>
 
@@ -1040,6 +1059,7 @@ export default function CartProductCard(props) {
                   renderCartUpdateAfterRemoval={
                     props.renderCartUpdateAfterRemoval
                   }
+                  servicePreference = {props.servicePreference}
                 />
               )}
             </Grid>

@@ -13583,7 +13583,15 @@ const renderLoginForm = () => {
           </Grid>
         </Grid>
         {/* </section> */}
-        <HeroSection />
+        <HeroSection  
+        
+            token={props.token}
+              userId={props.userId}
+              setToken={props.setToken}
+              setUserId={props.setUserId}
+              policy={props.policy}
+        
+        />
         <TopCover 
               token={props.token}
               userId={props.userId}
@@ -13598,9 +13606,30 @@ const renderLoginForm = () => {
               handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar={handleSuccessfulSignUpInfluencerDialogOpenStatusWithSnackbar}
               handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar={handleFailedSignUpDialogInfluencerOpenStatusWithSnackbar}
         />
-        <InfluencerDiscoveryService />
-        <ManagedInfluencerService />
-        <InfluencerRecruitmentService />
+        <InfluencerDiscoveryService 
+          token={props.token}
+              userId={props.userId}
+              setToken={props.setToken}
+              setUserId={props.setUserId}
+              policy={props.policy}
+          />
+        <ManagedInfluencerService 
+          token={props.token}
+              userId={props.userId}
+              setToken={props.setToken}
+              setUserId={props.setUserId}
+              policy={props.policy}
+        
+        />
+        <InfluencerRecruitmentService 
+        
+            token={props.token}
+              userId={props.userId}
+              setToken={props.setToken}
+              setUserId={props.setUserId}
+              policy={props.policy}
+        
+        />
         {/**<OurProcesses 
           token={props.token}
           userId={props.userId}

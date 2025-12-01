@@ -16,7 +16,7 @@ import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Button from "@material-ui/core/Button";
-import { TextField } from "@material-ui/core";
+import { Container, TextField } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
@@ -755,13 +755,13 @@ function CartUpdateAndDeliveryForm(props) {
           style={{ marginTop: 10, marginBottom: 10 }}
           justifyContent="center"
         ></Grid>
-       
+
         <Typography variant="h5" style={{ color: "black", fontSize: 16, marginTop: 20, marginBottom:20 }}><strong>Influencer's Cumulative Stats In Summary</strong></Typography>
         <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Total Reach</strong>:&nbsp;&nbsp;{totalReach.toLocaleString()}</Typography>
         <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Average Engagement Rate</strong>:&nbsp;&nbsp;{averageEngagementRate.toLocaleString()}%</Typography>
         {props.currency.name.toLowerCase()==='naira' && <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Average Cost Per Reach</strong>:&nbsp;&nbsp;&#8358;{averageCostPerReach.toLocaleString()}</Typography>}
         {props.currency.name.toLowerCase()!=='naira' && <Typography variant="h5" style={{ color: "black", fontSize: 15,marginLeft:15 }}><strong>Average Cost Per Reach</strong>:&nbsp;&nbsp;&#36;{averageCostPerReach.toLocaleString()}</Typography>}
-
+   
 
         <Button
           variant="outlined"

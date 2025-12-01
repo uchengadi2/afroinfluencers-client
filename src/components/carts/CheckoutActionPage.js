@@ -663,7 +663,7 @@ function CheckoutActionPage(props) {
     );
   };
 
-  console.log("props:", props);
+ 
 
   return (
     <>

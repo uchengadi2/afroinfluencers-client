@@ -185,7 +185,7 @@ function Policy(props) {
   const [language, setLanguage] = useState(props.languages);
   const [niche, setNiche] = useState(props.niches);
   const [gender, setGender] = useState();
-  const [currency, setCurrency] = useState(props.currency);
+  const [currency, setCurrency] = useState(props.policy.baseCurrency);
    const [loading, setLoading] = useState(false);
    const [platformRateIsIncludedAsPartOfUserInputedAmount, setPlatformRateIsIncludedAsPartOfUserInputedAmount] = useState(props.hasInfo ? props.platformRateIsIncludedAsPartOfUserInputedAmount : true);
    const [vatIsIncludedAsPartOfUserInputedAmount, setVatIsIncludedAsPartOfUserInputedAmount] = useState(props.hasInfo ? props.vatIsIncludedAsPartOfUserInputedAmount : true);
@@ -195,6 +195,34 @@ function Policy(props) {
   const currentUser = params.userId;
 
 
+
+
+  //get all brand new projects
+      useEffect(() => {
+          const fetchData = async () => {
+            let allData = [];
+           
+          api.defaults.headers.common["Authorization"] = `Bearer ${props.token}`;
+            const response = await api.get(`/currencies`);
+            const workingData = response.data.data.data;
+            workingData.map((currency) => {
+              allData.push({ 
+                id: currency._id,
+                name: currency.name, 
+                
+            });
+            });
+            setCurrencyList(allData);
+  
+           
+            
+            
+          };
+      
+          //call the function
+      
+          fetchData().catch(console.error);
+        }, [props.token]);
 
 
 
@@ -209,7 +237,57 @@ function Policy(props) {
   };
 
   
- 
+  const handleCurrencyChange = (event) => {
+        setCurrency(event.target.value);
+               
+      };
+
+
+       //get the Currency list
+                 const renderCurrencyList = () => {
+                   return currencyList.map((item) => {
+                     return (
+                       <MenuItem key={item.id} value={item.id}>
+                         {item.name}
+                       </MenuItem>
+                     );
+                   });
+                 };
+
+
+
+
+     const renderCurrencyField = ({
+                input,
+                label,
+                meta: { touched, error, invalid },
+                type,
+                id,
+                ...custom
+              }) => {
+                return (
+                  <Box>
+                    <FormControl variant="outlined">
+                      {/* <InputLabel id="vendor_city">City</InputLabel> */}
+                      <Select
+                        labelId="currency"
+                        id="currency"
+                        value={currency}
+                        onChange={handleCurrencyChange}
+                        // label="User"
+                        style={{ marginTop: 10, width: 660 , height: 38, marginLeft:0,marginRight:0 }}
+                        //{...input}
+                      >
+                        {renderCurrencyList()}
+                      </Select>
+                      <FormHelperText>Select the Required Base Currency</FormHelperText>
+                    </FormControl>
+                  </Box>
+                );
+              };
+                 
+
+
 
   const buttonContent = () => {
     return <React.Fragment> Submit</React.Fragment>;
@@ -285,7 +363,7 @@ function Policy(props) {
 
 
 
- console.log("this props is at policy:", props);
+ 
 
   const onSubmit = (formValues) => {
     setLoading(true);
@@ -344,8 +422,14 @@ function Policy(props) {
         microInfluencerRecruitmentFee: formValues.microInfluencerRecruitmentFee,
         nanoInfluencerRecruitmentFee: formValues.nanoInfluencerRecruitmentFee,
         subNanoInfluencerRecruitmentFee: formValues.subNanoInfluencerRecruitmentFee,
+        monthByMonthSubscriptionRate:formValues.monthByMonthSubscriptionRate,
+        monthByAnnualSubscriptionRate:formValues.monthByAnnualSubscriptionRate,
+        nairaToBaseCurrencyExchangeRate:formValues.nairaToBaseCurrencyExchangeRate,
+        baseCurrency:currency
       }
       
+
+    
   
  
   
@@ -402,6 +486,10 @@ function Policy(props) {
         microInfluencerRecruitmentFee: formValues.microInfluencerRecruitmentFee ? formValues.microInfluencerRecruitmentFee : props.policy.microInfluencerRecruitmentFee,
         nanoInfluencerRecruitmentFee: formValues.nanoInfluencerRecruitmentFee ? formValues.nanoInfluencerRecruitmentFee : props.policy.nanoInfluencerRecruitmentFee,
         subNanoInfluencerRecruitmentFee: formValues.subNanoInfluencerRecruitmentFee ? formValues.subNanoInfluencerRecruitmentFee : props.policy.subNanoInfluencerRecruitmentFee,
+         monthByMonthSubscriptionRate:formValues.monthByMonthSubscriptionRate ? formValues.monthByMonthSubscriptionRate : props.policy.monthByMonthSubscriptionRate,
+        monthByAnnualSubscriptionRate:formValues.monthByAnnualSubscriptionRate ? formValues.monthByAnnualSubscriptionRate : props.policy.monthByAnnualSubscriptionRate,
+        nairaToBaseCurrencyExchangeRate:formValues.nairaToBaseCurrencyExchangeRate ? formValues.nairaToBaseCurrencyExchangeRate : props.policy.nairaToBaseCurrencyExchangeRate,
+        baseCurrency:currency ? currency: props.policy.baseCurrency
       }
       
 
@@ -441,7 +529,7 @@ function Policy(props) {
     
   };
 
-
+console.log('props.policy.baseCurrency:',props.policy.baseCurrency[0])
   
   return (
     <form id="policy">
@@ -666,8 +754,48 @@ function Policy(props) {
                  component={renderVatShouldBeIncludedAsUserInputtedAmountField}
                   style={{ marginTop: 10 }}
                 />
+      <Field
+          label=""
+          id="currency"
+          name="currency"
+          type="text"
+          component={renderCurrencyField}
+          style={{marginTop:10, marginBottom:20}}
+      />          
 
-       
+       <Field
+          label=""
+          id="monthByMonthSubscriptionRate"
+          name="monthByMonthSubscriptionRate"
+          //placeholder="5500"
+          type="number"
+          defaultValue={props.policy && props.policy.monthByMonthSubscriptionRate}
+          helperText="Month By Month Subscription Rate"
+         component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+        <Field
+          label=""
+          id="monthByAnnualSubscriptionRate"
+          name="monthByAnnualSubscriptionRate"
+          //placeholder="5500"
+          type="number"
+          defaultValue={props.policy && props.policy.monthByAnnualSubscriptionRate}
+          helperText="Month By Annually Subscription Rate"
+         component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
+         <Field
+          label=""
+          id="nairaToBaseCurrencyExchangeRate"
+          name="nairaToBaseCurrencyExchangeRate"
+          //placeholder="5500"
+          type="number"
+          defaultValue={props.policy && props.policy.nairaToBaseCurrencyExchangeRate}
+          helperText="Naira To Base Currency Exchange Rate"
+         component={renderSingleLineField}
+          style={{ marginTop: 10 }}
+        />
         {props.hasInfo && <Button
           variant="contained"
           className={classes.submitUpdateButton}

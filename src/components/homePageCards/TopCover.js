@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
   uppercard: {
     maxWidth: "100%",
-    height: 950,
+    height: 1150,
     //height: 350,
     width: "100%",
 
@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
    uppercardNoToken: {
     maxWidth: "100%",
     // height: 1050,
-    height: 950,
+    height: 1150,
     //height: 350,
     width: "100%",
 

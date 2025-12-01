@@ -224,6 +224,7 @@ function SendCreatorToCheckoutForm(props) {
   const [willUseLinkedIn, setWillUseLinkedIn] = useState(false);
   const [willUseBlog, setWillUseBlog] = useState(false);
   const [agencyServicePlan, setAgencyServicePlan] = useState("bronze");
+  const [servicePreference, setServicePreference] = useState();
 
     const theme = useTheme();
     const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
@@ -240,8 +241,13 @@ function SendCreatorToCheckoutForm(props) {
     setHookPrice(videoHookPrice);
     setAudioPrice(soundPrice);
     setAudioHookPrice(soundHookPrice)
+    if(props.hasActiveSubscription){
+      setServicePreference("subscription")
+    }else{
+      setServicePreference("managed")
+    }
     // setHookPrice(projectType === 'video' ? videoHookPrice:soundHookPrice)
-  }, [props, quantity,hookQuantity]);
+  }, [props, quantity,hookQuantity,props.hasActiveSubscription]);
 
   useEffect(() => {
     if (!quantity || !hookQuantity) {
@@ -499,6 +505,41 @@ if(projectType === "video"){
         });
       };
 
+      const handleServicePreferenceChange=(e)=>{
+        setServicePreference(e.target.value)
+      }
+
+
+       const renderSubscriptionPlanField = ({
+          input,
+          label,
+          meta: { touched, error, invalid },
+          type,
+          id,
+          ...custom
+        }) => {
+          return (
+            <Box>
+              <FormControl variant="outlined">
+                {/* <InputLabel id="vendor_city">City</InputLabel> */}
+                <Select
+                  labelId="servicePreference"
+                  id="servicePreference"
+                  value={servicePreference}
+                  onChange={handleServicePreferenceChange}
+                  style={{ width: matchesMDUp ? 300 : 300, height: 38 }}
+                >
+                  <MenuItem value="">{/* <em>None</em> */}</MenuItem>
+                  <MenuItem value={"managed"}>Managed Service</MenuItem>
+                  {props.hasActiveSubscription && <MenuItem value={"subscription"}>Subscription</MenuItem>}
+                  {/* <MenuItem value={"managed"}>Managed Service</MenuItem> */}
+                  
+                </Select>
+                <FormHelperText>Select Service Preference</FormHelperText>
+              </FormControl>
+            </Box>
+          );
+        };
     
 
   const onQuantityChange = (e) => {
@@ -571,6 +612,11 @@ if(projectType === "video"){
   const handleAgencyServicePlanChange = (event) => {
     setAgencyServicePlan(event.target.value);
   };
+
+
+
+
+
 
   const renderProjectField = ({
       input,
@@ -940,33 +986,13 @@ if(projectType === "video"){
       linkedInPostQuantity:willUseLinkedIn ? formValues.linkedinPostQuantity:0,
       blogPostQuantity:willUseBlog ? formValues.blogPostQuantity:0,
       //platforms: selectedPlatforms.map((platform) => platform),
-      platforms: selectedPlatforms
+      platforms: selectedPlatforms,
+      servicePreference:servicePreference
     
       
     };
 
-    
-
-   
-      //delete all items in this user's cart
-      // cartForCheckoutList.map((cart, index) => {
-      //   const createForm = async () => {
-      //     api.defaults.headers.common[
-      //       "Authorization"
-      //     ] = `Bearer ${props.token}`;
-      //     await api.delete(`/carts/${cart.id}`);
-      //     dispatch({
-      //       type: DELETE_CART,
-      //       //payload: response2.data.data.data,
-      //     });
-      //     //props.cartCounterHandler(-1);
-      //   };
-      //   createForm().catch((err) => {
-      //     //props.handleFailedSnackbar();
-      //     console.log("err:", err.message);
-      //   });
-      // });
-    
+       
        
 
    
@@ -1375,7 +1401,18 @@ if(projectType === "video"){
                   style={{ width: 300, marginTop: 10 }}
                 />}
 
-                {project && <Field
+                
+
+                {props.hasActiveSubscription && project && <Field
+                  label=""
+                  id="servicePreference"
+                  name="servicePreference"
+                  type="text"
+                  component={renderSubscriptionPlanField}
+                  style={{ width: 300 }}
+                />}
+
+                {project && servicePreference ==='managed' && <Field
                   label=""
                   id="agencyServicePlan"
                   name="agencyServicePlan"
@@ -1410,7 +1447,7 @@ if(projectType === "video"){
           </Grid>
           
         </Grid> */}
-       {project && <Button
+       {/* {project && <Button
           variant="text"
           color="primary"
           className={classes.cancelButton}
@@ -1418,7 +1455,7 @@ if(projectType === "video"){
           onClick={props.handleClose} 
         >
           Learn More About The Agency Service Plans    
-        </Button>}
+        </Button>} */}
 
         <Button
           variant="contained"

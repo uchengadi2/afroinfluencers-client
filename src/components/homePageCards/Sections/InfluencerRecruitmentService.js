@@ -456,18 +456,18 @@ export default function InfluencerRecruitmentService() {
                       style={{ height: "90%", marginLeft: "10%", width:"50%", padding:10,marginTop:70  }}
                     >
                       <Typography variant="h3" style={{marginLeft:'0%',marginBottom:30}}>Influencer Recruitment & Vetting Service</Typography>
-                     {/* <Typography style={{marginTop:0, padding: 0,fontSize:17}}>
-                          <strong><ReactMarkdown>Fast-Track Your Arrival. Elevate Your Departure.</ReactMarkdown></strong>
-                    </Typography> */}
+                     <Typography style={{marginTop:0, padding: 0,fontSize:17}}>
+                          <strong><ReactMarkdown>Stop gambling with influencer selection.</ReactMarkdown></strong>
+                    </Typography>
                       <Typography style={{marginTop:10, fontSize:15}}>
-                            <ReactMarkdown>Finding reliable influencers is one of the most time-consuming and uncertain parts of influencer marketing. Our Influencer Recruitment & Vetting Only service solves this challenge by giving you access to creators who have already been screened, verified, and evaluated for brand fit.</ReactMarkdown>
+                            <ReactMarkdown>We identify and verify the right influencers for your brand — saving you time, reducing risk, and ensuring every partnership delivers value.</ReactMarkdown>
                       </Typography>
                       <Typography style={{marginTop:30, fontSize:15}}>
-                          <ReactMarkdown>From business strategy and process optimization to performance management and organizational development, we deliver insights and frameworks that turn complexity into clarity. With a focus on measurable outcomes, we help you strengthen your competitive position and achieve sustainable excellence.</ReactMarkdown>
+                          <ReactMarkdown>Our team screens every influencer for authenticity, engagement quality, and brand fit, so you connect only with creators who are credible, relevant, and ready to perform.</ReactMarkdown>
                     </Typography>
-                      {/* <Typography style={{marginTop:30, fontSize:15}}>
-                          <em><ReactMarkdown>Skip the lines, avoid delays, and focus on what matters — your business.</ReactMarkdown></em>
-                    </Typography> */}
+                      <Typography style={{marginTop:30, fontSize:15}}>
+                          <em><ReactMarkdown>You manage the campaign. We make sure you start with the right influencers.</ReactMarkdown></em>
+                    </Typography>
                      <Button 
                         variant="contained" 
                         disabled={false}
@@ -537,18 +537,18 @@ export default function InfluencerRecruitmentService() {
                                 style={{ height: "90%", marginLeft: "2%", width:"70%", padding:2, marginRight:"10%"  }}
                               >
                                <Typography variant="h5" style={{marginLeft:'0%',marginBottom:30, fontWeight:700}}>Influencer Recruitment & Vetting Service</Typography>
-                              {/* <Typography style={{marginTop:0, padding: 0,fontSize:10}}>
-                                  <strong><ReactMarkdown>Fast-Track Your Arrival. Elevate Your Departure.</ReactMarkdown></strong>
-                              </Typography> */}
-                                <Typography style={{marginTop:10, fontSize:10}}>
-                                <ReactMarkdown>Need help finding the right talent? We specialize in sourcing, screening, and verifying influencers that perfectly align with your brand values and campaign goals. You focus on strategy — we’ll deliver a curated list of verified influencers ready for activation.</ReactMarkdown>
+                              <Typography style={{marginTop:0, padding: 0,fontSize:10}}>
+                                  <strong><ReactMarkdown>Stop gambling with influencer selection.</ReactMarkdown></strong>
                               </Typography>
-                              {/* <Typography style={{marginTop:30, fontSize:10}}>
-                                <ReactMarkdown>From business strategy and process optimization to performance management and organizational development, we deliver insights and frameworks that turn complexity into clarity. With a focus on measurable outcomes, we help you strengthen your competitive position and achieve sustainable excellence.</ReactMarkdown>
-                              </Typography> */}
-                               {/* <Typography style={{marginTop:30, fontSize:10}}>
-                                <em><ReactMarkdown>Skip the lines, avoid delays, and focus on what matters — your business.</ReactMarkdown></em>
-                              </Typography> */}
+                                <Typography style={{marginTop:10, fontSize:10}}>
+                                <ReactMarkdown>We identify and verify the right influencers for your brand — saving you time, reducing risk, and ensuring every partnership delivers value.</ReactMarkdown>
+                              </Typography>
+                              <Typography style={{marginTop:30, fontSize:10}}>
+                                <ReactMarkdown>Our team screens every influencer for authenticity, engagement quality, and brand fit, so you connect only with creators who are credible, relevant, and ready to perform.</ReactMarkdown>
+                              </Typography>
+                               <Typography style={{marginTop:30, fontSize:10}}>
+                                <em><ReactMarkdown>You manage the campaign. We make sure you start with the right influencers.</ReactMarkdown></em>
+                              </Typography>
                               <Button 
                                 variant="contained"
                                 color="secondary" 
