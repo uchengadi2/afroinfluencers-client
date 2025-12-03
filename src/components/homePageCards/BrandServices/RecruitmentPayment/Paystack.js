@@ -113,8 +113,8 @@ function Paystack(props) {
     // email: "uchengad@gmail.com",
     amount: props.amount,
     //amount:2220000,
-    publicKey: "pk_test_9181f2dcbb5a6bf2cf56c8f2632eaa5e2fd182cb", //wholeroof test
-    //publicKey: "pk_live_5700e72ac96f8aafda7af34e76b1dcfd1b6ec8b2", //wholeroof live
+    //publicKey: "pk_test_9181f2dcbb5a6bf2cf56c8f2632eaa5e2fd182cb", //wholeroof test
+    publicKey: "pk_live_5700e72ac96f8aafda7af34e76b1dcfd1b6ec8b2", //wholeroof live
   };
 
   // you can call this function anything
@@ -176,7 +176,7 @@ console.log('props isssrrrr:',props);
         brand:props.data.brand,
     }
 
-    console.log('data is:',data);
+   // console.log('data is:',data);
     
 
     if (data) {
@@ -184,7 +184,7 @@ console.log('props isssrrrr:',props);
         api.defaults.headers.common["Authorization"] = `Bearer ${props.token}`;
         const response = await api.post(`/creatorRecruitments`, data);
 
-       console.log('response is:',response);
+       //console.log('response is:',response);
 
         if (response.data.status === "success") {
           dispatch({

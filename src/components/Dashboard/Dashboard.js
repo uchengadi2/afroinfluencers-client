@@ -368,7 +368,7 @@ function Dashboard(props) {
                 <ListItemIcon>
                   <AssignmentReturnIcon fontSize="small" />
                 </ListItemIcon>
-                <ListItemText>Pending Orders</ListItemText>
+                <ListItemText>Pending Managed Request</ListItemText>
               </MenuItem>
               <MenuItem
                 className={
@@ -383,7 +383,68 @@ function Dashboard(props) {
                 <ListItemIcon>
                   <AssignmentReturnIcon fontSize="small" />
                 </ListItemIcon>
-                <ListItemText>Completed Orders</ListItemText>
+                <ListItemText>Completed Managed Request</ListItemText>
+              </MenuItem>
+
+               <MenuItem
+                className={
+                  slug === "dashboard-subscriptionlist" ? classes.selected : null
+                }
+                selected={slug === "dashboard-subscriptionlist" ? true : false}
+                onClick={(event) => {
+                  event.preventDefault();
+                  history.push(`/dashboard/dashboard-subscriptionlist`);
+                }}
+              >
+                <ListItemIcon>
+                  <AssignmentReturnIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Pending Subscription Requests</ListItemText>
+              </MenuItem>
+              <MenuItem
+                className={
+                  slug === "dashboard-subscriptioncompleted" ? classes.selected : null
+                }
+                selected={slug === "dashboard-subscriptioncompleted" ? true : false}
+                onClick={(event) => {
+                  event.preventDefault();
+                  history.push(`/dashboard/dashboard-subscriptioncompleted`);
+                }}
+              >
+                <ListItemIcon>
+                  <AssignmentReturnIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Completed Subscription Requests</ListItemText>
+              </MenuItem>
+               <MenuItem
+                className={
+                  slug === "dashboard-recruitmentlist" ? classes.selected : null
+                }
+                selected={slug === "dashboard-recruitmentlist" ? true : false}
+                onClick={(event) => {
+                  event.preventDefault();
+                  history.push(`/dashboard/dashboard-recruitmentlist`);
+                }}
+              >
+                <ListItemIcon>
+                  <AssignmentReturnIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Pending Recruitment Requests</ListItemText>
+              </MenuItem>
+              <MenuItem
+                className={
+                  slug === "dashboard-recruitmentcompleted" ? classes.selected : null
+                }
+                selected={slug === "dashboard-recruitmentcompleted" ? true : false}
+                onClick={(event) => {
+                  event.preventDefault();
+                  history.push(`/dashboard/dashboard-recruitmentcompleted`);
+                }}
+              >
+                <ListItemIcon>
+                  <AssignmentReturnIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Completed Recruitment Requests</ListItemText>
               </MenuItem>
               <MenuItem
                 className={

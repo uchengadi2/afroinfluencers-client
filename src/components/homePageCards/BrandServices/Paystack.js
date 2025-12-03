@@ -112,8 +112,8 @@ function Paystack(props) {
     // email: "uchengad@gmail.com",
     amount: props.amount,
     //amount:2220000,
-    publicKey: "pk_test_9181f2dcbb5a6bf2cf56c8f2632eaa5e2fd182cb", //wholeroof test
-    //publicKey: "pk_live_5700e72ac96f8aafda7af34e76b1dcfd1b6ec8b2", //wholeroof live
+    //publicKey: "pk_test_9181f2dcbb5a6bf2cf56c8f2632eaa5e2fd182cb", //wholeroof test
+    publicKey: "pk_live_5700e72ac96f8aafda7af34e76b1dcfd1b6ec8b2", //wholeroof live
   };
 
   // you can call this function anything
@@ -135,7 +135,7 @@ function Paystack(props) {
     console.log("closed paystack");
   };
 
-  console.log('prop isssssssss:',props)
+ // console.log('prop isssssssss:',props)
 
   const componentProps = {
     ...config,
